@@ -1,32 +1,59 @@
+# BloomingUi
 
-# Blooming UI Project  
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
 
-## Prerequisites  
-Before running the project, make sure you have the following installed:  
-- [Node.js](https://nodejs.org) (recommended version: >= 14.x)  
-- Angular CLI (if you don’t have it, install it by running: `npm install -g @angular/cli`)  
+## Development server
 
-## Steps to Run the Project  
+To start a local development server, run:
 
-1. **Navigate to the project folder:**  
-   ```bash
-   cd blooming-ui
-   ```  
+```bash
+ng serve
+```
 
-2. **Install the required dependencies:**  
-   ```bash
-   npm install
-   ```  
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-3. **Run the project:**  
-   ```bash
-   ng serve
-   ```  
+## Code scaffolding
 
-4. **Access the application:**  
-   Open your browser and go to: [http://localhost:4200](http://localhost:4200)  
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-## Notes  
-- Ensure that Node.js is installed correctly before executing the commands.  
-- If you encounter any issues while running the project, check that all dependencies are up to date. You can run `npm update` to ensure everything is updated.  
+```bash
+ng generate component component-name
+```
 
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+
+```bash
+ng generate --help
+```
+
+## Building
+
+To build the project run:
+
+```bash
+ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
