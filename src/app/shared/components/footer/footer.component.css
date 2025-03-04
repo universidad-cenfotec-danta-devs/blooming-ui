@@ -1,0 +1,12 @@
+footer a {
+    transition: color 0.3s ease-in-out;
+  }
+  
+  footer a:hover {
+    color: white;
+  }
+  
+  footer i {
+    font-size: 1.25rem;
+  }
+  

@@ -1,0 +1,50 @@
+
+<div class="flex h-screen">
+    <!-- Lado Izquierdo -->
+    <div class="w-1/2 bg-green-100 flex flex-col items-center justify-center p-10">
+      <h1 class="text-5xl font-bold text-green-800">BLOOMING</h1>
+      <div class="border-2 border-blue-400 p-3 rounded-lg mt-5">
+        <img src="assets/image.png" alt="Nature Setup" class="rounded-lg w-96 h-96 object-cover" />
+      </div>
+      <p class="text-gray-600 mt-4">Conecta con la naturaleza y diseña tu espacio ideal</p>
+    </div>
+  
+    <!-- Lado Derecho - Login -->
+    <div class="w-1/2 flex flex-col items-center justify-center bg-white">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Iniciar Sesión</h2>
+      <p class="text-gray-500 mb-6">Por favor ingrese sus datos</p>
+      
+      <form class="w-80 space-y-4">
+        <div>
+          <label class="block text-gray-700">Correo</label>
+          <input type="email" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-300" placeholder="Ingrese su correo" />
+        </div>
+        
+        <div>
+          <label class="block text-gray-700">Contraseña</label>
+          <input type="password" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-300" placeholder="Ingrese su contraseña" />
+        </div>
+        
+        <a href="#" class="text-sm text-green-600 hover:underline">¿Olvidaste tu contraseña?</a>
+        
+        
+        <div *ngIf="showGoogleButton" class="flex justify-center">
+          <div id="g_id_onload"
+            [attr.data-client_id]="authService.GOOGLE_CLIENT_ID"
+            data-context="signin"
+            data-ux_mode="popup"
+            data-callback="authService.handleGoogleResponse"
+            data-auto_prompt="false">
+          </div>
+          <div class="g_id_signin"
+            data-type="standard"
+            data-shape="pill"
+            data-theme="outline"
+            data-text="signin_with"
+            data-size="large">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  

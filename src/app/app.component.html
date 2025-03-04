@@ -1,19 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <title>Clase Tailwind</title>
-</head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-  <div class="text-center">
-    <h1 class="text-5xl font-extrabold underline text-blue-500 mb-4">
-      ¡Hola Mundo!
-    </h1>
-    <p class="text-lg text-gray-700">
-      Estás aprendiendo Tailwind CSS.
-    </p>
-  </div>
-</body>
-</html>
+<app-header></app-header> <!-- ✅ Header appears on all pages -->
+
+<main class="min-h-screen">
+  <router-outlet></router-outlet> <!-- ✅ Dynamically loads pages -->
+</main>
+
+<app-footer></app-footer> <!-- ✅ Footer appears on all pages -->

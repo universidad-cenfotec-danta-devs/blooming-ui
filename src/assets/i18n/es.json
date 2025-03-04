@@ -1,0 +1,26 @@
+{
+    "HOME": {
+      "TITLE": "Bienvenido a Nuestra Tienda de Plantas",
+      "DESCRIPTION": "Descubre las mejores plantas para tu hogar",
+      "START_BUTTON": "¡Empezar Ahora!"
+    },
+    "NAV": {
+      "HOME": "Inicio",
+      "ABOUT": "Acerca",
+      "CONTACT": "Contacto"
+    },
+    "LOGIN": {
+    "TITLE": "Iniciar sesión",
+    "GOOGLE_BUTTON": "Iniciar sesión con Google"
+    },
+        "FOOTER": {
+          "ABOUT_US": "Sobre Nosotros",
+          "DESCRIPTION": "Ofrecemos las mejores plantas para hacer tu hogar más verde y saludable.",
+          "QUICK_LINKS": "Enlaces Rápidos",
+          "FOLLOW_US": "Síguenos",
+          "CONTACT_US": "Contáctanos",
+          "POLICY": "Política de Privacidad",
+          "COPYRIGHT": "© 2025 Mi Aplicación. Todos los derechos reservados."
+        }      
+  }
+  

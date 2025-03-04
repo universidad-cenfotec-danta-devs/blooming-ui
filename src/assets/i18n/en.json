@@ -1,0 +1,26 @@
+{
+    "HOME": {
+      "TITLE": "Welcome to Our Plant Store",
+      "DESCRIPTION": "Discover the best plants for your home",
+      "START_BUTTON": "Get Started!"
+    },
+    "NAV": {
+      "HOME": "Home",
+      "ABOUT": "About",
+      "CONTACT": "Contact"
+    },
+    "FOOTER": {
+      "ABOUT_US": "About Us",
+      "DESCRIPTION": "We provide the best plants to make your home greener and healthier.",
+      "QUICK_LINKS": "Quick Links",
+      "FOLLOW_US": "Follow Us",
+      "CONTACT_US": "Contact Us",
+      "POLICY": "Privacy Policy",
+      "COPYRIGHT": "© 2025 My Application. All rights reserved."
+    },
+ "LOGIN": {
+    "TITLE": "Sign In",
+    "GOOGLE_BUTTON": "Sign in with Google"
+  }
+  }
+  
