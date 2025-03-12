@@ -1,26 +1,167 @@
 {
-    "HOME": {
-      "TITLE": "Bienvenido a Nuestra Tienda de Plantas",
-      "DESCRIPTION": "Descubre las mejores plantas para tu hogar",
-      "START_BUTTON": "¡Empezar Ahora!"
+  "CAROUSEL": {
+    "HEADING": "Las cinco mejores plantas"
+  },
+  "FOOTER": {
+    "ABOUT": "Más información",
+    "ABOUT_US": "Sobre nosotros",
+    "BLOG": "Blog",
+    "BRAND": "Blooming",
+    "CONTACT": "Contacto",
+    "FOLLOW_US": "Síguenos",
+    "HELP": "Ayuda y soporte",
+    "LEGAL": "Legal",
+    "PRIVACY": "Política de privacidad",
+    "RIGHTS": "Todos los derechos reservados.",
+    "TERMS": "Términos de servicio"
+  },
+  "HEADER": {
+    "ADMIN": "Administración",
+    "AUTH": "Autenticación / Mi cuenta",
+    "BLOOMING": "BLOOMING",
+    "CART_ORDERS": "Carrito y pedidos",
+    "DR_PLANTA": "Dr. Planta",
+    "HOME": "Inicio",
+    "JOIN": "Únete a Blooming y transforma tu espacio",
+    "MACETAS": "Macetas",
+    "NURSERIES": "Viveros",
+    "NOTIFICATIONS": "Notificaciones",
+    "POTS": "Macetas",
+    "PLANT_CARE": "Cuidado de plantas",
+    "SIGNUP": "Regístrate gratis",
+    "VIVERO": "Viveros"
+  },
+  "HEADER_LANDING": {
+    "DESCRIPTION": "Descubre una selección curada de plantas exquisitas, macetas personalizadas y viveros cercanos que transforman tu espacio en un oasis vibrante. Aprende consejos de cuidado experto, explora nuestra colección premium de plantas, diseña y vende tus propias macetas, y conéctate con viveros cercanos. Con Blooming, puedes encontrar fácilmente la planta perfecta, personalizar accesorios para tu jardín e incluso convertir tu pasión en un negocio.",
+    "SLOGAN": "Conecta con la naturaleza.",
+    "TITLE": "Blooming"
+  },
+  "HOME": {
+    "DESCRIPTION": "Descubre las mejores plantas para tu hogar",
+    "START_BUTTON": "¡Empezar ahora!",
+    "TITLE": "Bienvenido a nuestra tienda de plantas"
+  },
+  "LOGIN": {
+    "GOOGLE_BUTTON": "Iniciar sesión con Google",
+    "TITLE": "Iniciar sesión"
+  },
+  "NAV": {
+    "ABOUT": "Acerca",
+    "CONTACT": "Contacto",
+    "HOME": "Inicio"
+  },  "FEATURES_TITLE": "Explora nuestras funcionalidades",
+  "INFO_CARD": {
+    "CARD_1": {
+      "TITLE": "Macetas Personalizadas",
+      "DESCRIPTION": "Disfruta de macetas únicas que se adaptan a tu estilo",
+      "BUTTON_LABEL": "Visitar",
+      "BADGE": "N"
     },
-    "NAV": {
-      "HOME": "Inicio",
-      "ABOUT": "Acerca",
-      "CONTACT": "Contacto"
+    "CARD_2": {
+      "TITLE": "Viveros Cercanos",
+      "DESCRIPTION": "Encuentra viveros cerca de ti y descubre sus productos",
+      "BUTTON_LABEL": "Visitar"
+    },
+    "CARD_3": {
+      "TITLE": "Plantas por Región",
+      "DESCRIPTION": "Descubre las diferentes plantas por región",
+      "BUTTON_LABEL": "Visitar"
+    }
+  },  "DR_PLANTA_TITLE": "Dr. Planta",
+  "DR_PLANTA_SUBTITLE": "Tu asistente inteligente para el cuidado de plantas.",
+  "DR_PLANTA_DESCRIPTION": "Sube una foto o ingresa el nombre de tu planta y recibe recomendaciones personalizadas para su cuidado. Además, programa recordatorios de riego y más directamente en tu Google Calendar.",
+  "DR_PLANTA_BUTTON": "Realizar consulta →",
+  "DR_PLANTA_IMAGE_ALT": "Regando plantas",
+  "BOTTOM_IMAGE_ALT": "Plantas en macetas",
+  "PLANT_LEFT_ALT": "Planta a la izquierda",
+  "PLANT_RIGHT_ALT": "Planta a la derecha",
+  "PLANT_LIFE": {
+    "TITLE": "¿Listo para darle vida a tus plantas?",
+    "SUBTITLE": "Regístrate gratis y comienza a disfrutar de todas las funcionalidades que tenemos para ti con una mejor experiencia.",
+    "BUTTON": "Regístrate gratis",
+    "ALREADY_REGISTERED": "¡Ya estás registrado! Explora nuestras funciones ahora."
+  },  "AUTH": {
+    "LEFT_SIDE": {
+      "TITLE": "BLOOMING",
+      "IMAGE_ALT": "Plantas floreciendo",
+      "DESCRIPTION": "Conecta con la naturaleza y diseña tu espacio ideal.",
+      "ASKING_INFO": "Por favor ingrese sus datos."
     },
     "LOGIN": {
-    "TITLE": "Iniciar sesión",
-    "GOOGLE_BUTTON": "Iniciar sesión con Google"
+      "TITLE": "Iniciar Sesión",
+      "EMAIL_LABEL": "Correo",
+      "PASSWORD_LABEL": "Contraseña",
+      "BUTTON_TEXT": "Ingresar",
+      "NO_ACCOUNT": "¿No tienes una cuenta?",
+      "REGISTER_LINK": "Regístrate",
+      "GOOGLE": "Continuar con Google",
+      "FORGET_PASSWORD": "Olvidaste tu contraseña?",
+      "EMAIL_PLACEHOLDER": "Ingrese su correo",
+      "PASSWORD_PLACEHOLDER": "Ingrese su contraseña"
+    },    "RECOVER": {
+      "TITLE": "Recuperar Contraseña",
+      "DESCRIPTION": "Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
+      "EMAIL_LABEL": "Correo Electrónico",
+      "EMAIL_PLACEHOLDER": "tucorreo@ejemplo.com",
+      "BUTTON_TEXT": "Enviar Correo de Recuperación",
+      "BACK_TO_LOGIN": "¿Recordaste tu contraseña?",
+      "LOGIN_LINK": "Volver al inicio de sesión"
     },
-        "FOOTER": {
-          "ABOUT_US": "Sobre Nosotros",
-          "DESCRIPTION": "Ofrecemos las mejores plantas para hacer tu hogar más verde y saludable.",
-          "QUICK_LINKS": "Enlaces Rápidos",
-          "FOLLOW_US": "Síguenos",
-          "CONTACT_US": "Contáctanos",
-          "POLICY": "Política de Privacidad",
-          "COPYRIGHT": "© 2025 Mi Aplicación. Todos los derechos reservados."
-        }      
-  }
-  
+    "SIGNUP": {
+      "TITLE": "Crear Cuenta",
+      "NAME_LABEL": "Nombre",
+      "NAME_PLACEHOLDER": "Tu Nombre",
+      "EMAIL_LABEL": "Correo",
+      "EMAIL_PLACEHOLDER": "nombre@empresa.com",
+      "PASSWORD_LABEL": "Contraseña",
+      "PASSWORD_PLACEHOLDER": "••••••••",
+      "AGE_LABEL": "Edad",
+      "AGE_PLACEHOLDER": "Tu Edad",
+      "DOB_LABEL": "Fecha de Nacimiento",
+      "DOB_PLACEHOLDER": "Selecciona tu fecha de nacimiento",
+      "GENDER_LABEL": "Género",
+      "GENDER_PLACEHOLDER": "Selecciona Género",
+      "GENDER_MALE": "Masculino",
+      "GENDER_FEMALE": "Femenino",
+      "GENDER_OTHER": "Otro",
+      "PHONE_LABEL": "Teléfono",
+      "PHONE_PLACEHOLDER": "Número de teléfono",
+      "BUTTON_TEXT": "Registrarse",
+      "ALREADY_HAVE_ACCOUNT": "¿Ya tienes una cuenta?",
+      "LOGIN_LINK": "Iniciar Sesión",
+      "SUCCESS_MESSAGE": "Tu cuenta se ha creado exitosamente."
+    },
+    "MODAL": {
+      "TITLE": "Confirmación",
+      "DEFAULT_MESSAGE": "¿Estás seguro?",
+      "CLOSE": "Cerrar",
+      "OK": "OK"
+    },
+    "ALERT": {
+      "INFO": "Información: Por favor verifica tu correo.",
+      "SUCCESS": "Éxito: Tu perfil se ha actualizado.",
+      "ERROR": "Error: Credenciales inválidas. Intenta de nuevo."
+    },
+    "VALIDATION": {
+      "EMAIL_REQUIRED": "Se requiere un correo válido.",
+      "PASSWORD_REQUIRED": "Se requiere contraseña.",
+      "NAME_REQUIRED": "Se requiere el nombre.",
+      "AGE_REQUIRED": "Se requiere la edad.",
+      "DOB_REQUIRED": "Se requiere la fecha de nacimiento.",
+      "GENDER_REQUIRED": "Se requiere seleccionar el género.",
+      "PHONE_REQUIRED": "Se requiere el número de teléfono."
+    }
+  },
+    "DRPLANT": {
+      "TITLE": "Dr. Planta",
+      "SUBTITLE": "¿Necesitas ayuda con tus plantas? ¡Dr. Planta está aquí para ti!",
+      "DESCRIPTION": "Sube una foto de una planta para identificarla y obtener recomendaciones personalizadas.",
+      "BUTTON_IDENTIFY": "Subir Imagen",
+      "BUTTON_DIAGNOSIS": "Diagnóstico de Planta",
+      "PLANT1": {
+        "NAME": "Nombre de la Planta",
+        "DESCRIPTION": "Esta es una planta identificada por el sistema. Aquí están sus instrucciones de cuidado.",
+        "BUTTON_CONFIRM": "Confirmar"
+      }
+}
+}

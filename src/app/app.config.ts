@@ -5,6 +5,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { routes } from './app.routes';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 
 /**
  * Factory function to create an instance of TranslateHttpLoader.
@@ -55,5 +56,7 @@ export const appConfig: ApplicationConfig = {
 
     // Set up routing for the application using the imported routes configuration
     provideRouter(routes),
+    provideOAuthClient(),
+
   ],
 };

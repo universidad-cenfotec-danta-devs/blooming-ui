@@ -1,0 +1,11 @@
+.scale-110 {
+    --tw-scale-x: 200%;
+    --tw-scale-y: 177%;
+    --tw-scale-z: 110%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+}
+
+.-translate-x-1\/2 {
+    --tw-translate-x: calc(calc(1 / 2* 200%)* -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+}

@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
 import { NoAuthGuard } from './guards/no-auth.guard';
+import { DrPlantComponent } from './features/dr-plant/dr-plant.component';
+import { CallbackComponent } from './features/callback/callback.component';
 
 /**
  * Defines the routing configuration for the application.
@@ -26,7 +28,12 @@ export const routes: Routes = [
   // When the user visits `/login`, Angular will render LoginComponent
   { path: 'login', component: LoginComponent },
 
+    // 📌 Dr-plant Page Route
+  // When the user visits `/dr-plant`, Angular will render LoginComponent
+  { path: 'dr-plant', component: DrPlantComponent },
+
   // 📌 Default Route (Redirect to Home)
   // If the user visits `/`, they are automatically redirected to `/home`
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: 'callback', component: CallbackComponent },
 ];

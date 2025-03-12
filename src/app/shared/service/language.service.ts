@@ -16,7 +16,7 @@ export class LanguageService {
 
   private initLanguage() {
     let savedLanguage = 'en';
-    // Verificamos si estamos en el navegador
+ 
     if (isPlatformBrowser(this.platformId)) {
       savedLanguage = localStorage.getItem('language') || 'en';
     }

@@ -1,0 +1,19 @@
+<!-- Outer container: full width with minimum height and overflow hidden -->
+<div class="relative w-full min-h-[270px]">
+  <!-- Inner container that slides horizontally -->
+  <div
+    class="flex justify-between ml-[10rem]"
+    [style.transform]="'translateX(' + translateX + '%)'"
+    [style.transition]="transitionEnabled ? 'transform 0.5s ease-in-out' : 'none'"
+  >
+    <!-- Iterate over all 6 cards; la sexta se oculta -->
+    <app-plant-card
+      *ngFor="let card of cards; let i = index"
+      [image]="card.image"
+      [name]="card.name"
+      [isActive]="i === 0"
+      class="flex-none mr-[2%]"
+      [ngClass]="{ 'hidden': i === 5 }"
+    ></app-plant-card>
+  </div>
+</div>

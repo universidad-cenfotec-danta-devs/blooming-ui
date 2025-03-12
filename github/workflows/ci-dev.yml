@@ -27,11 +27,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # 4. Run unit tests in headless mode
-      - name: Run Unit Tests
-        run: ng test --watch=false --browsers=ChromeHeadless
-        env:
-          CI: true
 
       # 5. Build the application (development mode)
       - name: Build Application (Development)

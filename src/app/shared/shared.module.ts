@@ -7,7 +7,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
-import { RouterOutlet } from '@angular/router';
+import {  RouterOutlet } from '@angular/router';
+import { InfoCardComponent } from './components/info-card/info-card.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import {  ModalComponent } from './components/modal/modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 /**
  * SHARED_IMPORTS
@@ -33,5 +38,10 @@ export const SHARED_IMPORTS = [
   HeaderComponent,
   FooterComponent,
   LanguageSelectorComponent,
-  RouterOutlet
+  RouterOutlet,
+  InfoCardComponent,
+  CarouselComponent,
+  ModalComponent,
+  FormsModule,
+  ReactiveFormsModule
 ];

@@ -1,2 +1,73 @@
 @import "tailwindcss";
 
+:root {
+    --header-bg: #DCE6D3;  
+    --main-bg: #dae5e4;
+    --main-text: #5C684B; 
+    --secondary-color: #97A97C; 
+    --green-line: #B5C99A;
+    --back-ground: #d4e0de;
+    --plant-card-background: #e7efec;
+    --button-color: #8aa497;
+}
+
+/* Prevent horizontal scrolling on the whole document */
+html, body {
+    overflow-x: hidden;
+  }
+
+  .box-none {
+    box-sizing:unset!important;
+  }
+
+button {
+  cursor: pointer;
+
+}
+
+.text-color {
+  color: #5C684B;
+}
+
+/* Primary button: background color #97A97C, text color #FCFFF8, using Montserrat font */
+.primary-btn {
+  background-color: #97A97C;
+  color: #FCFFF8;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+
+}
+
+/* Secondary button: background color #FCFFF8, text and border color #B5C99A, using Montserrat font */
+.secondary-btn {
+  background-color: #FCFFF8;
+  color: #B5C99A;
+  border: 1px solid #B5C99A;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+/* Unable (disabled) button: background color #D3D2CC, text color #FCFFF8, using Montserrat font */
+.unable-btn {
+  background-color: #D3D2CC;
+  color: #FCFFF8;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: not-allowed; /* Indicates disabled state */
+  opacity: 0.7; /
+}
+
+
+.primary-btn:hover {
+  background-color: #D3D2CC;
+  color: #FCFFF8;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0.5rem 1rem;
+  border: none;
+  opacity: 0.7; 
+}
+

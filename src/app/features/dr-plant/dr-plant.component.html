@@ -1,0 +1,99 @@
+<div class="flex flex-col items-center text-center px-6 md:px-20 bg-[#dae5e4]">
+  <!-- Main Title -->
+  <h1 class="text-8xl md:text-5xl font-semibold  text-[#5C684B] mt-8">
+    Dr. Planta
+  </h1>
+
+  <!-- Subtitle / Description -->
+  <p class="text-[#5C684B] text-xl xl:text-3xl mt-4">
+    ¿Necesitas ayuda con tus plantas? ¡Dr. Planta está aquí para ti!
+  </p>
+  <p class="max-w-5xl text-xl xl:text-xl  text-[#5C684B] mt-8">
+    Con nuestra herramienta, puedes identificar tus plantas y recibir recomendaciones
+    personalizadas para su cuidado. Simplemente sube una foto o ingresa el nombre de tu planta,
+    y te diremos todo lo que necesitas saber: cuándo regarla, cuánta luz necesita, y mucho más.
+    Además, puedes configurar recordatorios para nunca olvidar cuidar tus plantas.
+  </p>
+
+
+
+<!-- Three columns: left image, center snippet, right image -->
+<div class="flex justify-between items-start w-full max-w-5xl mt-8 justify-center">
+  <!-- Left Image -->
+  <div class="absolute left-0 top-70">
+    <img
+      src="../../../assets/images/dr-plant-1.png"
+      alt="Planta izquierda"
+      class="w-60 h-100 md:w-56"
+    >
+  </div>
+
+  <!-- Center Column with Buttons -->
+  <div class="flex flex-col items-center">
+    <!-- Action Buttons -->
+    <div class="mt-6 flex">
+      <button
+        class="bg-[#DCE6D3] text-[#5C684B] px-4 py-2 rounded-md shadow-md transition"
+      >
+        Identificar planta
+      </button>
+      <button
+        class="border border-[#DCE6D3] px-4 py-2 rounded-md shadow-md transition text-[#5C684B] secondary-btn "
+      >
+        Diagnóstico de planta
+      </button>
+    </div>
+
+    <!-- Upload Button -->
+    <div class="mt-6">
+      <label
+        class="cursor-pointer primary-btn border rounded-md"
+      >
+        Subir imagen de planta
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          class="hidden"
+        >
+      </label>
+    </div>
+  </div>
+
+  <!-- Right Image -->
+  <div class="absolute right-0 top-70">
+    <img src="../../../assets/images/dr-plant-2.png" alt="Planta derecha" class="w-40 h-100 md:w-56">
+  </div>
+  
+</div>
+
+
+  <!-- Display the uploaded image (if any) -->
+  <div *ngIf="uploadedImageUrl" class="mt-6  bg-[#dae5e4]">
+    <img
+      [src]="uploadedImageUrl"
+      alt="Uploaded Plant"
+      class="w-64 md:w-80 rounded-lg shadow-md"
+    />
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="mt-6 text-gray-600">
+    Identificando la planta...
+  </div>
+
+  <!-- Generate two cards once plantDataList is filled -->
+  <div
+    *ngIf="plantDataList.length > 0"
+    class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 max-w-4xl bg-[#dae5e4]"
+  >
+    <app-info-card
+      *ngFor="let plant of plantDataList"
+      [title]="plant.name"
+      [description]="plant.description"
+      [buttonLabel]="'Confirmar'"
+    >
+    </app-info-card>
+  </div>
+
+  <app-dr-planta-chat class="w-full"></app-dr-planta-chat>
+</div>

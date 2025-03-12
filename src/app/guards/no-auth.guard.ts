@@ -42,7 +42,6 @@ export class NoAuthGuard implements CanActivate {
 
     // If a token exists, the user is considered authenticated.
     if (token) {
-      // Optionally, you could include additional logic here to verify that the token is valid or not expired.
       // Redirect the user to the home page (or any designated route for authenticated users).
       this.router.navigate(['/home']);
       return false; // Block access to the current route.
