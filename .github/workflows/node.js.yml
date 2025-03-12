@@ -1,0 +1,45 @@
+name: CI/CD - Development
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # 2. Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # 3. Install project dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Run unit tests in headless mode
+      - name: Run Unit Tests
+        run: ng test --watch=false --browsers=ChromeHeadless
+        env:
+          CI: true
+
+      # 5. Build the application (development mode)
+      - name: Build Application (Development)
+        run: ng build
+
+      # 6. Deploy the application (example with GitHub Pages)
+      - name: Deploy to GitHub Pages (Development)
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/blooming-ui
