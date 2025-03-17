@@ -7,6 +7,7 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { AuthGoogleService } from '../../services/auth.google.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 // import { response } from 'express';
 
 /**
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
   signUpForm: FormGroup;
   recoveryPasswordForm: FormGroup;
 
-  constructor(public authService: AuthService, private fb: FormBuilder, private googleauthService: AuthGoogleService, private toastr: ToastrService) {
+  constructor(public authService: AuthService, private fb: FormBuilder, private googleauthService: AuthGoogleService, private toastr: ToastrService, private router: Router) {
     // Build the Login Form
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -85,12 +86,19 @@ export class LoginComponent implements OnInit {
    */
   onLogin(): void {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe(
-        response => console.log('Login successful', response),
-        error => console.error('Login failed', error)
-      );
+      this.authService.login(this.loginForm.value).subscribe({
+        next:(response: any) => {
+          const toastSuccess = this.toastr.success('Login successful', 'Success');
+          toastSuccess.onHidden.subscribe(() => {
+            this.router.navigate(['/home']);
+          });
+        },
+        error:(error: HttpErrorResponse) => {
+          this.toastr.error(error.error.message, 'Error');
+        }
+      });
     } else {
-      console.error('Login form is invalid.');
+      this.toastr.error('Login form is invalid.', 'Error');
     }
   }
 
