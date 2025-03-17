@@ -145,7 +145,7 @@
       },
       "VALIDATION": {
         "EMAIL_REQUIRED": "A valid email is required.",
-        "PASSWORD_REQUIRED": "Password is required.",
+        "PASSWORD_REQUIRED": "Password must contain at least 8 characters, one letter, and one number.",
         "NAME_REQUIRED": "Name is required.",
         "AGE_REQUIRED": "Age is required.",
         "DOB_REQUIRED": "Date of birth is required.",

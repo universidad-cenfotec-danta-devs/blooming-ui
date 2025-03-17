@@ -1,10 +1,19 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { SHARED_IMPORTS } from '../../shared/shared.module';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { AuthGoogleService } from '../../services/auth.google.service';
 
+/**
+ * LoginComponent manages three authentication forms:
+ * - Login (email & password)
+ * - Sign-Up (registration with additional fields)
+ * - Password Recovery (reset via email)
+ *
+ * It also integrates Google Sign-In and displays a confirmation modal.
+ */
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -23,22 +32,23 @@ export class LoginComponent implements OnInit {
   constructor(
     @Inject(AuthService) public authService: AuthService,
     private fb: FormBuilder,
-    @Inject(AuthGoogleService) private googleAuthService: AuthGoogleService
+    @Inject(AuthGoogleService) private googleAuthService: AuthGoogleService, private toastr: ToastrService, private router: Router
   ) {
     // Build the login form
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+
     // Build the sign-up form with additional fields
     this.signUpForm = this.fb.group({
-      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      age: ['', [Validators.required, Validators.min(1)]],
+      password: ['', [Validators.required, passwordValidator()]],
+      name: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
-      gender: ['', Validators.required]
+      // gender: ['', Validators.required]
     });
+
     // Build the password recovery form
     this.recoveryPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
@@ -80,17 +90,19 @@ export class LoginComponent implements OnInit {
 
   onSignUp(): void {
     if (this.signUpForm.valid) {
-      this.authService.register(this.signUpForm.value).subscribe(
-        response => {
-          console.log('Registration successful', response);
-          this.modalMessageKey = 'AUTH.SIGNUP.SUCCESS_MESSAGE';
-          this.modalRef?.openModal();
-          this.switchForm('login');
+      this.authService.register(this.signUpForm.value).subscribe({
+        next:(response: any) => {
+          const toastSuccess = this.toastr.success('Registration successful', 'Success');
+          toastSuccess.onHidden.subscribe(() => {
+            this.switchForm('login');
+          });
         },
-        error => console.error('Registration failed', error)
+        (error: HttpErrorResponse) => {
+          console.error('Registration failed', error);
+        }
       );
     } else {
-      console.error('Sign-up form is invalid.');
+      console.error('Sign-up form invalid');
     }
   }
 
@@ -109,4 +121,23 @@ export class LoginComponent implements OnInit {
       console.error('Recovery form is invalid.');
     }
   }
+
+
+}
+
+/**
+ * Custom password validator to ensure the password contains at least one letter, one number, and a minimum length of 8 characters.
+ */
+export function passwordValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const password = control.value;
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasMinimunLength = password.length >= 8;
+
+    if (!hasMinimunLength || !hasLetter || !hasNumber) {
+      return { passwordStrength: 'Password must contain at least 8 characters, one letter, and one number.' };
+    }
+    return null;
+  };
 }
