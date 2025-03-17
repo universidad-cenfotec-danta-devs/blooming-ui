@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { SHARED_IMPORTS } from '../../shared/shared.module';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { AuthGoogleService } from '../../services/auth.google.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+// import { response } from 'express';
 
 /**
  * LoginComponent manages three authentication forms:
@@ -17,7 +21,7 @@ import { AuthGoogleService } from '../../services/auth.google.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [SHARED_IMPORTS],
+  imports: [SHARED_IMPORTS, ToastrModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -36,7 +40,7 @@ export class LoginComponent implements OnInit {
   signUpForm: FormGroup;
   recoveryPasswordForm: FormGroup;
 
-  constructor(public authService: AuthService, private fb: FormBuilder, private googleauthService: AuthGoogleService) {
+  constructor(public authService: AuthService, private fb: FormBuilder, private googleauthService: AuthGoogleService, private toastr: ToastrService, private router: Router) {
     // Build the Login Form
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -44,12 +48,12 @@ export class LoginComponent implements OnInit {
     });
     // Build the Sign-Up Form with extra fields
     this.signUpForm = this.fb.group({
-      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      age: ['', [Validators.required, Validators.min(1)]],
-      dateOfBirth: ['', Validators.required],
-      gender: ['', Validators.required]
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/)]]
+      // name: ['', Validators.required],
+      // age: ['', [Validators.required, Validators.min(1)]],
+      // dateOfBirth: ['', Validators.required],
+      // gender: ['', Validators.required]
     });
     // Build the Password Recovery Form
     this.recoveryPasswordForm = this.fb.group({
@@ -82,12 +86,19 @@ export class LoginComponent implements OnInit {
    */
   onLogin(): void {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe(
-        response => console.log('Login successful', response),
-        error => console.error('Login failed', error)
-      );
+      this.authService.login(this.loginForm.value).subscribe({
+        next:(response: any) => {
+          const toastSuccess = this.toastr.success('Login successful', 'Success');
+          toastSuccess.onHidden.subscribe(() => {
+            this.router.navigate(['/home']);
+          });
+        },
+        error:(error: HttpErrorResponse) => {
+          this.toastr.error(error.error.message, 'Error');
+        }
+      });
     } else {
-      console.error('Login form is invalid.');
+      this.toastr.error('Login form is invalid.', 'Error');
     }
   }
 
@@ -96,17 +107,19 @@ export class LoginComponent implements OnInit {
    */
   onSignUp(): void {
     if (this.signUpForm.valid) {
-      this.authService.register(this.signUpForm.value).subscribe(
-        response => {
-          console.log('Registration successful', response);
-          this.modalMessageKey = 'AUTH.SIGNUP.SUCCESS_MESSAGE';
-          this.modalRef?.openModal();
-          this.switchForm('login'); // Switch back to login after sign-up
+      this.authService.register(this.signUpForm.value).subscribe({
+        next:(response: any) => {
+          const toastSuccess = this.toastr.success('Registration successful', 'Success');
+          toastSuccess.onHidden.subscribe(() => {
+            this.switchForm('login'); // Switch back to login after sign-up
+          });
         },
-        error => console.error('Registration failed', error)
-      );
+        error: (error: HttpErrorResponse) => {
+          this.toastr.error(error.error.message, 'Error');
+        }
+      });
     } else {
-      console.error('Sign-up form is invalid.');
+      this.toastr.error('Sign-up form invalid', 'Error');
     }
   }
 
@@ -136,7 +149,17 @@ export class LoginComponent implements OnInit {
     this.authService.googleSignIn();
   }
 }
-function inject(AuthGoogleService: any) {
-  throw new Error('Function not implemented.');
-}
 
+export function passwordValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const password = control.value;
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasMinimunLength = password.length >= 8;
+
+    if(!hasMinimunLength || !hasLetter || !hasNumber) {
+      return { passwordStrength: 'Password must contain at least 8 characters, one letter, and one number.' };
+    }
+    return null;
+  }
+}

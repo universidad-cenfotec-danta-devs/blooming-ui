@@ -6,6 +6,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { routes } from './app.routes';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
+import { provideToastr } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations'
 
 /**
  * Factory function to create an instance of TranslateHttpLoader.
@@ -57,6 +59,19 @@ export const appConfig: ApplicationConfig = {
     // Set up routing for the application using the imported routes configuration
     provideRouter(routes),
     provideOAuthClient(),
-
+    provideAnimations(),
+    provideToastr({
+      timeOut: 2000,
+      extendedTimeOut: 1000,
+      tapToDismiss: true,
+      preventDuplicates: true,
+      newestOnTop: false,
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      maxOpened: 1,
+      easeTime: 300,
+      positionClass: 'toast-bottom-right',
+      closeButton: true
+    })
   ],
 };

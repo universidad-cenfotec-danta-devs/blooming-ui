@@ -32,6 +32,7 @@ export class AuthService {
 
   // Backend authentication API endpoints
   private BACKEND_URL = `${environment.apiUrl}/auth`;
+  private AUTH_URL = `${environment.apiUrl2}/api/users`;
   GOOGLE_CLIENT_ID = environment.googleClientId;
 
   /**
@@ -50,23 +51,27 @@ export class AuthService {
    * Saves session data (user, token, expiration) to localStorage.
    */
   private saveSessionData(): void {
-    if (this.user) localStorage.setItem('auth_user', JSON.stringify(this.user));
-    if (this.accessToken) localStorage.setItem('access_token', JSON.stringify(this.accessToken));
-    if (this.expiresIn) localStorage.setItem('expiresIn', JSON.stringify(this.expiresIn));
+    if(this.isBrowser) {
+      if (this.user) localStorage.setItem('auth_user', JSON.stringify(this.user));
+      if (this.accessToken) localStorage.setItem('access_token', JSON.stringify(this.accessToken));
+      if (this.expiresIn) localStorage.setItem('expiresIn', JSON.stringify(this.expiresIn));
+    }
   }
 
   /**
    * Loads session data from localStorage when the application starts.
    */
   private loadSessionData(): void {
-    const token = localStorage.getItem('access_token');
-    if (token) this.accessToken = JSON.parse(token);
+    if(this.isBrowser) {
+      const token = localStorage.getItem('access_token');
+      if (token) this.accessToken = JSON.parse(token);
 
-    const exp = localStorage.getItem('expiresIn');
-    if (exp) this.expiresIn = JSON.parse(exp);
+      const exp = localStorage.getItem('expiresIn');
+      if (exp) this.expiresIn = JSON.parse(exp);
 
-    const user = localStorage.getItem('auth_user');
-    if (user) this.user = JSON.parse(user);
+      const user = localStorage.getItem('auth_user');
+      if (user) this.user = JSON.parse(user);
+    }
   }
 
   /**
@@ -140,7 +145,7 @@ export class AuthService {
    * @param credentials - Object containing email and password.
    */
   public login(credentials: { email: string; password: string }): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/login`, credentials).pipe(
+    return this.http.post<ILoginResponse>(`${this.AUTH_URL}/logIn`, credentials).pipe(
       tap(response => {
         this.accessToken = response.token;
         this.user = response.authUser;
@@ -155,7 +160,7 @@ export class AuthService {
    * @param data - User registration details.
    */
   public register(data: any): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/register`, data);
+    return this.http.post<ILoginResponse>(`${this.AUTH_URL}/signup`, data);
   }
 
   /**
