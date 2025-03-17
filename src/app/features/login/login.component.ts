@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { SHARED_IMPORTS } from '../../shared/shared.module';
@@ -47,9 +47,9 @@ export class LoginComponent implements OnInit {
     });
     // Build the Sign-Up Form with extra fields
     this.signUpForm = this.fb.group({
-      // name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/)]]
+      // name: ['', Validators.required],
       // age: ['', [Validators.required, Validators.min(1)]],
       // dateOfBirth: ['', Validators.required],
       // gender: ['', Validators.required]
@@ -139,5 +139,19 @@ export class LoginComponent implements OnInit {
    */
   loginWithGoogle(): void {
     this.authService.googleSignIn();
+  }
+}
+
+export function passwordValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const password = control.value;
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasMinimunLength = password.length >= 8;
+
+    if(!hasMinimunLength || !hasLetter || !hasNumber) {
+      return { passwordStrength: 'Password must contain at least 8 characters, one letter, and one number.' };
+    }
+    return null;
   }
 }

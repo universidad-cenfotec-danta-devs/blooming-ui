@@ -121,8 +121,11 @@
           {{ 'AUTH.SIGNUP.PASSWORD_LABEL' | translate }}
         </label>
         <input type="password" formControlName="password" class="input-field" placeholder="{{ 'AUTH.SIGNUP.PASSWORD_PLACEHOLDER' | translate }}">
+      
         <div *ngIf="signUpForm.get('password')?.touched && signUpForm.get('password')?.invalid" class="text-red-600 text-xs">
-          {{ 'AUTH.VALIDATION.PASSWORD_REQUIRED' | translate }}
+          <div *ngIf="signUpForm.get('password')?.hasError('pattern')">
+            {{ 'AUTH.VALIDATION.PASSWORD_REQUIRED' | translate }}
+          </div>
         </div>
       </div>
 
