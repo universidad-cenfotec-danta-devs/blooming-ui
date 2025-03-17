@@ -96,7 +96,7 @@
       </h2>
       <p class="text-center mb-4">Please enter your details</p>
       <!-- Name Field -->
-      <div>
+      <!-- <div>
         <label class="block mb-1 text-sm text-gray-600">
           {{ 'AUTH.SIGNUP.NAME_LABEL' | translate }}
         </label>
@@ -104,7 +104,7 @@
         <div *ngIf="signUpForm.get('name')?.touched && signUpForm.get('name')?.invalid" class="text-red-600 text-xs">
           {{ 'AUTH.VALIDATION.NAME_REQUIRED' | translate }}
         </div>
-      </div>
+      </div> -->
       <!-- Email Field -->
       <div>
         <label class="block mb-1 text-sm">
@@ -127,7 +127,7 @@
       </div>
 
       <!-- Date of Birth Field -->
-      <div>
+      <!-- <div>
         <label class="block mb-1 text-sm">
           {{ 'AUTH.SIGNUP.DOB_LABEL' | translate }}
         </label>
@@ -135,9 +135,9 @@
         <div *ngIf="signUpForm.get('dateOfBirth')?.touched && signUpForm.get('dateOfBirth')?.invalid" class="text-red-600 text-xs">
           {{ 'AUTH.VALIDATION.DOB_REQUIRED' | translate }}
         </div>
-      </div>
+      </div> -->
       <!-- Gender Field -->
-      <div>
+      <!-- <div>
         <label class="block mb-1 text-sm">
           {{ 'AUTH.SIGNUP.GENDER_LABEL' | translate }}
         </label>
@@ -152,7 +152,7 @@
         <div *ngIf="signUpForm.get('gender')?.touched && signUpForm.get('gender')?.invalid" class="text-red-600 text-xs">
           {{ 'AUTH.VALIDATION.GENDER_REQUIRED' | translate }}
         </div>
-      </div>
+      </div> -->
  
       <!-- Sign-Up Button -->
       <button (click)="onSignUp()" class="primary-btn py-2 px-4 rounded-md mt-5">
