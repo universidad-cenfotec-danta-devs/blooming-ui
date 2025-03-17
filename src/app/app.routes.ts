@@ -4,6 +4,8 @@ import { LoginComponent } from './features/login/login.component';
 import { NoAuthGuard } from './guards/no-auth.guard';
 import { DrPlantComponent } from './features/dr-plant/dr-plant.component';
 import { CallbackComponent } from './features/callback/callback.component';
+import { UserListComponent } from './features/user-list/user-list.component';
+import { AdminRoleGuard } from './guards/admin-role.guard';
 
 /**
  * Defines the routing configuration for the application.
@@ -36,4 +38,6 @@ export const routes: Routes = [
   // If the user visits `/`, they are automatically redirected to `/home`
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   // { path: 'callback', component: CallbackComponent },
+  
+  { path: 'users', component: UserListComponent }
 ];

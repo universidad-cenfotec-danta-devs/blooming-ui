@@ -188,4 +188,8 @@ export class AuthService {
   public check(): boolean {
     return !!this.accessToken;
   }
+
+  public hasRole(role: string): boolean {
+    return this.user.authorities ?  this.user?.authorities.some(authority => authority.authority == role) : false;
+  }
 }

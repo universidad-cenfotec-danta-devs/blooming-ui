@@ -7,6 +7,7 @@ import {
   UrlTree
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Platform } from '@angular/cdk/platform'
 
 /**
  * NoAuthGuard prevents access to certain routes (e.g., login or registration)
@@ -23,7 +24,7 @@ export class NoAuthGuard implements CanActivate {
   /**
    * @param router - Angular Router instance for navigation.
    */
-  constructor(private router: Router) {}
+  constructor(private router: Router, private platform: Platform) {}
 
   /**
    * Determines if a route can be activated.
@@ -37,11 +38,17 @@ export class NoAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    // Retrieve the authentication token from localStorage.
-    const token = localStorage.getItem('token');
+    if(this.platform.isBrowser) {
+      // Retrieve the authentication token from localStorage.
+      const token = localStorage.getItem('token');
 
-    // If a token exists, the user is considered authenticated.
-    if (token) {
+      // If a token exists, the user is considered authenticated.
+      if (token) {
+        // Redirect the user to the home page (or any designated route for authenticated users).
+        this.router.navigate(['/home']);
+        return false; // Block access to the current route.
+      }
+    } else {
       // Redirect the user to the home page (or any designated route for authenticated users).
       this.router.navigate(['/home']);
       return false; // Block access to the current route.
