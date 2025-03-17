@@ -2,61 +2,62 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, tap, catchError } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../enviroments/enviroment.development';
 import { ILoginResponse, IUser } from '../interfaces/auth.interfaces';
 
-
-/**
- * AuthService - Manages user authentication.
- *
- * Features:
- * - Login with email and password.
- * - User registration.
- * - Google Sign-In authentication.
- * - Password recovery.
- * - Session storage and retrieval.
- */
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  // Stores authentication token, expiration time, and user details
+  // Stores the authentication token received from the backend
   private accessToken!: string;
+  // Stores the expiration time of the token
   private expiresIn!: number;
+  // Stores the authenticated user details
   private user: IUser = { email: '', authorities: [] };
 
-  // Checks if the code runs in the browser
+  // Indicates if the code is running in the browser
   private isBrowser: boolean;
+  // HttpClient instance for making API calls
   private http: HttpClient;
 
-  // Backend authentication API endpoints
-  private BACKEND_URL = `${environment.apiUrl}/auth`;
+  // URL of the backend authentication API
+  private BACKEND_URL = `${environment.apiUrl}/api/users`;
+  // Google Client ID from the environment configuration
   GOOGLE_CLIENT_ID = environment.googleClientId;
 
   /**
-   * AuthService Constructor.
-   * @param router - Angular Router for navigation.
-   * @param platformId - Identifies if the code is running in the browser.
-   * @param http - HttpClient for API calls.
+   * Constructor for the AuthService.
+   * @param router - Angular Router used for navigation.
+   * @param platformId - Platform identifier to check if code runs in the browser.
+   * @param http - HttpClient used for API calls.
    */
-  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object, http: HttpClient) {
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    http: HttpClient
+  ) {
+    // Check if the code is running in the browser environment
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.http = http;
+    // Load session data from localStorage if available
     this.loadSessionData();
   }
 
   /**
-   * Saves session data (user, token, expiration) to localStorage.
+   * Saves session data (user, token, and expiration time) to localStorage.
    */
   private saveSessionData(): void {
     if (this.user) localStorage.setItem('auth_user', JSON.stringify(this.user));
-    if (this.accessToken) localStorage.setItem('access_token', JSON.stringify(this.accessToken));
-    if (this.expiresIn) localStorage.setItem('expiresIn', JSON.stringify(this.expiresIn));
+    if (this.accessToken)
+      localStorage.setItem('access_token', JSON.stringify(this.accessToken));
+    if (this.expiresIn)
+      localStorage.setItem('expiresIn', JSON.stringify(this.expiresIn));
   }
 
   /**
-   * Loads session data from localStorage when the application starts.
+   * Loads session data (user, token, and expiration time) from localStorage.
    */
   private loadSessionData(): void {
     const token = localStorage.getItem('access_token');
@@ -71,77 +72,77 @@ export class AuthService {
 
   /**
    * Retrieves the authenticated user.
-   * @returns The IUser object or undefined if no session exists.
+   * @returns The authenticated user object or undefined if not logged in.
    */
   public getUser(): IUser | undefined {
     return this.user;
   }
 
   /**
-   * Retrieves the stored authentication token.
-   * @returns The session token string or null if not available.
+   * Retrieves the stored access token.
+   * @returns The access token string if available, otherwise null.
    */
   public getAccessToken(): string | null {
     return this.accessToken;
   }
 
   /**
-   * Initializes Google Identity Services for authentication.
-   */
-  public initGoogleAuth(): void {
-    if (this.isBrowser && (window as any).google) {
-       const boundCallback = this.handleGoogleResponse.bind(this);
-       (window as any).google.accounts.id.initialize({
-         client_id: environment.googleClientId,
-         callback: 'https:fw16p146-4200.use.devtunnels.ms/callback',
-         ux_mode: 'popup',
-         auto_select: false,
-       });
-    }
-  }
-
-  /**
-   * Opens the Google Sign-In prompt.
-   */
-  public googleSignIn(): void {
-    if (this.isBrowser && (window as any).google) {
-      (window as any).google.accounts.id.prompt();
-    }
-  }
-
-  /**
    * Handles the response from Google Sign-In.
-   * Sends the Google credential to the backend for authentication.
-   * @param response - Google authentication response object.
+   * It sends the Google credential (ID token) along with the intended action
+   * (either 'login' or 'register') to the backend for processing.
+   * Based on the action, it redirects the user to the appropriate route.
+   * 
+   * @param response - Object containing the Google ID token as 'credential'.
+   * @param action - A string ('login' or 'register') indicating the intended operation.
    */
-  public handleGoogleResponse(response: any): void {
+  public handleGoogleResponse(response: any, action: 'login' | 'register'): void {
     if (!response || !response.credential) return;
-    console.log('Google response',response)
-    this.sendGoogleTokenToBackend(response.credential).subscribe(
+    console.log('Google response', response, 'Action', action);
+    this.sendGoogleTokenToBackend(response.credential, action).subscribe(
       jwtResponse => {
         if (jwtResponse.success) {
+          // Save the received token in localStorage
           localStorage.setItem('access_token', jwtResponse.token);
-          this.router.navigate(['/home']);
+          // Redirect based on the action
+          if (action === 'login') {
+            // If logging in, navigate to home page
+            this.router.navigate(['/home']);
+          } else if (action === 'register') {
+            // If registering, navigate to a registration success or welcome page
+            this.router.navigate(['/login']);
+          }
         }
       }
     );
   }
 
   /**
-   * Sends the Google authentication token to the backend.
-   * @param googleToken - Google authentication credential token.
+   * Sends the Google authentication token along with an action parameter to the backend.
+   * The backend uses the 'action' parameter to decide whether to register a new user
+   * or simply log in an existing one.
+   * @param googleToken - The Google ID token.
+   * @param action - 'login' or 'register' to indicate the desired operation.
+   * @returns An Observable with the backend response containing a success flag and token.
    */
-  public sendGoogleTokenToBackend(googleToken: string): Observable<{ success: boolean; token: string }> {
-    return this.http.post<{ success: boolean; token: string }>(`${this.BACKEND_URL}/google`, { token: googleToken });
+  public sendGoogleTokenToBackend(
+    googleToken: string,
+    action: 'login' | 'register'
+  ): Observable<{ success: boolean; token: string }> {
+    return this.http.post<{ success: boolean; token: string }>(
+      `${this.BACKEND_URL}/logInWithGoogle`,
+      { token: googleToken, action }
+    );
   }
 
   /**
-   * Logs in a user with email and password.
+   * Logs in a user using email and password credentials.
    * @param credentials - Object containing email and password.
+   * @returns An Observable with the login response.
    */
   public login(credentials: { email: string; password: string }): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/login`, credentials).pipe(
+    return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/logIn`, credentials).pipe(
       tap(response => {
+        // Store token, user details, and expiration time
         this.accessToken = response.token;
         this.user = response.authUser;
         this.expiresIn = response.expiresIn;
@@ -152,22 +153,24 @@ export class AuthService {
 
   /**
    * Registers a new user.
-   * @param data - User registration details.
+   * @param data - Object containing user registration details.
+   * @returns An Observable with the registration response.
    */
   public register(data: any): Observable<ILoginResponse> {
     return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/register`, data);
   }
 
   /**
-   * Requests a password reset.
-   * @param email - User's email address.
+   * Requests a password reset by sending the user's email to the backend.
+   * @param email - The user's email address.
+   * @returns An Observable with a message response.
    */
   public requestPasswordReset(email: string): Observable<{ message: string }> {
     return this.http.post<{ message: string }>(`${this.BACKEND_URL}/reset-password`, { email });
   }
 
   /**
-   * Logs out the user.
+   * Logs out the user by clearing stored session data.
    */
   public logout(): void {
     this.accessToken = '';
@@ -178,7 +181,7 @@ export class AuthService {
 
   /**
    * Checks if a user is currently logged in.
-   * @returns `true` if a session exists, otherwise `false`.
+   * @returns True if an access token exists, otherwise false.
    */
   public check(): boolean {
     return !!this.accessToken;

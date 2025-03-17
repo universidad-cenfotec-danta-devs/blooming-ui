@@ -1,19 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { SHARED_IMPORTS } from '../../shared/shared.module';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { AuthGoogleService } from '../../services/auth.google.service';
 
-/**
- * LoginComponent manages three authentication forms:
- * - Login (email & password)
- * - Sign-Up (registration with additional fields)
- * - Password Recovery (reset via email)
- *
- * It also integrates Google Sign-In and displays a confirmation modal.
- */
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -22,27 +13,24 @@ import { AuthGoogleService } from '../../services/auth.google.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  /** formState determines which form is shown: 'login', 'signup', or 'recover'. Default is 'login'. */
   formState: 'login' | 'signup' | 'recover' = 'login';
-
-  /** Translation key for confirmation modal messages */
   modalMessageKey: string = 'AUTH.SIGNUP.SUCCESS_MESSAGE';
-
-  /** Reference to the confirmation modal */
   modalRef: ModalComponent | undefined;
-
-  /** Reactive forms for each authentication method */
   loginForm: FormGroup;
   signUpForm: FormGroup;
   recoveryPasswordForm: FormGroup;
 
-  constructor(public authService: AuthService, private fb: FormBuilder, private googleauthService: AuthGoogleService) {
-    // Build the Login Form
+  constructor(
+    @Inject(AuthService) public authService: AuthService,
+    private fb: FormBuilder,
+    @Inject(AuthGoogleService) private googleAuthService: AuthGoogleService
+  ) {
+    // Build the login form
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
-    // Build the Sign-Up Form with extra fields
+    // Build the sign-up form with additional fields
     this.signUpForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -51,35 +39,34 @@ export class LoginComponent implements OnInit {
       dateOfBirth: ['', Validators.required],
       gender: ['', Validators.required]
     });
-    // Build the Password Recovery Form
+    // Build the password recovery form
     this.recoveryPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
   ngOnInit(): void {
-    // Initialize Google Identity Services
-    this.authService.initGoogleAuth();
+    // Check if a token exists in AuthGoogleService (after redirect)
+    const idToken = this.googleAuthService.getIdToken();
+    if (idToken) {
+      const action = sessionStorage.getItem('googleAuthAction') as 'login' | 'register';
+      if (action) {
+        sessionStorage.removeItem('googleAuthAction');
+        console.log('Processing stored token with action:', action);
+        this.authService.handleGoogleResponse({ credential: idToken }, action);
+      }
+    }
   }
 
-  signInWithGoogle() {
-
-    this.googleauthService.login();
-
+  signInGoogle(action: 'login' | 'register'): void {
+    sessionStorage.setItem('googleAuthAction', action);
+    this.googleAuthService.login();
   }
 
-
-  /**
-   * Switches between login, sign-up, and password recovery forms.
-   * @param state - 'login' | 'signup' | 'recover'
-   */
   switchForm(state: 'login' | 'signup' | 'recover'): void {
     this.formState = state;
   }
 
-  /**
-   * Handles login submission.
-   */
   onLogin(): void {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
@@ -91,9 +78,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  /**
-   * Handles sign-up submission.
-   */
   onSignUp(): void {
     if (this.signUpForm.valid) {
       this.authService.register(this.signUpForm.value).subscribe(
@@ -101,7 +85,7 @@ export class LoginComponent implements OnInit {
           console.log('Registration successful', response);
           this.modalMessageKey = 'AUTH.SIGNUP.SUCCESS_MESSAGE';
           this.modalRef?.openModal();
-          this.switchForm('login'); // Switch back to login after sign-up
+          this.switchForm('login');
         },
         error => console.error('Registration failed', error)
       );
@@ -110,9 +94,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  /**
-   * Handles password recovery submission.
-   */
   onRecoverPassword(): void {
     if (this.recoveryPasswordForm.valid) {
       this.authService.requestPasswordReset(this.recoveryPasswordForm.value.email).subscribe(
@@ -120,7 +101,7 @@ export class LoginComponent implements OnInit {
           console.log('Password reset email sent', response);
           this.modalMessageKey = 'AUTH.RECOVER.SUCCESS_MESSAGE';
           this.modalRef?.openModal();
-          this.switchForm('login'); // Switch back to login after recovery
+          this.switchForm('login');
         },
         error => console.error('Password recovery failed', error)
       );
@@ -128,15 +109,4 @@ export class LoginComponent implements OnInit {
       console.error('Recovery form is invalid.');
     }
   }
-
-  /**
-   * Triggers Google Sign-In.
-   */
-  loginWithGoogle(): void {
-    this.authService.googleSignIn();
-  }
 }
-function inject(AuthGoogleService: any) {
-  throw new Error('Function not implemented.');
-}
-

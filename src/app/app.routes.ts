@@ -3,7 +3,7 @@ import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
 import { NoAuthGuard } from './guards/no-auth.guard';
 import { DrPlantComponent } from './features/dr-plant/dr-plant.component';
-import { CallbackComponent } from './features/callback/callback.component';
+
 
 /**
  * Defines the routing configuration for the application.
