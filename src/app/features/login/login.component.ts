@@ -1,19 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { SHARED_IMPORTS } from '../../shared/shared.module';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { AuthGoogleService } from '../../services/auth.google.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
-/**
- * LoginComponent manages three authentication forms:
- * - Login (email & password)
- * - Sign-Up (registration with additional fields)
- * - Password Recovery (reset via email)
- *
- * It also integrates Google Sign-In and displays a confirmation modal.
- */
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -32,7 +25,7 @@ export class LoginComponent implements OnInit {
   constructor(
     @Inject(AuthService) public authService: AuthService,
     private fb: FormBuilder,
-    @Inject(AuthGoogleService) private googleAuthService: AuthGoogleService, private toastr: ToastrService, private router: Router
+    @Inject(AuthGoogleService) private googleAuthService: AuthGoogleService
   ) {
     // Build the login form
     this.loginForm = this.fb.group({
@@ -90,12 +83,12 @@ export class LoginComponent implements OnInit {
 
   onSignUp(): void {
     if (this.signUpForm.valid) {
-      this.authService.register(this.signUpForm.value).subscribe({
-        next:(response: any) => {
-          const toastSuccess = this.toastr.success('Registration successful', 'Success');
-          toastSuccess.onHidden.subscribe(() => {
-            this.switchForm('login');
-          });
+      this.authService.register(this.signUpForm.value).subscribe(
+        response => {
+          console.log('Registration successful', response);
+          this.modalMessageKey = 'AUTH.SIGNUP.SUCCESS_MESSAGE';
+          this.modalRef?.openModal();
+          this.switchForm('login');
         },
         (error: HttpErrorResponse) => {
           console.error('Registration failed', error);
@@ -121,7 +114,6 @@ export class LoginComponent implements OnInit {
       console.error('Recovery form is invalid.');
     }
   }
-
 
 }
 
