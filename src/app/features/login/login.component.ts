@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, passwordValidator()]],
       name: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
-      // gender: ['', Validators.required]
+      gender: ['', Validators.required]
     });
 
     // Build the password recovery form

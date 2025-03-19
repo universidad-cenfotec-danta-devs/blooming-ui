@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../enviroments/enviroment.development';
@@ -130,9 +130,12 @@ export class AuthService {
     googleToken: string,
     action: 'login' | 'register'
   ): Observable<{ success: boolean; token: string }> {
+    const body = new HttpParams()
+      .set('token', googleToken);
     return this.http.post<{ success: boolean; token: string }>(
       `${this.BACKEND_URL}/logInWithGoogle`,
-      { token: googleToken, action }
+      body.toString(),
+      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
     );
   }
 
