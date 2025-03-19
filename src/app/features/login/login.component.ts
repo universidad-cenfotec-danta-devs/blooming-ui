@@ -126,3 +126,20 @@ export class LoginComponent implements OnInit {
     }
   }
 }
+
+/**
+ * Custom password validator to ensure the password contains at least one letter, one number, and a minimum length of 8 characters.
+ */
+export function passwordValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const password = control.value;
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasMinimunLength = password.length >= 8;
+
+    if (!hasMinimunLength || !hasLetter || !hasNumber) {
+      return { passwordStrength: 'Password must contain at least 8 characters, one letter, and one number.' };
+    }
+    return null;
+  };
+}
