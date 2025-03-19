@@ -125,6 +125,11 @@
         "GENDER_MALE": "Male",
         "GENDER_FEMALE": "Female",
         "GENDER_OTHER": "Other",
+        "ROLE_LABEL":"Role",
+        "ROLE_PLACEHOLDER":"User",
+        "ROLE_SIMPLE_USER":"Regular user",
+        "ROLE_USER_DESIGNER":"Designer",
+        "ROLE_NURSERY_ADMIN":"Nursery admin",
         "PHONE_LABEL": "Phone",
         "PHONE_PLACEHOLDER": "Phone number",
         "BUTTON_TEXT": "Sign Up",
@@ -150,7 +155,8 @@
         "AGE_REQUIRED": "Age is required.",
         "DOB_REQUIRED": "Date of birth is required.",
         "GENDER_REQUIRED": "Gender is required.",
-        "PHONE_REQUIRED": "Phone number is required."
+        "PHONE_REQUIRED": "Phone number is required.",
+        "ROLE_REQUIRED":"Role is required."
       },
         "DRPLANT": {
           "TITLE": "Dr. Planta",
