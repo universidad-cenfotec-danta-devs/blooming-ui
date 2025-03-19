@@ -24,6 +24,7 @@ export class AuthService {
 
   // URL of the backend authentication API
   private BACKEND_URL = `${environment.apiUrl}/api/users`;
+  private BACKEND_URL2 = `${environment.apiUrl2}/api/users`
   // Google Client ID from the environment configuration
   GOOGLE_CLIENT_ID = environment.googleClientId;
 
@@ -142,7 +143,7 @@ export class AuthService {
    * @returns An Observable with the login response.
    */
   public login(credentials: { email: string; password: string }): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/logIn`, credentials).pipe(
+    return this.http.post<ILoginResponse>(`${this.BACKEND_URL2}/logIn`, credentials).pipe(
       tap(response => {
         // Store token, user details, and expiration time
         this.accessToken = response.token;
@@ -159,7 +160,7 @@ export class AuthService {
    * @returns An Observable with the registration response.
    */
   public register(data: any): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/register`, data);
+    return this.http.post<ILoginResponse>(`${this.BACKEND_URL2}/signup`, data);
   }
 
   /**
