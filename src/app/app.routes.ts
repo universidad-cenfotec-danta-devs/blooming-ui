@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './features/home/home.component';
-import { LoginComponent } from './features/login/login.component';
+import { HomeComponent } from './features/home-page/home.component';
+import { LoginComponent } from './features/login-page/login.component';
 import { NoAuthGuard } from './guards/no-auth.guard';
-import { DrPlantComponent } from './features/dr-plant/dr-plant.component';
+import { DrPlantComponent } from './features/dr-plant-page/dr-plant.component';
+import { PotEditorPageComponent } from './features/pot-editor-page/pot-editor-page.component';
 
 
 /**
@@ -31,6 +32,8 @@ export const routes: Routes = [
     // 📌 Dr-plant Page Route
   // When the user visits `/dr-plant`, Angular will render LoginComponent
   { path: 'dr-plant', component: DrPlantComponent },
+
+  { path: 'pot-editor', component: PotEditorPageComponent },
 
   // 📌 Default Route (Redirect to Home)
   // If the user visits `/`, they are automatically redirected to `/home`

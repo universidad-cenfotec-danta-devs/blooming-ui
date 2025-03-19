@@ -43,5 +43,5 @@ export const SHARED_IMPORTS = [
   CarouselComponent,
   ModalComponent,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 ];

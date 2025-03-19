@@ -1,0 +1,212 @@
+<!-- Container: Left side (brand & image) and Right side (forms) -->
+<div class="flex flex-col md:flex-row w-full h-screen bg-[#DCE6D3]">
+  <!-- Left side (Brand & Image) -->
+  <div class="hidden md:flex flex-col items-center justify-center md:w-1/2 bg-[#DCE6D3] p-10">
+    <h1 class="text-5xl font-bold mb-4 text-[#97A97C]">
+      {{ 'AUTH.LEFT_SIDE.TITLE' | translate }}
+    </h1>
+    <img src="../../../assets/images/login-image.png" alt="{{ 'AUTH.LEFT_SIDE.IMAGE_ALT' | translate }}" class="w-[80%] max-w-md mb-6 rounded-md shadow">
+    <p class="text-2xl text-[#FFFFFF]">
+      {{ 'AUTH.LEFT_SIDE.DESCRIPTION' | translate }}
+    </p>
+  </div>
+
+  <!-- Right side: Form Container -->
+  <div class="flex flex-col w-full md:w-1/2 bg-white p-8 md:p-10 lg:p-12 items-center">
+    <img src="../../../../assets/icons/danta_icon.png" alt="Logo" class="h-50 w-50">
+    
+    <!-- Mobile Brand -->
+    <div class="flex md:hidden items-center justify-center mb-6">
+      <h1 class="text-4xl font-bold text-green-700">
+        {{ 'AUTH.LEFT_SIDE.TITLE' | translate }}
+      </h1>
+    </div>
+
+    <!-- Login Form -->
+    <div *ngIf="formState === 'login'" class="flex flex-col space-y-4 mt-auto mb-auto" [formGroup]="loginForm">
+      <h2 class="text-3xl font-semibold text-[#5C684B] text-center">
+        {{ 'AUTH.LOGIN.TITLE' | translate }}
+      </h2>
+      <p class="text-m text-[#5C684B] text-center mb-10">
+        {{ 'AUTH.LEFT_SIDE.ASKING_INFO' | translate }}
+      </p>
+      <!-- Email Field -->
+      <div>
+        <label class="block mb-1 text-1xl text-[#5C684B]">
+          {{ 'AUTH.LOGIN.EMAIL_LABEL' | translate }}
+        </label>
+        <input type="email" formControlName="email" class="input-field" placeholder="{{ 'AUTH.LOGIN.EMAIL_PLACEHOLDER' | translate }}">
+        <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="text-red-600 text-xs">
+          {{ 'AUTH.VALIDATION.EMAIL_REQUIRED' | translate }}
+        </div>
+      </div>
+      <!-- Password Field -->
+      <div>
+        <label class="block mb-1 text-1xl text-[#5C684B]">
+          {{ 'AUTH.LOGIN.PASSWORD_LABEL' | translate }}
+        </label>
+        <input type="password" formControlName="password" class="input-field" placeholder="{{ 'AUTH.LOGIN.PASSWORD_PLACEHOLDER' | translate }}">
+        <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="text-red-600 text-xs">
+          {{ 'AUTH.VALIDATION.PASSWORD_REQUIRED' | translate }}
+        </div>
+        <!-- Forgot Password Link -->
+        <a href="#" class="text-sm text-[#5C684B] font-semibold hover:underline " (click)="switchForm('recover'); $event.preventDefault()">
+          {{ 'AUTH.LOGIN.FORGET_PASSWORD' | translate }}
+        </a>
+      </div>
+      <!-- Login Button -->
+      <button (click)="onLogin()" class="primary-btn text-white py-2 px-4 rounded-md">
+        {{ 'AUTH.LOGIN.BUTTON_TEXT' | translate }}
+      </button>
+
+      <div class="login-button">
+
+        <button class="flex border justify-center items-center border-[#97A97C] w-full py-2 px-4" (click)="signInGoogle('login')">
+          <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px" viewBox="-0.5 0 48 48" version="1.1"> <title>Google-color</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Color-" transform="translate(-401.000000, -860.000000)"> <g id="Google" transform="translate(401.000000, 860.000000)"> <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24" id="Fill-1" fill="#FBBC05"> </path> <path d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333" id="Fill-2" fill="#EB4335"> </path> <path d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667" id="Fill-3" fill="#34A853"> </path> <path d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24" id="Fill-4" fill="#4285F4"> </path> </g> </g> </g> </svg>
+          <span class="text-center text-[#B5C99A]"> Google</span>
+      
+        </button>
+      
+      </div>
+      <!-- Switch to Sign-Up -->
+      <p class="text-sm text-[#5C684B]">
+        {{ 'AUTH.LOGIN.NO_ACCOUNT' | translate }}
+        <a href="#" class="text-sm text-[#5C684B] font-semibold hover:underline" (click)="switchForm('signup'); $event.preventDefault()">
+          {{ 'AUTH.LOGIN.REGISTER_LINK' | translate }}
+        </a>
+      </p>
+    </div>
+
+    <!-- Sign-Up Form -->
+    <div *ngIf="formState === 'signup'" class="flex flex-col space-y-4 text-1xl text-[#5C684B]" [formGroup]="signUpForm">
+      <h2 class="text-4xl font-semibold text-center">
+        {{ 'AUTH.SIGNUP.TITLE' | translate }}
+      </h2>
+      <p class="text-center mb-4">Please enter your details</p>
+      <!-- Name Field -->
+      <div>
+        <label class="block mb-1 text-sm text-gray-600">
+          {{ 'AUTH.SIGNUP.NAME_LABEL' | translate }}
+        </label>
+        <input type="text" formControlName="name" class="input-field" placeholder="{{ 'AUTH.SIGNUP.NAME_PLACEHOLDER' | translate }}">
+        <div *ngIf="signUpForm.get('name')?.touched && signUpForm.get('name')?.invalid" class="text-red-600 text-xs">
+          {{ 'AUTH.VALIDATION.NAME_REQUIRED' | translate }}
+        </div>
+      </div> 
+      <!-- Email Field -->
+      <div>
+        <label class="block mb-1 text-sm">
+          {{ 'AUTH.SIGNUP.EMAIL_LABEL' | translate }}
+        </label>
+        <input type="email" formControlName="email" class="input-field" placeholder="{{ 'AUTH.SIGNUP.EMAIL_PLACEHOLDER' | translate }}">
+        <div *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.invalid" class="text-red-600 text-xs">
+          {{ 'AUTH.VALIDATION.EMAIL_REQUIRED' | translate }}
+        </div>
+      </div>
+      <!-- Password Field -->
+      <div>
+        <label class="block mb-1 text-sm">
+          {{ 'AUTH.SIGNUP.PASSWORD_LABEL' | translate }}
+        </label>
+        <input type="password" formControlName="password" class="input-field" placeholder="{{ 'AUTH.SIGNUP.PASSWORD_PLACEHOLDER' | translate }}">
+      
+        <div *ngIf="signUpForm.get('password')?.touched && signUpForm.get('password')?.invalid" class="text-red-600 text-xs">
+          <div *ngIf="signUpForm.get('password')?.hasError('pattern')">
+            {{ 'AUTH.VALIDATION.PASSWORD_REQUIRED' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Date of Birth Field -->
+     <div>
+        <label class="block mb-1 text-sm">
+          {{ 'AUTH.SIGNUP.DOB_LABEL' | translate }}
+        </label>
+        <input type="date" formControlName="dateOfBirth" class="input-field">
+        <div *ngIf="signUpForm.get('dateOfBirth')?.touched && signUpForm.get('dateOfBirth')?.invalid" class="text-red-600 text-xs">
+          {{ 'AUTH.VALIDATION.DOB_REQUIRED' | translate }}
+        </div>
+      </div> 
+      <!-- Gender Field -->
+     <div>
+        <label class="block mb-1 text-sm">
+          {{ 'AUTH.SIGNUP.GENDER_LABEL' | translate }}
+        </label>
+        <select formControlName="gender" class="input-field">
+          <option value="" disabled selected>
+            {{ 'AUTH.SIGNUP.GENDER_PLACEHOLDER' | translate }}
+          </option>
+          <option value="male">{{ 'AUTH.SIGNUP.GENDER_MALE' | translate }}</option>
+          <option value="female">{{ 'AUTH.SIGNUP.GENDER_FEMALE' | translate }}</option>
+          <option value="other">{{ 'AUTH.SIGNUP.GENDER_OTHER' | translate }}</option>
+        </select>
+        <div *ngIf="signUpForm.get('gender')?.touched && signUpForm.get('gender')?.invalid" class="text-red-600 text-xs">
+          {{ 'AUTH.VALIDATION.GENDER_REQUIRED' | translate }}
+        </div>
+      </div> 
+ 
+      <!-- Sign-Up Button -->
+      <button (click)="onSignUp()" class="primary-btn py-2 px-4 rounded-md mt-5">
+        {{ 'AUTH.SIGNUP.BUTTON_TEXT' | translate }}
+      </button>
+      
+      <!-- Google Sign-In Button -->
+      <div class="login-button">
+
+        <button class="flex border justify-center items-center border-[#97A97C] w-full py-2 px-4" (click)="signInGoogle('register')">
+          <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px" viewBox="-0.5 0 48 48" version="1.1"> <title>Google-color</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Color-" transform="translate(-401.000000, -860.000000)"> <g id="Google" transform="translate(401.000000, 860.000000)"> <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24" id="Fill-1" fill="#FBBC05"> </path> <path d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333" id="Fill-2" fill="#EB4335"> </path> <path d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667" id="Fill-3" fill="#34A853"> </path> <path d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24" id="Fill-4" fill="#4285F4"> </path> </g> </g> </g> </svg>
+          <span class="text-center text-[#B5C99A]">Google</span>
+      
+        </button>
+      
+      </div>
+      
+      <!-- Switch to Login -->
+      <p class="text-sm text-[#5C684B]">
+        {{ 'AUTH.SIGNUP.ALREADY_HAVE_ACCOUNT' | translate }}
+        <a href="#" class="text-sm text-[#5C684B] font-semibold hover:underline" (click)="switchForm('login'); $event.preventDefault()">
+          {{ 'AUTH.SIGNUP.LOGIN_LINK' | translate }}
+        </a>
+      </p>
+    </div>
+
+    <!-- Password Recovery Form -->
+    <div *ngIf="formState === 'recover'" class="flex flex-col space-y-4 mt-auto mb-auto" [formGroup]="recoveryPasswordForm">
+      <h2 class="text-3xl font-semibold text-[#5C684B] text-center">
+        {{ 'AUTH.RECOVER.TITLE' | translate }}
+      </h2>
+      <p class="text-m text-[#5C684B] text-center mb-10">
+        {{ 'AUTH.RECOVER.DESCRIPTION' | translate }}
+      </p>
+
+      <!-- Email Field -->
+      <div>
+        <label class="block mb-1 text-1xl text-[#5C684B]">
+          {{ 'AUTH.RECOVER.EMAIL_LABEL' | translate }}
+        </label>
+        <input type="email" formControlName="email" class="input-field" placeholder="{{ 'AUTH.RECOVER.EMAIL_PLACEHOLDER' | translate }}">
+        <div *ngIf="recoveryPasswordForm.get('email')?.touched && recoveryPasswordForm.get('email')?.invalid" class="text-red-600 text-xs">
+          {{ 'AUTH.VALIDATION.EMAIL_REQUIRED' | translate }}
+        </div>
+      </div>
+
+      <!-- Recovery Button -->
+      <button (click)="onRecoverPassword()" class="primary-btn py-2 px-4 rounded-md mr-auto ">
+        {{ 'AUTH.RECOVER.BUTTON_TEXT' | translate }}
+      </button>
+
+      <!-- Back to Login Link -->
+      <p class="text-sm text-[#5C684B] ">
+        {{ 'AUTH.RECOVER.BACK_TO_LOGIN' | translate }}
+        <a href="#" class="text-[#5C684B] font-semibold hover:underline" (click)="switchForm('login'); $event.preventDefault()">
+          {{ 'AUTH.RECOVER.LOGIN_LINK' | translate }}
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Confirmation Modal -->
+<app-modal #modalRef [messageKey]="modalMessageKey"></app-modal>
