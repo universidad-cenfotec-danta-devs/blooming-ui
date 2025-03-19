@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import {
   CanActivate,
   Router,
@@ -6,10 +6,11 @@ import {
   RouterStateSnapshot,
   UrlTree
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 /**
- * NoAuthGuard prevents access to certain routes (e.g., login or registration)
+ * NoAuthGuard prevents access to routes (e.g., login or registration)
  * if the user is already authenticated (i.e. a token exists in localStorage).
  *
  * When a token is found, it navigates the user to a default authenticated route (e.g., '/home')
@@ -22,8 +23,9 @@ export class NoAuthGuard implements CanActivate {
 
   /**
    * @param router - Angular Router instance for navigation.
+   * @param platformId - Identifier to check if code runs in the browser.
    */
-  constructor(private router: Router) {}
+  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   /**
    * Determines if a route can be activated.
@@ -37,17 +39,20 @@ export class NoAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    // Retrieve the authentication token from localStorage.
-    const token = localStorage.getItem('token');
-
-    // If a token exists, the user is considered authenticated.
-    if (token) {
-      // Redirect the user to the home page (or any designated route for authenticated users).
-      this.router.navigate(['/home']);
-      return false; // Block access to the current route.
+    // Only attempt to access localStorage if we're in the browser.
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        // If a token exists, the user is considered authenticated.
+        // Redirect to the home page (or any designated route for authenticated users).
+        this.router.navigate(['/home']);
+        return false; // Block access to the guarded route.
+      }
+      // No token found, allow access.
+      return true;
+    } else {
+      // In a server-side environment, simply allow access.
+      return true;
     }
-
-    // If no token exists, allow access to the guarded route (e.g., login).
-    return true;
   }
 }
