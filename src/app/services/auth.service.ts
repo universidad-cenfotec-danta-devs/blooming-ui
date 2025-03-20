@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../enviroments/enviroment.development';
@@ -24,7 +24,7 @@ export class AuthService {
 
   // URL of the backend authentication API
   private BACKEND_URL = `${environment.apiUrl}/api/users`;
-  private BACKEND_URL2 = `${environment.apiUrl2}/api/users`
+
   // Google Client ID from the environment configuration
   GOOGLE_CLIENT_ID = environment.googleClientId;
 
@@ -131,9 +131,12 @@ export class AuthService {
     googleToken: string,
     action: 'login' | 'register'
   ): Observable<{ success: boolean; token: string }> {
+    const body = new HttpParams()
+      .set('token', googleToken);
     return this.http.post<{ success: boolean; token: string }>(
       `${this.BACKEND_URL}/logInWithGoogle`,
-      { token: googleToken, action }
+      body.toString(),
+      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
     );
   }
 
@@ -143,7 +146,7 @@ export class AuthService {
    * @returns An Observable with the login response.
    */
   public login(credentials: { email: string; password: string }): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(`${this.BACKEND_URL2}/logIn`, credentials).pipe(
+    return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/logIn`, credentials).pipe(
       tap(response => {
         // Store token, user details, and expiration time
         this.accessToken = response.token;
@@ -160,7 +163,7 @@ export class AuthService {
    * @returns An Observable with the registration response.
    */
   public register(data: any): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(`${this.BACKEND_URL2}/signup`, data);
+    return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/signup`, data);
   }
 
   /**
