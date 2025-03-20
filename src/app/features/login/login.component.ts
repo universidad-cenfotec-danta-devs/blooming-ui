@@ -40,10 +40,13 @@ export class LoginComponent implements OnInit {
     // Build the sign-up form with additional fields
     this.signUpForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, passwordValidator()]],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/)]],
       name: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
-      gender: ['', Validators.required]
+      gender: ['', Validators.required],
+      role: this.fb.group({
+        name: ['', Validators.required]
+      })
     });
 
     // Build the password recovery form
