@@ -7,6 +7,17 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { CustomPot } from '../models/custom-pot.model';
 import { isPlatformBrowser } from '@angular/common';
 
+/**
+ * Real-world dimensions for pot sizes (reference only).
+ */
+const SIZE_DIMENSIONS: Record<string, string> = {
+  'Extra Small': '10×10×10 cm',
+  'Small':       '20×20×20 cm',
+  'Medium':      '30×30×30 cm',
+  'Large':       '40×40×40 cm',
+  'X-Large':     '50×50×50 cm'
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,47 +31,47 @@ export class PotEditorService {
   constructor(private ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   /**
-   * Initializes the Three.js scene with camera, lights, controls and loads the default GLB model.
-   * This code will run only in the browser.
-   * @param canvas The HTMLCanvasElement used for rendering.
-   * @returns An Observable that emits true if the scene is initialized.
+   * Initializes the Three.js scene with camera, lights, OrbitControls,
+   * and creates a default fallback cube. After a 1-second delay, it automatically
+   * loads the default pot model ("pot.glb") to replace the cube.
+   * This code runs only in the browser.
+   * @param canvas The HTMLCanvasElement for rendering.
+   * @returns Observable that emits true if the scene is initialized.
    */
   load3DEditor(canvas: HTMLCanvasElement): Observable<boolean> {
-    // Ensure we run only in the browser.
     if (!isPlatformBrowser(this.platformId)) {
       console.warn('Not running in browser: Skipping Three.js initialization.');
       return of(false);
     }
-
+    
     return new Observable(observer => {
       try {
         console.log('[PotEditorService] Initializing 3D scene');
-        // Create scene with white background
+        // Create scene with white background.
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(0xffffff);
 
-        // Set up camera: Adjust far plane and position for very large models.
+        // Set up camera.
         this.camera = new THREE.PerspectiveCamera(
           75,
           canvas.clientWidth / canvas.clientHeight,
           0.1,
           5000
         );
-        // Position the camera far away for large models.
         this.camera.position.set(0, 2, 200);
         console.log('[PotEditorService] Camera position:', this.camera.position);
 
-        // Set up renderer
+        // Set up renderer.
         this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
         this.renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
-        // Set up OrbitControls
+        // Set up OrbitControls.
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.controls.target.set(0, 0, 0);
         this.controls.update();
         console.log('[PotEditorService] Controls target set to:', this.controls.target);
 
-        // Add AmbientLight and DirectionalLight
+        // Add AmbientLight and DirectionalLight.
         const ambientLight = new THREE.AmbientLight(0x404040);
         this.scene.add(ambientLight);
         console.log('[PotEditorService] Ambient light added');
@@ -69,34 +80,40 @@ export class PotEditorService {
         dirLight.position.set(5, 10, 7);
         this.scene.add(dirLight);
 
-        // Load HDR environment map for realistic reflections
+        // (Optional) Load HDR environment map.
         const rgbeLoader = new RGBELoader();
-        rgbeLoader.load('assets/hdr/royal_esplanade_1k.hdr', (hdrEquirect) => {
+        rgbeLoader.load('assets/hdr/background.hdr', (hdrEquirect) => {
           hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
           this.scene.environment = hdrEquirect;
           console.log('[PotEditorService] Environment map loaded');
         });
 
-        // Create group to hold the pot model
+        // Create a group to hold the pot model.
         this.potModelGroup = new THREE.Group();
         this.scene.add(this.potModelGroup);
 
-        // Load the default model
+
+        // Signal that the scene is ready.
+        observer.next(true);
+        observer.complete();
+
+ 
         this.loadModel('assets/models/pot.glb').subscribe({
           next: () => {
             this.controls.target.set(0, 0, 0);
             this.controls.update();
-            console.log('[PotEditorService] Default model loaded successfully');
+            console.log('[PotEditorService] Default pot model loaded successfully');
             observer.next(true);
             observer.complete();
           },
           error: (err) => {
-            console.error('[PotEditorService] Error loading default model:', err);
-            observer.error(new Error('Failed to load 3D model'));
+            console.error('[PotEditorService] Error loading default pot model:', err);
+            observer.error(new Error('Failed to load default 3D model'));
           }
         });
+     
 
-        // Run the render loop outside Angular zone to avoid affecting Angular's stability
+        // Run the render loop outside Angular's zone.
         this.ngZone.runOutsideAngular(() => {
           const animate = () => {
             requestAnimationFrame(animate);
@@ -112,8 +129,10 @@ export class PotEditorService {
     });
   }
 
+
   /**
-   * Loads a GLB model from the given path, centers it, scales it VERY LARGE, and adds it to the potModelGroup.
+   * Loads a GLB model from a given path, centers it, and scales it uniformly to (100,100,100),
+   * replacing the current scene content.
    * @param modelPath The path to the GLB file.
    * @returns Observable that emits true if the model loads successfully.
    */
@@ -131,22 +150,18 @@ export class PotEditorService {
             const model = gltf.scene;
             console.log('[PotEditorService] Model loaded raw:', model);
 
-            // Center the model using its bounding box.
+            // Center the model.
             const box = new THREE.Box3().setFromObject(model);
             const center = new THREE.Vector3();
             box.getCenter(center);
             console.log('[PotEditorService] Model center before adjustment:', center);
             model.position.sub(center);
-            console.log('[PotEditorService] Model position after centering:', model.position);
 
-            // Scale the model VERY LARGE for visibility.
+            // Scale uniformly to fixed on-screen size.
             model.scale.set(100, 100, 100);
             console.log('[PotEditorService] Model scaled to:', model.scale);
 
-            const boxAfter = new THREE.Box3().setFromObject(model);
-            console.log('[PotEditorService] Model bounding box after adjustment:', boxAfter);
-
-            // Apply a default MeshPhysicalMaterial for realistic rendering.
+            // Apply default material.
             model.traverse((child) => {
               if ((child as THREE.Mesh).isMesh) {
                 const mesh = child as THREE.Mesh;
@@ -184,9 +199,8 @@ export class PotEditorService {
   }
 
   /**
-   * Loads a GLB model from a File object.
-   * @param file The GLB file.
-   * @returns Observable that emits true if the model loads successfully.
+   * Loads a GLB model from a File object (user upload), centers it, scales it uniformly,
+   * and replaces the current model.
    */
   loadModelFromFile(file: File): Observable<boolean> {
     return new Observable(observer => {
@@ -205,11 +219,13 @@ export class PotEditorService {
             const model = gltf.scene;
             console.log('[PotEditorService] Model loaded from file:', model);
 
+            // Center the model.
             const box = new THREE.Box3().setFromObject(model);
             const center = new THREE.Vector3();
             box.getCenter(center);
             model.position.sub(center);
 
+            // Scale to fixed size.
             model.scale.set(100, 100, 100);
 
             model.traverse((child) => {
@@ -246,46 +262,75 @@ export class PotEditorService {
   }
 
   /**
-   * Updates the 3D model based on the custom pot configuration.
-   * @param pot The custom pot configuration.
+   * Updates the 3D model's material properties (color, metalness, roughness)
+   * based on the custom pot configuration.
+   * The "size" field is used only for real-world reference.
    */
   update3DModel(pot: CustomPot): void {
     if (!this.potModelGroup) return;
-    const scaleFactor = (pot.size || 10) / 10;
-    this.potModelGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
-
+    if (pot.size && SIZE_DIMENSIONS[pot.size]) {
+      console.log(`[PotEditorService] Real-world size selected: ${pot.size} => ${SIZE_DIMENSIONS[pot.size]}`);
+    }
     this.potModelGroup.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
         if (Array.isArray(mesh.material)) {
-          mesh.material.forEach((m) => {
-            (m as THREE.MeshPhysicalMaterial).color.set(pot.color || '#0077ff');
-            (m as THREE.MeshPhysicalMaterial).needsUpdate = true;
-          });
+          mesh.material.forEach((m) => this.applyMaterialChanges(m as THREE.MeshPhysicalMaterial, pot));
         } else {
-          (mesh.material as THREE.MeshPhysicalMaterial).color.set(pot.color || '#0077ff');
-          (mesh.material as THREE.MeshPhysicalMaterial).needsUpdate = true;
+          this.applyMaterialChanges(mesh.material as THREE.MeshPhysicalMaterial, pot);
         }
       }
     });
-    console.log('[PotEditorService] 3D model updated with configuration:', pot);
+    console.log('[PotEditorService] 3D model updated with configuration (material/color). Real-world size is for reference only.');
+  }
+
+  private applyMaterialChanges(material: THREE.MeshPhysicalMaterial, pot: CustomPot): void {
+    material.color.set(pot.color || '#0077ff');
+    material.metalness = 0.0;
+    material.roughness = 0.5;
+    switch (pot.material) {
+      case 'Metal':
+        material.metalness = 0.8;
+        material.roughness = 0.2;
+        break;
+      case 'Wood':
+        material.metalness = 0.0;
+        material.roughness = 0.7;
+        break;
+      case 'Ceramic':
+        material.metalness = 0.0;
+        material.roughness = 0.3;
+        break;
+      case 'Plastic':
+      default:
+        material.metalness = 0.0;
+        material.roughness = 0.4;
+        break;
+    }
+    material.needsUpdate = true;
   }
 
   /**
-   * Calculates the price for the custom pot based on its configuration.
-   * @param pot The custom pot configuration.
-   * @returns Observable<number> emitting the calculated price.
+   * Calculates the price for the custom pot based on its material only.
+   * Real-world size is for reference only.
    */
   calculatePrice(pot: CustomPot): Observable<number> {
     return new Observable(observer => {
       try {
         const basePrice = 20;
-        const materialFactor = pot.material === 'Ceramic' ? 10 :
-                               pot.material === 'Metal' ? 15 :
-                               pot.material === 'Wood' ? 8 : 5;
-        const sizeFactor = (pot.size || 10) * 0.5;
-        const formaFactor = (pot.forma === 'Square') ? 5 : 0;
-        const price = basePrice + materialFactor + sizeFactor + formaFactor;
+        let materialFactor = 5;
+        switch (pot.material) {
+          case 'Ceramic':
+            materialFactor = 10;
+            break;
+          case 'Metal':
+            materialFactor = 15;
+            break;
+          case 'Wood':
+            materialFactor = 8;
+            break;
+        }
+        const price = basePrice + materialFactor;
         console.log('[PotEditorService] Price calculated:', price);
         observer.next(price);
         observer.complete();

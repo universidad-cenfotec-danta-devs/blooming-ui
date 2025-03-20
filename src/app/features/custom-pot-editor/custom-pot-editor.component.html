@@ -10,9 +10,11 @@
     <canvas #editorCanvas class="w-full h-full" *ngIf="!loadingEditor && !editorLoadError"></canvas>
   </div>
 
-  <!-- File Upload Button -->
+  <!-- File Upload and Model Selection Controls -->
   <div class="mb-6 flex items-center space-x-4">
+    <!-- Hidden file input -->
     <input type="file" #fileInput (change)="onFileSelected($event)" accept=".glb" class="hidden">
+    <!-- Button to trigger file upload -->
     <button (click)="fileInput.click()" class="px-4 py-2 bg-indigo-500 text-white rounded">
       Upload Model
     </button>
@@ -20,6 +22,7 @@
     <select [(ngModel)]="selectedModel" class="p-2 border border-gray-300 rounded">
       <option *ngFor="let model of modelList" [value]="model">{{ model }}</option>
     </select>
+    <!-- Button to load the selected model -->
     <button (click)="loadSelectedModel()" class="px-4 py-2 bg-blue-500 text-white rounded">
       Load Selected Model
     </button>
@@ -66,15 +69,13 @@
     <!-- Step 3: Color -->
     <div *ngIf="currentStepIndex === 2" class="flex flex-col space-y-2">
       <label class="font-medium">Color</label>
-      <select formControlName="color" class="p-2 border border-gray-300 rounded">
-        <option value="" disabled>-- Select Color --</option>
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-        <option value="#008000">Green</option>
-        <option value="#a52a2a">Brown</option>
-        <option value="#808080">Gray</option>
-      </select>
+      <input
+        type="color"
+        formControlName="color"
+        class="p-2 border border-gray-300 rounded"
+      />
     </div>
+    
 
     <!-- Step 4: Forma -->
     <div *ngIf="currentStepIndex === 3" class="flex flex-col space-y-2">

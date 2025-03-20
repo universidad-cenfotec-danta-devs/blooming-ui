@@ -34,7 +34,6 @@ export const routes: Routes = [
   { path: 'dr-plant', component: DrPlantComponent },
 
   { path: 'pot-editor', component: PotEditorPageComponent },
-
   // 📌 Default Route (Redirect to Home)
   // If the user visits `/`, they are automatically redirected to `/home`
   { path: '', redirectTo: '/home', pathMatch: 'full' },
