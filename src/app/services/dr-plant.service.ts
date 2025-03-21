@@ -1,67 +1,51 @@
 import { Injectable } from '@angular/core';
-import { BaseService } from '../../app/shared/service/base.service';
-import { Observable, of } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../enviroments/enviroment.development';
+import { Observable } from 'rxjs';
+import { PlantResponse } from '../interfaces/plantResponse.interface';
 
-/**
- * DrPlantService - Handles plant identification and chat API calls.
- */
+
 @Injectable({
   providedIn: 'root',
 })
-export class DrPlantService extends BaseService<any> {
-  protected override source = `${environment.apiUrl}/dr-plant`;
+export class DrPlantService {
+  private BACKEND_URL = `${environment.apiUrl}/api/plantAI`;
+
+  constructor(private http: HttpClient) {}
 
   /**
-   * Returns two mock plants if development is true.
-   * Otherwise, calls the backend to identify the plant.
+   * Sends the image file to the backend.
+   *
+   * @param formData - A FormData object containing the image file (with key 'img').
+   * @param actionType - Indicates whether the request is for 'identify' or 'diagnosis'.
+   *                     For 'identify', the endpoint will be /img.
+   *                     For 'diagnosis', the endpoint will be /healthAssessment.
+   * @returns An Observable that emits an array of PlantResponse objects.
    */
   public identifyPlant(
-    imageFile?: FormData,
-    development: boolean = true
-  ): Observable<{ name: string; description: string }[]> {
-    if (development) {
-      // Return two mock plants
-      return of([
-        {
-          name: 'Mock Plant #1',
-          description: 'Description for Mock Plant #1.',
-        },
-        {
-          name: 'Mock Plant #2',
-          description: 'Description for Mock Plant #2.',
-        },
-      ]).pipe(delay(2000)); // Simulated network delay
-    }
+    formData: FormData,
+    actionType: 'identify' | 'diagnosis'
+  ): Observable<PlantResponse[]> {
+    // Choose the endpoint based on the actionType.
+    const endpoint =
+      actionType === 'identify'
+        ? `${this.BACKEND_URL}/img`
+        : `${this.BACKEND_URL}/healthAssessment`;
 
-    if (!imageFile) {
-      throw new Error('Image file is required in production mode.');
-    }
-
-    // Real API call, if implemented
-    return this.add(imageFile).pipe(map((response) => response.data));
+    return this.http.post<PlantResponse[]>(endpoint, formData);
   }
 
   /**
-   * Simulates a chat response from Dr. Planta.
-   * Returns a single mock message after a short delay.
+   * Asks a question about a specific plant.
+   *
+   * @param plantId - The ID of the plant.
+   * @param question - The question to ask.
+   * @returns An Observable that emits the answer as a string.
    */
-  public chatWithPlant(
-    userMessage: string,
-    development: boolean = true
-  ): Observable<string> {
-    if (development) {
-      return of(`Dr. Planta says: "I received your message: ${userMessage}"`).pipe(
-        delay(1500)
-      );
-    }
-
-    // In production, you would call a real endpoint. Example:
-    // return this.add({ message: userMessage }).pipe(
-    //   map(response => response.data.someChatField)
-    // );
-
-    throw new Error('chatWithPlant: Production mode not implemented yet.');
+  public askPlantQuestion(plantId: number, question: string): Observable<string> {
+    return this.http.post<string>(
+      `${this.BACKEND_URL}/askAI/${plantId}`,
+      { question }
+    );
   }
 }
