@@ -3,9 +3,10 @@ import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
 import { NoAuthGuard } from './guards/no-auth.guard';
 import { DrPlantComponent } from './features/dr-plant/dr-plant.component';
-import { CallbackComponent } from './features/callback/callback.component';
 import { UserListComponent } from './features/user-list/user-list.component';
 import { AdminRoleGuard } from './guards/admin-role.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { IRoleType } from './interfaces/roleType.interfaces';
 
 /**
  * Defines the routing configuration for the application.
@@ -38,6 +39,24 @@ export const routes: Routes = [
   // If the user visits `/`, they are automatically redirected to `/home`
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   // { path: 'callback', component: CallbackComponent },
+
+  { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
   
-  { path: 'users', component: UserListComponent }
+  { path: 'admin',
+    component: UserListComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'users',
+        component: UserListComponent,
+        canActivate: [AdminRoleGuard],
+        data: {
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Users'
+        }
+      }
+    ]
+  }
 ];
