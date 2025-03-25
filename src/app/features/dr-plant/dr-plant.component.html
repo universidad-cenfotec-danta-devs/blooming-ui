@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center text-center px-6 md:px-20 bg-[#dae5e4]">
+<div class="flex flex-col items-center text-center px-6 md:px-20 bg-[#dae5e4] pb-[10%]">
   <!-- Main Title -->
   <h1 class="text-8xl md:text-5xl font-semibold text-[#5C684B] mt-8">
     Dr. Plant
@@ -16,16 +16,16 @@
   </p>
 
   <!-- Action Buttons and Upload Section -->
-  <div class="flex justify-between items-start w-full max-w-4xl mt-8 relative">
+  <div class="flex justify-between items-start w-full max-w-4xl mt-8 relative justify-center">
     <!-- Left Image -->
     <div class="absolute left-0 top-70">
       <img src="../../../assets/images/dr-plant-1.png" alt="Left Plant" class="w-60 md:w-56">
     </div>
 
     <!-- Center Column with Buttons and Upload -->
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center justify-center">
       <!-- Action Buttons -->
-      <div class="mt-6 flex space-x-2">
+      <div class="mt-6 flex space-x-2  justify-center">
         <button (click)="setSelectedAction('identify')" class="bg-[#DCE6D3] text-[#5C684B] px-4 py-2 rounded-md shadow-md transition">
           Identify Plant
         </button>
@@ -49,10 +49,10 @@
         <div *ngIf="selectedAction === 'diagnosis'">
           <p class="text-[#5C684B]">
             {{ diseaseDataList.length > 0 
-                ? 'Selecciona la enfermedad más probable para obtener más detalles.' 
+                ? 'Select the most probable disease for more details.' 
                 : (uploadedImages['diagnosis'] 
-                      ? 'Diagnostica tu planta para ver las enfermedades sugeridas.' 
-                      : 'Sube imagen de tu planta para diagnosticar.') }}
+                      ? 'Diagnose your plant to see suggested diseases.' 
+                      : 'Upload an image of your plant for diagnosis.') }}
           </p>
         </div>
         <div *ngIf="selectedAction === 'drplant'">
@@ -98,13 +98,12 @@
     ></app-info-card>
   </div>
 
-  <!-- Diagnosis Mode: Display Disease Cards -->
+  <!-- Diagnosis Mode: Display Disease Cards using the Carousel -->
   <div *ngIf="diseaseDataList.length > 0 && selectedAction === 'diagnosis'" class="grid grid-cols-1 gap-6 mt-8 max-w-4xl bg-[#dae5e4]">
-    <app-disease-card
-      *ngFor="let disease of diseaseDataList"
-      [disease]="disease"
-      (buttonClick)="confirmDisease(disease)"
-    ></app-disease-card>
+    <app-card-carousel 
+      [items]="diseaseDataList" 
+      (confirmDisease)="confirmDisease($event)">
+    </app-card-carousel>
   </div>
 
   <!-- Chat Mode -->
