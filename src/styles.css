@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import 'ngx-toastr/toastr';
+@import "ngx-toastr/toastr";
 
 :root {
     --header-bg: #DCE6D3;  
@@ -9,7 +9,7 @@
     --green-line: #B5C99A;
     --back-ground: #d4e0de;
     --plant-card-background: #e7efec;
-    --button-color: #8aa497;
+    --button-color: #8aa497
 }
 
 /* Prevent horizontal scrolling on the whole document */
@@ -60,7 +60,6 @@ button {
   border: none;
   cursor: not-allowed; /* Indicates disabled state */
   opacity: 0.7; 
-  opacity: 0.7;
 }
 
 

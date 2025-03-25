@@ -4,56 +4,67 @@ import { SHARED_IMPORTS } from '../../shared/shared.module';
 import { DrPlantaChatComponent } from '../dr-plant-chat/dr-plant-chat.component';
 import { PlantService } from '../../services/plant.service';
 import { PlantResponse } from '../../interfaces/plantResponse.interface';
+import { Disease } from '../../models/disease.model';
+import { DiseaseCardComponent } from "../../shared/components/disease-card/disease.component";
 
 @Component({
   selector: 'app-dr-planta',
-  imports: [SHARED_IMPORTS, DrPlantaChatComponent],
+  imports: [SHARED_IMPORTS, DrPlantaChatComponent, DiseaseCardComponent],
   templateUrl: './dr-plant.component.html',
   styleUrls: ['./dr-plant.component.css']
 })
 export class DrPlantComponent {
+  // Loading indicator
   isLoading = false;
-  uploadedImageUrl: string | null = null;
-  // Stores the plant id for chat (set after diagnosis)
-  chatPlantId: number | null = null;
+  // Stores the uploaded image URL for each tab (identify and diagnosis)
+  uploadedImages: { [key in 'identify' | 'diagnosis']?: string } = {};
+  // Stores the plant/disease id for chat (set after confirmation)
+  chatPlantId: string | null = null;
 
   /**
-   * Stores the returned plant information or diagnosis.
+   * For identify mode: list of plant responses.
    */
   plantDataList: PlantResponse[] = [];
+  /**
+   * For diagnosis mode: list of disease suggestions.
+   */
+  diseaseDataList: Disease[] = [];
 
   /**
-   * selectedAction can be one of:
-   *  - 'identify': Identify a plant
-   *  - 'diagnosis': Diagnose a plant
-   *  - 'drplant': Ask Dr. Plant (activates the chat)
+   * Current action/tab:
+   * - 'identify': Identify a plant
+   * - 'diagnosis': Diagnose a plant
+   * - 'drplant': Chat with Dr. Plant
    */
   selectedAction: 'identify' | 'diagnosis' | 'drplant' | null = null;
 
   /**
-   * Used to display an error message if the file is invalid or if the request fails.
+   * Holds any error messages to be displayed.
    */
   errorMessage = '';
 
-  constructor(private drPlantService: DrPlantService , private plantService : PlantService) {}
+  constructor(
+    private drPlantService: DrPlantService,
+    private plantService: PlantService
+  ) {}
 
   /**
-   * Sets the selected action and resets previous data and errors.
-   * When switching to non-chat modes, also clears the chatPlantId.
+   * Sets the selected action (tab) and resets error messages.
+   * We no longer clear plant/disease data so that if a user returns
+   * to a tab, the previous results remain.
+   *
+   * @param action The selected action ('identify', 'diagnosis', or 'drplant').
    */
   setSelectedAction(action: 'identify' | 'diagnosis' | 'drplant'): void {
     this.selectedAction = action;
     this.errorMessage = '';
-    this.uploadedImageUrl = null;
-    if (action !== 'drplant') {
-      this.plantDataList = [];
-      this.chatPlantId = null;
-    }
   }
 
   /**
-   * Triggered when the user selects an image file.
-   * If the action is 'identify' or 'diagnosis', it sends the file to the backend.
+   * Handles file selection, validates the file, and stores a local preview URL.
+   * Then calls the backend to process the image.
+   *
+   * @param event The file input change event.
    */
   onFileSelected(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
@@ -61,42 +72,64 @@ export class DrPlantComponent {
 
     const imageFile = fileInput.files[0];
 
-    // Basic validation: check if the file is an image.
+    // Validate file type
     if (!imageFile.type.startsWith('image/')) {
       this.errorMessage = 'The selected file is not a valid image (e.g., .jpg, .png).';
       return;
     }
 
-    // Clear any previous error.
     this.errorMessage = '';
-
-    // Create a local URL to display the image immediately.
-    this.uploadedImageUrl = URL.createObjectURL(imageFile);
-
-    // If the user chose "Identify" or "Diagnosis", call the backend.
+    const localUrl = URL.createObjectURL(imageFile);
     if (this.selectedAction === 'identify' || this.selectedAction === 'diagnosis') {
+      this.uploadedImages[this.selectedAction] = localUrl;
       this.identifyOrDiagnose(imageFile);
     }
   }
 
   /**
    * Sends the image to the backend using DrPlantService.
-   * The service is passed a parameter indicating whether the request is for "identify" or "diagnosis"
-   * so it can use the correct endpoint.
+   * Maps the API response to either PlantResponse (identify mode) or Disease (diagnosis mode).
+   *
+   * @param imageFile The image file to process.
    */
   private identifyOrDiagnose(imageFile: File): void {
     this.isLoading = true;
-
-    // Create FormData and append the image.
     const formData = new FormData();
     formData.append('img', imageFile);
 
-    // Call the service with the action type.
     this.drPlantService.identifyPlant(formData, this.selectedAction as 'identify' | 'diagnosis')
       .subscribe({
-        next: (response) => {
-          // Store the returned data.
-          this.plantDataList = response;
+        next: (response: any) => {
+          console.log('Backend response:', response);
+          if (this.selectedAction === 'identify') {
+            const plants: PlantResponse[] = response.data.map((plant: any) => ({
+              tokenPlant: plant.idAccessToken,
+              plantId: plant.plantId, // Map the plantId from the API response
+              name: plant.name,
+              description: plant.description || '',
+              probabilityPercentage: plant.probabilityPercentage || '0%',
+              imageUrl: plant.imageUrl,
+              imageUrlSmall: plant.imageUrlSmall,
+              similarityPercentage: plant.similarityPercentage
+            }));
+            const sortedPlants = plants.sort((a, b) => {
+              const probA = parseInt((a.probabilityPercentage || '0%').replace('%', ''));
+              const probB = parseInt((b.probabilityPercentage || '0%').replace('%', ''));
+              return probB - probA;
+            });
+            this.plantDataList = sortedPlants.slice(0, 2);
+          } else if (this.selectedAction === 'diagnosis') {
+            console.log(response )
+            let diseases: any[] = [];
+            response.data.forEach((item: any) => {
+              if (item.diseaseSuggestions) {
+                diseases = diseases.concat(item.diseaseSuggestions);
+              }
+            });
+            diseases.sort((a, b) => b.probability - a.probability);
+            this.diseaseDataList = diseases;
+            console.log(this.diseaseDataList)
+          }
           this.isLoading = false;
         },
         error: (err) => {
@@ -108,44 +141,47 @@ export class DrPlantComponent {
   }
 
   /**
- * Called when the user clicks the Confirm button in an InfoCard.
- * Sends the plant name and token to the backend and, on success,
- * displays a confirmation message and switches to chat mode with the saved plant id.
- */
-confirmPlant(plant: PlantResponse): void {
-  // Verify that the necessary data is available.
-  if (!plant.tokenPlant || !plant.name) {
-    this.errorMessage = 'Missing plant token or name.';
-    return;
+   * Called when the user clicks Confirm on a plant card.
+   * Sends the plant token and name to the backend to save the plant.
+   *
+   * @param plant The PlantResponse selected.
+   */
+  confirmPlant(plant: PlantResponse): void {
+    if (!plant.tokenPlant || !plant.name) {
+      this.errorMessage = 'Missing plant token or name.';
+      return;
+    }
+    this.plantService.savePlantByUser(plant.tokenPlant, plant.name)
+      .subscribe({
+        next: (savedPlant) => {
+          alert('Plant saved successfully!');
+          this.chatPlantId = savedPlant.tokenPlant;
+          this.goToChat();
+        },
+        error: (err) => {
+          console.error('Error saving plant:', err);
+          this.errorMessage = 'Error saving plant information.';
+        }
+      });
   }
-  // Call the backend service to save the plant for the current user.
-  this.plantService.savePlantByUser(plant.tokenPlant, plant.name)
-    .subscribe({
-      next: (savedPlant) => {
-        // Show a confirmation message to the user.
-        alert('Plant saved successfully!');
-        // Set the chatPlantId to the saved plant's id.
-        this.chatPlantId = savedPlant.id;
-        // Redirect to chat mode by calling goToChat().
-        this.goToChat();
-      },
-      error: (err) => {
-        console.error('Error saving plant:', err);
-        this.errorMessage = 'Error saving plant information.';
-      }
-    });
-}
-
 
   /**
-   * Activates the 'drplant' mode.
-   * If the current action is 'diagnosis' and a plant was identified,
-   * the first plant's id is stored for use in the chat.
-   * This hides the file upload UI and shows the chat component.
+   * Called when the user clicks Confirm on a disease card.
+   * In this simplified flow, it only opens chat using the disease id.
+   *
+   * @param disease The Disease selected.
+   */
+  confirmDisease(disease: Disease): void {
+    this.chatPlantId = disease.id;
+    this.goToChat();
+  }
+
+  /**
+   * Switches to chat mode. In diagnosis mode, uses the first disease's id.
    */
   goToChat(): void {
-    if (this.selectedAction === 'diagnosis' && this.plantDataList.length > 0 && this.plantDataList[0].id) {
-      this.chatPlantId = this.plantDataList[0].id;
+    if (this.selectedAction === 'diagnosis' && this.diseaseDataList.length > 0) {
+      this.chatPlantId = this.diseaseDataList[0].id;
     }
     this.setSelectedAction('drplant');
   }

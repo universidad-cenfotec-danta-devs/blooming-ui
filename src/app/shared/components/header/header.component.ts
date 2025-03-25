@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [CommonModule, LanguageSelectorComponent, TranslateModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
+  encapsulation: ViewEncapsulation.Emulated  
 })
 export class HeaderComponent {
   /** Controls the visibility of the dropdown menu. */

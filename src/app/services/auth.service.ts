@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../enviroments/enviroment.development';
@@ -24,7 +24,7 @@ export class AuthService {
 
   // URL of the backend authentication API
   private BACKEND_URL = `${environment.apiUrl}/api/users`;
-  private BACKEND_URL2 = `${environment.apiUrl2}/api/users`
+
   // Google Client ID from the environment configuration
   GOOGLE_CLIENT_ID = environment.googleClientId;
 
@@ -51,6 +51,8 @@ export class AuthService {
    */
   private saveSessionData(): void {
     if (this.user) localStorage.setItem('auth_user', JSON.stringify(this.user));
+    console.log(this.user)
+    console.log(this.accessToken)
     if (this.accessToken)
       localStorage.setItem('access_token', JSON.stringify(this.accessToken));
     if (this.expiresIn)
@@ -86,6 +88,7 @@ export class AuthService {
    * @returns The access token string if available, otherwise null.
    */
   public getAccessToken(): string | null {
+    console.log('this acesss tokenasdadasda123123', this.accessToken)
     return this.accessToken;
   }
 
@@ -132,18 +135,18 @@ export class AuthService {
     action: 'login' | 'register'
   ): Observable<{ success: boolean; token: string }> {
     return this.http.post<{ success: boolean; token: string }>(
-      `${this.BACKEND_URL}/logInWithGoogle`,
-      { token: googleToken, action }
+      `${this.BACKEND_URL}/logInWithGoogle/${googleToken}`,
+      null
     );
   }
-
+  
   /**
    * Logs in a user using email and password credentials.
    * @param credentials - Object containing email and password.
    * @returns An Observable with the login response.
    */
   public login(credentials: { email: string; password: string }): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(`${this.BACKEND_URL2}/logIn`, credentials).pipe(
+    return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/logIn`, credentials).pipe(
       tap(response => {
         // Store token, user details, and expiration time
         this.accessToken = response.token;
@@ -160,7 +163,7 @@ export class AuthService {
    * @returns An Observable with the registration response.
    */
   public register(data: any): Observable<ILoginResponse> {
-    return this.http.post<ILoginResponse>(`${this.BACKEND_URL2}/signup`, data);
+    return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/signup`, data);
   }
 
   /**
@@ -187,6 +190,12 @@ export class AuthService {
    * @returns True if an access token exists, otherwise false.
    */
   public check(): boolean {
-    return !!this.accessToken;
+    console.log(";;;;;;;;;;;;",this.accessToken)
+    if (!this.accessToken){
+      return false;
+    } else {
+      return true;
+    }
   }
+
 }

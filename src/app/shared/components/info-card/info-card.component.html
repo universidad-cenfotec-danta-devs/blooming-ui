@@ -1,5 +1,9 @@
-<!-- info-card.component.html -->
-<div class="bg-[#B5C99A] rounded-xl shadow p-6 flex flex-col relative text-[#FCFFF8] border-2 border-white h-[220px] overflow-hidden">
+<div class="bg-[#B5C99A] rounded-xl shadow p-4 flex flex-col relative text-[#FCFFF8] border-2 border-white h-fit w-fit overflow-hidden">
+  <!-- Optionally display the image if imageUrl is provided -->
+  <div *ngIf="imageUrl" class="mb-2">
+    <img [src]="imageUrl" alt="{{ title }}" class="w-full h-auto rounded">
+  </div>
+
   <!-- Card Title -->
   <h3 class="text-xl font-semibold mb-2 text-left">
     {{ title }}

@@ -1,53 +1,37 @@
-import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  Router,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree
-} from '@angular/router';
-import { Observable } from 'rxjs';
+/*import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 /**
- * NoAuthGuard prevents access to certain routes (e.g., login or registration)
- * if the user is already authenticated (i.e. a token exists in localStorage).
+ * NoAuthGuard
  *
- * When a token is found, it navigates the user to a default authenticated route (e.g., '/home')
- * and returns false to block access to the guarded route.
+ * This guard prevents authenticated users from accessing certain routes.
+ * It checks the authentication status only when running in a browser environment.
+ *
+ * - If in the browser and the user is not authenticated, the route is activated.
+ * - If in the browser and the user is authenticated, the user is redirected to `/home`.
+ * - When running on the server (e.g., during server-side rendering), the authentication
+ *   check is skipped to avoid potential issues with browser-specific code.
  */
-@Injectable({
-  providedIn: 'root'
-})
-export class NoAuthGuard implements CanActivate {
+/*
+export const NoAuthGuard: CanActivateFn = (route, state) => {
+  const router = inject(Router);
+  const authService = inject(AuthService);
+  const platformId = inject(PLATFORM_ID);
 
-  /**
-   * @param router - Angular Router instance for navigation.
-   */
-  constructor(private router: Router) {}
-
-  /**
-   * Determines if a route can be activated.
-   *
-   * @param route - The activated route snapshot.
-   * @param state - The current router state snapshot.
-   * @returns A boolean, UrlTree, Observable, or Promise that resolves to a boolean or UrlTree.
-   *          Returns false if the user is authenticated, otherwise true.
-   */
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    // Retrieve the authentication token from localStorage.
-    const token = localStorage.getItem('token');
-
-    // If a token exists, the user is considered authenticated.
-    if (token) {
-      // Redirect the user to the home page (or any designated route for authenticated users).
-      this.router.navigate(['/home']);
-      return false; // Block access to the current route.
+if (isPlatformBrowser(platformId)) {
+    // Only run the authentication check on the browser
+    console.log('checking')
+    if (!authService.check()) {
+      return true;
     }
-
-    // If no token exists, allow access to the guarded route (e.g., login).
-    return true;
+    return router.parseUrl('/home');
   }
-}
+
+  // On the server, skip the authentication check and allow route activation
+  return true;
+
+};
+
+*/
