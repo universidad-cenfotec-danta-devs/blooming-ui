@@ -1,0 +1,8 @@
+.primary-btn {
+    background-color: black;
+    color: black;
+}
+
+.card-container {
+    display: flex;
+}

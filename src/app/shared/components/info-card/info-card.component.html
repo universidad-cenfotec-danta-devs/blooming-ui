@@ -1,0 +1,24 @@
+<div class="bg-[#B5C99A] rounded-xl shadow p-4 flex flex-col relative text-[#FCFFF8] border-2 border-white h-fit w-fit overflow-hidden">
+  <!-- Optionally display the image if imageUrl is provided -->
+  <div *ngIf="imageUrl" class="mb-2">
+    <img [src]="imageUrl" alt="{{ title }}" class="w-full h-auto rounded">
+  </div>
+
+  <!-- Card Title -->
+  <h3 class="text-xl font-semibold mb-2 text-left">
+    {{ title }}
+  </h3>
+
+  <!-- Card Description -->
+  <p class="mb-4 text-left">
+    {{ description }}
+  </p>
+
+  <!-- Button -->
+  <button
+    class="mt-auto self-start bg-[#B5C99A] text-white py-2 px-4 rounded-md border border-white cursor-pointer w-fit-content text-left"
+    (click)="onButtonClick()"
+  >
+    {{ buttonLabel }}
+  </button>
+</div>

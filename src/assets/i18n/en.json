@@ -1,0 +1,173 @@
+{
+  "CAROUSEL": {
+    "HEADING": "The top five plants"
+  },
+  "FOOTER": {
+    "ABOUT": "More info",
+    "ABOUT_US": "About us",
+    "BLOG": "Blog",
+    "BRAND": "Blooming",
+    "CONTACT": "Contact",
+    "FOLLOW_US": "Follow us",
+    "HELP": "Help & support",
+    "LEGAL": "Legal",
+    "PRIVACY": "Privacy policy",
+    "RIGHTS": "All rights reserved.",
+    "TERMS": "Terms of service"
+  },
+  "HEADER": {
+    "ADMIN": "Administration",
+    "AUTH": "Authentication / My account",
+    "BLOOMING": "BLOOMING",
+    "CART_ORDERS": "Cart & orders",
+    "DR_PLANTA": "Dr. Planta",
+    "HOME": "Home",
+    "JOIN": "Join Blooming and transform your space",
+    "MACETAS": "Pots",
+    "NURSERIES": "Nurseries",
+    "NOTIFICATIONS": "Notifications",
+    "POTS": "Pots",
+    "PLANT_CARE": "Plant care",
+    "SIGNUP": "Sign up for free",
+    "VIVERO": "Nurseries"
+  },
+  "HEADER_LANDING": {
+"DESCRIPTION": "Discover a curated selection of exquisite plants, custom pots, and local nurseries that transform your space into a vibrant oasis. Learn expert care tips, explore our premium plant collection, design and sell your own pots, and connect with nearby nurseries. With Blooming, you can easily find the perfect plant, customize your garden accessories, and even turn your passion into a business.",
+ "SLOGAN": "Connect with nature and create your perfect design.",
+    "TITLE": "Blooming"
+  },
+  "HOME": {
+    "DESCRIPTION": "Discover the best plants for your home",
+    "START_BUTTON": "Get started now!",
+    "TITLE": "Welcome to our plant shop"
+  },
+  "LOGIN": {
+    "GOOGLE_BUTTON": "Log in with Google",
+    "TITLE": "Log in"
+  },
+  "NAV": {
+    "ABOUT": "About",
+    "CONTACT": "Contact",
+    "HOME": "Home"
+  },
+  "FEATURES_TITLE": "Explore Our Features",
+  "INFO_CARD": {
+    "CARD_1": {
+      "TITLE": "Personalized Pots",
+      "DESCRIPTION": "Enjoy unique pots that fit your style",
+      "BUTTON_LABEL": "Visit"
+    },
+    "CARD_2": {
+      "TITLE": "Nearby Nurseries",
+      "DESCRIPTION": "Find nurseries near you and discover their products",
+      "BUTTON_LABEL": "Visit"
+    },
+    "CARD_3": {
+      "TITLE": "Plants by Region",
+      "DESCRIPTION": "Discover different plants by region",
+      "BUTTON_LABEL": "Visit"
+    }
+  },  
+    "DR_PLANTA_TITLE": "Dr. Plant",
+    "DR_PLANTA_SUBTITLE": "Your intelligent assistant for plant care.",
+    "DR_PLANTA_DESCRIPTION": "Upload a photo or enter your plant's name and receive personalized recommendations for its care. Plus, schedule watering reminders and more directly in your Google Calendar.",
+    "DR_PLANTA_BUTTON": "Consult Now →",
+    "DR_PLANTA_IMAGE_ALT": "Watering plants",
+    "BOTTOM_IMAGE_ALT": "Potted Plants",
+    "PLANT_LEFT_ALT": "Left Plant",
+    "PLANT_RIGHT_ALT": "Right Plant",
+    "PLANT_LIFE": {
+      "TITLE": "Ready to bring life to your plants?",
+      "SUBTITLE": "Register for free and start enjoying all the features we have for you to enhance your experience.",
+      "BUTTON": "Register for Free",
+      "ALREADY_REGISTERED": "You are already registered! Explore our features now."
+    },  "AUTH": {
+      "LEFT_SIDE": {
+        "TITLE": "BLOOMING",
+        "IMAGE_ALT": "Blooming plants",
+        "DESCRIPTION": "Connect with nature and design your ideal space.",
+        "ASKING_INFO": "Please provide your credentials."
+      },
+      "LOGIN": {
+        "TITLE": "Sign In",
+        "EMAIL_LABEL": "Email",
+        "PASSWORD_LABEL": "Password",
+        "BUTTON_TEXT": "Login",
+        "NO_ACCOUNT": "Don't have an account?",
+        "REGISTER_LINK": "Register",
+        "GOOGLE": "Continue with Google",
+        "FORGET_PASSWORD": "Did your forget your password?",
+        "EMAIL_PLACEHOLDER": "Enter your email",
+        "PASSWORD_PLACEHOLDER": "Enter your password"
+      },  "RECOVER": {
+        "TITLE": "Recover Password",
+        "DESCRIPTION": "Enter your email address and we'll send you a link to reset your password.",
+        "EMAIL_LABEL": "Email Address",
+        "EMAIL_PLACEHOLDER": "youremail@example.com",
+        "BUTTON_TEXT": "Send Reset Email",
+        "BACK_TO_LOGIN": "Remembered your password?",
+        "LOGIN_LINK": "Back to login"
+      },
+      "SIGNUP": {
+        "TITLE": "Create Account",
+        "NAME_LABEL": "Name",
+        "NAME_PLACEHOLDER": "Your Name",
+        "EMAIL_LABEL": "Email",
+        "EMAIL_PLACEHOLDER": "name@company.com",
+        "PASSWORD_LABEL": "Password",
+        "PASSWORD_PLACEHOLDER": "••••••••",
+        "AGE_LABEL": "Age",
+        "AGE_PLACEHOLDER": "Your Age",
+        "DOB_LABEL": "Date of Birth",
+        "DOB_PLACEHOLDER": "Select your birth date",
+        "GENDER_LABEL": "Gender",
+        "GENDER_PLACEHOLDER": "Select Gender",
+        "GENDER_MALE": "Male",
+        "GENDER_FEMALE": "Female",
+        "GENDER_OTHER": "Other",
+        "ROLE_LABEL":"Role",
+        "ROLE_PLACEHOLDER":"User",
+        "ROLE_SIMPLE_USER":"Regular user",
+        "ROLE_USER_DESIGNER":"Designer",
+        "ROLE_NURSERY_ADMIN":"Nursery admin",
+        "PHONE_LABEL": "Phone",
+        "PHONE_PLACEHOLDER": "Phone number",
+        "BUTTON_TEXT": "Sign Up",
+        "ALREADY_HAVE_ACCOUNT": "Already have an account?",
+        "LOGIN_LINK": "Sign In",
+        "SUCCESS_MESSAGE": "Your account has been created successfully."
+      },
+      "MODAL": {
+        "TITLE": "Confirmation",
+        "DEFAULT_MESSAGE": "Are you sure?",
+        "CLOSE": "Close",
+        "OK": "OK"
+      },
+      "ALERT": {
+        "INFO": "Information: Please verify your email.",
+        "SUCCESS": "Success: Your profile has been updated.",
+        "ERROR": "Error: Invalid credentials. Please try again."
+      },
+      "VALIDATION": {
+        "EMAIL_REQUIRED": "A valid email is required.",
+        "PASSWORD_REQUIRED": "Password must contain at least 8 characters, one letter, and one number.",
+        "NAME_REQUIRED": "Name is required.",
+        "AGE_REQUIRED": "Age is required.",
+        "DOB_REQUIRED": "Date of birth is required.",
+        "GENDER_REQUIRED": "Gender is required.",
+        "PHONE_REQUIRED": "Phone number is required.",
+        "ROLE_REQUIRED":"Role is required."
+      },
+        "DRPLANT": {
+          "TITLE": "Dr. Planta",
+          "SUBTITLE": "Need help with your plants? Dr. Planta is here for you!",
+          "DESCRIPTION": "Upload a plant photo to identify it and get personalized care recommendations.",
+          "BUTTON_IDENTIFY": "Upload Image",
+          "BUTTON_DIAGNOSIS": "Plant Diagnosis",
+          "PLANT1": {
+            "NAME": "Plant Name",
+            "DESCRIPTION": "This is a plant identified by the system. Here are its care instructions.",
+            "BUTTON_CONFIRM": "Confirm"
+          }
+    }
+    }}

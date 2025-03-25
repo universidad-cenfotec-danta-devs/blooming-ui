@@ -1,0 +1,53 @@
+<div class="relative rounded-xl shadow-md p-3 transition-all duration-700 flex flex-col items-center justify-center overflow-visible bg-[#eaf1ef] 
+  origin-bottom "
+  [ngClass]="{
+    'w-[20rem] h-[21rem]': isActive
+  }"
+  [style.transform]="isActive ? 'translateY(-4.9rem)' : 'translateY(9rem)'">
+
+<div 
+  class="relative w-30 h-30 transition-all duration-700"
+  [ngClass]="{
+    'absolute top-0 pt-[120px] pr-[120px] ': isActive
+  }"
+>
+
+<img
+  [src]="image"
+  alt="{{ name }}"
+  class="
+    absolute bottom-[-20px] left-1/2 transform -translate-x-1/2
+    transition-all duration-700
+    object-contain
+    object-[50%_100%]  
+    w-auto h-[200px]
+  "
+  style="transform-origin: bottom center;"
+  [ngClass]="{
+    'scale-110': !isActive, 
+    'scale-x-[4] scale-y-[4] ': isActive,
+    'bottom-[-150px] left-[-25px]': isActive
+  }"
+/>
+
+
+
+    <!-- Overlay: plant name and buttom"Know more" -->
+    <div class="absolute flex flex-col items-center justify-end p-2 bg-transparent w-[18rem] mb-[20px]" 
+    [ngClass]="{
+      'bottom-0': !isActive,
+    }">
+    <p class="font-semibold text-right text-[#1e2d2f] mr-[150px] drop-shadow-md"
+    [ngClass]="{'text-[xx-large] mr-[215px]': isActive}">
+   {{ name }}
+ </p>
+ 
+      <button
+        *ngIf="isActive"
+        class="text-right  text-md md:text-xl text-[#89aa98] font-bold drop-shadow-md"
+      >
+        Know more →
+      </button>
+    </div>
+  </div>
+</div> 

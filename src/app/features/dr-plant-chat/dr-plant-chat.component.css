@@ -1,0 +1,20 @@
+/* Ensures the chat box scrolls correctly */
+.overflow-y-auto {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  /* Optional scrollbar styling */
+  .overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: #5C684B;
+    border-radius: 6px;
+  }
+  
+  .overflow-y-auto::-webkit-scrollbar-track {
+    background: #DCE6D3;
+  }
+  

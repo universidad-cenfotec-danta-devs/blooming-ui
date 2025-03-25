@@ -1,0 +1,23 @@
+.carousel-outer {
+  position: relative;
+  width: 100%;
+  min-height: 420px; 
+}
+
+.carousel-track {
+  display: flex;
+  /* Total width should accommodate all 6 items horizontally.
+     For example, if each card takes 17% (15% width + 2% margin), then:
+     width = calc(17% * 6) */
+  width: calc(17% * 6);
+}
+
+.card-item {
+  flex: 0 0 15%;
+  margin-right: 2%;
+}
+
+/* Prevent horizontal scrolling on the document */
+html, body {
+  overflow-x: hidden;
+}
