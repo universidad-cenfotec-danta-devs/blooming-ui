@@ -12,10 +12,10 @@ import { Plant } from '../../interfaces/plant.interface';
 })
 export class DrPlantaChatComponent implements OnInit {
   // Add this Input property to allow binding from the parent.
-  @Input() plantId: number | null = null;
+  @Input() plantId: string | null = null;
 
   plantOptions: Plant[] = [];
-  selectedPlantId!: number;
+  selectedPlantId!: string;
   messages: { text: string; sender: 'user' | 'bot' }[] = [];
   userMessage: string = '';
   isLoading = false;
@@ -31,7 +31,7 @@ export class DrPlantaChatComponent implements OnInit {
         this.plantOptions = plants;
         if (plants.length > 0) {
           // If plantId is provided by parent, use it; otherwise default to first.
-          this.selectedPlantId = this.plantId || plants[0].id;
+          this.selectedPlantId = this.plantId || plants[0].tokenPlant;
         }
       },
       error: (err) => {
