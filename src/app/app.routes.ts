@@ -5,6 +5,9 @@ import { PotEditorPageComponent } from './features/pot-editor-page/pot-editor-pa
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
 import { DrPlantComponent } from './features/dr-plant/dr-plant.component';
+import { HomepageComponent } from './features/admin/homepage/homepage.component';
+import { AdminLayoutComponent } from './layouts/adminLayout/admin-layout.component';
+import { NurseriesComponent } from './features/admin/nurseries/nurseries.component';
 
 /**
  * Application Routing Configuration
@@ -41,5 +44,25 @@ export const routes: Routes = [
 
   // Wildcard Route (Redirect to Home)
   // Any unknown routes (for example, `/nonexistent`) will be redirected to `/home`.
-  { path: '**', redirectTo: '/home', pathMatch: 'full' }
+  { path: '**', redirectTo: '/home', pathMatch: 'full' },
+
+//Admin dashboards
+  { path: 'dashboard',
+    component: AdminLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: HomepageComponent
+      },
+      {
+        //Nurseries
+        path: 'nurseries',
+        component: NurseriesComponent,
+      }
+    ],
+  },
+  //Users
+  //Requests
+  //Products
+  //Reports
 ];
