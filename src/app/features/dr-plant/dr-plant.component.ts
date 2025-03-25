@@ -5,13 +5,16 @@ import { DrPlantaChatComponent } from '../dr-plant-chat/dr-plant-chat.component'
 import { PlantService } from '../../services/plant.service';
 import { PlantResponse } from '../../interfaces/plantResponse.interface';
 import { Disease } from '../../models/disease.model';
-import { DiseaseCardComponent } from "../../shared/components/disease-card/disease.component";
+import { CardCarouselComponent } from '../../shared/components/card-carousel/card-carousel';
+import { InfoCardComponent } from '../../shared/components/info-card/info-card.component';
 
 @Component({
   selector: 'app-dr-planta',
-  imports: [SHARED_IMPORTS, DrPlantaChatComponent, DiseaseCardComponent],
+  // Ensure you import all standalone components used in the template
+  imports: [SHARED_IMPORTS, DrPlantaChatComponent, CardCarouselComponent, InfoCardComponent],
   templateUrl: './dr-plant.component.html',
-  styleUrls: ['./dr-plant.component.css']
+  styleUrls: ['./dr-plant.component.css'],
+  standalone: true
 })
 export class DrPlantComponent {
   // Loading indicator
@@ -104,7 +107,7 @@ export class DrPlantComponent {
           if (this.selectedAction === 'identify') {
             const plants: PlantResponse[] = response.data.map((plant: any) => ({
               tokenPlant: plant.idAccessToken,
-              plantId: plant.plantId, // Map the plantId from the API response
+              plantId: plant.plantId,
               name: plant.name,
               description: plant.description || '',
               probabilityPercentage: plant.probabilityPercentage || '0%',
@@ -119,7 +122,7 @@ export class DrPlantComponent {
             });
             this.plantDataList = sortedPlants.slice(0, 2);
           } else if (this.selectedAction === 'diagnosis') {
-            console.log(response )
+            console.log(response);
             let diseases: any[] = [];
             response.data.forEach((item: any) => {
               if (item.diseaseSuggestions) {
@@ -128,7 +131,7 @@ export class DrPlantComponent {
             });
             diseases.sort((a, b) => b.probability - a.probability);
             this.diseaseDataList = diseases;
-            console.log(this.diseaseDataList)
+            console.log(this.diseaseDataList);
           }
           this.isLoading = false;
         },
