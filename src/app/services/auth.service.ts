@@ -51,6 +51,8 @@ export class AuthService {
    */
   private saveSessionData(): void {
     if (this.user) localStorage.setItem('auth_user', JSON.stringify(this.user));
+    console.log(this.user)
+    console.log(this.accessToken)
     if (this.accessToken)
       localStorage.setItem('access_token', JSON.stringify(this.accessToken));
     if (this.expiresIn)
@@ -86,6 +88,7 @@ export class AuthService {
    * @returns The access token string if available, otherwise null.
    */
   public getAccessToken(): string | null {
+    console.log('this acesss tokenasdadasda123123', this.accessToken)
     return this.accessToken;
   }
 
@@ -131,15 +134,12 @@ export class AuthService {
     googleToken: string,
     action: 'login' | 'register'
   ): Observable<{ success: boolean; token: string }> {
-    const body = new HttpParams()
-      .set('token', googleToken);
     return this.http.post<{ success: boolean; token: string }>(
-      `${this.BACKEND_URL}/logInWithGoogle`,
-      body.toString(),
-      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      `${this.BACKEND_URL}/logInWithGoogle/${googleToken}`,
+      null
     );
   }
-
+  
   /**
    * Logs in a user using email and password credentials.
    * @param credentials - Object containing email and password.
@@ -190,6 +190,12 @@ export class AuthService {
    * @returns True if an access token exists, otherwise false.
    */
   public check(): boolean {
-    return !!this.accessToken;
+    console.log(";;;;;;;;;;;;",this.accessToken)
+    if (!this.accessToken){
+      return false;
+    } else {
+      return true;
+    }
   }
+
 }
