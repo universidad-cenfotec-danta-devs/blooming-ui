@@ -1,0 +1,11 @@
+.top-fix {
+    top : calc(var(--spacing)* -30);
+}
+
+.right-fix {
+    right : calc(var(--spacing)* -120);
+}
+
+.left-fix {
+    left : calc(var(--spacing)* -120);
+}

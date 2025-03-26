@@ -27,10 +27,20 @@ export class PlantService {
    * @param plantName - The name of the plant.
    * @returns An Observable that emits the saved Plant data.
    */
-  savePlantByUser(tokenPlant: string, plantName: string): Observable<Plant> {
-    const url = `${this.BACKEND_URL}/saveByUser/${tokenPlant}/${plantName}`;
-    return this.http.post<Plant>(url, {}); // Send an empty body
+  savePlantByUser(tokenPlant: string, plantName: string, img: File): Observable<Plant> {
+    const encodedPlantName = encodeURIComponent(plantName);
+    const url = `${this.BACKEND_URL}/saveByUser/${tokenPlant}/${encodedPlantName}`;
+  
+    const formData = new FormData();
+    formData.append('img', img); // Attach the actual file
+  
+    console.log("Calling API:", url);
+    console.log("Sending file:", img.name);
+  
+    return this.http.post<Plant>(url, formData);
   }
+  
+  
 
   /**
    * Saves a plant by admin.

@@ -11,13 +11,36 @@ import { Plant } from '../../interfaces/plant.interface';
   imports: [SHARED_IMPORTS]
 })
 export class DrPlantaChatComponent implements OnInit {
-  // Add this Input property to allow binding from the parent.
-  @Input() plantId: string | null = null;
+  /**
+   * Input property from the parent component.
+   * This may be null if not provided.
+   */
+  @Input() plantId: number | null = null;
 
+  /**
+   * Array holding the plants fetched for the current user.
+   */
   plantOptions: Plant[] = [];
-  selectedPlantId!: string;
+
+  /**
+   * The plant ID selected for the chat.
+   * This is guaranteed to be a number.
+   */
+  selectedPlantId!: number;
+
+  /**
+   * Array to store chat messages between the user and the bot.
+   */
   messages: { text: string; sender: 'user' | 'bot' }[] = [];
+
+  /**
+   * The current message entered by the user.
+   */
   userMessage: string = '';
+
+  /**
+   * Indicates whether the chat is waiting for a response.
+   */
   isLoading = false;
 
   constructor(
@@ -25,13 +48,23 @@ export class DrPlantaChatComponent implements OnInit {
     private plantService: PlantService
   ) {}
 
+  /**
+   * Lifecycle hook that is called after data-bound properties are initialized.
+   * Fetches the list of plants associated with the current user.
+   * If a plantId is provided by the parent, it uses that value;
+   * otherwise, it defaults to the first plant's idAccessToken.
+   */
   ngOnInit(): void {
     this.plantService.getPlantsByUser().subscribe({
       next: (plants: Plant[]) => {
         this.plantOptions = plants;
         if (plants.length > 0) {
-          // If plantId is provided by parent, use it; otherwise default to first.
-          this.selectedPlantId = this.plantId || plants[0].tokenPlant;
+          // Use the provided plantId if it's not null; otherwise, use the first plant's idAccessToken.
+          if (this.plantId !== null) {
+            this.selectedPlantId = this.plantId;
+          } else {
+            this.selectedPlantId = plants[0].idAccessToken!;
+          }
         }
       },
       error: (err) => {
@@ -40,9 +73,13 @@ export class DrPlantaChatComponent implements OnInit {
     });
   }
 
+  /**
+   * Sends the user's message to the backend and adds both user and bot responses to the chat.
+   */
   sendMessage(): void {
     if (!this.userMessage.trim() || !this.selectedPlantId) return;
 
+    // Add user's message to chat
     this.messages.push({ text: this.userMessage, sender: 'user' });
     this.isLoading = true;
 
@@ -57,6 +94,7 @@ export class DrPlantaChatComponent implements OnInit {
       }
     });
 
+    // Clear the user's input message
     this.userMessage = '';
   }
 }
