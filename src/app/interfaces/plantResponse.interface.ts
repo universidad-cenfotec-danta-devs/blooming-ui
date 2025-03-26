@@ -4,7 +4,7 @@
  */
 export interface PlantResponse {
   tokenPlant: string;             // Maps to API's "idAccessToken"
-  plantId: string;                // Unique plant ID as string
+  plantId: number;                // Unique plant ID as string
   name: string;
   probabilityPercentage: string;  // e.g., "74%"
   similarityPercentage: string;   // e.g., "72%"
