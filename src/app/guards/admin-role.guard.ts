@@ -18,6 +18,7 @@ export class AdminRoleGuard implements CanActivate {
     const hasRole = this.authService.hasRole(IRoleType.admin);
 
     if(!hasRole) {
+      console.log("access denied")
       this.router.navigate(['access-denied']);
       return false;
     }

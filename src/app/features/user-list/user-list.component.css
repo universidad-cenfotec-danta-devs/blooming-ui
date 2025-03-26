@@ -1,0 +1,43 @@
+.table-striped td, .table-striped th {
+    text-align: center;
+    border: 1px solid #DCE6D3;
+    padding: 8px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.table-striped td {
+    color: #5C684B;
+}
+
+.table-striped th {
+    color: #5C684B;
+    font-weight: bold;
+}
+
+.table-users {
+    background-color: #FCFFF8;
+    border-radius: 15px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.edit {
+    cursor: pointer;
+    color: #5C684B;
+    text-decoration: underline;
+}
+
+.delete {
+    cursor: pointer;
+    color: #D11515;
+    text-decoration: underline;
+}
+
+.edit:hover {
+    filter: brightness(65%);
+}
+
+.delete:hover {
+    filter: brightness(65%);
+}

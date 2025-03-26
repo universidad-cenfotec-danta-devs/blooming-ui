@@ -9,6 +9,8 @@ import { UserListComponent } from './features/user-list/user-list.component';
 import { AdminRoleGuard } from './guards/admin-role.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { IRoleType } from './interfaces/roleType.interfaces';
+import { AdminLayoutComponent } from './features/admin-layout-component/admin-layout-component';
+import { UsersComponent } from './features/users/users.component';
 
 /**
  * Application Routing Configuration
@@ -45,18 +47,18 @@ export const routes: Routes = [
 
   // Wildcard Route (Redirect to Home)
   // Any unknown routes (for example, `/nonexistent`) will be redirected to `/home`.
-  { path: '**', redirectTo: '/home', pathMatch: 'full' },
+  // { path: '**', redirectTo: '/home', pathMatch: 'full' },
   // { path: 'callback', component: CallbackComponent },
 
   { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
   
   { path: 'admin',
-    component: UserListComponent,
+    component: AdminLayoutComponent,
     canActivate: [AuthGuard],
     children: [
       {
         path: 'users',
-        component: UserListComponent,
+        component: UsersComponent,
         canActivate: [AdminRoleGuard],
         data: {
           authorities: [

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../enviroments/enviroment.development';
 import { ILoginResponse, IUser } from '../interfaces/auth.interfaces';
+import { IRoleType } from '../interfaces/roleType.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -200,5 +201,9 @@ export class AuthService {
 
   public hasRole(role: string): boolean {
     return this.user.authorities ?  this.user?.authorities.some(authority => authority.authority == role) : false;
+  }
+
+  public isAdmin(): boolean {
+    return this.user.authorities ? this.user?.authorities.some(authority => authority.authority == IRoleType.admin) : false;
   }
 }

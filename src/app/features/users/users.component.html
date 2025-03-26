@@ -1,0 +1,19 @@
+@defer {
+    <div class="usuarios-container">
+        <h1 class="text-blooming title"><strong>Users</strong></h1>
+        <br>
+        <p class="text-blooming">In this section, you can see the list of the registered users in the platform. Explore their profiles, check their activities and manage their roles and permissions.</p>
+        <br>
+        <app-user-list
+            
+            [users]="usersService.users$()"
+        />
+        @if(usersService.users$().length) {
+            <app-pagination
+                [service]="usersService"
+            />
+        }
+    </div>
+} @loading (minimum 1.5s) {
+    
+}
