@@ -1,10 +1,11 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
 //import { NoAuthGuard } from './guards/no-auth.guard';
-import { PotEditorPageComponent } from './features/pot-editor-page/pot-editor-page.component';
-import { HomeComponent } from './features/home/home.component';
-import { LoginComponent } from './features/login/login.component';
-import { DrPlantComponent } from './features/dr-plant/dr-plant.component';
+import {PotEditorPageComponent} from './features/pot-editor-page/pot-editor-page.component';
+import {HomeComponent} from './features/home/home.component';
+import {LoginComponent} from './features/login/login.component';
+import {DrPlantComponent} from './features/dr-plant/dr-plant.component';
+import {FloraByZoneComponent} from './features/flora-by-zone/flora-by-zone.component';
 
 /**
  * Application Routing Configuration
@@ -22,6 +23,8 @@ export const routes: Routes = [
   // Home Page Route
   // When the user navigates to `/home`, Angular renders the HomeComponent.
   { path: 'home', component: HomeComponent/*, canActivate: [NoAuthGuard]*/ },
+
+  { path: 'flora-by-zone', component: FloraByZoneComponent},
 
   // Login Page Route
   // When the user navigates to `/login`, Angular renders the LoginComponent.
