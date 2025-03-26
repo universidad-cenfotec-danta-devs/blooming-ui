@@ -1,18 +1,17 @@
 <div>
-    <label for="cantonSelect">Seleccione un cantón:</label>
-    <select id="cantonSelect" [(ngModel)]="selectedCanton" (ngModelChange)="onCantonChange()">
-        <option *ngFor="let canton of cantones" [value]="canton.name">
-            {{ canton.name }}
-        </option>
-    </select>
+  <label for="cantonSelect">Seleccione un cantón:</label>
+  <select id="cantonSelect" [(ngModel)]="selectedCanton" (ngModelChange)="onCantonChange()">
+    <option *ngFor="let canton of cantones" [value]="canton.name">
+      {{ canton.name }}
+    </option>
+  </select>
 
-    <div *ngIf="floraResponse">
-        <h3>Flora en {{ selectedCanton }}:</h3>
-        <p>{{ floraResponse }}</p>
-    </div>
+  <div *ngIf="floraResponse">
+    <p>{{ floraResponse }}</p>
+  </div>
 
-    <div class="map-container">
-        <div id="map"></div>
-    </div>
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
 
 </div>

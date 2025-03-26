@@ -21,6 +21,7 @@ export class FloraByZoneComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
+    this.floraResponse = '¡Descubre la flora de todos los cantones del país!';
     this.configMap();
   }
 
@@ -33,11 +34,7 @@ export class FloraByZoneComponent implements OnInit, AfterViewChecked {
   configMap() {
     this.map = L.map('map', {
       center: [10.2736, -84.0739],
-      zoom: 7,
-      dragging: false,
-      scrollWheelZoom: false,
-      doubleClickZoom: false,
-      boxZoom: false
+      zoom: 6.5,
     });
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -55,15 +52,15 @@ export class FloraByZoneComponent implements OnInit, AfterViewChecked {
         shadowAnchor: [12, 41]
       })
     }).addTo(this.map);
-    this.marker.bindPopup(`<b>Explora la flora de Costa Rica!</b><br>`).openPopup();
+    this.marker.bindPopup(`<b>¡Pura vida!</b><br>`).openPopup();
 
   }
 
   getFlora() {
     if (!this.selectedCanton) return;
-    this.floraResponse = '';
+    this.floraResponse = '¡Descubre la flora de todos los cantones del país!';
     this.floraService.getFloraByCanton(this.selectedCanton).subscribe(response => {
-      this.floraResponse = response;
+      this.floraResponse = 'Flora: ' + response;
     });
   }
 
