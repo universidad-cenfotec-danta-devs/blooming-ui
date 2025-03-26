@@ -15,6 +15,34 @@
     "RIGHTS": "Todos los derechos reservados.",
     "TERMS": "Términos de servicio"
   },
+    "DR_PLANT": {
+      "TITLE": "Dr. Plant",
+      "SUBTITLE": "¿Necesitas ayuda con tus plantas? ¡Dr. Plant está aquí para ti!",
+      "DESCRIPTION": "Con nuestra herramienta, puedes identificar tus plantas y recibir recomendaciones de cuidado personalizadas. Simplemente sube una foto o ingresa el nombre de tu planta, y te diremos todo lo que necesitas saber: cuándo regarla, cuánta luz necesita y más. También puedes establecer recordatorios para que nunca olvides cuidar tus plantas.",
+      "BUTTON_IDENTIFY": "Identificar Planta",
+      "BUTTON_DIAGNOSIS": "Diagnóstico de Planta",
+      "BUTTON_CHAT": "Preguntar a Dr. Plant",
+      "IDENTIFY_HINT": "Sube una foto de la planta para identificarla y obtener recomendaciones.",
+      "IDENTIFY_HINT_UPLOADED": "Elige una de las 2 opciones para guardar esa planta entre tus plantas.",
+      "DIAGNOSIS_HINT": "Sube una imagen de tu planta para diagnosticarla.",
+      "DIAGNOSIS_HINT_UPLOADED": "Diagnostica tu planta para ver las enfermedades sugeridas.",
+      "DIAGNOSIS_HINT_RESULTS": "Selecciona la enfermedad más probable para obtener más detalles.",
+      "CHAT_HINT": "Chatea con Dr. Plant para hacer preguntas y recibir más consejos.",
+      "LOADING": "Procesando...",
+      "UPLOAD_IMAGE": "Subir Imagen de Planta",
+      "UPLOAD_ANOTHER": "Subir otra imagen",
+      "LEFT_IMAGE_ALT": "Planta Izquierda",
+      "RIGHT_IMAGE_ALT": "Planta Derecha",
+      "INFOCARD_DESCRIPTION": "Probabilidad: {{probability}}, Similitud: {{similarity}}",
+      "INFOCARD_BUTTON_CONFIRM": "Confirmar"
+    },
+    "CONFIRM_PLANT_SAVE": {
+      "TITLE": "Confirmar Guardado de Planta",
+      "MESSAGE": "¿Estás seguro de que deseas guardar esta planta?",
+      "CONFIRM_BUTTON": "Sí, confirmar",
+      "CANCEL_BUTTON": "No, cancelar"
+    }
+  ,
   "HEADER": {
     "ADMIN": "Administración",
     "AUTH": "Autenticación / Mi cuenta",
@@ -163,5 +191,34 @@
         "DESCRIPTION": "Esta es una planta identificada por el sistema. Aquí están sus instrucciones de cuidado.",
         "BUTTON_CONFIRM": "Confirmar"
       }
+},
+  "POT_EDITOR_PAGE": {
+    "TITLE": "Diseña tu Maceta Personalizada",
+    "LOADING_EDITOR": "Cargando editor 3D...",
+    "UPLOAD_MODEL": "Subir Modelo",
+    "INSTRUCTIONS_MATERIAL": "Selecciona un material para tu maceta.",
+    "INSTRUCTIONS_SIZE": "Selecciona un tamaño (máx. 100).",
+    "INSTRUCTIONS_COLOR": "Selecciona un color para tu maceta.",
+    "INSTRUCTIONS_LINE1": "Selecciona un material, tamaño y color para tu maceta.",
+    "INSTRUCTIONS_LINE2": "Puedes acercar o alejar el modelo 3D con la rueda del mouse o el trackpad.",
+    "INSTRUCTIONS_LINE3": "También puedes subir tus propios modelos 3D en formato GLB haciendo click en el botón 'Subir Modelo'.",
+    "LABEL_MATERIAL": "Material",
+    "SELECT_MATERIAL": "Selecciona Material",
+    "MATERIAL_CERAMIC": "Cerámica",
+    "MATERIAL_PLASTIC": "Plástico",
+    "MATERIAL_METAL": "Metal",
+    "MATERIAL_WOOD": "Madera",
+    "LABEL_SIZE": "Tamaño (ej. diámetro)",
+    "LABEL_COLOR": "Color",
+    "CALCULATE_PRICE": "Calcular Precio",
+    "CONFIRM_CREATION": "Confirmar Creación",
+    "PRICE_LABEL": "Precio"
+  },
+  "MODAL": {
+    "TITLE": "Confirmar Creación de Maceta",
+    "MESSAGE": "¿Estás seguro de que deseas guardar esta maceta?",
+    "CONFIRM_BUTTON": "Sí, guardar",
+    "CANCEL_BUTTON": "No, cancelar"
+  }
 }
-}
+
