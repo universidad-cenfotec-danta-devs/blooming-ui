@@ -1,5 +1,14 @@
 <div class="p-8">
-    <h1 class="text-3xl font-bold mb-6 text-center">Design Your Custom Pot</h1>
-    <app-custom-pot-editor></app-custom-pot-editor>
+  <h1 class="text-3xl font-bold mb-6 text-center">
+    {{ 'POT_EDITOR_PAGE.TITLE' | translate }}
+  </h1>
+  
+  <!-- Instructions Section (centered container, text left-aligned) -->
+  <div class="max-w-4xl mx-auto text-left mb-6 text-lg text-[#5C684B]">
+    <p>{{ 'POT_EDITOR_PAGE.INSTRUCTIONS_LINE1' | translate }}</p>
+    <p>{{ 'POT_EDITOR_PAGE.INSTRUCTIONS_LINE2' | translate }}</p>
+    <p>{{ 'POT_EDITOR_PAGE.INSTRUCTIONS_LINE3' | translate }}</p>
   </div>
   
+  <app-custom-pot-editor></app-custom-pot-editor>
+</div>

@@ -15,8 +15,8 @@
   <div class="mt-4">
     <label class="text-[#5C684B] mr-2">Select Plant:</label>
     <select [(ngModel)]="selectedPlantId" class="px-2 py-1 border rounded">
-      <option *ngFor="let plant of plantOptions" [value]="plant.tokenPlant">
-        {{ plant.name }} (ID: {{ plant.tokenPlant }})
+      <option *ngFor="let plant of plantOptions" [value]="plant.idAccessToken">
+        {{ plant.name }} (ID: {{ plant.idAccessToken }})
       </option>
     </select>
   </div>
