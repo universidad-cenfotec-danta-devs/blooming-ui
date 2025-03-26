@@ -1,28 +1,24 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
-  Inject,
-  PLATFORM_ID,
-  ChangeDetectorRef
-} from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PotEditorService } from '../../services/pot-editor.service';
 import { CustomPot } from '../../models/custom-pot.model';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ModalComponent } from '../../shared/components/modal/modal.component'; // Adjust import path as needed
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-custom-pot-editor',
   templateUrl: './custom-pot-editor.component.html',
   styleUrls: ['./custom-pot-editor.component.css'],
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, ModalComponent,TranslateModule]
 })
 export class CustomPotEditorComponent implements OnInit, AfterViewInit {
   @ViewChild('editorCanvas') editorCanvas!: ElementRef<HTMLCanvasElement>;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
+  // Reference to the modal component for confirmation
+  @ViewChild('confirmModal') confirmModal!: ModalComponent;
 
   potForm!: FormGroup;
   price?: number;
@@ -30,9 +26,10 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
   editorLoadError: string | null = null;
   isBrowser: boolean;
 
-  // Wizard steps for the form
-  steps = ['Material', 'Size', 'Color', 'Forma'];
+  // Steps for the form (Material, Size, Color)
+  steps = ['Material', 'Size', 'Color'];
   private _currentStepIndex = 0;
+
   get currentStepIndex(): number {
     return this._currentStepIndex;
   }
@@ -40,8 +37,7 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
     return this.steps[this._currentStepIndex];
   }
 
-  // Hardcoded list of available models as fallback.
-  // (Alternatively, load these from a JSON file using HttpClient.)
+  // Hardcoded list of available models
   modelList: string[] = ['pot.glb', 'pot2.glb', 'pot3.glb'];
   selectedModel: string = this.modelList[0];
 
@@ -55,14 +51,14 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // Create form with material, size (min 6, max 100), and color
     this.potForm = this.fb.group({
       material: ['', Validators.required],
-      size: [10, [Validators.required, Validators.min(1)]],
-      color: ['', Validators.required],
-      forma: ['', Validators.required],
+      size: [10, [Validators.required, Validators.min(6), Validators.max(100)]],
+      color: ['', Validators.required]
     });
 
-    // Update 3D model in real time when form values change.
+    // Update 3D model whenever form values change
     this.potForm.valueChanges.subscribe((pot: CustomPot) => {
       if (this.isBrowser) {
         this.potService.update3DModel(pot);
@@ -76,6 +72,9 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Initializes the 3D editor and loads a default model.
+   */
   loadEditor3D(): void {
     this.loadingEditor = true;
     this.editorLoadError = null;
@@ -83,7 +82,6 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
       next: () => {
         this.loadingEditor = false;
         this.cd.detectChanges();
-        // Update the model using current form values.
         this.potService.update3DModel(this.potForm.value);
       },
       error: (err) => {
@@ -96,18 +94,16 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
     });
   }
 
-  nextStep(): void {
-    if (this._currentStepIndex < this.steps.length - 1) {
-      this._currentStepIndex++;
-    }
+  /**
+   * Sets the current step index when the user clicks on a step circle.
+   */
+  setCurrentStep(index: number): void {
+    this._currentStepIndex = index;
   }
 
-  prevStep(): void {
-    if (this._currentStepIndex > 0) {
-      this._currentStepIndex--;
-    }
-  }
-
+  /**
+   * Calculates the price for the custom pot.
+   */
   calculatePrice(): void {
     if (this.potForm.valid) {
       const pot: CustomPot = this.potForm.value;
@@ -121,19 +117,39 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Called when the user clicks "Confirm Creation".
+   * Opens the confirmation modal instead of immediately logging.
+   */
   onSubmit(): void {
     if (this.potForm.invalid) {
       alert('Please complete all required fields.');
       return;
     }
     this.calculatePrice();
+    this.confirmModal.openModal();
+  }
+
+  /**
+   * Handles the confirmation from the modal.
+   * Logs the form data and price.
+   */
+  handleModalConfirm(): void {
     console.log('Custom pot configuration:', this.potForm.value);
     console.log('Calculated price:', this.price);
     // Additional processing can be added here.
   }
 
   /**
-   * Triggered when the user selects a file.
+   * Handles the modal cancel event.
+   */
+  handleModalCancel(): void {
+    console.log('Action cancelled by user.');
+  }
+
+  /**
+   * Triggered when the user selects a file to upload.
+   * Loads the 3D model from the file.
    */
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -153,7 +169,7 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Loads a model from the hardcoded model list.
+   * Loads the selected model from the dropdown automatically.
    */
   loadSelectedModel(): void {
     if (!this.isBrowser) return;
