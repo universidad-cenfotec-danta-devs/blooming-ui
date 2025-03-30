@@ -24,7 +24,7 @@ export interface IUser {
     googleId?: string;
     createdAt?: Date;
     updatedAt?: Date;
-    isActive?: boolean;
+    active?: boolean;
     role?: {
       name?: string;
     }

@@ -6,7 +6,7 @@ import { IUser } from '../../interfaces/user.interface';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ModalService } from '../../services/modal.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ModalComponent } from '../modal/modal.component';
+import { ModalComponent } from '../detail-modal/detail-modal.component';
 
 @Component({
   selector: 'app-users',
@@ -70,6 +70,6 @@ export class UsersComponent {
   }
 
   closeModal() {
-    this.isModalOpen = true;
+    this.isModalOpen = false;
   }
 }

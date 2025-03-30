@@ -8,4 +8,6 @@ import { SHARED_IMPORTS } from '../../shared.module';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent {}
+export class FooterComponent {
+  
+}

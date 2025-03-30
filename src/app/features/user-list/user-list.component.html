@@ -19,12 +19,12 @@
             <td>{{item.name}}</td>
             <td>{{item.email}}</td>
             <td>{{item.gender}}</td>
-            <td>{{item.isActive ? 'No' : 'Yes'}}</td>
+            <td>{{item.active ? 'Yes' : 'No'}}</td>
             <td>{{item.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
             <td>{{item.updatedAt | date: 'dd/MM/yyyy HH:mm'}}</td>
             <td>
-              <p class="edit" (click)="showDetailModal(item, detailModal)">Editar</p>
-              <p class="delete" (click)="deleteUser(item)">Eliminar</p>
+              <p class="edit" (click)="showDetailModal(item, detailModal)">Edit</p>
+              <p class="delete" (click)="showDeleteModal(item, deleteModal)">Delete</p>
             </td>
           </tr>
         } @empty {
@@ -40,7 +40,106 @@
     </table>
   </div>
 
-<app-modal #detailModal>
-{{selectedItem.id}}
-hoasdlfasdfasdf
+<app-modal #detailModal
+  [title]="'Update User'"
+  (confirm)="updateUser(signUpForm.value, $event)"
+>
+  <div class="flex flex-col space-y-4 text-1xl text-[#5C684B]" [formGroup]="signUpForm">
+    <p class="text-center mb-4">Please enter your details</p>
+    <!-- Name Field -->
+    <div>
+      <label class="block mb-1 text-sm text-gray-600">
+        Name
+      </label>
+      <input type="text" formControlName="name" class="input-field" placeholder="Name" [value]="selectedItem.name">
+      <div *ngIf="signUpForm.get('name')?.touched && signUpForm.get('name')?.invalid" class="text-red-600 text-xs">
+        Name required
+      </div>
+    </div>
+    <!-- Email Field -->
+    <div>
+      <label class="block mb-1 text-sm">
+        Email
+      </label>
+      <input type="email" formControlName="email" class="input-field" placeholder="Email" [value]="selectedItem.email">
+      <div *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.invalid" class="text-red-600 text-xs">
+        Email required
+      </div>
+    </div>
+
+    <!-- Date of Birth Field -->
+    <div>
+      <label class="block mb-1 text-sm">
+        Date of birth
+      </label>
+      <input type="date" formControlName="dateOfBirth" class="input-field">
+      <div *ngIf="signUpForm.get('dateOfBirth')?.touched && signUpForm.get('dateOfBirth')?.invalid" class="text-red-600 text-xs">
+        Date of birth required
+      </div>
+    </div>
+    <!-- Gender Field -->
+    <div>
+      <label class="block mb-1 text-sm">
+        Gender
+      </label>
+      <select formControlName="gender" class="input-field">
+        <option value="" disabled selected hidden>
+          Gender
+        </option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      <div *ngIf="signUpForm.get('gender')?.touched && signUpForm.get('gender')?.invalid" class="text-red-600 text-xs">
+        Gender required
+      </div>
+    </div>
+
+    <!-- Role -->
+    <div>
+      <label class="block mb-1 text-sm">
+        Role
+      </label>
+      <div formGroupName="role">
+        <select formControlName="name" class="input-field">
+          <option value="" disabled selected hidden>
+            Role
+          </option>
+          <option value="SIMPLE_USER">Regular User</option>
+          <option value="DESIGNER_USER">Designer</option>
+          <option value="NURSERY_USER">Nursery admin</option>
+          <option value="ADMIN_USER">Admin</option>
+        </select>
+        <div *ngIf="signUpForm.get('role.name')?.touched && signUpForm.get('role.name')?.invalid" class="text-red-600 text-xs">
+          Role required
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label class="block mb-1 text-sm">
+        Active
+      </label>
+      <select formControlName="active" class="input-field">
+        <option [value]="true">Active</option>
+        <option [value]="false">Not Active</option>
+      </select>
+      <div *ngIf="signUpForm.get('active')?.touched && signUpForm.get('active')?.invalid" class="text-red-600 text-xs">
+        Field required
+      </div>
+    </div>    
+  </div>
+</app-modal>
+
+<app-modal #deleteModal
+  [title]="`Delete User: ${selectedItem.id}`"
+  (confirm)="deleteUser(selectedItem)"
+>
+Are you sure?
+</app-modal>
+
+<app-modal #deleteModalDenied
+  [title]="`Delete User: ${selectedItem.id}`"
+>
+You can't delete yourself.
 </app-modal>

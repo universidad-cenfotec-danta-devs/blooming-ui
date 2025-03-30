@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,10 +17,18 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./header.component.css'],
   encapsulation: ViewEncapsulation.Emulated  
 })
-export class HeaderComponent {
+export class HeaderComponent implements AfterViewInit{
   /** Controls the visibility of the dropdown menu. */
   isDropdownOpen = false;
   private hideTimeout: any;
+  user = localStorage.getItem('auth_user');
+  userRole: string = '';
+
+  ngAfterViewInit(): void {
+    if(this.user) {
+      this.userRole = String(JSON.parse(this.user).role.name);
+    }
+  }
 
   /**
    * @description Shows the dropdown immediately and cancels any pending hide timer.

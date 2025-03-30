@@ -12,6 +12,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { IRoleType } from './interfaces/roleType.interfaces';
 import { AdminLayoutComponent } from './features/admin-layout-component/admin-layout-component';
 import { UsersComponent } from './features/users/users.component';
+import { RoleRequestsComponent } from './features/role-requests/role-requests.component';
+import { AdminLogsComponent } from './features/admin-logs/admin-logs.component';
 
 /**
  * Application Routing Configuration
@@ -54,6 +56,8 @@ export const routes: Routes = [
   // { path: 'callback', component: CallbackComponent },
 
   { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
+
+  { path: 'admin', redirectTo: 'admin/users', pathMatch: 'full' },
   
   { path: 'admin',
     component: AdminLayoutComponent,
@@ -68,6 +72,28 @@ export const routes: Routes = [
             IRoleType.admin
           ],
           name: 'Users'
+        }
+      },
+      {
+        path: 'requests',
+        component: RoleRequestsComponent,
+        canActivate: [AdminRoleGuard],
+        data: {
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Requests'
+        }
+      },
+      {
+        path: 'logs',
+        component: AdminLogsComponent,
+        canActivate: [AdminRoleGuard],
+        data: {
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Logs'
         }
       }
     ]
