@@ -77,7 +77,7 @@
           <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.NOTIFICATIONS' | translate }}
           </a>
-          <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
+          <a *ngIf="userRole == 'ADMIN_USER'" href="/admin/users" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.ADMIN' | translate }}
           </a>
         </div>

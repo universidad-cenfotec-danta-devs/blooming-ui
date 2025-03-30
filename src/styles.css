@@ -72,3 +72,6 @@ button {
   opacity: 0.7; 
 }
 
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: 0 !important;
+}

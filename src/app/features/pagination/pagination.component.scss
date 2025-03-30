@@ -1,0 +1,26 @@
+button:disabled {
+  cursor: default;
+  color: #a39c9c !important;
+}
+  
+.pagination .page-item .page-link{
+  color: var(--general-btn-font-color);
+  font-family: var(--general-btn-font-family);
+}
+  
+.pagination .page-item button:enabled{
+  background-color: var(--active-link-color);
+}
+
+.pagination {
+  border-radius: 10px;
+  display: flex;
+}
+
+.page-item {
+  padding: 10px 10px;
+}
+
+.fa-angles-left, .fa-angle-left, .fa-angles-right, .fa-angle-right{
+  color: #5C684B;
+}
