@@ -22,5 +22,11 @@ export interface IUser {
     gender?: 'male' | 'female' | 'other';
     phone?: string;
     googleId?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    active?: boolean;
+    role?: {
+      name?: string;
+    }
   }
   
