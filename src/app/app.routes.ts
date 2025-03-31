@@ -1,10 +1,19 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
 //import { NoAuthGuard } from './guards/no-auth.guard';
-import { PotEditorPageComponent } from './features/pot-editor-page/pot-editor-page.component';
-import { HomeComponent } from './features/home/home.component';
-import { LoginComponent } from './features/login/login.component';
-import { DrPlantComponent } from './features/dr-plant/dr-plant.component';
+import {PotEditorPageComponent} from './features/pot-editor-page/pot-editor-page.component';
+import {HomeComponent} from './features/home/home.component';
+import {LoginComponent} from './features/login/login.component';
+import {DrPlantComponent} from './features/dr-plant/dr-plant.component';
+import {FloraByZoneComponent} from './features/flora-by-zone/flora-by-zone.component';
+import { UserListComponent } from './features/user-list/user-list.component';
+import { AdminRoleGuard } from './guards/admin-role.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { IRoleType } from './interfaces/roleType.interfaces';
+import { AdminLayoutComponent } from './features/admin-layout-component/admin-layout-component';
+import { UsersComponent } from './features/users/users.component';
+import { RoleRequestsComponent } from './features/role-requests/role-requests.component';
+import { AdminLogsComponent } from './features/admin-logs/admin-logs.component';
 
 /**
  * Application Routing Configuration
@@ -22,6 +31,8 @@ export const routes: Routes = [
   // Home Page Route
   // When the user navigates to `/home`, Angular renders the HomeComponent.
   { path: 'home', component: HomeComponent/*, canActivate: [NoAuthGuard]*/ },
+
+  { path: 'flora-by-zone', component: FloraByZoneComponent},
 
   // Login Page Route
   // When the user navigates to `/login`, Angular renders the LoginComponent.
@@ -41,5 +52,50 @@ export const routes: Routes = [
 
   // Wildcard Route (Redirect to Home)
   // Any unknown routes (for example, `/nonexistent`) will be redirected to `/home`.
-  { path: '**', redirectTo: '/home', pathMatch: 'full' }
+  // { path: '**', redirectTo: '/home', pathMatch: 'full' },
+  // { path: 'callback', component: CallbackComponent },
+
+  { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
+
+  { path: 'admin', redirectTo: 'admin/users', pathMatch: 'full' },
+  
+  { path: 'admin',
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'users',
+        component: UsersComponent,
+        canActivate: [AdminRoleGuard],
+        data: {
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Users'
+        }
+      },
+      {
+        path: 'requests',
+        component: RoleRequestsComponent,
+        canActivate: [AdminRoleGuard],
+        data: {
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Requests'
+        }
+      },
+      {
+        path: 'logs',
+        component: AdminLogsComponent,
+        canActivate: [AdminRoleGuard],
+        data: {
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Logs'
+        }
+      }
+    ]
+  }
 ];

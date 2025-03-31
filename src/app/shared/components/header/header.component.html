@@ -12,7 +12,7 @@
     <nav class="flex-1 hidden md:flex justify-center space-x-6 text-[25px] font-semibold motion-safe:animate-fade-down">
       <a href="/home" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.HOME' | translate }}</a>
       <a href="/dr-plant" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.DR_PLANTA' | translate }}</a>
-      <a href="#" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.MACETAS' | translate }}</a>
+      <a href="/pot-editor" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.MACETAS' | translate }}</a>
       <a href="#" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.VIVERO' | translate }}</a>
     </nav>
 
@@ -77,7 +77,7 @@
           <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.NOTIFICATIONS' | translate }}
           </a>
-          <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
+          <a *ngIf="userRole == 'ADMIN_USER'" href="/admin/users" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.ADMIN' | translate }}
           </a>
         </div>

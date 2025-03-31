@@ -92,12 +92,11 @@ export class PotEditorService {
         this.potModelGroup = new THREE.Group();
         this.scene.add(this.potModelGroup);
 
-
         // Signal that the scene is ready.
         observer.next(true);
         observer.complete();
 
- 
+        // Load the default pot model ("pot.glb") after initialization.
         this.loadModel('assets/models/pot.glb').subscribe({
           next: () => {
             this.controls.target.set(0, 0, 0);
@@ -111,8 +110,7 @@ export class PotEditorService {
             observer.error(new Error('Failed to load default 3D model'));
           }
         });
-     
-
+        
         // Run the render loop outside Angular's zone.
         this.ngZone.runOutsideAngular(() => {
           const animate = () => {
@@ -129,10 +127,35 @@ export class PotEditorService {
     });
   }
 
+  /**
+   * Standardizes the size of a loaded model.
+   * Calculates the bounding box of the model, determines the maximum dimension,
+   * computes a uniform scale factor so that the model's maximum dimension equals desiredSize,
+   * applies that scale, and centers the model.
+   * @param model The loaded THREE.Object3D model.
+   * @param desiredSize The target maximum dimension (in scene units) for the model.
+   */
+  private standardizeModelSize(model: THREE.Object3D, desiredSize: number): void {
+    // Calculate the bounding box of the model.
+    const box = new THREE.Box3().setFromObject(model);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const maxDimension = Math.max(size.x, size.y, size.z);
+
+    // Calculate the uniform scale factor.
+    const scaleFactor = desiredSize / maxDimension;
+    model.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
+    // Optionally center the model by subtracting the center from its position.
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+    model.position.sub(center);
+
+    console.log('[PotEditorService] Model standardized with scale factor:', scaleFactor);
+  }
 
   /**
-   * Loads a GLB model from a given path, centers it, and scales it uniformly to (100,100,100),
-   * replacing the current scene content.
+   * Loads a GLB model from a given path, centers it, and scales it uniformly to the desired size.
    * @param modelPath The path to the GLB file.
    * @returns Observable that emits true if the model loads successfully.
    */
@@ -140,6 +163,7 @@ export class PotEditorService {
     return new Observable(observer => {
       try {
         console.log(`[PotEditorService] Loading model from: ${modelPath}`);
+        // Clear previous models.
         while (this.potModelGroup.children.length > 0) {
           this.potModelGroup.remove(this.potModelGroup.children[0]);
         }
@@ -157,11 +181,11 @@ export class PotEditorService {
             console.log('[PotEditorService] Model center before adjustment:', center);
             model.position.sub(center);
 
-            // Scale uniformly to fixed on-screen size.
-            model.scale.set(100, 100, 100);
-            console.log('[PotEditorService] Model scaled to:', model.scale);
+            // Instead of a fixed scale, standardize the model's size.
+            // For example, we want the largest dimension to be 100 units.
+            this.standardizeModelSize(model, 100);
 
-            // Apply default material.
+            // Apply default material to all meshes.
             model.traverse((child) => {
               if ((child as THREE.Mesh).isMesh) {
                 const mesh = child as THREE.Mesh;
@@ -201,6 +225,8 @@ export class PotEditorService {
   /**
    * Loads a GLB model from a File object (user upload), centers it, scales it uniformly,
    * and replaces the current model.
+   * @param file The user-uploaded file.
+   * @returns Observable that emits true if the model loads successfully.
    */
   loadModelFromFile(file: File): Observable<boolean> {
     return new Observable(observer => {
@@ -225,9 +251,10 @@ export class PotEditorService {
             box.getCenter(center);
             model.position.sub(center);
 
-            // Scale to fixed size.
-            model.scale.set(100, 100, 100);
+            // Standardize the model size (e.g., maximum dimension = 100 units).
+            this.standardizeModelSize(model, 100);
 
+            // Apply default material to each mesh.
             model.traverse((child) => {
               if ((child as THREE.Mesh).isMesh) {
                 const mesh = child as THREE.Mesh;
@@ -239,6 +266,7 @@ export class PotEditorService {
               }
             });
 
+            // Clear any previous models and add the new one.
             while (this.potModelGroup.children.length > 0) {
               this.potModelGroup.remove(this.potModelGroup.children[0]);
             }
@@ -265,6 +293,7 @@ export class PotEditorService {
    * Updates the 3D model's material properties (color, metalness, roughness)
    * based on the custom pot configuration.
    * The "size" field is used only for real-world reference.
+   * @param pot The custom pot configuration.
    */
   update3DModel(pot: CustomPot): void {
     if (!this.potModelGroup) return;
@@ -284,6 +313,11 @@ export class PotEditorService {
     console.log('[PotEditorService] 3D model updated with configuration (material/color). Real-world size is for reference only.');
   }
 
+  /**
+   * Applies material changes to a mesh based on the custom pot configuration.
+   * @param material The mesh's physical material.
+   * @param pot The custom pot configuration.
+   */
   private applyMaterialChanges(material: THREE.MeshPhysicalMaterial, pot: CustomPot): void {
     material.color.set(pot.color || '#0077ff');
     material.metalness = 0.0;
@@ -311,8 +345,10 @@ export class PotEditorService {
   }
 
   /**
-   * Calculates the price for the custom pot based on its material only.
-   * Real-world size is for reference only.
+   * Calculates the price for the custom pot based on its material.
+   * The real-world size is provided only as a reference.
+   * @param pot The custom pot configuration.
+   * @returns Observable<number> with the calculated price.
    */
   calculatePrice(pot: CustomPot): Observable<number> {
     return new Observable(observer => {

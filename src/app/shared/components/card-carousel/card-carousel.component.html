@@ -1,6 +1,6 @@
 <div id="carousel" class="relative w-full">
   <!-- Carousel Wrapper -->
-  <div class="relative h-56 overflow-hidden rounded-lg md:h-96 w-fit">
+  <div class="relative h-56 overflow-hidden rounded-lg md:h-96 w-fit h-auto">
     <!-- Only display the card that matches the active index -->
     <div *ngFor="let item of items; let i = index" [hidden]="i !== activeIndex" class="duration-700 ease-in-out h-fit w-fit">
       <app-disease-card 

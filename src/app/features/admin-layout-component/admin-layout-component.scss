@@ -1,0 +1,40 @@
+.drawer-blooming {
+    background-color: #B5C99A;
+}
+
+.drawer-container-blooming {
+    height: 100vh;
+}
+
+.mat-drawer.mat-drawer-side {
+    z-index: 1;
+}
+
+details summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  
+  details summary::before {
+    content: ''; /* Removes the default arrow */
+  }
+  
+  details {
+    padding-left: 25px;
+  }
+  
+  details .content {
+    overflow: hidden;
+    height: 0;
+    transition: height 0.3s ease-out; /* Animate the height change */
+  }
+
+  .admin-list {
+    padding-left: 25px;
+    font-size: 22px;
+  }
+
+  h1 {
+    padding-top: 20px;
+    color: white;
+  }

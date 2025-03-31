@@ -19,7 +19,7 @@ export class BaseService<T> {
   }
 
   public findAllWithParams(params: any = {}): Observable<IResponse<T[]>> {
-    return this.http.get<IResponse<T[]>>(this.source, {params: this.buildUrlParams(params)});
+    return this.http.get<IResponse<T[]>>('http://localhost:8080/' + `${this.source}`, {params: this.buildUrlParams(params)});
   }
 
   public findAllWithParamsAndCustomSource(customUrlSource: string, params: any = {}): Observable<IResponse<T[]>> {
@@ -27,7 +27,7 @@ export class BaseService<T> {
   }
 
   public add(data: {}): Observable<IResponse<T>> {
-    return this.http.post<IResponse<T>>(this.source, data);
+    return this.http.post<IResponse<T>>('http://localhost:8080/' + this.source, data);
   }
 
   public addWithParams(params: any = {}, data: {}): Observable<IResponse<T>> {
@@ -38,12 +38,12 @@ export class BaseService<T> {
     return this.http.post<IResponse<T>>(`${this.source}/${customUrlSource}`, data);
   }
 
-  public edit(id: number | undefined, data: {}): Observable<IResponse<T>> {
-    return this.http.put<IResponse<T>>(this.source + '/' + id, data);
+  public edit(id: string | undefined, data: {}): Observable<IResponse<T>> {
+    return this.http.put<IResponse<T>>('http://localhost:8080/' + `${this.source}` + '/' + id, data);
   }
 
   public editCustomSource(customUrlSource: string, data: {}): Observable<IResponse<T>> {
-    return this.http.put<IResponse<T>>(`${this.source}${customUrlSource ? '/' + customUrlSource: ''}`, data);
+    return this.http.put<IResponse<T>>(`http://localhost:8080${customUrlSource ? '/' + customUrlSource: ''}`, data);
   }
 
   public del(id: any): Observable<IResponse<T>> {
@@ -51,7 +51,7 @@ export class BaseService<T> {
   }
   
   public delCustomSource(customUrlSource: string): Observable<IResponse<T>> {
-    return this.http.delete<IResponse<T>>(`${this.source}/${customUrlSource}`);
+    return this.http.delete<IResponse<T>>(`http://localhost:8080/${customUrlSource}`);
   }
 
   public buildUrlParams (params: any = {}) {
