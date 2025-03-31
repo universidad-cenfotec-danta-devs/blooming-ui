@@ -1,0 +1,18 @@
+<mat-drawer-container class="drawer-container-blooming">
+    <mat-drawer mode="side" opened  class="drawer-blooming">
+        <div class="admin-list">
+            <h1>
+                <a href="/admin/users">Usuarios</a>
+            </h1>
+            <h1>
+                <a href="/admin/requests">Requests</a>
+            </h1>
+            <h1>
+                <a href="/admin/logs">Logs</a>
+            </h1>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
