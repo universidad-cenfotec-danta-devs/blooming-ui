@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-[#dae5e4] flex flex-col">
+<div class="min-h-screen flex flex-col">
   <!-- Header Section as a 3-column grid -->
   <header class="grid grid-cols-3 gap-4 p-8 text-[#5C684B]">
     <!-- Column 1: empty -->
@@ -29,18 +29,20 @@
 
 
 <!-- features-section.component.html -->
-<section class="bg-[#dae5e4] py-8 mt-50">
+<section class="w-full my-50">
   <!-- Container with max-width and horizontal padding -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto">
     <!-- Flex container that stacks on mobile and side-by-side on md+ -->
-    <div class="flex flex-col md:flex-row items-center gap-8">
-      
+    <div class="flex flex-col md:flex-row items-center justify-between">
       <!-- Left side: Title, description, and button -->
-      <div class="md:w-1/2 space-y-4">
+      <div class="md:w-1/3 lg:ml-20 md:ml-10 justify-center">
         <!-- Title -->
-        <h1 class="text-2xl md:text-4xl font-bold text-[#5C684B]">
-          {{ 'DR_PLANTA_TITLE' | translate }}
-        </h1>
+<!--        <h1 class="text-2xl md:text-4xl font-bold text-[#5C684B]">-->
+<!--          {{ 'DR_PLANTA_TITLE' | translate }}-->
+<!--        </h1>-->
+        <svg width="311" height="49" viewBox="0 0 311 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15.576 44.448C14.168 44.448 12.504 44.256 11.16 44H0.472V14.048C0.472 3.04 9.176 0.159996 15.576 0.159996C27.544 0.159996 37.272 10.08 37.272 22.304C37.272 34.528 27.544 44.448 15.576 44.448ZM8.216 4.704C4.952 3.808 4.568 6.56 5.208 8.16C6.744 11.936 14.488 11.552 14.488 19.808V33.888C19.032 38.816 23.704 41.312 26.328 39.712C30.04 37.408 28.184 27.744 22.232 18.208C17.752 11.04 11.864 5.728 8.216 4.704ZM39.847 9.376H41.447C41.447 14.304 44.263 14.752 47.783 14.112C52.007 13.344 53.735 8.928 59.047 8.928C66.535 8.928 66.279 13.536 69.415 13.536C71.527 13.536 72.231 11.744 72.231 9.376H73.895C74.535 20 71.527 23.328 66.087 23.328C57.767 23.328 59.943 12.704 55.975 12.128C54.311 11.872 53.735 13.536 53.735 15.84L53.863 44H39.847V9.376ZM64.9005 36.832C64.9005 32.352 68.2285 29.216 73.1565 29.216C78.0205 29.216 81.3485 32.352 81.3485 36.832C81.3485 41.312 78.0205 44.448 73.1565 44.448C68.2285 44.448 64.9005 41.312 64.9005 36.832ZM115.887 28.064V26.784C122.031 26.784 125.551 18.848 120.239 10.72C117.615 6.752 113.007 3.936 109.615 3.936C105.327 3.936 104.879 6.56 105.519 8.16C107.055 11.936 114.863 11.552 114.863 19.808V44H100.847V14.048C100.847 3.04 109.551 0.159996 115.887 0.159996C127.855 0.159996 136.751 5.472 136.751 12.96C136.751 21.024 129.071 28.064 115.887 28.064ZM138.905 0.607998H140.505C140.505 9.504 152.921 2.592 152.921 10.912V44H138.905V0.607998ZM177.484 8.928C188.492 8.928 194.252 16.288 192.652 26.272C191.819 31.392 191.5 34.976 193.996 37.152C195.66 38.624 197.772 38.176 199.82 36.128L200.78 37.152C196.3 43.104 184.332 48.032 179.34 40.096C178.956 42.528 177.292 44.256 171.916 44.256C160.524 44.256 155.34 40.672 155.34 34.08C155.34 27.424 161.164 23.904 173.132 23.904C175.116 23.904 176.908 23.968 178.572 24.16C180.108 12.576 178.124 9.76 174.092 10.912C169.868 12.128 172.812 23.328 164.492 23.328C159.052 23.328 156.428 20 157.58 9.376H159.244C159.244 11.744 159.948 13.536 162.06 13.536C166.092 13.536 170.124 8.928 177.484 8.928ZM177.676 32.8C177.74 30.624 177.996 28.256 178.38 25.888V25.632C175.052 25.184 171.916 25.248 170.124 26.144C167.628 27.36 167.308 30.944 169.1 35.36C171.404 41.184 174.156 43.04 176.652 41.824C178.188 41.12 177.676 36.704 177.676 32.8ZM198.16 9.376H199.76C199.76 14.56 202.96 14.944 206.672 14.048C210.448 13.152 213.904 8.928 218.832 8.928C229.904 8.928 235.6 16.288 234 26.272C233.232 31.392 232.847 34.976 235.344 37.152C237.008 38.624 239.12 38.176 241.168 36.128L242.128 37.152C237.84 42.784 226.768 47.712 221.328 40.928C218.256 37.024 218.896 31.52 219.728 25.888C221.712 12.768 218.384 10.912 214.608 12.128C212.752 12.704 212.24 14.624 212.176 17.184V44H198.16V9.376ZM253.272 20.64C253.272 28.896 241.816 28.192 241.176 32.288C240.92 34.016 241.624 35.808 244.248 35.808C248.664 35.808 250.264 28.064 256.024 28.064C264.344 28.064 264.856 36.896 263.96 43.936H262.488C262.488 41.12 262.424 39.328 259.544 39.328C256.408 39.328 256.088 44.448 250.456 44.448C245.016 44.448 239.32 41.504 239.32 30.496V10.848H234.84V9.376H239.32C248.28 9.376 251.736 4.768 251.736 0.543999H253.272V9.376H262.808V10.848H253.272V20.64ZM287.359 8.928C298.367 8.928 304.127 16.288 302.527 26.272C301.694 31.392 301.375 34.976 303.871 37.152C305.535 38.624 307.647 38.176 309.695 36.128L310.655 37.152C306.175 43.104 294.207 48.032 289.215 40.096C288.831 42.528 287.167 44.256 281.791 44.256C270.399 44.256 265.215 40.672 265.215 34.08C265.215 27.424 271.039 23.904 283.007 23.904C284.991 23.904 286.783 23.968 288.447 24.16C289.983 12.576 287.999 9.76 283.967 10.912C279.743 12.128 282.687 23.328 274.367 23.328C268.927 23.328 266.303 20 267.455 9.376H269.119C269.119 11.744 269.823 13.536 271.935 13.536C275.967 13.536 279.999 8.928 287.359 8.928ZM287.551 32.8C287.615 30.624 287.871 28.256 288.255 25.888V25.632C284.927 25.184 281.791 25.248 279.999 26.144C277.503 27.36 277.183 30.944 278.975 35.36C281.279 41.184 284.031 43.04 286.527 41.824C288.063 41.12 287.551 36.704 287.551 32.8Z" fill="#5C684B"/>
+        </svg>
         <!-- Subtitle / Description -->
         <h2 class="text-2xl leading-relaxed text-[#5C684B]">
           {{ 'DR_PLANTA_SUBTITLE' | translate }}
@@ -53,13 +55,13 @@
           {{ 'DR_PLANTA_BUTTON' | translate }}
         </button>
       </div>
-      
+
       <!-- Right side: Image -->
-      <div class="md:w-1/2">
+      <div class="w-1/2">
         <img
-          src="../../../assets/images/dr-planta.webp"
+          src="../../../assets/images/dr-planta.png"
           alt="{{ 'DR_PLANTA_IMAGE_ALT' | translate }}"
-          class="w-full h-auto object-cover rounded-md shadow"
+          class="w-full h-auto object-cover shadow"
         />
       </div>
     </div>
@@ -68,7 +70,7 @@
 
 
   <!-- features-section.component.html -->
-<section class="bg-[#dae5e4] py-12 p-10 rounded-xl ">
+<section class="py-12 p-10 rounded-xl ">
   <!-- Container -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#B5C99A]  border-2 rounded-xl border-[#B5C99A] pb-40">
 
@@ -114,23 +116,17 @@
 
 
 <!-- Second Section with Left/Right Plants and Centered Text -->
-<section class="relative w-full bg-[#dae5e4] py-16 p-30">
+<section class="flex items-center w-full py-16">
+
   <!-- Left plant image -->
   <img
     src="../../../assets/images/plant-home-image-2.png"
     alt="{{ 'PLANT_LEFT_ALT' | translate }}"
-    class="hidden md:block absolute left-0 bottom-0 max-w-[300px]"
-  />
-
-  <!-- Right plant image -->
-  <img
-    src="../../../assets/images/plant-home-image-3.png"
-    alt="{{ 'PLANT_RIGHT_ALT' | translate }}"
-    class="hidden md:block absolute right-0 bottom-0 max-w-[300px]"
+    class="hidden md:block max-w-[300px]"
   />
 
   <!-- Centered content -->
-  <div class="relative z-10 max-w-2xl mx-auto px-4 text-center">
+  <div class="relative z-10 max-w-2xl mx-auto px-4 text-center  ">
     <h2 class="text-3xl md:text-4xl font-semibold text-[#5C684B]">
       {{ 'PLANT_LIFE.TITLE' | translate }}
     </h2>
@@ -154,7 +150,15 @@
       </p>
     </ng-template>
   </div>
+
+  <!-- Right plant image -->
+  <img
+    src="../../../assets/images/plant-home-image-3.png"
+    alt="{{ 'PLANT_RIGHT_ALT' | translate }}"
+    class="hidden md:block max-w-[300px]"
+  />
+
 </section>
 
-  
+
 </div>
