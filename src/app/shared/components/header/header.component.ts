@@ -1,11 +1,16 @@
-import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ViewChild,
+  ViewEncapsulation,
+  inject
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { ModalComponent } from '../modal/modal.component';
 import { AuthService } from '../../../services/auth.service';
-
 
 /**
  * HeaderComponent displays the main header with navigation links, icons, and includes
@@ -17,7 +22,7 @@ import { AuthService } from '../../../services/auth.service';
   imports: [CommonModule, LanguageSelectorComponent, TranslateModule, ModalComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  encapsulation: ViewEncapsulation.Emulated  
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class HeaderComponent implements AfterViewInit {
   /** Controls the visibility of the dropdown menu. */
@@ -29,18 +34,14 @@ export class HeaderComponent implements AfterViewInit {
   /** Stores the role of the current user. */
   userRole: string = '';
 
-  /**
-   * Reference to the logout confirmation modal.
-   * The modal is declared with a template reference variable in the HTML.
-   */
+  /** Reference to the logout confirmation modal. */
   @ViewChild('logoutModal') logoutModal!: ModalComponent;
 
-  /**
-   * Constructor with dependency injection.
-   * @param router Angular Router for navigation.
-   * @param authService AuthService used to log out the user.
-   */
-  constructor(private router: Router, private authService: AuthService) {}
+  /** Router instance (injected via constructor). */
+  constructor(private router: Router) {}
+
+  /** Access AuthService via inject() to avoid circular dependency. */
+  private authService = inject(AuthService);
 
   /**
    * Lifecycle hook after view initialization.
@@ -52,9 +53,7 @@ export class HeaderComponent implements AfterViewInit {
     }
   }
 
-  /**
-   * Displays the dropdown menu immediately.
-   */
+  /** Displays the dropdown menu immediately. */
   showDropdown(): void {
     if (this.hideTimeout) {
       clearTimeout(this.hideTimeout);
@@ -62,53 +61,39 @@ export class HeaderComponent implements AfterViewInit {
     this.isDropdownOpen = true;
   }
 
-  /**
-   * Starts a timer to hide the dropdown menu after a short delay.
-   */
+  /** Starts a timer to hide the dropdown menu after a short delay. */
   hideDropdownDelayed(): void {
     this.hideTimeout = setTimeout(() => {
       this.isDropdownOpen = false;
     }, 500);
   }
 
-  /**
-   * Cancels any pending timer to hide the dropdown menu.
-   */
+  /** Cancels any pending timer to hide the dropdown menu. */
   cancelHideDropdown(): void {
     if (this.hideTimeout) {
       clearTimeout(this.hideTimeout);
     }
   }
 
-  /**
-   * Toggles the visibility of the dropdown menu.
-   */
+  /** Toggles the visibility of the dropdown menu. */
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  /**
-   * Initiates the logout process by opening the confirmation modal.
-   */
+  /** Initiates the logout process by opening the confirmation modal. */
   initiateLogout(): void {
     if (this.logoutModal) {
       this.logoutModal.openModal();
     }
   }
 
-  /**
-   * Handler for when the modal confirm event is triggered.
-   * Logs out the user and navigates to the login page.
-   */
+  /** Confirms logout, clears session, and redirects to login. */
   onLogoutConfirm(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
 
-  /**
-   * Handler for when the modal cancel event is triggered.
-   * Currently, no additional logic is added for cancellation.
-   */
+  /** Cancels logout modal. */
   onLogoutCancel(): void {
     if (this.logoutModal) {
       this.logoutModal.closeModal();
