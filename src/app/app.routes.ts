@@ -6,16 +6,16 @@ import {HomeComponent} from './features/home/home.component';
 import {LoginComponent} from './features/login/login.component';
 import {DrPlantComponent} from './features/dr-plant/dr-plant.component';
 import {FloraByZoneComponent} from './features/flora-by-zone/flora-by-zone.component';
-import { UserListComponent } from './features/user-list/user-list.component';
+// import { UserListComponent } from './features/user-list/user-list.component';
 import { AdminRoleGuard } from './guards/admin-role.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { IRoleType } from './interfaces/roleType.interfaces';
-import { AdminLayoutComponent } from './features/admin-layout-component/admin-layout-component';
+// import { AdminLayoutComponent } from './features/admin-layout-component/admin-layout-component';
 import { UsersComponent } from './features/users/users.component';
 import { RoleRequestsComponent } from './features/role-requests/role-requests.component';
 import { AdminLogsComponent } from './features/admin-logs/admin-logs.component';
 import { HomepageComponent } from './features/admin/homepage/homepage.component';
-// import { AdminLayoutComponent } from './layouts/adminLayout/admin-layout.component';
+import { AdminLayoutComponent } from './layouts/adminLayout/admin-layout.component';
 import { NurseriesComponent } from './features/admin/nurseries/nurseries.component';
 
 /**
@@ -60,12 +60,21 @@ export const routes: Routes = [
 
   { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
 
-  { path: 'admin', redirectTo: 'admin/users', pathMatch: 'full' },
-
   { path: 'admin',
     component: AdminLayoutComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: '',
+        component: HomepageComponent,
+        canActivate:[AdminRoleGuard],
+        data: {
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Inicio'
+        }
+      },
       {
         path: 'users',
         component: UsersComponent,
@@ -98,28 +107,19 @@ export const routes: Routes = [
           ],
           name: 'Logs'
         }
+      },
+      {
+        path: 'nurseries',
+        component: NurseriesComponent,
+        canActivate: [AdminRoleGuard],
+        data:{
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Nurseries'
+        }
       }
     ]
   },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
-
-//Admin dashboards
-  { path: 'dashboard',
-    component: AdminLayoutComponent,
-    children: [
-      {
-        path: '',
-        component: HomepageComponent
-      },
-      {
-        //Nurseries
-        path: 'nurseries',
-        component: NurseriesComponent,
-      }
-    ],
-  },
-  //Users
-  //Requests
-  //Products
-  //Reports
 ];

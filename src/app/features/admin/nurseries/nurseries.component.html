@@ -1,34 +1,8 @@
-<div>
-  <table class="table-auto text-center border-separate rounded-2xl w-full border-2 border-[#DCE6D3] bg-[#FCFFF8] text-[var(--main-text)]">
-<!--    table-auto w-full border-separate border-2 border-gray-300 rounded-lg-->
-    <thead>
-      <tr class="border-b border-gray-300">
-        <th>Id</th>
-        <th>Nombre</th>
-        <th>Ubicación</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Garden</td>
-        <td>23. 63.</td>
-        <td>Activo</td>
-        <td>
-          <button class="underline">Desactivar</button>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Bloom</td>
-        <td>12. 63.</td>
-        <td>Desactivado</td>
-        <td>
-          <button class="underline">Activar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+@defer {
+  <admin-nurseries-list [nurseryList]="nurseryService.nurseries$()" />
+  @if (nurseryService.nurseries$().length) {
+    <app-pagination [service] = "nurseryService" />
+  }
+} @loading (minimum 1.5s){
+
+}

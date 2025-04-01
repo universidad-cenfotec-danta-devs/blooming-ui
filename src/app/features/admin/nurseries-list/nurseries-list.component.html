@@ -1,0 +1,35 @@
+<div>
+  <table class="table-auto text-center border-separate rounded-2xl w-full border-2 border-[#DCE6D3] bg-[#FCFFF8] text-[var(--main-text)]">
+    <!--    table-auto w-full border-separate border-2 border-gray-300 rounded-lg-->
+    <thead>
+    <tr class="border-b border-gray-300">
+      <th>Id</th>
+      <th>Nombre</th>
+      <th>Ubicación</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (item of nurseryList; track item.id){
+        <tr>
+          <td>{{item.id}}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.latitude }} , {{item.longitude}}</td>
+          <td>{{ item.active ? 'Activo' : 'Desactivado' }}</td>
+          <td>
+            <button class="underline">Desactivar</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td>
+            <div>
+              <p>There are not users</p>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
