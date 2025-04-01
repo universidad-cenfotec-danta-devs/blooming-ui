@@ -69,6 +69,8 @@ export class LoginComponent implements OnInit {
   }
 
   signInGoogle(action: 'login' | 'register'): void {
+    console.log("google login action", action);
+    // Store the action in sessionStorage to handle it after redirect
     sessionStorage.setItem('googleAuthAction', action);
     this.googleAuthService.login();
   }
