@@ -1,47 +1,34 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { TokenStoreService } from '../services/token-store.service';
+
 
 /**
  * Functional HTTP interceptor that attaches a Bearer token to outgoing HTTP requests.
- * It uses the Angular `inject()` function to safely access `AuthService` without causing
- * circular dependency issues, especially during app initialization.
- *
- * The token is added only if:
- * - The user is authenticated.
- * - The request URL does not include the substring 'auth' (e.g., for login/register).
+ * It uses the Angular `inject()` function to access TokenStoreService, thus avoiding
+ * referencing AuthService (which can cause circular DI).
  */
 export const accessTokenInterceptor: HttpInterceptorFn = (req, next) => {
-  // Dynamically inject AuthService to avoid circular dependency
-  const authService = inject(AuthService);
+  // Use the token store to retrieve the token
+  const tokenStore = inject(TokenStoreService);
+  const token = tokenStore.getToken();
 
-  // If the user is not authenticated, proceed with the original request
-  if (!authService.check()) {
+  // If no token, just forward the request
+  if (!token) {
     return next(req);
   }
 
-  // Initialize options for cloning the request
-  let requestOptions = {};
-
-  // Only attach the token if the URL does not target authentication endpoints
-  if (!req.url.includes('auth')) {
-    const token = authService.getAccessToken()?.replace(/"/g, ''); // Remove quotes if present
-
-    if (token) {
-      requestOptions = {
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-    }
+  // Example: skip adding token if the URL includes '/auth'
+  if (req.url.includes('/auth')) {
+    return next(req);
   }
 
-  // Clone the original request with the modified headers
-  const clonedRequest = req.clone(requestOptions);
+  // Attach the Bearer token
+  const clonedRequest = req.clone({
+    setHeaders: {
+      Authorization: `Bearer ${token.replace(/"/g, '')}`,
+    },
+  });
 
-  // Optional: Log the headers for debugging purposes
-  console.log('Request Headers:', clonedRequest.headers);
-
-  // Forward the modified or original request to the next handler
   return next(clonedRequest);
 };
