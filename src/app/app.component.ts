@@ -10,7 +10,7 @@ import * as THREE from 'three';
  *
  * The root component of the Angular application.
  * It integrates routing, shared modules, and internationalization using ngx-translate.
- * 
+ *
  * Features:
  * - Automatic language detection and selection based on the browser's language.
  * - Subscription to router events for debugging and navigation handling.
@@ -19,11 +19,9 @@ import * as THREE from 'three';
 @Component({
   selector: 'app-root',
   standalone: true,
-  // Including TranslateModule ensures that the TranslateService injection token is available.
   imports: [...SHARED_IMPORTS, TranslateModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  // Providing TranslateStore to maintain translation state.
   providers: [TranslateStore]
 })
 export class AppComponent implements OnInit {
@@ -40,19 +38,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    // Add supported languages to the translation service.
-    translate.addLangs(['en', 'es']);
-
-    // Set the default language to Spanish ('es').
-    translate.setDefaultLang('es');
-
-    // Automatically detect the browser's language, defaulting to Spanish if unsupported.
-    const browserLang = translate.getBrowserLang() ?? 'es';
-    translate.use(browserLang.match(/en|es/) ? browserLang : 'es')
-      .subscribe(
-        () => console.log('Translation loaded successfully'),
-        err => console.error('Error loading translation:', err)
-      );
+    this.configureLanguage();
   }
 
   /**
@@ -60,22 +46,39 @@ export class AppComponent implements OnInit {
    * It subscribes to router events and conditionally initializes Three.js if in a browser environment.
    */
   ngOnInit(): void {
-    // Subscribe to router events (useful for debugging navigation).
     this.router.events.subscribe((event: Event) => {
-      // Additional navigation handling can be implemented here.
+      // Optional: add logic to handle route changes.
     });
 
-    // Initialize Three.js only when running in the browser to avoid server-side errors.
     if (isPlatformBrowser(this.platformId)) {
       this.initThreeJs();
     }
   }
 
   /**
-   * Initializes Three.js.
-   *
-   * This method is called only in a browser environment to ensure that SSR does not try to execute
-   * browser-specific code (like accessing the window object).
+   * Detects the browser's language and initializes the translation system.
+   * Defaults to Spanish if the browser's language is not supported or if an error occurs.
+   */
+  private configureLanguage(): void {
+    // Define supported languages
+    this.translate.addLangs(['en', 'es']);
+    this.translate.setDefaultLang('es');
+
+    try {
+      const browserLang = this.translate.getBrowserLang() ?? 'es';
+      const selectedLang = browserLang.match(/en|es/) ? browserLang : 'es';
+
+      this.translate.use(selectedLang).subscribe({
+        next: () => console.log(`Translation for '${selectedLang}' loaded successfully.`),
+        error: (err) => console.error('Error loading translation:', err)
+      });
+    } catch (e) {
+      console.error('Language initialization failed:', e);
+    }
+  }
+
+  /**
+   * Initializes Three.js safely in browser environments.
    */
   private initThreeJs(): void {
     try {

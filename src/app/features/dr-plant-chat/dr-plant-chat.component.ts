@@ -58,12 +58,14 @@ export class DrPlantaChatComponent implements OnInit {
     this.plantService.getPlantsByUser().subscribe({
       next: (plants: Plant[]) => {
         this.plantOptions = plants;
+        console.log('Fetched plants:', this.plantOptions);
+        // If there are plants available, set the selectedPlantId.
         if (plants.length > 0) {
           // Use the provided plantId if it's not null; otherwise, use the first plant's idAccessToken.
           if (this.plantId !== null) {
             this.selectedPlantId = this.plantId;
           } else {
-            this.selectedPlantId = plants[0].idAccessToken!;
+            this.selectedPlantId = plants[0].id!;
           }
         }
       },
@@ -82,10 +84,11 @@ export class DrPlantaChatComponent implements OnInit {
     // Add user's message to chat
     this.messages.push({ text: this.userMessage, sender: 'user' });
     this.isLoading = true;
-
+    console.log('sending message:', this.userMessage, 'to plantId:', this.selectedPlantId);
     this.drPlantService.askPlantQuestion(this.selectedPlantId, this.userMessage).subscribe({
-      next: (response: string) => {
-        this.messages.push({ text: response, sender: 'bot' });
+      next: (response: any) => {
+        const answer = response.data; 
+        this.messages.push({ text: answer, sender: 'bot' });
         this.isLoading = false;
       },
       error: (err) => {

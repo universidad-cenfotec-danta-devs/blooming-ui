@@ -40,11 +40,11 @@ export const routes: Routes = [
 
   // Dr-plant Page Route
   // When the user navigates to `/dr-plant`, Angular renders the DrPlantComponent.
-  { path: 'dr-plant', component: DrPlantComponent },
+  { path: 'dr-plant', component: DrPlantComponent ,canActivate: [AuthGuard] },
 
   // Pot Editor Page Route
   // When the user navigates to `/pot-editor`, Angular renders the PotEditorPageComponent.
-  { path: 'pot-editor', component: PotEditorPageComponent },
+  { path: 'pot-editor', component: PotEditorPageComponent,canActivate: [AuthGuard] },
 
   // Default Route (Redirect to Home)
   // If the user navigates to the root URL (`/`), they are automatically redirected to `/home`.
