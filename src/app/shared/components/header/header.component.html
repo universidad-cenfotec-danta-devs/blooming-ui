@@ -81,9 +81,28 @@
           <a *ngIf="userRole == 'ADMIN_USER'" href="/admin/users" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.ADMIN' | translate }}
           </a>
+          
         </div>
       </div>
-    </div> <!-- End Right: Icons and Language Selector -->
+
+     <!-- Logout Button (opens confirmation modal) -->
+     <button type="button" (click)="initiateLogout()" class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer">
+      <svg class="h-7 w-7 text-[var(--secondary-color)] hover:scale-110 transition-transform duration-200"
+           xmlns="http://www.w3.org/2000/svg"
+           viewBox="0 0 24 24"
+           fill="none"
+           stroke="currentColor"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           width="24"
+           height="24"
+           stroke-width="2">
+        <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+        <path d="M9 12h12l-3 -3"></path>
+        <path d="M18 15l3 -3"></path>
+      </svg>
+    </button>
+  </div> <!-- End Right: Icons and Language Selector -->
 
     <!-- Mobile: Navigation -->
     <div class="md:hidden bg-white px-4 py-3 motion-safe:animate-fade-down">
@@ -94,4 +113,13 @@
       </nav>
     </div>
   </div> <!-- End main container -->
+
+  <app-modal #logoutModal
+  title="{{ 'HEADER.MODAL.LOGOUT_TITLE' | translate }}"
+  message="{{ 'HEADER.MODAL.LOGOUT_MESSAGE' | translate }}"
+  confirmText="{{ 'HEADER.MODAL.CONFIRM' | translate }}"
+  cancelText="{{ 'HEADER.MODAL.CANCEL' | translate }}"
+  (confirm)="onLogoutConfirm()"
+  (cancel)="onLogoutCancel()">
+</app-modal>
 </header>

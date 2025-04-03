@@ -58,6 +58,12 @@
     "PLANT_CARE": "Plant care",
     "SIGNUP": "Sign up for free",
     "VIVERO": "Nurseries",
+    "MODAL": {
+      "LOGOUT_TITLE": "Logout Confirmation",
+      "LOGOUT_MESSAGE": "Are you sure you want to log out?",
+      "CONFIRM": "Confirm",
+      "CANCEL": "Cancel"
+    },
     "PLANTAS_ZONA": "Flora by zone"
   },
   "HEADER_LANDING": {

@@ -58,6 +58,13 @@
     "PLANT_CARE": "Cuidado de plantas",
     "SIGNUP": "Regístrate gratis",
     "VIVERO": "Viveros",
+    "MODAL": {
+      "LOGOUT_TITLE": "Confirmación de Cierre de Sesión",
+      "LOGOUT_MESSAGE": "¿Estás seguro de que deseas cerrar sesión?",
+      "CONFIRM": "Confirmar",
+      "CANCEL": "Cancelar"
+    },
+    "VIVERO": "Viveros",
     "PLANTAS_ZONA": "Plantas por zona"
   },
   "HEADER_LANDING": {
