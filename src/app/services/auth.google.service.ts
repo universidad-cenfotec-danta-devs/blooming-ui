@@ -114,6 +114,7 @@ export class AuthGoogleService {
   login(): void {
     // Ensure login is only attempted in a browser environment
     if (this.isBrowser) {
+      console.log("Logging in with Google...");
       this.oAuthService.initImplicitFlow();
     }
   }

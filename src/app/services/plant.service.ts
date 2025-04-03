@@ -64,7 +64,7 @@ export class PlantService {
    * @param size - The number of items per page.
    * @returns An Observable that emits an array of Plant.
    */
-  getPlantsByUser(page: number = 1, size: number = 10): Observable<Plant[]> {
+  getPlantsByUser(page: number = 0, size: number = 10): Observable<Plant[]> {
     const url = `${this.BACKEND_URL}/getPlantsByUser?page=${page}&size=${size}`;
     return this.http.get<any>(url).pipe(
       map(response => response.data as Plant[])
