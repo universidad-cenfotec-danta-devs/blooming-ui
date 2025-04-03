@@ -8,9 +8,7 @@ import {LayoutService} from '../../../services/layout.service';
     CardDashboardComponent
   ],
   templateUrl: './homepage.component.html',
-  styleUrls: [
-    './homepage.component.css',
-    '../src/styles.css'],
+  styleUrl: './homepage.component.css',
 })
 export class HomepageComponent {
   public layoutService = inject(LayoutService);

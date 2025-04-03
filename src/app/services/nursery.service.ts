@@ -1,18 +1,18 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {BaseService} from '../shared/service/base.service';
 import {INurseries} from '../interfaces/nurseries.interface';
-import {AdminLogsService} from './adminLogs.service';
 import {ISearch} from '../interfaces/search.interfaces';
 import {ToastrService} from 'ngx-toastr';
+import {INurseryDTO} from '../interfaces/nurseryDTO.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class NurseryService extends BaseService<INurseries>{
+export class NurseryService extends BaseService<INurseryDTO>{
   protected override source = 'api/nurseries';
   private nurserieListSignal = signal<INurseries[]>([]);
-  adminLogsService: AdminLogsService = inject(AdminLogsService);
+  // nurseryService: NurseryService = inject(NurseryService);
 
   constructor(private toastr: ToastrService) {
     super();
@@ -36,7 +36,6 @@ export class NurseryService extends BaseService<INurseries>{
         this.search = {...this.search, ...response.meta};
         this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
         this.nurserieListSignal.set(response.data);
-        console.log(response.data);
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -45,4 +44,28 @@ export class NurseryService extends BaseService<INurseries>{
     });
   }
 
+  // save(nursery: INurseries){
+  //   this.add(nursery).subscribe({
+  //     next: (response: any) =>{
+  //       this.toastr.success("Nursery created", "Success");
+  //       this.getAll();
+  //     },
+  //     error: (err:any) => {
+  //       this.toastr.error(err, 'Error');
+  //       console.error('Error', err);
+  //     }
+  //   })
+  // }
+  // update(data: any){
+  //   this.edit(data.id, data).subscribe({
+  //     next:(response: any) => {
+  //       this.toastr.success('Nursery updated', 'Success');
+  //       this.getAll();
+  //     },
+  //     error: (err: any) => {
+  //       this.toastr.error(err, 'Error');
+  //       console.error('error', err);
+  //     }
+  //   })
+  // }
 }

@@ -1,0 +1,26 @@
+.actions-container{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.table-striped td, .table-striped th {
+  text-align: center;
+  border: 1px solid #DCE6D3;
+  padding: 15px 8px;
+}
+
+.table-striped td {
+  color: #5C684B;
+}
+
+.table-striped th {
+  color: #5C684B;
+  font-weight: bold;
+}
+
+.table-nursery {
+  background-color: #FCFFF8;
+  border-radius: 15px;
+  border-collapse: collapse;
+  width: 100%;
+}

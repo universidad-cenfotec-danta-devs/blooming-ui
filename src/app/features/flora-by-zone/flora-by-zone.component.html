@@ -1,17 +1,25 @@
-<div>
-  <label for="cantonSelect">Seleccione un cantón:</label>
-  <select id="cantonSelect" [(ngModel)]="selectedCanton" (ngModelChange)="onCantonChange()">
+<!--<div class="text-[var(&#45;&#45;main-text)]">-->
+<div class="bg-[url(/assets/images/bg-flora-zone.png)] bg-cover bg-fixed h-40 w-full xl:h-80 bg-gray-400 bg-blend-multiply title-container">
+  <div class="-py-10">
+    <h1 class="text-6xl text-white">Flora por zona</h1>
+  </div>
+</div>
+<div class="mx-5 xl:mx-9 my-6">
+  <div class="my-5" *ngIf="floraResponse">
+    <p class="text-2xl text-[var(--main-text)]">{{ floraResponse }}</p>
+  </div>
+
+  <label class="text-[var(--main-text)] my-5 mx-3" for="cantonSelect">Seleccione un cantón: </label>
+  <select class="text-[var(--green-line)] input-canton" id="cantonSelect" [(ngModel)]="selectedCanton" (ngModelChange)="onCantonChange()">
     <option *ngFor="let canton of cantones" [value]="canton.name">
       {{ canton.name }}
     </option>
   </select>
 
-  <div *ngIf="floraResponse">
-    <p>{{ floraResponse }}</p>
-  </div>
+
 
   <div class="map-container">
     <div id="map"></div>
   </div>
-
+<!--  </div>-->
 </div>

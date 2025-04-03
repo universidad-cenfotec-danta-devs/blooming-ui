@@ -17,6 +17,9 @@ import { AdminLogsComponent } from './features/admin-logs/admin-logs.component';
 import { HomepageComponent } from './features/admin/homepage/homepage.component';
 import { AdminLayoutComponent } from './layouts/adminLayout/admin-layout.component';
 import { NurseriesComponent } from './features/admin/nurseries/nurseries.component';
+import {HomeLayoutComponent} from './layouts/homeLayout/home-layout.component';
+import {NurseryComponent} from './features/nursery/nursery.component';
+import {NurseryInfoComponent} from './features/nursery-info/nursery-info.component';
 
 /**
  * Application Routing Configuration
@@ -33,9 +36,8 @@ import { NurseriesComponent } from './features/admin/nurseries/nurseries.compone
 export const routes: Routes = [
   // Home Page Route
   // When the user navigates to `/home`, Angular renders the HomeComponent.
-  { path: 'home', component: HomeComponent/*, canActivate: [NoAuthGuard]*/ },
 
-  { path: 'flora-by-zone', component: FloraByZoneComponent},
+  // { path: 'flora-by-zone', component: FloraByZoneComponent},
 
   // Login Page Route
   // When the user navigates to `/login`, Angular renders the LoginComponent.
@@ -43,26 +45,56 @@ export const routes: Routes = [
 
   // Dr-plant Page Route
   // When the user navigates to `/dr-plant`, Angular renders the DrPlantComponent.
-  { path: 'dr-plant', component: DrPlantComponent },
+  // { path: 'dr-plant', component: DrPlantComponent },
 
   // Pot Editor Page Route
   // When the user navigates to `/pot-editor`, Angular renders the PotEditorPageComponent.
-  { path: 'pot-editor', component: PotEditorPageComponent },
+  // { path: 'pot-editor', component: PotEditorPageComponent },
 
   // Default Route (Redirect to Home)
   // If the user navigates to the root URL (`/`), they are automatically redirected to `/home`.
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: '', redirectTo: '/home', pathMatch: 'full' },
 
   // Wildcard Route (Redirect to Home)
   // Any unknown routes (for example, `/nonexistent`) will be redirected to `/home`.
   // { path: '**', redirectTo: '/home', pathMatch: 'full' },
   // { path: 'callback', component: CallbackComponent },
 
-  { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
+  // { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
+
+  {
+    path: 'home',
+    component: HomeLayoutComponent,
+    children:[
+      {path: '',
+       component: HomeComponent/*, canActivate: [NoAuthGuard]*/
+      },
+      {
+        path: 'flora-by-zone',
+        component: FloraByZoneComponent
+      },
+      {
+        path: 'dr-plant',
+        component: DrPlantComponent
+      },
+      {
+        path: 'pot-editor',
+        component: PotEditorPageComponent
+      },
+      {
+        path: 'nurseries',
+        component: NurseryComponent
+      },
+      {
+        path: 'nursery-info',
+        component: NurseryInfoComponent
+      }
+    ]
+  },
 
   { path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
       {
         path: '',
