@@ -66,11 +66,8 @@ export class UserListComponent {
         active: this.selectedItem.active
       });
 
-      // For nested role field
       this.signUpForm.get('role.name')?.setValue(this.selectedItem.role?.name || '');
     }   
-
-    console.log(this.signUpForm.value);
   
     this.detailModal.openModal();
   }

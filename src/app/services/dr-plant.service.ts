@@ -26,7 +26,6 @@ export class DrPlantService {
     formData: FormData,
     actionType: 'identify' | 'diagnosis'
   ): Observable<PlantResponse[]> {
-    // Choose the endpoint based on the actionType.
     const endpoint =
       actionType === 'identify'
         ? `${this.BACKEND_URL}/img`

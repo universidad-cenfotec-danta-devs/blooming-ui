@@ -14,7 +14,6 @@ import { Plant } from '../interfaces/plant.interface';
   providedIn: 'root'
 })
 export class PlantService {
-  // Base URL for the plant endpoints.
   private BACKEND_URL = `${environment.apiUrl}/api/plant`;
 
   constructor(private http: HttpClient) {}
@@ -32,10 +31,7 @@ export class PlantService {
     const url = `${this.BACKEND_URL}/saveByUser/${tokenPlant}/${encodedPlantName}`;
   
     const formData = new FormData();
-    formData.append('img', img); // Attach the actual file
-  
-    console.log("Calling API:", url);
-    console.log("Sending file:", img.name);
+    formData.append('img', img);
   
     return this.http.post<Plant>(url, formData);
   }

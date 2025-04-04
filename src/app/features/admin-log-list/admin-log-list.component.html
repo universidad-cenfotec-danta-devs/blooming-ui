@@ -2,7 +2,6 @@
     <table class="table-logs table-striped">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Date</th>
           <th>Email</th>
           <th>Description</th>
@@ -11,7 +10,6 @@
       <tbody>
         @for (item of logs; track item.id) {
           <tr>
-            <th>{{item.id}}</th>
             <td>{{item.date | date: 'dd/MM/yyyy HH:mm'}}</td>
             <td>{{item.userEmail}}</td>
             <td>{{item.description}}</td>
@@ -20,7 +18,7 @@
           <tr>
             <td>
               <div>
-                <p>There are not logs</p>
+                <p>There are no logs</p>
               </div>
             </td>
           </tr>

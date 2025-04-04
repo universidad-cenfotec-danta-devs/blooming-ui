@@ -2,7 +2,7 @@
   @if (users.length) {
     <table class="table-users table-striped">
       <thead>
-        <tr class="border-b border-[#DCE6D3]">
+        <tr>
           <th>ID</th>
           <th>Name</th>
           <th>Email</th>
@@ -16,7 +16,7 @@
       <tbody>
         @for (item of users; track item.id) {
           <tr>
-            <td>{{item.id}}</td>
+            <th>{{item.id}}</th>
             <td>{{item.name}}</td>
             <td>{{item.email}}</td>
             <td>{{item.gender}}</td>
@@ -26,6 +26,14 @@
             <td>
               <p class="edit" (click)="showDetailModal(item, detailModal)">Edit</p>
               <p class="delete" (click)="showDeleteModal(item, deleteModal)">Delete</p>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td>
+              <div>
+                <p>There are not users</p>
+              </div>
             </td>
           </tr>
         }

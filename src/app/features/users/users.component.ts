@@ -46,17 +46,14 @@ export class UsersComponent {
 
   saveUser(user: IUser) {
     this.usersService.save(user);
-    // this.modalService.closeAll();
   }
 
   updateUser(user: IUser) {
     this.usersService.update(user);
-    // this.modalService.closeAll();
   }
 
   deleteUser(user: IUser) {
     this.usersService.delete(user);
-    // this.modalService.closeAll();
   }
 
   callEdition(user: IUser) {
@@ -67,7 +64,6 @@ export class UsersComponent {
     this.userForm.controls['dateOfBirth'].setValue(user.name ? JSON.stringify(user.name) : '');
     this.userForm.controls['gender'].setValue(user.name ? JSON.stringify(user.name) : '');
     this.userForm.controls['role'].setValue(user.role ? { name: user.role.name ?? '' } : { name: '' });
-    // this.addUsersModal.show();
   }
 
   openModal(item: any) {

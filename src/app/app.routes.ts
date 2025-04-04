@@ -1,6 +1,4 @@
 import {Routes} from '@angular/router';
-
-//import { NoAuthGuard } from './guards/no-auth.guard';
 import {PotEditorPageComponent} from './features/pot-editor-page/pot-editor-page.component';
 import {HomeComponent} from './features/home/home.component';
 import {LoginComponent} from './features/login/login.component';
@@ -40,28 +38,21 @@ export const routes: Routes = [
 
   // { path: 'flora-by-zone', component: FloraByZoneComponent},
 
-  // Login Page Route
-  // When the user navigates to `/login`, Angular renders the LoginComponent.
   { path: 'login', component: LoginComponent },
 
   // Dr-plant Page Route
   // When the user navigates to `/dr-plant`, Angular renders the DrPlantComponent.
-  // { path: 'dr-plant', component: DrPlantComponent },
   { path: 'dr-plant', component: DrPlantComponent ,canActivate: [AuthGuard] },
 
   // Pot Editor Page Route
   // When the user navigates to `/pot-editor`, Angular renders the PotEditorPageComponent.
-  // { path: 'pot-editor', component: PotEditorPageComponent },
   { path: 'pot-editor', component: PotEditorPageComponent,canActivate: [AuthGuard] },
 
   // Default Route (Redirect to Home)
   // If the user navigates to the root URL (`/`), they are automatically redirected to `/home`.
-  // { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 
-  // Wildcard Route (Redirect to Home)
-  // Any unknown routes (for example, `/nonexistent`) will be redirected to `/home`.
-  // { path: '**', redirectTo: '/home', pathMatch: 'full' },
-  // { path: 'callback', component: CallbackComponent },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' },
 
   { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
 

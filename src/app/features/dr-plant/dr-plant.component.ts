@@ -8,7 +8,7 @@ import { Disease } from '../../models/disease.model';
 import { CardCarouselComponent } from '../../shared/components/card-carousel/card-carousel';
 import { InfoCardComponent } from '../../shared/components/info-card/info-card.component';
 import { ToastrService } from 'ngx-toastr';
-import { ModalComponent } from '../../shared/components/modal/modal.component'; // Asegúrate de tener la ruta correcta
+import { ModalComponent } from '../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-dr-planta',
@@ -18,16 +18,12 @@ import { ModalComponent } from '../../shared/components/modal/modal.component'; 
   standalone: true
 })
 export class DrPlantComponent {
-  // Loading indicator
   isLoading = false;
 
-  // Stores the local preview URL for each tab (identify and diagnosis)
   uploadedImages: { [key in 'identify' | 'diagnosis']?: string } = {};
 
-  // Stores the actual File object uploaded by the user for each tab
   uploadedFiles: { [key in 'identify' | 'diagnosis']?: File } = {};
 
-  // The plant/disease ID for chat
   chatPlantId: number | null = null;
 
   /**
@@ -58,7 +54,6 @@ export class DrPlantComponent {
    */
   selectedPlantToConfirm: PlantResponse | null = null;
 
-  // Referencia al componente modal para abrirlo desde el TS.
   @ViewChild('confirmModal') confirmModal!: ModalComponent;
 
   constructor(
@@ -85,7 +80,6 @@ export class DrPlantComponent {
 
     const imageFile = fileInput.files[0];
 
-    // Validate file type
     if (!imageFile.type.startsWith('image/')) {
       this.errorMessage = 'The selected file is not a valid image (e.g., .jpg, .png).';
       this.toastr.error(this.errorMessage, 'Error');
@@ -96,11 +90,9 @@ export class DrPlantComponent {
     const localUrl = URL.createObjectURL(imageFile);
 
     if (this.selectedAction === 'identify' || this.selectedAction === 'diagnosis') {
-      // Store the preview URL and the file for later use
       this.uploadedImages[this.selectedAction] = localUrl;
       this.uploadedFiles[this.selectedAction] = imageFile;
 
-      // Immediately call identifyOrDiagnose
       this.identifyOrDiagnose(imageFile);
     }
   }
@@ -116,12 +108,11 @@ export class DrPlantComponent {
     this.drPlantService.identifyPlant(formData, this.selectedAction as 'identify' | 'diagnosis')
       .subscribe({
         next: (response: any) => {
-          console.log('Backend response:', response);
 
           if (this.selectedAction === 'identify') {
             const plants: PlantResponse[] = response.data.map((plant: any) => ({
               tokenPlant: plant.idAccessToken,
-              plantId: plant.plantId, // May be undefined from API; we adapt later
+              plantId: plant.plantId,
               name: plant.name,
               description: plant.description || '',
               probabilityPercentage: plant.probabilityPercentage || '0%',
@@ -130,14 +121,12 @@ export class DrPlantComponent {
               similarityPercentage: plant.similarityPercentage
             }));
 
-            // Sort plants by probability
             const sortedPlants = plants.sort((a, b) => {
               const probA = parseInt((a.probabilityPercentage || '0%').replace('%', ''));
               const probB = parseInt((b.probabilityPercentage || '0%').replace('%', ''));
               return probB - probA;
             });
 
-            // Keep top 2 results
             this.plantDataList = sortedPlants.slice(0, 2);
           } else if (this.selectedAction === 'diagnosis') {
             let diseases: any[] = [];
@@ -148,7 +137,6 @@ export class DrPlantComponent {
             });
             diseases.sort((a, b) => b.probability - a.probability);
             this.diseaseDataList = diseases;
-            console.log(this.diseaseDataList);
           }
 
           this.isLoading = false;
@@ -167,7 +155,6 @@ export class DrPlantComponent {
    * Instead of immediately saving the plant, this method stores the selected plant and opens the confirmation modal.
    */
   confirmPlant(plant: PlantResponse | null | undefined): void {
-    console.log('Plant selected:', plant);
 
     if (!plant || !plant.tokenPlant || !plant.name) {
       this.errorMessage = 'Missing plant token or name.';
@@ -176,11 +163,8 @@ export class DrPlantComponent {
       return;
     }
 
-    // Store the plant to be confirmed.
     this.selectedPlantToConfirm = plant;
 
-    // Open the confirmation modal.
-    // (Ensure in your template you have a reference variable "#confirmModal" on the modal component.)
     this.confirmModal.openModal();
   }
 
@@ -195,7 +179,6 @@ export class DrPlantComponent {
       return;
     }
 
-    // Retrieve the file previously uploaded for the current action.
     if (this.selectedAction !== 'identify' && this.selectedAction !== 'diagnosis') {
       this.errorMessage = 'No image file available for upload in this tab.';
       this.toastr.error(this.errorMessage, 'Error');
@@ -209,19 +192,16 @@ export class DrPlantComponent {
       return;
     }
 
-    // Call the service to save the plant using the stored file.
     this.plantService.savePlantByUser(this.selectedPlantToConfirm.tokenPlant, this.selectedPlantToConfirm.name, file)
       .subscribe({
         next: (resp: any) => {
-          console.log("Backend response:", resp);
-          // Check that the backend returns a plant ID in resp.data.id
           if (!resp?.data?.id) {
             this.errorMessage = 'API response is missing plant ID.';
             console.error(this.errorMessage, resp);
             this.toastr.error(this.errorMessage, 'Error');
             return;
           }
-          // Map the numeric ID to our plant object and update chatPlantId
+
           if (this.selectedPlantToConfirm) {
             this.selectedPlantToConfirm.plantId = resp.data.id;
           }

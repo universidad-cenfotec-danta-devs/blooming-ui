@@ -11,6 +11,7 @@ import { IUser } from '../../interfaces/user.interface';
   styleUrls: ['./detail-modal.component.scss']
 })
 export class ModalComponent {
+  shouldHideOverlay = true;
   /**
    * Title to display in the modal header.
    */
@@ -52,6 +53,7 @@ export class ModalComponent {
    * Opens the modal.
    */
   openModal() {
+    this.shouldHideOverlay = false;
     this.isOpen = true;
     this.animationClass = 'showing';
   }
@@ -60,16 +62,13 @@ export class ModalComponent {
    * Closes the modal and emits the cancel event.
    */
   closeModal() {
-    console.log('Closing modal...');
     this.animationClass = 'closing';
-  
-    setTimeout(() => {
-      this.isOpen = false;
-      console.log('Modal closed, isOpen:', this.isOpen);
-      this.animationClass = '';
-      this.cancel.emit();
-    }, 300); // Match animation duration
+    this.isOpen = false;
+    this.shouldHideOverlay = true;
+    this.animationClass = '';
+    this.cancel.emit();
   }
+  
   
 
   /**

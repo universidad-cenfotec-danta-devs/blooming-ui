@@ -30,7 +30,7 @@ export class HeaderComponent implements AfterViewInit {
   /** Timer reference for hiding the dropdown menu. */
   private hideTimeout: any;
   /** Retrieves the current user data from localStorage. */
-  user = localStorage.getItem('auth_user');
+  user: any
   /** Stores the role of the current user. */
   userRole: string = '';
 
@@ -48,6 +48,7 @@ export class HeaderComponent implements AfterViewInit {
    * Retrieves and parses user data to set the user role.
    */
   ngAfterViewInit(): void {
+    this.user = localStorage.getItem('auth_user');
     if (this.user) {
       this.userRole = String(JSON.parse(this.user).role.name);
     }

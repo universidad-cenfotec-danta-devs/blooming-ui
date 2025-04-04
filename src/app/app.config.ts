@@ -31,9 +31,9 @@ export function HttpLoaderFactory(http: HttpClient) {
  */
 export const provideTranslation = () => ({
   loader: {
-    provide: TranslateLoader,          // Provider for TranslateLoader.
-    useFactory: HttpLoaderFactory,     // Uses HttpLoaderFactory to create the loader.
-    deps: [HttpClient],                // Dependency: HttpClient.
+    provide: TranslateLoader,
+    useFactory: HttpLoaderFactory,
+    deps: [HttpClient],
   },
 });
 
@@ -50,36 +50,26 @@ export const provideTranslation = () => ({
  */
 export const appConfig: ApplicationConfig = {
   providers: [
-    // Enable zone-based change detection with event coalescing for performance optimization.
     provideZoneChangeDetection({ eventCoalescing: true }),
-
-    // Provide HttpClient with custom interceptors: base URL, access token, and error handling.
     provideHttpClient(
       withInterceptors([
-     //   baseUrlInterceptor,
         accessTokenInterceptor,
         handleErrorsInterceptor
       ])
     ),
 
-    // Import the TranslateModule and configure it with the translation provider.
     importProvidersFrom(
       TranslateModule.forRoot(provideTranslation())
     ),
 
-    // Provide client hydration for SSR, ensuring that the client app is synchronized with the server-rendered view.
     provideClientHydration(),
 
-    // Set up the application's routing using the defined routes.
     provideRouter(routes),
 
-    // Provide the OAuth client to handle OAuth-based authentication flows.
     provideOAuthClient(),
 
-    // Enable animations in the application.
     provideAnimations(),
 
-    // Configure and provide Toastr for notifications with custom parameters.
     provideToastr({
       timeOut: 2000,
       extendedTimeOut: 1000,

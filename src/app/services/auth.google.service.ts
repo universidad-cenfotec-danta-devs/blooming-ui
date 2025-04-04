@@ -14,7 +14,6 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthGoogleService {
-  // Inject OAuthService and Router using Angular's inject function
   private oAuthService = inject(OAuthService);
   private router = inject(Router);
 
@@ -24,7 +23,6 @@ export class AuthGoogleService {
    */
   public tokenReceived$ = new Subject<string>();
 
-  // Flag to check if the code is executing in a browser environment
   private isBrowser: boolean;
 
   /**
@@ -33,7 +31,7 @@ export class AuthGoogleService {
    */
   authConfig: AuthConfig = {
     issuer: 'https://accounts.google.com',
-    redirectUri: '', // Will be set based on the environment in the constructor
+    redirectUri: '',
     clientId: environment.googleClientId,
     scope: 'openid profile email',
     responseType: 'token id_token',
@@ -54,16 +52,12 @@ export class AuthGoogleService {
    * @param platformId - The platform identifier provided by Angular, used to check if the code runs in a browser.
    */
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    // Check if the code is executing in the browser
     this.isBrowser = isPlatformBrowser(this.platformId);
-    // Set the redirect URI based on the environment
     if (this.isBrowser) {
       this.authConfig.redirectUri = window.location.origin + '/login';
     } else {
-      // Fallback value for non-browser environments (e.g., server-side rendering)
       this.authConfig.redirectUri = 'http://localhost:4200/login';
     }
-    // Initialize OAuth configuration and event handling
     this.initConfiguration();
   }
 
@@ -73,33 +67,24 @@ export class AuthGoogleService {
    * The loading and login attempts are only executed in a browser environment.
    */
   initConfiguration(): void {
-    // Configure the OAuthService with our settings
     this.oAuthService.configure(this.authConfig);
-    // Set up automatic silent refresh of tokens
     this.oAuthService.setupAutomaticSilentRefresh();
 
-    // Only execute browser-specific code if in the browser
     if (this.isBrowser) {
-      // Load the discovery document and attempt to log in automatically
       this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-        // If a valid ID token is present, update the profile signal and emit the token
         if (this.oAuthService.hasValidIdToken()) {
           this.profile.set(this.oAuthService.getIdentityClaims());
           const idToken = this.oAuthService.getIdToken();
           if (idToken) {
-            console.log('Token received on init:', idToken);
             this.tokenReceived$.next(idToken);
           }
         }
       });
     }
 
-    // Subscribe to OAuth events to capture new tokens as they are received
-    // Note: Events may be emitted only if in browser, so this subscription is safe.
     this.oAuthService.events.subscribe((event: OAuthEvent) => {
       if (event.type === 'token_received') {
         const idToken = this.oAuthService.getIdToken();
-        console.log('Token received in OAuth event:', idToken);
         if (idToken) {
           this.tokenReceived$.next(idToken);
         }
@@ -112,9 +97,7 @@ export class AuthGoogleService {
    * This method does not return the token immediately due to the redirect.
    */
   login(): void {
-    // Ensure login is only attempted in a browser environment
     if (this.isBrowser) {
-      console.log("Logging in with Google...");
       this.oAuthService.initImplicitFlow();
     }
   }

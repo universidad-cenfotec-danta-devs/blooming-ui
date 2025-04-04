@@ -76,7 +76,6 @@ export class UsersService extends BaseService<IUser> {
     delete(user: IUser) {
         this.delCustomSource(`users/${user.id}`).subscribe(
             () => {
-                console.log('delete response: deleted');
                 this.toastr.success('User deleted', 'Success');
                 this.adminLogsService.create('admin_user@gmail.com', 'User ' + user.id + ' deleted');
                 this.getAll();

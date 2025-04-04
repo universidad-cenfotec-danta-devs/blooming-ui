@@ -47,7 +47,6 @@ export class AppComponent implements OnInit {
    */
   ngOnInit(): void {
     this.router.events.subscribe((event: Event) => {
-      // Optional: add logic to handle route changes.
     });
 
     if (isPlatformBrowser(this.platformId)) {
@@ -60,7 +59,6 @@ export class AppComponent implements OnInit {
    * Defaults to Spanish if the browser's language is not supported or if an error occurs.
    */
   private configureLanguage(): void {
-    // Define supported languages
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('es');
 
@@ -69,7 +67,6 @@ export class AppComponent implements OnInit {
       const selectedLang = browserLang.match(/en|es/) ? browserLang : 'es';
 
       this.translate.use(selectedLang).subscribe({
-        next: () => console.log(`Translation for '${selectedLang}' loaded successfully.`),
         error: (err) => console.error('Error loading translation:', err)
       });
     } catch (e) {
@@ -83,7 +80,6 @@ export class AppComponent implements OnInit {
   private initThreeJs(): void {
     try {
       const scene = new THREE.Scene();
-      console.log('Three.js initialized successfully');
     } catch (error) {
       console.error('Error initializing Three.js:', error);
     }

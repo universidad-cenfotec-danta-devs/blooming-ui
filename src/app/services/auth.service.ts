@@ -15,15 +15,11 @@ import { TokenStoreService } from './token-store.service';
  */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // HttpClient for making API calls
   private http: HttpClient;
-  // Indicates if the code is running in the browser
   private isBrowser: boolean;
 
-  // URL of the backend authentication API
   private BACKEND_URL = `${environment.apiUrl}/api/users`;
 
-  // Google Client ID from the environment configuration
   GOOGLE_CLIENT_ID = environment.googleClientId;
 
   constructor(
@@ -32,7 +28,6 @@ export class AuthService {
     http: HttpClient,
     private tokenStore: TokenStoreService
   ) {
-    // Check if code is running in the browser
     this.isBrowser = isPlatformBrowser(platformId);
     this.http = http;
 
@@ -44,7 +39,6 @@ export class AuthService {
    */
   private loadSessionData(): void {
     if (!this.isBrowser) return;
-   // We can use thjis is the future
   }
 
   /**
@@ -56,7 +50,6 @@ export class AuthService {
     return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/logIn`, credentials)
       .pipe(
         tap(response => {
-          // Store token, user details, and expiration time in the TokenStore
           this.tokenStore.setToken(response.token);
           this.tokenStore.setUser(response.authUser);
           if (response.expiresIn) {
@@ -73,7 +66,6 @@ export class AuthService {
     this.tokenStore.removeToken();
     this.tokenStore.removeUser();
     this.tokenStore.removeExpiresIn();
-    // Optionally redirect user after logout
     this.router.navigateByUrl('/login');
   }
 
@@ -109,9 +101,7 @@ export class AuthService {
 
     this.sendGoogleTokenToBackend(response.credential, action).subscribe(jwtResponse => {
       if (jwtResponse.success) {
-        // Save the received token
         this.tokenStore.setToken(jwtResponse.token);
-        // Redirect based on the action
         if (action === 'login') {
           this.router.navigate(['/home']);
         } else if (action === 'register') {

@@ -3,9 +3,7 @@
     <table class="table-requests table-striped rounded-2xl">
       <thead>
         <tr class="border-b border-[#DCE6D3]">
-          <th>ID</th>
-          <th>Requested</th>
-          <th>Requester ID</th>
+          <th>Requested Role</th>
           <th>Requester Email</th>
           <th>Status</th>
           <th>Created</th>
@@ -16,9 +14,7 @@
       <tbody>
         @for (item of requests; track item.id) {
           <tr>
-            <td>{{item.id}}</td>
             <td>{{item.roleRequested}}</td>
-            <td>{{item.requesterId}}</td>
             <td>{{item.requesterEmail}}</td>
             <td>{{item.requestStatus}}</td>
             <td>{{item.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>

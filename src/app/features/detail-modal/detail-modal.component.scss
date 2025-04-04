@@ -37,7 +37,11 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 40;
     transition: opacity 0.1s ease-in-out;
-  }
+  
+    &.hide-overlay {
+      display: none;
+    }
+  }  
   
   .hidden {
     opacity: 0;

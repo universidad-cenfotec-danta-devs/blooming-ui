@@ -30,11 +30,5 @@ jobs:
 
       # 5. Build the application (development mode)
       - name: Build Application (Development)
-        run: ng build
+        run: npm run build
 
-      # 6. Deploy the application (example with GitHub Pages)
-      - name: Deploy to GitHub Pages (Development)
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/blooming-ui
