@@ -1,5 +1,7 @@
 import {CommonModule} from '@angular/common';
-import {Component} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import { NurseryService } from '../../services/nursery.service';
 
 @Component({
   selector: 'nursery-info',
@@ -12,5 +14,16 @@ import {Component} from '@angular/core';
 })
 
 export class NurseryInfoComponent{
+  public nurseryService = inject(NurseryService);
+  public nurseryId!: string | null;
 
+  constructor(private route: ActivatedRoute){}
+
+  ngOnInit(){
+    this.nurseryId = this.route.snapshot.paramMap.get('id');
+    this.nurseryService.getById(this.nurseryId);
+    this.nurseryService.search.page=1;
+    this.nurseryService.getProductsByNurseryId(this.nurseryId);
+    console.log(this.nurseryService.nurseryDetail$().products);
+  }
 }

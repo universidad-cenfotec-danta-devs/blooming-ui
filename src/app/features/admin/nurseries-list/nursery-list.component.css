@@ -5,12 +5,12 @@
 
 .table-striped td, .table-striped th {
   text-align: center;
-  border: 1px solid #DCE6D3;
   padding: 15px 8px;
 }
 
 .table-striped td {
   color: #5C684B;
+  border-bottom: 1px solid #DCE6D3;
 }
 
 .table-striped th {
@@ -20,7 +20,10 @@
 
 .table-nursery {
   background-color: #FCFFF8;
-  border-radius: 15px;
   border-collapse: collapse;
   width: 100%;
+}
+
+table{
+  border: 1px solid #DCE6D3;
 }

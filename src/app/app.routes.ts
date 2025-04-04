@@ -20,6 +20,7 @@ import { NurseriesComponent } from './features/admin/nurseries/nurseries.compone
 import {HomeLayoutComponent} from './layouts/homeLayout/home-layout.component';
 import {NurseryComponent} from './features/nursery/nursery.component';
 import {NurseryInfoComponent} from './features/nursery-info/nursery-info.component';
+import { CreateNurseryComponent } from './features/create-nursery/create-nursery.component';
 
 /**
  * Application Routing Configuration
@@ -88,8 +89,12 @@ export const routes: Routes = [
         component: NurseryComponent
       },
       {
-        path: 'nursery-info',
+        path: 'nursery-info/:id',
         component: NurseryInfoComponent
+      },
+      {
+        path: 'create-nursery',
+        component: CreateNurseryComponent
       }
     ]
   },

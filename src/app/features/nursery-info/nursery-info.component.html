@@ -1,38 +1,51 @@
 <div class="my-10 mx-15 ">
+  @defer{
   <div class="mb-7 flex flex-row align-items-end text-[var(--main-text)]">
-    <div class="w-1/2 flex ">
+    <div class="flex w-[60%]">
       <div class="img-nursery-container">
-        <img class="img-nursery" src="assets/icons/danta_icon.png">
+        <!-- <img class="img-nursery" src="assets/icons/danta_icon.png"> -->
       </div>
-      <div class="flex justify-content-center flex-col">
-        <h1 class="text-3xl mb-10">Nombre del vivero</h1>
+      <div class="flex justify-content-center flex-col mx-5">
+        <h1 class="text-3xl mb-10">{{nurseryService.nurseryDetail$().name}}</h1>
         <p>Detalles</p>
-        <p class="font-light text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non efficitur est. Morbi vitae porta risus. Mauris congue nec dui id elementum.</p>
+        <p class="font-light text-justify">{{nurseryService.nurseryDetail$().description}}</p>
       </div>
     </div>
-    <div class="w-1/2">
-      <div class=" flex align-items-center mb-5">
-        <svg class="w-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"/>
-        </svg>
-        <h1 class=" text-3xl">Ubicación</h1>
-      </div>
+      
+    <div class="w-[40%]">
+        <div class=" flex align-items-center mb-4">
+          <svg class="w-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"/>
+          </svg>
+          <h1 class=" text-3xl">Ubicación</h1>
+        </div>
       <div class="map-container w-full">
-          <div id="map"></div>
+        <div id="map"></div>
       </div>
     </div>
   </div>
-  <div>
+    }  
+
     <h4 class="text-2xl">Productos</h4>
-    <div class="grid grid-cols-6 gap-4 my-5 mx-3 text-[var(--main-text)] align-items-center">
-      <button class="rounded-2xl border-1 border-[var(--main-text)] px-8 py-2">
-        <h1 class="text-2xl font-medium">Producto</h1>
-        <p>Descripcion</p>
-      </button>
+    
+      
+    @defer{
+      <div class="grid grid-cols-5 gap-4 my-5 mx-3 text-[var(--main-text)] align-items-center" *ngIf="nurseryService.nurseryProducts$()">
+        @for (product of nurseryService.nurseryProducts$(); track product.name) {
+          <button class="rounded-2xl border-1 border-[var(--main-text)] px-8 py-2">
+            <h1 class="text-2xl font-medium">{{product.name}}</h1>
+            <p>{{product.description}}</p>
+            <p>${{product.price}}</p>
+          </button>        
+        } @empty {
+        <div class="flex justify-content-center align-items-center h-full w-full">
+          <h1 class="text-2xl">No hay productos disponibles</h1>
+        </div>
+      }
     </div>
-  </div>
-  <div>
+  }     
+  <!-- <div>
     <h4>Comentarios</h4>
-  </div>
+  </div> -->
 </div>

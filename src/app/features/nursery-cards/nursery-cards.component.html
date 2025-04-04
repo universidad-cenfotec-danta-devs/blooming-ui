@@ -2,7 +2,7 @@
   @for (item of nurseryList; track item.id){
     <div>
       <button class="rounded-2xl border-1 border-[var(--main-text)] px-8 py-2">
-        <a href='home/nursery-info'>
+        <a href='home/nursery-info/{{item.id}}'>
           <img class="w-40" src="assets/icons/danta_icon.png">
           <h1>{{ item.name }}</h1>
         </a>

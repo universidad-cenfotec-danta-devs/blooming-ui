@@ -1,7 +1,8 @@
 <div class="table-container table-responsive">
-    <table class="table-requests table-striped">
+  @if (requests.length) {
+    <table class="table-requests table-striped rounded-2xl">
       <thead>
-        <tr>
+        <tr class="border-b border-[#DCE6D3]">
           <th>ID</th>
           <th>Requested</th>
           <th>Requester ID</th>
@@ -15,7 +16,7 @@
       <tbody>
         @for (item of requests; track item.id) {
           <tr>
-            <th>{{item.id}}</th>
+            <td>{{item.id}}</td>
             <td>{{item.roleRequested}}</td>
             <td>{{item.requesterId}}</td>
             <td>{{item.requesterEmail}}</td>
@@ -27,17 +28,12 @@
               <p class="delete" (click)="showDenyModal(item, denyModal)">Deny</p>
             </td>
           </tr>
-        } @empty {
-          <tr>
-            <td>
-              <div>
-                <p>There are not requests</p>
-              </div>
-            </td>
-          </tr>
         }
       </tbody>
     </table>
+  } @else {
+    <h4 class="text-[var(--green-line)] text-center">No requests have been created</h4>
+  }
   </div>
 
 <app-modal #approveModal

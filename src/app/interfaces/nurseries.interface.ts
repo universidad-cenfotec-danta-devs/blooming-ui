@@ -1,3 +1,4 @@
+import { IProducts } from './products.interface';
 import {IUser} from './user.interface';
 
 export interface INurseries{
@@ -11,5 +12,6 @@ export interface INurseries{
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+  products?: IProducts[];
   // productNurseryList?:
 }

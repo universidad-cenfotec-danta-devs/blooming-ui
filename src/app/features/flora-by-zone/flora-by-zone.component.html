@@ -5,17 +5,24 @@
   </div>
 </div>
 <div class="mx-5 xl:mx-9 my-6">
-  <div class="my-5" *ngIf="floraResponse">
-    <p class="text-[var(--main-text)]">{{ floraResponse }}</p>
-  </div>
-
-  <label class="text-[var(--main-text)] my-5 mx-3" for="cantonSelect">Seleccione un cantón: </label>
-  <select class="text-[var(--green-line)] input-canton" id="cantonSelect" [(ngModel)]="selectedCanton" (ngModelChange)="onCantonChange()">
+  <h1 class="text-2xl text-[var(--main-text)]">¡Bienvenido a la sección de Flora por Zona!</h1>
+  <p class="text-[var(--main-text)]">En este espacio, podrás explorar y descubrir la diversidad de la flora que caracteriza cada una de las zonas que puedes seleccionar.</p>
+  
+  <div class="my-5 text-[var(--main-text)] ">
+    <label class="my-5" for="cantonSelect">Seleccione un cantón: </label>
+    <select class="input-canton text-[var(--green-line)] " id="cantonSelect" [(ngModel)]="selectedCanton" (ngModelChange)="onCantonChange()">
     <option *ngFor="let canton of cantones" [value]="canton.name">
       {{ canton.name }}
     </option>
   </select>
+  </div>
+  
 
+  <div class="my-5" *ngIf="floraResponse">
+    <p class="text-[var(--green-line)] ">{{ floraResponse }}</p>
+  </div>
+
+  
 
 
   <div class="map-container">

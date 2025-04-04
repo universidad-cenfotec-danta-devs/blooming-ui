@@ -1,9 +1,8 @@
 <div class="table-container table-responsive">
   @if (nurseryList.length){
-    <table class="table-nursery table-striped">
-      <!--    table-auto w-full border-separate border-2 border-gray-300 rounded-lg-->
+    <table class="table-nursery table-striped rounded-2xl">
       <thead>
-      <tr class="border-b border-gray-300">
+      <tr class="border-b border-[#DCE6D3]">
         <th>Id</th>
         <th>Nombre</th>
         <th>Ubicación</th>
@@ -21,7 +20,11 @@
             <td class="flex gap-5 justify-center">
 <!--              <button class="underline" (click)="showEditModal(item, editModal)" )>Editar</button>-->
               <button class="underline">Editar</button>
-              <button class="underline">Eliminar</button>
+              @if (item.active) {
+                <button (click)="deactivate(item)" class="underline text-red-600">Desactivar</button>
+              } @else {
+                <button (click)="activate(item)" class="underline">Activar</button>
+              }
             </td>
           </tr>
         }

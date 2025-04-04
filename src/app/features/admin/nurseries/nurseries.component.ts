@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LayoutService} from '../../../services/layout.service';
 import {INurseries} from '../../../interfaces/nurseries.interface';
@@ -17,15 +17,17 @@ import {PaginationComponent} from '../../pagination/pagination.component';
   templateUrl: 'nurseries.component.html',
 })
 
-export class NurseriesComponent{
+export class NurseriesComponent implements OnInit {
   @Input() nurseryList: INurseries[]=[];
   public layoutService = inject(LayoutService);
   nurseryService: NurseryService = inject(NurseryService);
 
-  constructor() {
+  ngOnInit(): void {
+    setTimeout(() => {
     this.layoutService.setTitle('Viveros')
     this.layoutService.setDescription('En esta sección, puedes ver todos los viveros registrados en la plataforma. Revisa detalles como el ID, el nombre, la dirección con latitud y longitud, y el estado del vivero. También puedes editar su información o cambiar su estado a activo o desactivado.')
     this.nurseryService.search.page=1;
     this.nurseryService.getAll();
+    });
   }
 }

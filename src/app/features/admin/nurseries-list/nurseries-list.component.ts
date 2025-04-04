@@ -4,11 +4,8 @@ import {LayoutService} from '../../../services/layout.service';
 import {INurseries} from '../../../interfaces/nurseries.interface';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ModalComponent} from '../../detail-modal/detail-modal.component';
-import {INurseryDTO} from '../../../interfaces/nurseryDTO.interface';
 import {NurseryService} from '../../../services/nursery.service';
-import {ToastrService} from 'ngx-toastr';
 import {SHARED_IMPORTS} from '../../../shared/shared.module';
-import {IUser} from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'admin-nurseries-list',
@@ -24,6 +21,7 @@ import {IUser} from '../../../interfaces/user.interface';
 
 export class NurseriesListComponent{
   public layoutService = inject(LayoutService);
+  private nurseryService = inject(NurseryService);
   public selectedNursery: INurseries = {
     id: 0,
     name: '',
@@ -58,6 +56,16 @@ export class NurseriesListComponent{
       });
     }
     this.editModal.openModal();
+  }
+
+  activate(nursery: any){
+    this.nurseryService.activateNursery(nursery);
+    console.log("id vivero: "+nursery.id);
+  }
+
+  deactivate(nursery: any){
+    this.nurseryService.deactivateNursery(nursery);
+    console.log("id vivero: "+nursery.id);
   }
 
   // updateNursery(nurseryForm: FormGroup, $event: void) {}
