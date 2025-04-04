@@ -8,12 +8,10 @@ export class TokenStoreService {
   private EXPIRES_IN_KEY = 'expiresIn';
 
   public getToken(): string | null {
-    // Retrieve token as plain string (no JSON.parse)
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
   public setToken(token: string): void {
-    // Store token as plain string (no JSON.stringify)
     localStorage.setItem(this.TOKEN_KEY, token);
   }
 
@@ -27,7 +25,6 @@ export class TokenStoreService {
   }
 
   public setUser(user: IUser): void {
-    // For user objects, you *do* want JSON
     localStorage.setItem(this.USER_KEY, JSON.stringify(user));
   }
 

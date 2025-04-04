@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../enviroments/enviroment.development';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-// Import your interfaces for request and response objects
 import { PotRequest } from '../interfaces/potRequest.interface';
 import { Pot } from '../interfaces/pot.interface';
 
@@ -11,7 +10,6 @@ import { Pot } from '../interfaces/pot.interface';
   providedIn: 'root'
 })
 export class PotService {
-  // Base URL for the pot endpoints
   private BACKEND_URL = `${environment.apiUrl}/api/pot`;
 
   constructor(private http: HttpClient) {}
@@ -32,13 +30,11 @@ export class PotService {
     const url = `${this.BACKEND_URL}`;
     const formData = new FormData();
   
-    // Append JSON as a Blob.
     formData.append('potRequest', new Blob(
       [JSON.stringify(potRequest)], 
       { type: 'application/json' }
     ));
   
-    // Append the file.
     formData.append('3dFile', pot3dFile);
   
     return this.http.post<any>(url, formData).pipe(

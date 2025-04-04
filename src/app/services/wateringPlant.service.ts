@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../enviroments/enviroment.development';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-// Import or define the necessary interfaces according to your implementation
 import { WateringPlan } from '../interfaces/wateringPlan.interface';
 import { WateringDay } from  '../interfaces/wateringDay.interface';
 
@@ -11,7 +10,6 @@ import { WateringDay } from  '../interfaces/wateringDay.interface';
   providedIn: 'root'
 })
 export class WateringPlanService {
-  // Base URL for the wateringPlan endpoints.
   private BACKEND_URL = `${environment.apiUrl}/api/wateringPlan`;
 
   constructor(private http: HttpClient) {}

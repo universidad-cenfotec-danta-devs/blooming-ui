@@ -1,4 +1,6 @@
-<div [ngClass]="{'hidden': !isOpen}" class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto modal-overlay">
+<div 
+  class="modal-overlay fixed inset-0 z-50 flex items-center justify-center overflow-y-auto"
+  [class.hide-overlay]="shouldHideOverlay">
   <div class="relative w-full max-w-md p-4">
     <div class="bg-white rounded-lg shadow modal-content" [ngClass]="animationClass">
         <!-- Modal Header -->

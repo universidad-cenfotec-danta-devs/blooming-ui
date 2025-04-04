@@ -61,6 +61,6 @@ export class LanguageSelectorComponent {
    */
   changeLanguage(lang: string): void {
     this.languageService.changeLanguage(lang);
-    this.isDropdownVisible = false; // Close dropdown after selection
+    this.isDropdownVisible = false;
   }
 }

@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 
-// Import TranslateModule from @ngx-translate/core to enable internationalization and translation features.
 import { TranslateModule } from '@ngx-translate/core';
 
-// Import shared UI components for the application.
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';

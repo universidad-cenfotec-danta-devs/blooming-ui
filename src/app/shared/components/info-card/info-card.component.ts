@@ -13,7 +13,6 @@ export class InfoCardComponent {
   @Input() description: string = '';
   @Input() buttonLabel: string = '';
   @Input() imageUrl?: string;
-  // Optional property to store the plant ID (or token) from the API.
   @Input() plantId?: string;
 
   @Output() buttonClick = new EventEmitter<void>();

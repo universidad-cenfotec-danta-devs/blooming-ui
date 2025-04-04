@@ -2,9 +2,7 @@
     <table class="table-requests table-striped">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Requested</th>
-          <th>Requester ID</th>
+          <th>Requested Role</th>
           <th>Requester Email</th>
           <th>Status</th>
           <th>Created</th>
@@ -15,9 +13,7 @@
       <tbody>
         @for (item of requests; track item.id) {
           <tr>
-            <th>{{item.id}}</th>
             <td>{{item.roleRequested}}</td>
-            <td>{{item.requesterId}}</td>
             <td>{{item.requesterEmail}}</td>
             <td>{{item.requestStatus}}</td>
             <td>{{item.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
@@ -31,7 +27,7 @@
           <tr>
             <td>
               <div>
-                <p>There are not requests</p>
+                <p>There are no requests</p>
               </div>
             </td>
           </tr>

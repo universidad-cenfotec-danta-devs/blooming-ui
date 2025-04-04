@@ -23,7 +23,6 @@ export class DrPlantaChatComponent implements OnInit {
   messages: { text: string; sender: 'user' | 'bot' }[] = [];
   userMessage: string = '';
   isLoading = false;
-  // Holds the generated watering plan id
   wateringPlanId: number | null = null;
 
   constructor(
@@ -37,7 +36,6 @@ export class DrPlantaChatComponent implements OnInit {
     this.plantService.getPlantsByUser().subscribe({
       next: (plants: Plant[]) => {
         this.plantOptions = plants;
-        console.log('Fetched plants:', this.plantOptions);
         if (plants.length > 0) {
           this.selectedPlantId = this.plantId !== null ? this.plantId : plants[0].id!;
         }
@@ -52,7 +50,6 @@ export class DrPlantaChatComponent implements OnInit {
     if (!this.userMessage.trim() || !this.selectedPlantId) return;
     this.messages.push({ text: this.userMessage, sender: 'user' });
     this.isLoading = true;
-    console.log('sending message:', this.userMessage, 'to plantId:', this.selectedPlantId);
     this.drPlantService.askPlantQuestion(this.selectedPlantId, this.userMessage).subscribe({
       next: (response: any) => {
         const answer = response.data;

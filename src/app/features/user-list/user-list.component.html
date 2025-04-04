@@ -2,7 +2,6 @@
     <table class="table-users table-striped">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Name</th>
           <th>Email</th>
           <th>Gender</th>
@@ -15,7 +14,6 @@
       <tbody>
         @for (item of users; track item.id) {
           <tr>
-            <th>{{item.id}}</th>
             <td>{{item.name}}</td>
             <td>{{item.email}}</td>
             <td>{{item.gender}}</td>
@@ -31,7 +29,7 @@
           <tr>
             <td>
               <div>
-                <p>There are not users</p>
+                <p>There are no users</p>
               </div>
             </td>
           </tr>
