@@ -19,8 +19,6 @@
 
     <!-- Right: Icons and Language Selector -->
     <div class="flex-none flex items-center space-x-6 mr-4 motion-safe:animate-fade-down">
-
-      <!-- Cart Icon -->
       <button class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer">
         <svg class="h-7 w-7 text-[var(--secondary-color)] hover:scale-110 transition-transform duration-200"
              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -30,7 +28,6 @@
         </svg>
       </button>
 
-      <!-- Language Selector -->
       <app-language-selector></app-language-selector>
 
       <!-- User Icon -->
@@ -60,24 +57,24 @@
              (mouseenter)="cancelHideDropdown()"
              (mouseleave)="hideDropdownDelayed()"
              role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
-          <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
+          <!-- <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.AUTH' | translate }}
-          </a>
-          <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
+          </a> -->
+          <a href="/pot-editor" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.POTS' | translate }}
           </a>
           <a href="home/create-nursery" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.NURSERIES' | translate }}
-          </a>
-          <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
+          </a> -->
+          <a href="/dr-plant" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.PLANT_CARE' | translate }}
           </a>
-          <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
+          <!-- <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.CART_ORDERS' | translate }}
           </a>
           <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.NOTIFICATIONS' | translate }}
-          </a>
+          </a> -->
           <a *ngIf="userRole == 'ADMIN_USER'" href="/admin/users" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.ADMIN' | translate }}
           </a>
@@ -107,9 +104,9 @@
     <!-- Mobile: Navigation -->
     <div class="md:hidden bg-white px-4 py-3 motion-safe:animate-fade-down">
       <nav class="flex justify-around text-[22px] font-medium">
-        <a href="#" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.HOME' | translate }}</a>
-        <a href="#" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.DR_PLANTA' | translate }}</a>
-        <a href="#" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.VIVERO' | translate }}</a>
+        <a href="/home" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.HOME' | translate }}</a>
+        <a href="/dr-plant" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.DR_PLANTA' | translate }}</a>
+        <!-- <a href="/" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.VIVERO' | translate }}</a> -->
       </nav>
     </div>
   </div> <!-- End main container -->

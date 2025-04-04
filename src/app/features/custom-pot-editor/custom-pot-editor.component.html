@@ -64,7 +64,7 @@
     <div *ngIf="currentStepIndex === 0" class="flex flex-col space-y-2">
       <label class="font-medium">{{ 'POT_EDITOR_PAGE.LABEL_MATERIAL' | translate }}</label>
       <select formControlName="material" class="p-2 border bg-[#dae5e4] border-[#5C684B] rounded text-[#5C684B]">
-        <option value="" disabled>-- {{ 'POT_EDITOR_PAGE.SELECT_MATERIAL' | translate }} --</option>
+        <option value="" disabled>{{ 'POT_EDITOR_PAGE.SELECT_MATERIAL' | translate }}</option>
         <option value="Ceramic">{{ 'POT_EDITOR_PAGE.MATERIAL_CERAMIC' | translate }}</option>
         <option value="Plastic">{{ 'POT_EDITOR_PAGE.MATERIAL_PLASTIC' | translate }}</option>
         <option value="Metal">{{ 'POT_EDITOR_PAGE.MATERIAL_METAL' | translate }}</option>
@@ -81,7 +81,8 @@
         class="p-2 border border-gray-300 rounded" 
         placeholder="10" 
         min="1" 
-        max="100" />
+        max="100" 
+        (input)="preventNegative($event)"/>
     </div>
 
     <!-- Step 3: Color -->
