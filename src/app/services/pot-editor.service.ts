@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 import { CustomPot } from '../models/custom-pot.model';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -28,12 +29,15 @@ export class PotEditorService {
   private controls!: OrbitControls;
   private potModelGroup!: THREE.Group;
 
+  // Optionally store the last file loaded via file input
+  private currentModelFile: File | null = null;
+
   constructor(private ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   /**
    * Initializes the Three.js scene with camera, lights, OrbitControls,
-   * and creates a default fallback cube. After a 1-second delay, it automatically
-   * loads the default pot model ("pot.glb") to replace the cube.
+   * and creates a default group for the pot model.
+   * Also loads the default pot model ("pot.glb") and starts the render loop.
    * This code runs only in the browser.
    * @param canvas The HTMLCanvasElement for rendering.
    * @returns Observable that emits true if the scene is initialized.
@@ -146,7 +150,7 @@ export class PotEditorService {
     const scaleFactor = desiredSize / maxDimension;
     model.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
-    // Optionally center the model by subtracting the center from its position.
+    // Center the model.
     const center = new THREE.Vector3();
     box.getCenter(center);
     model.position.sub(center);
@@ -181,8 +185,7 @@ export class PotEditorService {
             console.log('[PotEditorService] Model center before adjustment:', center);
             model.position.sub(center);
 
-            // Instead of a fixed scale, standardize the model's size.
-            // For example, we want the largest dimension to be 100 units.
+            // Standardize the model's size (e.g., maximum dimension = 100 units).
             this.standardizeModelSize(model, 100);
 
             // Apply default material to all meshes.
@@ -229,6 +232,8 @@ export class PotEditorService {
    * @returns Observable that emits true if the model loads successfully.
    */
   loadModelFromFile(file: File): Observable<boolean> {
+    // Store the file so that it can be retrieved later.
+    this.currentModelFile = file;
     return new Observable(observer => {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -288,6 +293,40 @@ export class PotEditorService {
       reader.readAsArrayBuffer(file);
     });
   }
+
+  /**
+   * Exports the currently displayed (updated) pot model as a GLB Blob.
+   * This exported file reflects any changes made to the model (e.g., color updates).
+   * @returns Observable that emits a Blob representing the exported model.
+   */
+  exportCurrentModel(): Observable<Blob> {
+    return new Observable(observer => {
+      try {
+        const exporter = new GLTFExporter();
+        const options: any = { binary: true };
+        exporter.parse(
+          this.potModelGroup,
+          (result: ArrayBuffer | object) => {
+            let blob: Blob;
+            if (result instanceof ArrayBuffer) {
+              blob = new Blob([result], { type: 'model/gltf-binary' });
+            } else {
+              const output = JSON.stringify(result, null, 2);
+              blob = new Blob([output], { type: 'application/json' });
+            }
+            console.log('[PotEditorService] Model exported successfully.');
+            observer.next(blob);
+            observer.complete();
+          },
+          options
+        );
+      } catch (error: any) {
+        observer.error(new Error('Error exporting current model: ' + error));
+      }
+    });
+  }
+  
+  
 
   /**
    * Updates the 3D model's material properties (color, metalness, roughness)

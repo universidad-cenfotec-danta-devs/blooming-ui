@@ -27,7 +27,6 @@
   <!-- Steps Indicator (Material, Size, Color) -->
   <div class="flex items-center mb-4 w-[50%] justify-between">
     <ng-container *ngFor="let step of steps; let i = index">
-      <!-- Circle + Step Label -->
       <div class="flex items-center space-x-2">
         <!-- Circle with the step number; clickable to navigate -->
         <div 
@@ -35,8 +34,7 @@
           (click)="setCurrentStep(i)"
           [ngClass]="i === currentStepIndex 
             ? 'bg-white text-[#5C684B] border-[#97A97C]' 
-            : 'bg-[#97A97C] text-[#5C684B] border-[#97A97C]'"
-        >
+            : 'bg-[#97A97C] text-[#5C684B] border-[#97A97C]'">
           {{ i + 1 }}
         </div>
         <!-- Step Label -->
@@ -45,16 +43,16 @@
     </ng-container>
   </div>
 
-  <!-- Current Step Instructions (translated) -->
+  <!-- Current Step Instructions -->
   <div class="mb-4">
     <ng-container [ngSwitch]="currentStepIndex">
       <p *ngSwitchCase="0" class="text-[#5C684B] text-2xl font-medium">
         {{ 'POT_EDITOR_PAGE.INSTRUCTIONS_MATERIAL' | translate }}
       </p>
-      <p *ngSwitchCase="1" class="text-[#5C684B] text-4xl font-medium">
+      <p *ngSwitchCase="1" class="text-[#5C684B] text-2xl font-medium">
         {{ 'POT_EDITOR_PAGE.INSTRUCTIONS_SIZE' | translate }}
       </p>
-      <p *ngSwitchCase="2" class="text-[#5C684B] text-4xl font-medium">
+      <p *ngSwitchCase="2" class="text-[#5C684B] text-2xl font-medium">
         {{ 'POT_EDITOR_PAGE.INSTRUCTIONS_COLOR' | translate }}
       </p>
     </ng-container>
@@ -116,14 +114,17 @@
     </div>
   </div>
 
-  <!-- Confirmation Modal -->
+  <!-- Custom Pot Name Modal -->
   <app-modal
-    #confirmModal
-    [title]="'MODAL.TITLE' | translate"
-    [message]="'MODAL.MESSAGE' | translate"
-    [confirmText]="'MODAL.CONFIRM_BUTTON' | translate"
-    [cancelText]="'MODAL.CANCEL_BUTTON' | translate"
-    (confirm)="handleModalConfirm()"
-    (cancel)="handleModalCancel()"
-  ></app-modal>
+    #nameModal
+    [title]="'Enter Pot Name'"
+    [message]="'Please enter a name for your custom pot:'"
+    [confirmText]="'Confirm'"
+    [cancelText]="'Cancel'"
+    (confirm)="handleNameModalConfirm()"
+    (cancel)="handleNameModalCancel()">
+    <div class="p-4">
+      <input type="text" [(ngModel)]="customPotName" placeholder="Enter pot name" class="w-full p-2 border rounded" />
+    </div>
+  </app-modal>
 </div>

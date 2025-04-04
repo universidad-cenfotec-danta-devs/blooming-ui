@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DrPlantService } from '../../services/dr-plant.service';
 import { PlantService } from '../../services/plant.service';
+import { WateringPlanService } from '../../services/wateringPlant.service';
+import { ToastrService } from 'ngx-toastr';
 import { SHARED_IMPORTS } from '../../shared/shared.module';
 import { Plant } from '../../interfaces/plant.interface';
 
@@ -13,60 +15,31 @@ import { Plant } from '../../interfaces/plant.interface';
 export class DrPlantaChatComponent implements OnInit {
   /**
    * Input property from the parent component.
-   * This may be null if not provided.
    */
   @Input() plantId: number | null = null;
 
-  /**
-   * Array holding the plants fetched for the current user.
-   */
   plantOptions: Plant[] = [];
-
-  /**
-   * The plant ID selected for the chat.
-   * This is guaranteed to be a number.
-   */
   selectedPlantId!: number;
-
-  /**
-   * Array to store chat messages between the user and the bot.
-   */
   messages: { text: string; sender: 'user' | 'bot' }[] = [];
-
-  /**
-   * The current message entered by the user.
-   */
   userMessage: string = '';
-
-  /**
-   * Indicates whether the chat is waiting for a response.
-   */
   isLoading = false;
+  // Holds the generated watering plan id
+  wateringPlanId: number | null = null;
 
   constructor(
     private drPlantService: DrPlantService,
-    private plantService: PlantService
+    private plantService: PlantService,
+    private wateringPlanService: WateringPlanService,
+    private toastr: ToastrService
   ) {}
 
-  /**
-   * Lifecycle hook that is called after data-bound properties are initialized.
-   * Fetches the list of plants associated with the current user.
-   * If a plantId is provided by the parent, it uses that value;
-   * otherwise, it defaults to the first plant's idAccessToken.
-   */
   ngOnInit(): void {
     this.plantService.getPlantsByUser().subscribe({
       next: (plants: Plant[]) => {
         this.plantOptions = plants;
         console.log('Fetched plants:', this.plantOptions);
-        // If there are plants available, set the selectedPlantId.
         if (plants.length > 0) {
-          // Use the provided plantId if it's not null; otherwise, use the first plant's idAccessToken.
-          if (this.plantId !== null) {
-            this.selectedPlantId = this.plantId;
-          } else {
-            this.selectedPlantId = plants[0].id!;
-          }
+          this.selectedPlantId = this.plantId !== null ? this.plantId : plants[0].id!;
         }
       },
       error: (err) => {
@@ -75,19 +48,14 @@ export class DrPlantaChatComponent implements OnInit {
     });
   }
 
-  /**
-   * Sends the user's message to the backend and adds both user and bot responses to the chat.
-   */
   sendMessage(): void {
     if (!this.userMessage.trim() || !this.selectedPlantId) return;
-
-    // Add user's message to chat
     this.messages.push({ text: this.userMessage, sender: 'user' });
     this.isLoading = true;
     console.log('sending message:', this.userMessage, 'to plantId:', this.selectedPlantId);
     this.drPlantService.askPlantQuestion(this.selectedPlantId, this.userMessage).subscribe({
       next: (response: any) => {
-        const answer = response.data; 
+        const answer = response.data;
         this.messages.push({ text: answer, sender: 'bot' });
         this.isLoading = false;
       },
@@ -96,8 +64,49 @@ export class DrPlantaChatComponent implements OnInit {
         this.isLoading = false;
       }
     });
-
-    // Clear the user's input message
     this.userMessage = '';
+  }
+
+  /**
+   * Calls the WateringPlanService to generate a watering plan for the selected plant.
+   * On success, it stores the watering plan id.
+   */
+  generateWateringPlan(): void {
+    if (!this.selectedPlantId) return;
+    this.wateringPlanService.generateByUser(this.selectedPlantId).subscribe({
+      next: (plan) => {
+        this.wateringPlanId = plan.id;
+        this.toastr.success('Watering plan generated successfully!');
+      },
+      error: (err) => {
+        console.error('Error generating watering plan:', err);
+        this.toastr.error('Error generating watering plan.');
+      }
+    });
+  }
+
+  /**
+   * Downloads the PDF of the generated watering plan using its id.
+   */
+  downloadWateringPlanPDF(): void {
+    if (!this.wateringPlanId) {
+      this.toastr.error('No watering plan available. Please generate one first.');
+      return;
+    }
+    this.wateringPlanService.generatePDF(this.wateringPlanId).subscribe({
+      next: (blob: Blob) => {
+        const link = document.createElement('a');
+        const url = window.URL.createObjectURL(blob);
+        link.href = url;
+        link.download = `watering_plan_${this.wateringPlanId}.pdf`;
+        link.click();
+        window.URL.revokeObjectURL(url);
+        this.toastr.success('PDF downloaded successfully!');
+      },
+      error: (err) => {
+        console.error('Error generating PDF:', err);
+        this.toastr.error('Error generating PDF.');
+      }
+    });
   }
 }

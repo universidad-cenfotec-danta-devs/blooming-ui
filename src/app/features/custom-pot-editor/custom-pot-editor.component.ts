@@ -1,24 +1,28 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PotEditorService } from '../../services/pot-editor.service';
+import { PotService } from '../../services/pot.service';
 import { CustomPot } from '../../models/custom-pot.model';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ModalComponent } from '../../shared/components/modal/modal.component'; // Adjust import path as needed
 import { TranslateModule } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-custom-pot-editor',
   templateUrl: './custom-pot-editor.component.html',
   styleUrls: ['./custom-pot-editor.component.css'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, ModalComponent,TranslateModule]
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, ModalComponent, TranslateModule]
 })
 export class CustomPotEditorComponent implements OnInit, AfterViewInit {
   @ViewChild('editorCanvas') editorCanvas!: ElementRef<HTMLCanvasElement>;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  // Reference to the modal component for confirmation
+  // Confirmation modal (if needed for other confirmations)
   @ViewChild('confirmModal') confirmModal!: ModalComponent;
+  // Modal used to ask the user for a custom pot name (assumes it contains an input field)
+  @ViewChild('nameModal') nameModal!: ModalComponent;
 
   potForm!: FormGroup;
   price?: number;
@@ -37,15 +41,23 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
     return this.steps[this._currentStepIndex];
   }
 
-  // Hardcoded list of available models
+  // Default pot models available locally
   modelList: string[] = ['pot.glb', 'pot2.glb', 'pot3.glb'];
   selectedModel: string = this.modelList[0];
 
+  // Stores the selected 3D file for upload (if the user chooses a file manually)
+  selectedFile: File | null = null;
+
+  // Stores the custom pot name entered by the user via the modal
+  customPotName: string = '';
+
   constructor(
     private fb: FormBuilder,
-    private potService: PotEditorService,
+    private potEditorService: PotEditorService,
+    private potService: PotService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private toastr: ToastrService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -61,7 +73,7 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
     // Update 3D model whenever form values change
     this.potForm.valueChanges.subscribe((pot: CustomPot) => {
       if (this.isBrowser) {
-        this.potService.update3DModel(pot);
+        this.potEditorService.update3DModel(pot);
       }
     });
   }
@@ -78,11 +90,11 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
   loadEditor3D(): void {
     this.loadingEditor = true;
     this.editorLoadError = null;
-    this.potService.load3DEditor(this.editorCanvas.nativeElement).subscribe({
+    this.potEditorService.load3DEditor(this.editorCanvas.nativeElement).subscribe({
       next: () => {
         this.loadingEditor = false;
         this.cd.detectChanges();
-        this.potService.update3DModel(this.potForm.value);
+        this.potEditorService.update3DModel(this.potForm.value);
       },
       error: (err) => {
         setTimeout(() => {
@@ -107,11 +119,15 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
   calculatePrice(): void {
     if (this.potForm.valid) {
       const pot: CustomPot = this.potForm.value;
-      this.potService.calculatePrice(pot).subscribe({
-        next: (price) => (this.price = price),
+      this.potEditorService.calculatePrice(pot).subscribe({
+        next: (price) => {
+          this.price = price;
+          console.log('[PotEditorService] Price calculated:', price);
+        },
         error: (err) => {
           console.error('Error calculating price:', err);
           this.price = undefined;
+          this.toastr.error('Error calculating price.');
         }
       });
     }
@@ -119,32 +135,88 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
 
   /**
    * Called when the user clicks "Confirm Creation".
-   * Opens the confirmation modal instead of immediately logging.
+   * Opens a modal to ask for the custom pot name.
    */
   onSubmit(): void {
     if (this.potForm.invalid) {
-      alert('Please complete all required fields.');
+      this.toastr.error('Please complete all required fields.');
       return;
     }
+    // Calculate the price before asking for the name
     this.calculatePrice();
-    this.confirmModal.openModal();
+    // Open the modal to input a custom pot name
+    this.openNameModal();
   }
 
   /**
-   * Handles the confirmation from the modal.
-   * Logs the form data and price.
+   * Opens the modal used to input a custom pot name.
+   * This modal should have an input field bound to `customPotName`.
    */
-  handleModalConfirm(): void {
-    console.log('Custom pot configuration:', this.potForm.value);
-    console.log('Calculated price:', this.price);
-    // Additional processing can be added here.
+  openNameModal(): void {
+    this.nameModal.openModal();
   }
 
   /**
-   * Handles the modal cancel event.
+   * Handles the confirmation from the custom pot name modal.
+   * Uses the entered pot name to upload the pot and update the model list.
+   * If no file is selected via file input, attempts to retrieve the currently loaded model file from the 3D editor.
+   */handleNameModalConfirm(): void {
+  if (!this.customPotName || this.customPotName.trim() === '') {
+    this.toastr.error('Please enter a valid pot name.');
+    return;
+  }
+
+  // Construct the PotRequest object using form values and the entered pot name
+  const potRequest = {
+    name: this.customPotName,
+    description: `Material: ${this.potForm.value.material}, Size: ${this.potForm.value.size}, Color: ${this.potForm.value.color}`,
+    price: this.price || 0
+  };
+
+  // Instead of checking for a manually selected file, export the current model
+  this.potEditorService.exportCurrentModel().subscribe({
+    next: (blob: Blob) => {
+      // Create a File object from the exported Blob
+      const updatedFile = new File([blob], 'customPot.glb', { type: 'model/gltf-binary' });
+      // Upload using the updatedFile
+      this.potService.uploadPot(potRequest, updatedFile).subscribe({
+        next: (uploadedPot) => {
+          console.log('Pot uploaded successfully:', uploadedPot);
+          this.toastr.success('Pot uploaded successfully!');
+          // Update the list of user's pots (combining default models with user models)
+          this.potService.getPots(0, 10).subscribe({
+            next: (userPots) => {
+              const defaultPots = ['pot.glb', 'pot2.glb', 'pot3.glb'];
+              const userPotModels = userPots.map(pot => pot.imageUrl);
+              const combinedList = Array.from(new Set([...defaultPots, ...userPotModels]));
+              this.modelList = combinedList;
+              console.log('Updated model list:', this.modelList);
+            },
+            error: (err) => {
+              console.error('Error fetching user pots:', err);
+              this.toastr.error('Error updating model list.');
+            }
+          });
+        },
+        error: (err) => {
+          console.error('Error uploading pot:', err);
+          this.toastr.error('Error uploading pot. Please try again.');
+        }
+      });
+    },
+    error: (err) => {
+      console.error('Error exporting updated model:', err);
+      this.toastr.error('Failed to export updated model.');
+    }
+  });
+}
+
+  /**
+   * Handles the cancellation from the custom pot name modal.
    */
-  handleModalCancel(): void {
-    console.log('Action cancelled by user.');
+  handleNameModalCancel(): void {
+    console.log('Pot name input cancelled by user.');
+    this.toastr.info('Pot creation cancelled.');
   }
 
   /**
@@ -155,14 +227,16 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+      this.selectedFile = file;  // Save the selected file for upload
       console.log('[CustomPotEditorComponent] File selected:', file.name);
-      this.potService.loadModelFromFile(file).subscribe({
+      this.potEditorService.loadModelFromFile(file).subscribe({
         next: () => {
           console.log('[CustomPotEditorComponent] Model loaded from file successfully');
         },
         error: (err: any) => {
           console.error('[CustomPotEditorComponent] Error loading model from file:', err);
           this.editorLoadError = 'Error loading model from file: ' + err.message;
+          this.toastr.error('Error loading model from file.');
         }
       });
     }
@@ -175,13 +249,14 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
     if (!this.isBrowser) return;
     const modelPath = 'assets/models/' + this.selectedModel;
     console.log('[CustomPotEditorComponent] Loading model:', modelPath);
-    this.potService.loadModel(modelPath).subscribe({
+    this.potEditorService.loadModel(modelPath).subscribe({
       next: () => {
         console.log('[CustomPotEditorComponent] Model loaded successfully from list');
       },
       error: (err) => {
         console.error('[CustomPotEditorComponent] Error loading model from list:', err);
         this.editorLoadError = 'Error loading model: ' + err.message;
+        this.toastr.error('Error loading model from list.');
       }
     });
   }
