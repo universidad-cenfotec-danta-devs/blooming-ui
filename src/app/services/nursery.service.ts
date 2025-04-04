@@ -75,8 +75,7 @@ export class NurseryService extends BaseService<INurseryDTO>{
       next: (response: any) => {
         this.search = {...this.search, ...response.meta};
         this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
-        this.nurseryProducts$.set(response.data.content); 
-        console.log(response.data);
+        this.nurseryProducts$.set(response.data.content);
         
       },
       error: (err: any) => { 
@@ -91,7 +90,6 @@ export class NurseryService extends BaseService<INurseryDTO>{
       next: (response: any) => {
         this.getProductsByNurseryId(product.nursery?.id);
         this.toastr.success('Product added to nursery', 'Success');
-        console.log(response);
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -101,11 +99,9 @@ export class NurseryService extends BaseService<INurseryDTO>{
   }
 
   getById(id: any) {
-    console.log("id: "+id);
     this.find(id).subscribe({
       next: (response: any) => {
         this.nurseryDetail$.set(response.data);
-        console.log(response);
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -119,7 +115,6 @@ export class NurseryService extends BaseService<INurseryDTO>{
       next: (response: any) => {
         this.toastr.success("Nursery activated", 'Success');
         this.getAll();
-        console.log("activate: "+response)
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -133,7 +128,6 @@ export class NurseryService extends BaseService<INurseryDTO>{
       next: (response: any) => {
         this.toastr.success("Nursery deactivated", 'Success');
         this.getAll();
-        console.log("deactivate: "+ response)
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');

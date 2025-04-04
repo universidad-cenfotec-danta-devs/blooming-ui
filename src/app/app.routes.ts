@@ -4,11 +4,9 @@ import {HomeComponent} from './features/home/home.component';
 import {LoginComponent} from './features/login/login.component';
 import {DrPlantComponent} from './features/dr-plant/dr-plant.component';
 import {FloraByZoneComponent} from './features/flora-by-zone/flora-by-zone.component';
-// import { UserListComponent } from './features/user-list/user-list.component';
 import { AdminRoleGuard } from './guards/admin-role.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { IRoleType } from './interfaces/roleType.interfaces';
-// import { AdminLayoutComponent } from './features/admin-layout-component/admin-layout-component';
 import { UsersComponent } from './features/users/users.component';
 import { RoleRequestsComponent } from './features/role-requests/role-requests.component';
 import { AdminLogsComponent } from './features/admin-logs/admin-logs.component';
@@ -33,28 +31,8 @@ import { CreateNurseryComponent } from './features/create-nursery/create-nursery
  * via the wildcard route. The wildcard route should always be placed at the end of the routes array.
  */
 export const routes: Routes = [
-  // Home Page Route
-  // When the user navigates to `/home`, Angular renders the HomeComponent.
-
-  // { path: 'flora-by-zone', component: FloraByZoneComponent},
 
   { path: 'login', component: LoginComponent },
-
-  // Dr-plant Page Route
-  // When the user navigates to `/dr-plant`, Angular renders the DrPlantComponent.
-  // { path: 'dr-plant', component: DrPlantComponent },
-  // { path: 'dr-plant', component: DrPlantComponent ,canActivate: [AuthGuard] },
-
-  // Pot Editor Page Route
-  // When the user navigates to `/pot-editor`, Angular renders the PotEditorPageComponent.
-  // { path: 'pot-editor', component: PotEditorPageComponent },
-  // { path: 'pot-editor', component: PotEditorPageComponent,canActivate: [AuthGuard] },
-
-  // Default Route (Redirect to Home)
-  // If the user navigates to the root URL (`/`), they are automatically redirected to `/home`.
-  // { path: '', redirectTo: '/home', pathMatch: 'full' },
-
-  // { path: '**', redirectTo: '/home', pathMatch: 'full' },
 
   { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
 
@@ -63,7 +41,7 @@ export const routes: Routes = [
     component: HomeLayoutComponent,
     children:[
       {path: '',
-       component: HomeComponent/*, canActivate: [NoAuthGuard]*/
+       component: HomeComponent
       },
       {
         path: 'flora-by-zone',

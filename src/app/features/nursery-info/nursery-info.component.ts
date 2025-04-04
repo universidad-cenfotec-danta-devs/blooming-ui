@@ -24,6 +24,5 @@ export class NurseryInfoComponent{
     this.nurseryService.getById(this.nurseryId);
     this.nurseryService.search.page=1;
     this.nurseryService.getProductsByNurseryId(this.nurseryId);
-    console.log(this.nurseryService.nurseryDetail$().products);
   }
 }
