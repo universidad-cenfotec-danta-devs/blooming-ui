@@ -1,0 +1,18 @@
+<div class="bg-[url(/assets/images/bg-nursery.png)] bg-cover bg-fixed h-45 w-full xl:h-80 bg-gray-400 bg-blend-multiply title-container">
+  <div class="-py-10">
+    <h1 class="text-6xl text-white">Viveros</h1>
+  </div>
+</div>
+
+<div class="mx-5 xl:mx-9 mt-6">
+  <h4 class="text-2xl text-[var(--main-text)]">Viveros cerca de ti</h4>
+<!--  <p class="mx-10 text-center text-[var(&#45;&#45;secondary-color)]">Explora los viveros cercanos a ti y encuentra una gran variedad de plantas, herramientas y decoración para tu jardín. Selecciona un vivero para ver más detalles y descubrir to do lo que tiene para ofrecer.</p>-->
+
+  @defer{
+    <nursery-card [nurseryList]="nurseryService.nurseries$()"/>
+    @if (nurseryService.nurseries$().length){
+      <app-pagination [service]="nurseryService"/>
+    }
+  }@loading (minimum 1.5s){
+  }
+</div>

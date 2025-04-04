@@ -9,9 +9,10 @@ import { Injectable, inject } from '@angular/core';
 export class BaseService<T> {
   protected source!: string;
   protected http = inject(HttpClient);
+  private baseURL = 'http://localhost:8080/';
 
   public find(id: string | number): Observable<IResponse<T>> {
-    return this.http.get<IResponse<T>>(this.source + '/' + id);
+    return this.http.get<IResponse<T>>(this.baseURL + this.source + '/' + id);
   }
 
   public findAll(): Observable<IResponse<T[]>> {
@@ -23,7 +24,7 @@ export class BaseService<T> {
   }
 
   public findAllWithParamsAndCustomSource(customUrlSource: string, params: any = {}): Observable<IResponse<T[]>> {
-    return this.http.get<IResponse<T[]>>(`${this.source}/${customUrlSource}`, {params: this.buildUrlParams(params)});
+    return this.http.get<IResponse<T[]>>(this.baseURL + `${this.source}/${customUrlSource}`, {params: this.buildUrlParams(params)});
   }
 
   public add(data: {}): Observable<IResponse<T>> {
@@ -35,7 +36,7 @@ export class BaseService<T> {
   }
 
   public addCustomSource(customUrlSource: string, data: {}): Observable<IResponse<T>> {
-    return this.http.post<IResponse<T>>(`${this.source}/${customUrlSource}`, data);
+    return this.http.post<IResponse<T>>(this.baseURL+`${this.source}/${customUrlSource}`, data);
   }
 
   public edit(id: string | undefined, data: {}): Observable<IResponse<T>> {
@@ -49,9 +50,17 @@ export class BaseService<T> {
   public del(id: any): Observable<IResponse<T>> {
     return this.http.delete<IResponse<T>>(this.source + '/' + id);
   }
-  
+
   public delCustomSource(customUrlSource: string): Observable<IResponse<T>> {
     return this.http.delete<IResponse<T>>(`http://localhost:8080/${customUrlSource}`);
+  }
+
+  public patch(id: string | undefined, data:{}): Observable<IResponse<T>>{
+    return this.http.patch<IResponse<T>>(this.baseURL + `${this.source}` + '/' + id, data);
+  }
+
+  public patchCustomSource(customUrlSource: string, data?: {}): Observable<IResponse<T>> {
+    return this.http.patch<IResponse<T>>(this.baseURL + `${this.source}` + `${customUrlSource ? '/' + customUrlSource: ''}`, data);
   }
 
   public buildUrlParams (params: any = {}) {

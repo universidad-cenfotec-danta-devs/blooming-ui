@@ -1,7 +1,8 @@
 <div class="table-container table-responsive">
-    <table class="table-requests table-striped">
+  @if (requests.length) {
+    <table class="table-requests table-striped rounded-2xl">
       <thead>
-        <tr>
+        <tr class="border-b border-[#DCE6D3]">
           <th>Requested Role</th>
           <th>Requester Email</th>
           <th>Status</th>
@@ -23,17 +24,12 @@
               <p class="delete" (click)="showDenyModal(item, denyModal)">Deny</p>
             </td>
           </tr>
-        } @empty {
-          <tr>
-            <td>
-              <div>
-                <p>There are no requests</p>
-              </div>
-            </td>
-          </tr>
         }
       </tbody>
     </table>
+  } @else {
+    <h4 class="text-[var(--green-line)] text-center">No requests have been created</h4>
+  }
   </div>
 
 <app-modal #approveModal

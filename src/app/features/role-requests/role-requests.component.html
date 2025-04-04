@@ -1,11 +1,6 @@
 @defer {
-    <div class="table-container">
-        <h1 class="text-blooming title"><strong>Role Requests</strong></h1>
-        <br>
-        <p class="text-blooming">In this section, you can see the list of the roles requested by users. You can approve or deny any requests.</p>
-        <br>
         <app-requests-list
-            
+
             [requests]="roleRequestService.roleRequests$()"
         />
         @if(roleRequestService.roleRequests$().length) {
@@ -13,7 +8,6 @@
                 [service]="roleRequestService"
             />
         }
-    </div>
 } @loading (minimum 1.5s) {
-    
+
 }

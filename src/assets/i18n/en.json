@@ -29,7 +29,7 @@
       "CONFIRM_BUTTON": "Yes, confirm",
       "CANCEL_BUTTON": "No, cancel"
     }
-  ,  
+  ,
   "FOOTER": {
     "ABOUT": "More info",
     "ABOUT_US": "About us",
@@ -63,7 +63,9 @@
       "LOGOUT_MESSAGE": "Are you sure you want to log out?",
       "CONFIRM": "Confirm",
       "CANCEL": "Cancel"
-    } },
+    },
+    "PLANTAS_ZONA": "Flora by zone"
+  },
   "HEADER_LANDING": {
 "DESCRIPTION": "Discover a curated selection of exquisite plants, custom pots, and local nurseries that transform your space into a vibrant oasis. Learn expert care tips, explore our premium plant collection, design and sell your own pots, and connect with nearby nurseries. With Blooming, you can easily find the perfect plant, customize your garden accessories, and even turn your passion into a business.",
  "SLOGAN": "Connect with nature and create your perfect design.",
@@ -100,7 +102,7 @@
       "DESCRIPTION": "Discover different plants by region",
       "BUTTON_LABEL": "Visit"
     }
-  },  
+  },
     "DR_PLANTA_TITLE": "Dr. Plant",
     "DR_PLANTA_SUBTITLE": "Your intelligent assistant for plant care.",
     "DR_PLANTA_DESCRIPTION": "Upload a photo or enter your plant's name and receive personalized recommendations for its care. Plus, schedule watering reminders and more directly in your Google Calendar.",
@@ -206,7 +208,7 @@
         "INSTRUCTIONS_COLOR": "Select a color for your pot.",
         "INSTRUCTIONS_LINE1": "Select a material, size, and color for your pot.",
         "INSTRUCTIONS_LINE2": "You can zoom in or out on the 3D model using your mouse wheel or trackpad.",
-        "INSTRUCTIONS_LINE3": "You can also upload your own 3D models in GLB format by clicking the 'Upload Model' button.",    
+        "INSTRUCTIONS_LINE3": "You can also upload your own 3D models in GLB format by clicking the 'Upload Model' button.",
         "LABEL_MATERIAL": "Material",
         "SELECT_MATERIAL": "Select Material",
         "MATERIAL_CERAMIC": "Ceramic",
@@ -226,4 +228,3 @@
         "CANCEL_BUTTON": "No, cancel"
       }
     }
-    

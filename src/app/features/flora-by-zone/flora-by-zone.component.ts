@@ -21,7 +21,7 @@ export class FloraByZoneComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    this.floraResponse = '¡Descubre la flora de todos los cantones del país!';
+    this.floraResponse = 'Descubre la flora de todos los cantones del país';
     this.configMap();
   }
 

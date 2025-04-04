@@ -1,0 +1,37 @@
+<div class="py-5 px-10" >
+    <form [formGroup]="nurseryForm" class="w-[70%] bg-[#FCFFF8] rounded-xl text-[var(--main-text)] flex flex-col justify-self-center" enctype="multipart/form-data">
+        <div class="border-b-1 border-[#DCE6D3] w-full">
+            <div class="p-10">
+                <h1 class="text-3xl font-semibold">Crear vivero</h1>
+                <p class="py-3">Por favor completa los campos para crear un vivero</p>
+            </div>
+        </div>
+        <div class="p-10">
+            <div class="flex flex-row justify-between pb-5">
+                <div class="flex flex-col">
+                    <label for="name">Nombre: </label>
+                    <input type="text" id="name" name="name" formControlName="name" required>
+                </div>
+                <div class="flex flex-col">
+                    <label for="description">Descripción: </label>
+                    <textarea id="description" name="description" formControlName="description" required></textarea>
+                </div>
+            </div>
+            <div class="flex flex-row justify-between pb-5">
+                <div class="flex flex-col">
+                    <label for="latitude">Latitud: </label>
+                    <input type="number" id="latitude" name="latitude" formControlName="latitude" step="any" required>
+                </div>
+                <div class="flex flex-col">
+                    <label for="longitude">Longitud: </label>
+                    <input type="number" id="longitude" name="longitude" formControlName="longitude" step="any" required>
+                </div>
+            </div>
+            <div class="flex flex-col pb-5">
+                <label for="image">Imagen: </label>
+                <input type="file" id="image" name="image" accept="image/*">
+            </div>
+        </div>
+        <button class="primary-btn rounded-b-lg" (click)="onSubmit()" type="submit">Crear Vivero</button>
+    </form>
+</div>

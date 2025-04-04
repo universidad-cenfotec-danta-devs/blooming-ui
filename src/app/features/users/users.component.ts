@@ -7,6 +7,7 @@ import { PaginationComponent } from '../pagination/pagination.component';
 import { ModalService } from '../../services/modal.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModalComponent } from '../detail-modal/detail-modal.component';
+import {LayoutService} from '../../services/layout.service';
 
 @Component({
   selector: 'app-users',
@@ -21,6 +22,8 @@ export class UsersComponent {
   public isModalOpen: boolean = false;
   public selectedItem: any = null;
   public fb: FormBuilder = inject(FormBuilder);
+  public layoutService = inject(LayoutService);
+
   userForm = this.fb.group({
     id: [''],
     email: ['', [Validators.required, Validators.email]],
@@ -34,6 +37,9 @@ export class UsersComponent {
   })
 
   constructor() {
+    this.layoutService.setTitle('Usuarios')
+    this.layoutService.setDescription('En esta sección, puedes ver el listado completo de usuarios registrados en la plataforma. Explora sus perfiles, revisa sus actividades y gestiona sus roles y permisos.')
+
     this.usersService.search.page = 1;
     this.usersService.getAll()
   }

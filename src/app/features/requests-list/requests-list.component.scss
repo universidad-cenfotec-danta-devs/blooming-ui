@@ -1,13 +1,11 @@
 .table-striped td, .table-striped th {
     text-align: center;
-    border: 1px solid #DCE6D3;
-    padding: 8px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 15px 8px;
 }
 
 .table-striped td {
     color: #5C684B;
+    border-bottom: 1px solid #DCE6D3;
 }
 
 .table-striped th {
@@ -17,7 +15,6 @@
 
 .table-requests {
     background-color: #FCFFF8;
-    border-radius: 15px;
     border-collapse: collapse;
     width: 100%;
 }
@@ -40,6 +37,10 @@
 
 .delete:hover {
     filter: brightness(65%);
+}
+
+table{
+    border: 1px solid #DCE6D3;
 }
 
 /* Minimal layout styles; rely on Tailwind classes */
