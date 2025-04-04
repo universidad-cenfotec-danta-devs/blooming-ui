@@ -1,0 +1,12 @@
+<div class="grid grid-cols-6 gap-4 my-5 mx-3 text-[var(--main-text)]  align-items-center">
+  @for (item of nurseryList; track item.id){
+    <div>
+      <button class="rounded-2xl border-1 border-[var(--main-text)] px-8 py-2">
+        <a href='home/nursery-info'>
+          <img class="w-40" src="assets/icons/danta_icon.png">
+          <h1>{{ item.name }}</h1>
+        </a>
+      </button>
+    </div>
+  }
+</div>

@@ -4,6 +4,7 @@ import {INurseries} from '../interfaces/nurseries.interface';
 import {ISearch} from '../interfaces/search.interfaces';
 import {ToastrService} from 'ngx-toastr';
 import {INurseryDTO} from '../interfaces/nurseryDTO.interface';
+import {response} from 'express';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import {INurseryDTO} from '../interfaces/nurseryDTO.interface';
 export class NurseryService extends BaseService<INurseryDTO>{
   protected override source = 'api/nurseries';
   private nurserieListSignal = signal<INurseries[]>([]);
+  // private activeNurseriesSignal = signal<INurseries[]>([]);
   // nurseryService: NurseryService = inject(NurseryService);
 
   constructor(private toastr: ToastrService) {
@@ -31,18 +33,49 @@ export class NurseryService extends BaseService<INurseryDTO>{
 
 
   getAll() {
-    this.findAllWithParams({ page: this.search.page, size: this.search.size }).subscribe({
+    // this.findAllWithParams({ page: this.search.page, size: this.search.size }).subscribe({
+    //   next: (response: any) => {
+    //     this.search = {...this.search, ...response.meta};
+    //     this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
+    //     this.nurserieListSignal.set(response.data);
+    //     console.log(response)
+    //   },
+    //   error: (err: any) => {
+    //     this.toastr.error(err, 'Error');
+    //     console.error('error', err);
+    //   }
+    // });
+  }
+
+  getAllActives(){
+    this.findAllWithParamsAndCustomSource('actives', { page: this.search.page, size: this.search.size }).subscribe({
       next: (response: any) => {
         this.search = {...this.search, ...response.meta};
         this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
-        this.nurserieListSignal.set(response.data);
+        this.nurserieListSignal.set(response.data.content);
+        console.log(response)
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
         console.error('error', err);
       }
-    });
+    })
   }
+
+
+
+  // update(data: any){
+  //   this.edit(data.id, data).subscribe({
+  //     next:(response: any) => {
+  //       this.toastr.success('Nursery updated', 'Success');
+  //       this.getAll();
+  //     },
+  //     error: (err: any) => {
+  //       this.toastr.error(err, 'Error');
+  //       console.error('error', err);
+  //     }
+  //   })
+  // }
 
   // save(nursery: INurseries){
   //   this.add(nursery).subscribe({
@@ -56,16 +89,5 @@ export class NurseryService extends BaseService<INurseryDTO>{
   //     }
   //   })
   // }
-  // update(data: any){
-  //   this.edit(data.id, data).subscribe({
-  //     next:(response: any) => {
-  //       this.toastr.success('Nursery updated', 'Success');
-  //       this.getAll();
-  //     },
-  //     error: (err: any) => {
-  //       this.toastr.error(err, 'Error');
-  //       console.error('error', err);
-  //     }
-  //   })
-  // }
+
 }

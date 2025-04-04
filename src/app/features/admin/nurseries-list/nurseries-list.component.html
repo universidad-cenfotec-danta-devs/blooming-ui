@@ -18,9 +18,9 @@
             <td>{{ item.name }}</td>
             <td>{{ item.latitude }} , {{item.longitude}}</td>
             <td>{{ item.active ? 'Activo' : 'Desactivado' }}</td>
-            <td>
+            <td class="flex gap-5 justify-center">
 <!--              <button class="underline" (click)="showEditModal(item, editModal)" )>Editar</button>-->
-              <button class="underline ml-1">Editar</button>
+              <button class="underline">Editar</button>
               <button class="underline">Eliminar</button>
             </td>
           </tr>
@@ -32,7 +32,7 @@
   }
 </div>
 
-<!--<app-modal #editModal-->
+<!--<app-modal #editModal>-->
 <!--           [title]="'Editar Vivero'"-->
 <!--           (confirm)="updateNursery(nurseryForm, $event)"-->
 <!--&gt;-->

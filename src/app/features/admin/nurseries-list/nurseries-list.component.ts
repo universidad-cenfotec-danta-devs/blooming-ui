@@ -7,13 +7,16 @@ import {ModalComponent} from '../../detail-modal/detail-modal.component';
 import {INurseryDTO} from '../../../interfaces/nurseryDTO.interface';
 import {NurseryService} from '../../../services/nursery.service';
 import {ToastrService} from 'ngx-toastr';
+import {SHARED_IMPORTS} from '../../../shared/shared.module';
+import {IUser} from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'admin-nurseries-list',
   standalone: true,
-  imports:[
+  imports: [
     CommonModule,
     ReactiveFormsModule,
+    SHARED_IMPORTS,
   ],
   templateUrl: 'nurseries-list.component.html',
   styleUrl: 'nursery-list.component.css'
@@ -21,21 +24,21 @@ import {ToastrService} from 'ngx-toastr';
 
 export class NurseriesListComponent{
   public layoutService = inject(LayoutService);
-  @ViewChild('editModal') editModal!: ModalComponent;
-  public selectedNursery: INurseryDTO = {
+  public selectedNursery: INurseries = {
     id: 0,
     name: '',
     latitude: 0,
     longitude: 0,
-    active: false
   };
   nurseryForm: FormGroup;
+  @ViewChild('editModal') editModal!: ModalComponent;
   @Input() nurseryList: INurseries[]=[];
-  @Output() callEditModal: EventEmitter<INurseryDTO> = new EventEmitter<INurseryDTO>;
+
+  @Output() callModalAction: EventEmitter<INurseries> = new EventEmitter<INurseries>();
+  @Output() callEditModal: EventEmitter<INurseries> = new EventEmitter<INurseries>;
 
   constructor(private fb: FormBuilder) {
     this.nurseryForm = this.fb.group({
-      id: [''],
       name: ['', Validators.required],
       latitude: ['', Validators.required],
       longitude: ['', Validators.required],
@@ -43,17 +46,19 @@ export class NurseriesListComponent{
     });
   }
 
-  showEditModal(item: INurseryDTO, modal: any) {
+  showEditModal(item: INurseries, modal: any) {
     this.selectedNursery = { ...item};
 
     if (this.selectedNursery){
       this.nurseryForm.patchValue({
-        id: this.selectedNursery.id,
         name: this.selectedNursery.name,
         latitude: this.selectedNursery.latitude,
         longitude: this.selectedNursery.latitude,
         active: this.selectedNursery.active
       });
     }
+    this.editModal.openModal();
   }
+
+  // updateNursery(nurseryForm: FormGroup, $event: void) {}
 }

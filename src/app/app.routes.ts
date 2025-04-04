@@ -62,7 +62,7 @@ export const routes: Routes = [
   // { path: '**', redirectTo: '/home', pathMatch: 'full' },
   // { path: 'callback', component: CallbackComponent },
 
-  // { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
+  { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
 
   {
     path: 'home',
@@ -96,7 +96,7 @@ export const routes: Routes = [
 
   { path: 'admin',
     component: AdminLayoutComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

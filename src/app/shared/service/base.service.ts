@@ -23,7 +23,7 @@ export class BaseService<T> {
   }
 
   public findAllWithParamsAndCustomSource(customUrlSource: string, params: any = {}): Observable<IResponse<T[]>> {
-    return this.http.get<IResponse<T[]>>(`${this.source}/${customUrlSource}`, {params: this.buildUrlParams(params)});
+    return this.http.get<IResponse<T[]>>('http://localhost:8080/' + `${this.source}/${customUrlSource}`, {params: this.buildUrlParams(params)});
   }
 
   public add(data: {}): Observable<IResponse<T>> {
@@ -49,7 +49,7 @@ export class BaseService<T> {
   public del(id: any): Observable<IResponse<T>> {
     return this.http.delete<IResponse<T>>(this.source + '/' + id);
   }
-  
+
   public delCustomSource(customUrlSource: string): Observable<IResponse<T>> {
     return this.http.delete<IResponse<T>>(`http://localhost:8080/${customUrlSource}`);
   }
