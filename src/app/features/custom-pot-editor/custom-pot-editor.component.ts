@@ -235,4 +235,12 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  preventNegative(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (Number(input.value) < 1) {
+      input.value = '1';
+      this.potForm.get('size')?.setValue(1);
+    }
+  }
 }
