@@ -67,6 +67,4 @@ export class NurseriesListComponent{
     this.nurseryService.deactivateNursery(nursery);
     console.log("id vivero: "+nursery.id);
   }
-
-  // updateNursery(nurseryForm: FormGroup, $event: void) {}
 }

@@ -1,11 +1,10 @@
-import {inject, Injectable, signal} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import {BaseService} from '../shared/service/base.service';
 import {INurseries} from '../interfaces/nurseries.interface';
 import {ISearch} from '../interfaces/search.interfaces';
 import {ToastrService} from 'ngx-toastr';
 import {INurseryDTO} from '../interfaces/nurseryDTO.interface';
-import {response} from 'express';
-import { NurseryComponent } from '../features/nursery/nursery.component';
+import { Router } from '@angular/router';
 import { IProducts } from '../interfaces/products.interface';
 
 @Injectable({
@@ -18,7 +17,9 @@ export class NurseryService extends BaseService<INurseryDTO>{
   private nurseryDetailSignal = signal<INurseries>({});
   private nurseryProductsSignal = signal<IProducts[]>([]);
 
-  constructor(private toastr: ToastrService) {
+  constructor(private toastr: ToastrService,     
+    private router: Router
+  ) {
     super();
   }
 
@@ -141,11 +142,12 @@ export class NurseryService extends BaseService<INurseryDTO>{
     })
   }
 
-  createNursery(nursery: INurseries ){
+  createNursery(nursery: any ){
     this.add(nursery).subscribe({
       next:(response: any) => {
-        this.toastr.success('Nursery created', 'Success');
-        this.getAll();
+        this.toastr.success('Nursery created', 'Success').onHidden.subscribe(() => {
+          this.router.navigate(['/home/nurseries']);;
+        });
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');

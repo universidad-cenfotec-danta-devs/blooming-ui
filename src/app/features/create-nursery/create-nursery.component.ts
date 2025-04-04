@@ -1,15 +1,18 @@
 import { CommonModule } from "@angular/common";
-import { Component, Inject } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Component, inject, Inject } from "@angular/core";
+import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "express";
+import { NurseryService } from "../../services/nursery.service";
+import { INurseries } from "../../interfaces/nurseries.interface";
 
 @Component({
     selector: 'create-nursery',
     standalone: true,
     imports: [
-        CommonModule
+        CommonModule,
+        ReactiveFormsModule
     ],
     templateUrl: 'create-nursery.component.html',
     styleUrls: ['create-nursery.component.css'],    
@@ -18,20 +21,24 @@ import { Router } from "express";
 export class CreateNurseryComponent{
 
     formState: 'create' = 'create';
-    // nurseryForm: FormGroup;
+    nurseryForm: FormGroup;
     
-    // constructor(
-    //     @Inject(AuthService) public authService: AuthService,
-    //     private fb: FormBuilder,    
-    //     private toastr: ToastrService, 
-    //     private router: Router){ 
-    //     this.nurseryForm = this.fb.group({
-    //         name: ['', [Validators.required, Validators.email]],
-    //         description: ['', [Validators.required]],
-    //         latitude: ['', Validators.required],
-    //         longitude: ['', Validators.required]
-    //         })
-    // } 
+    constructor(
+        @Inject(NurseryService) public nurseryService: NurseryService,
+        private fb: FormBuilder){ 
+        this.nurseryForm = this.fb.group({
+            name: ['', [Validators.required]],
+            description: ['', [Validators.required]],
+            latitude: ['', Validators.required],
+            longitude: ['', Validators.required]
+            })
+    } 
 
-
+    onSubmit() {
+        console.log(this.nurseryForm.value);
+        if (this.nurseryForm.valid) {
+            this.nurseryService.createNursery(this.nurseryForm.value)
+        }
+    }
+    
 }
