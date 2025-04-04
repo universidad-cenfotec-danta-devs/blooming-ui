@@ -8,10 +8,8 @@ export interface INurseries{
   latitude?: number;
   longitude?: number;
   nurseryAdmin?: IUser;
-  // evaluations?:
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
   products?: IProducts[];
-  // productNurseryList?:
 }

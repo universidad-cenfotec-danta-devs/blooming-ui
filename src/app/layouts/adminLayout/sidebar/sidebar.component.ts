@@ -36,26 +36,9 @@ export class SidebarComponent{
         break;
     }
   }
-
-  // private pokemonSignal = signal<IPokemon>({
-  //   nombre: 'piplop'
-  // });
-
-  // get pokemon$() {
-  //   return this.pokemonSignal;
-  // }
-
-  // changeName(){
-  //   console.log('cmdksmksdc')
-  //   this.pokemonSignal.set({nombre:"Char"})
-  // }
   protected readonly Component = Component;
   protected readonly HomepageComponent = HomepageComponent;
 }
-
-// interface IPokemon {
-//   nombre: string,
-// }
 
 interface ISidebarDropdown{
   users: boolean,

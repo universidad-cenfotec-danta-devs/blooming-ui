@@ -60,11 +60,9 @@ export class NurseriesListComponent{
 
   activate(nursery: any){
     this.nurseryService.activateNursery(nursery);
-    console.log("id vivero: "+nursery.id);
   }
 
   deactivate(nursery: any){
     this.nurseryService.deactivateNursery(nursery);
-    console.log("id vivero: "+nursery.id);
   }
 }

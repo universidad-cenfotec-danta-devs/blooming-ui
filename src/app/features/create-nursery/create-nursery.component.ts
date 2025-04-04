@@ -35,7 +35,6 @@ export class CreateNurseryComponent{
     } 
 
     onSubmit() {
-        console.log(this.nurseryForm.value);
         if (this.nurseryForm.valid) {
             this.nurseryService.createNursery(this.nurseryForm.value)
         }
