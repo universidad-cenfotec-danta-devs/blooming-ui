@@ -149,7 +149,8 @@ export class CustomPotEditorComponent implements OnInit, AfterViewInit {
    * Handles the confirmation from the custom pot name modal.
    * Uses the entered pot name to upload the pot and update the model list.
    * If no file is selected via file input, attempts to retrieve the currently loaded model file from the 3D editor.
-   */handleNameModalConfirm(): void {
+   */
+  handleNameModalConfirm(): void {
   if (!this.customPotName || this.customPotName.trim() === '') {
     this.toastr.error('Please enter a valid pot name.');
     return;
