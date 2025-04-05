@@ -24,7 +24,7 @@ export class BaseService<T> {
   }
 
   public findAllWithParamsAndCustomSource(customUrlSource: string, params: any = {}): Observable<IResponse<T[]>> {
-    return this.http.get<IResponse<T[]>>(this.baseURL + `${this.source}/${customUrlSource}`, {params: this.buildUrlParams(params)});
+    return this.http.get<IResponse<T[]>>('http://localhost:8080/' + `${this.source}/${customUrlSource}`, {params: this.buildUrlParams(params)});
   }
 
   public add(data: {}): Observable<IResponse<T>> {

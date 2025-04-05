@@ -40,7 +40,7 @@ Are you sure?
 </app-modal>
 
 <app-modal #denyModal
-  [title]="`Approve request: ${selectedItem.id}`"
+  [title]="`Deny request: ${selectedItem.id}`"
   (confirm)="deny(selectedItem)"
 >
 Are you sure?
