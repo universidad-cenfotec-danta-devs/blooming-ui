@@ -102,6 +102,7 @@ export class AuthService {
     this.sendGoogleTokenToBackend(response.credential, action).subscribe(jwtResponse => {
       if (jwtResponse.success) {
         this.tokenStore.setToken(jwtResponse.token);
+        this.tokenStore.setUser(response.authUser);
         if (action === 'login') {
           this.router.navigate(['/home']);
         } else if (action === 'register') {
