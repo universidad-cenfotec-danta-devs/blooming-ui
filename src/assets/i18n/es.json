@@ -44,6 +44,7 @@
     }
   ,
   "HEADER": {
+    "PLANTAS_ZONA": "Plantas por zona",
     "ADMIN": "Administración",
     "AUTH": "Iniciar sesión",
     "BLOOMING": "BLOOMING",
