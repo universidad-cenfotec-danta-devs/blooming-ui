@@ -44,8 +44,9 @@
     "TERMS": "Terms of service"
   },
   "HEADER": {
+    "PLANTAS_ZONA": "Plants by zone",
     "ADMIN": "Administration",
-    "AUTH": "Authentication / My account",
+    "AUTH": "Login",
     "BLOOMING": "BLOOMING",
     "CART_ORDERS": "Cart & orders",
     "DR_PLANTA": "Dr. Plant",
@@ -64,7 +65,7 @@
       "CONFIRM": "Confirm",
       "CANCEL": "Cancel"
     },
-    "PLANTAS_ZONA": "Flora by zone"
+    "FLORA": "Flora by canton"
   },
   "HEADER_LANDING": {
 "DESCRIPTION": "Discover a curated selection of exquisite plants, custom pots, and local nurseries that transform your space into a vibrant oasis. Learn expert care tips, explore our premium plant collection, design and sell your own pots, and connect with nearby nurseries. With Blooming, you can easily find the perfect plant, customize your garden accessories, and even turn your passion into a business.",
@@ -79,6 +80,12 @@
   "LOGIN": {
     "GOOGLE_BUTTON": "Log in with Google",
     "TITLE": "Log in"
+  },
+  "FLORA": {
+    "WELCOME_TITLE": "Welcome to the Flora by Cantón section!",
+    "WELCOME_DESCRIPTION": "Get to know the flora diversity that characterizes each of the cantones of Costa Rica",
+    "SELECT": "Cantón: ",
+    "SELECT_DEFAULT": "Select an option"
   },
   "NAV": {
     "ABOUT": "About",

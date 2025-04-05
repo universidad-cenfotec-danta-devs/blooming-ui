@@ -13,7 +13,7 @@
       <a href="/home" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.HOME' | translate }}</a>
       <a href="home/dr-plant" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.DR_PLANTA' | translate }}</a>
       <a href="home/pot-editor" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.MACETAS' | translate }}</a>
-      <a href="home/nurseries" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.VIVERO' | translate }}</a>
+      <!-- <a href="home/nurseries" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.VIVERO' | translate }}</a> -->
       <a href="home/flora-by-zone" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.PLANTAS_ZONA' | translate }}</a>
     </nav>
 
@@ -31,7 +31,7 @@
       <app-language-selector></app-language-selector>
 
       <!-- User Icon -->
-      <button class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer">
+      <button *ngIf="user != null" class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer">
         <svg class="h-7 w-7 text-[var(--secondary-color)] hover:scale-110 transition-transform duration-200"
              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -57,16 +57,16 @@
              (mouseenter)="cancelHideDropdown()"
              (mouseleave)="hideDropdownDelayed()"
              role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
-          <!-- <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
+          <a href="/login" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.AUTH' | translate }}
-          </a> -->
-          <a href="/pot-editor" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
+          </a>
+          <a href="/home/pot-editor" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.POTS' | translate }}
           </a>
           <a href="home/create-nursery" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.NURSERIES' | translate }}
-          </a> -->
-          <a href="/dr-plant" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
+          </a>
+          <a href="/home/dr-plant" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.PLANT_CARE' | translate }}
           </a>
           <!-- <a href="#" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
@@ -78,12 +78,12 @@
           <a *ngIf="userRole == 'ADMIN_USER'" href="/admin/users" class="block px-4 py-3 hover:bg-[#e7f1dd]" role="menuitem">
             {{ 'HEADER.ADMIN' | translate }}
           </a>
-          
+
         </div>
       </div>
 
      <!-- Logout Button (opens confirmation modal) -->
-     <button type="button" (click)="initiateLogout()" class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer">
+     <button *ngIf="user != null" type="button" (click)="initiateLogout()" class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer">
       <svg class="h-7 w-7 text-[var(--secondary-color)] hover:scale-110 transition-transform duration-200"
            xmlns="http://www.w3.org/2000/svg"
            viewBox="0 0 24 24"
