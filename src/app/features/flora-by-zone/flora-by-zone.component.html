@@ -1,32 +1,30 @@
-<!--<div class="text-[var(&#45;&#45;main-text)]">-->
 <div class="bg-[url(/assets/images/bg-flora-zone.png)] bg-cover bg-fixed h-40 w-full xl:h-80 bg-gray-400 bg-blend-multiply title-container">
   <div class="-py-10">
-    <h1 class="text-6xl text-white">Flora por zona</h1>
+    <h1 class="text-6xl text-white">{{ 'HEADER.FLORA' | translate }}</h1>
   </div>
 </div>
+
 <div class="mx-5 xl:mx-9 my-6">
-  <h1 class="text-2xl text-[var(--main-text)]">¡Bienvenido a la sección de Flora por Zona!</h1>
-  <p class="text-[var(--main-text)]">En este espacio, podrás explorar y descubrir la diversidad de la flora que caracteriza cada una de las zonas que puedes seleccionar.</p>
-  
-  <div class="my-5 text-[var(--main-text)] ">
-    <label class="my-5" for="cantonSelect">Seleccione un cantón: </label>
-    <select class="input-canton text-[var(--green-line)] " id="cantonSelect" [(ngModel)]="selectedCanton" (ngModelChange)="onCantonChange()">
-    <option *ngFor="let canton of cantones" [value]="canton.name">
-      {{ canton.name }}
-    </option>
-  </select>
+  <div class="text-center">
+    <h1 class="text-2xl text-[var(--main-text)]">{{ 'FLORA.WELCOME_TITLE' | translate }}</h1>
+    <p class="text-[var(--main-text)]">{{ 'FLORA.WELCOME_DESCRIPTION' | translate }}</p>
   </div>
-  
+
+  <div class="my-5 text-[var(--main-text)] flex justify-center items-center">
+    <label class="my-5 mr-2" for="cantonSelect">{{ 'FLORA.SELECT' | translate }}</label>
+    <select class="input-canton text-[var(--green-line)] rounded-md shadow-md px-4 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-[var(--green-line)]" id="cantonSelect" [(ngModel)]="selectedCanton" (ngModelChange)="onCantonChange()">
+      <option value="" disabled selected>{{ 'FLORA.SELECT_DEFAULT' | translate }}</option> <!-- Default message here -->
+      <option *ngFor="let canton of cantones" [value]="canton.name">
+        {{ canton.name }}
+      </option>
+    </select>
+  </div>
 
   <div class="my-5" *ngIf="floraResponse">
     <p class="text-[var(--green-line)] ">{{ floraResponse }}</p>
   </div>
 
-  
-
-
   <div class="map-container">
     <div id="map"></div>
   </div>
-<!--  </div>-->
 </div>
