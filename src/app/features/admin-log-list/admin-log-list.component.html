@@ -1,0 +1,28 @@
+<div class="table-container table-responsive">
+    <table class="table-logs table-striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Email</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of logs; track item.id) {
+          <tr>
+            <td>{{item.date | date: 'dd/MM/yyyy HH:mm'}}</td>
+            <td>{{item.userEmail}}</td>
+            <td>{{item.description}}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td>
+              <div>
+                <p>There are no logs</p>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>

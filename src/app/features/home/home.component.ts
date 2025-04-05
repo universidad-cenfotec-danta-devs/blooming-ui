@@ -18,8 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    // Check if user is authenticated on initialization
-    this.isRegistered = false // this.authService.check();
+    this.isRegistered = false;
   }
 
   ngOnDestroy(): void {
@@ -28,9 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Redirects to the login page when the button is clicked.
   redirectToLogin(): void {
-    console.log('Redirecting to login...');
     this.router.navigate(['/login']);
   }
   toggleDropdown(): void {

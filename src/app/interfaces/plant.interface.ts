@@ -1,5 +1,5 @@
 export interface Plant {
-  idAccessToken: string | null;
+  id: number | null;
   name: string;
   description?: string;
   tokenPlant: string;

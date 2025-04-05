@@ -1,9 +1,12 @@
-name: CI/CD - Production
+name: CI/CD - Development
 
 on:
   push:
     branches:
-      - main
+      - dev
+  pull_request:
+    branches:
+      - dev
 
 jobs:
   build-test-deploy:
@@ -25,13 +28,7 @@ jobs:
         run: npm install
 
 
-      # 5. Build the application (production mode)
-      - name: Build Application (Production)
-        run: ng build --prod
+      # 5. Build the application (development mode)
+      - name: Build Application (Development)
+        run: npm run build
 
-      # 6. Deploy the application (example with GitHub Pages)
-      - name: Deploy to GitHub Pages (Production)
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/blooming-ui

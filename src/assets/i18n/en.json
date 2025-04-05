@@ -2,6 +2,34 @@
   "CAROUSEL": {
     "HEADING": "The top five plants"
   },
+    "DR_PLANT": {
+      "TITLE": "Dr. Plant",
+      "SUBTITLE": "Do you need help with your plants? Dr. Plant is here for you!",
+      "DESCRIPTION": "With our tool, you can identify your plants and receive personalized care recommendations. Simply upload a photo or enter the name of your plant, and we'll tell you everything you need to know: when to water it, how much light it needs, and more. You can also set reminders so you never forget to care for your plants.",
+      "BUTTON_IDENTIFY": "Identify Plant",
+      "BUTTON_DIAGNOSIS": "Plant Diagnosis",
+      "BUTTON_CHAT": "Ask Dr. Plant",
+      "IDENTIFY_HINT": "Upload a picture of the plant to identify it and get recommendations.",
+      "IDENTIFY_HINT_UPLOADED": "Choose one of the 2 options to save that plant among your plants.",
+      "DIAGNOSIS_HINT": "Upload an image of your plant for diagnosis.",
+      "DIAGNOSIS_HINT_UPLOADED": "Diagnose your plant to see suggested diseases.",
+      "DIAGNOSIS_HINT_RESULTS": "Select the most probable disease for more details.",
+      "CHAT_HINT": "Chat with Dr. Plant to ask questions and receive more advice.",
+      "LOADING": "Processing...",
+      "UPLOAD_IMAGE": "Upload Plant Image",
+      "UPLOAD_ANOTHER": "Upload another image",
+      "LEFT_IMAGE_ALT": "Left Plant",
+      "RIGHT_IMAGE_ALT": "Right Plant",
+      "INFOCARD_DESCRIPTION": "Probability: {{probability}}, Similarity: {{similarity}}",
+      "INFOCARD_BUTTON_CONFIRM": "Confirm"
+    },
+    "CONFIRM_PLANT_SAVE": {
+      "TITLE": "Confirm Plant Save",
+      "MESSAGE": "Are you sure you want to save this plant?",
+      "CONFIRM_BUTTON": "Yes, confirm",
+      "CANCEL_BUTTON": "No, cancel"
+    }
+  ,
   "FOOTER": {
     "ABOUT": "More info",
     "ABOUT_US": "About us",
@@ -17,10 +45,10 @@
   },
   "HEADER": {
     "ADMIN": "Administration",
-    "AUTH": "Authentication / My account",
+    "AUTH": "Login",
     "BLOOMING": "BLOOMING",
     "CART_ORDERS": "Cart & orders",
-    "DR_PLANTA": "Dr. Planta",
+    "DR_PLANTA": "Dr. Plant",
     "HOME": "Home",
     "JOIN": "Join Blooming and transform your space",
     "MACETAS": "Pots",
@@ -29,7 +57,14 @@
     "POTS": "Pots",
     "PLANT_CARE": "Plant care",
     "SIGNUP": "Sign up for free",
-    "VIVERO": "Nurseries"
+    "VIVERO": "Nurseries",
+    "MODAL": {
+      "LOGOUT_TITLE": "Logout Confirmation",
+      "LOGOUT_MESSAGE": "Are you sure you want to log out?",
+      "CONFIRM": "Confirm",
+      "CANCEL": "Cancel"
+    },
+    "FLORA": "Flora by canton"
   },
   "HEADER_LANDING": {
 "DESCRIPTION": "Discover a curated selection of exquisite plants, custom pots, and local nurseries that transform your space into a vibrant oasis. Learn expert care tips, explore our premium plant collection, design and sell your own pots, and connect with nearby nurseries. With Blooming, you can easily find the perfect plant, customize your garden accessories, and even turn your passion into a business.",
@@ -44,6 +79,12 @@
   "LOGIN": {
     "GOOGLE_BUTTON": "Log in with Google",
     "TITLE": "Log in"
+  },
+  "FLORA": {
+    "WELCOME_TITLE": "Welcome to the Flora by Cantón section!",
+    "WELCOME_DESCRIPTION": "Get to know the flora diversity that characterizes each of the cantones of Costa Rica",
+    "SELECT": "Cantón: ",
+    "SELECT_DEFAULT": "Select an option"
   },
   "NAV": {
     "ABOUT": "About",
@@ -67,7 +108,7 @@
       "DESCRIPTION": "Discover different plants by region",
       "BUTTON_LABEL": "Visit"
     }
-  },  
+  },
     "DR_PLANTA_TITLE": "Dr. Plant",
     "DR_PLANTA_SUBTITLE": "Your intelligent assistant for plant care.",
     "DR_PLANTA_DESCRIPTION": "Upload a photo or enter your plant's name and receive personalized recommendations for its care. Plus, schedule watering reminders and more directly in your Google Calendar.",
@@ -137,12 +178,6 @@
         "LOGIN_LINK": "Sign In",
         "SUCCESS_MESSAGE": "Your account has been created successfully."
       },
-      "MODAL": {
-        "TITLE": "Confirmation",
-        "DEFAULT_MESSAGE": "Are you sure?",
-        "CLOSE": "Close",
-        "OK": "OK"
-      },
       "ALERT": {
         "INFO": "Information: Please verify your email.",
         "SUCCESS": "Success: Your profile has been updated.",
@@ -169,5 +204,33 @@
             "DESCRIPTION": "This is a plant identified by the system. Here are its care instructions.",
             "BUTTON_CONFIRM": "Confirm"
           }
+    }},
+      "POT_EDITOR_PAGE": {
+        "TITLE": "Design Your Custom Pot",
+        "LOADING_EDITOR": "Loading 3D editor...",
+        "UPLOAD_MODEL": "Upload Model",
+        "INSTRUCTIONS_MATERIAL": "Select a material for your pot.",
+        "INSTRUCTIONS_SIZE": "Select a size (max. 100cm).",
+        "INSTRUCTIONS_COLOR": "Select a color for your pot.",
+        "INSTRUCTIONS_LINE1": "Select a material, size, and color for your pot.",
+        "INSTRUCTIONS_LINE2": "You can zoom in or out on the 3D model using your mouse wheel or trackpad.",
+        "INSTRUCTIONS_LINE3": "You can also upload your own 3D models in GLB format by clicking the 'Upload Model' button.",
+        "LABEL_MATERIAL": "Material",
+        "SELECT_MATERIAL": "Select Material",
+        "MATERIAL_CERAMIC": "Ceramic",
+        "MATERIAL_PLASTIC": "Plastic",
+        "MATERIAL_METAL": "Metal",
+        "MATERIAL_WOOD": "Wood",
+        "LABEL_SIZE": "Size (e.g, diameter)",
+        "LABEL_COLOR": "Color",
+        "CALCULATE_PRICE": "Calculate Price",
+        "CONFIRM_CREATION": "Confirm Creation",
+        "PRICE_LABEL": "Price"
+      },
+      "MODAL": {
+        "TITLE": "Confirm Custom Pot Creation",
+        "MESSAGE": "Are you sure you want to save this pot?",
+        "CONFIRM_BUTTON": "Yes, save it",
+        "CANCEL_BUTTON": "No, cancel"
+      }
     }
-    }}

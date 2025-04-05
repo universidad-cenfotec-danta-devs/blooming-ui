@@ -1,30 +1,60 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ViewChild,
+  ViewEncapsulation,
+  inject
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { ModalComponent } from '../modal/modal.component';
+import { AuthService } from '../../../services/auth.service';
 
 /**
- * @description
- * The HeaderComponent displays the main header along with a dropdown menu icon.
- * The dropdown menu appears when the user hovers over the icon and remains visible
- * for 2 seconds after the mouse leaves, or stays open if the user hovers over the dropdown.
+ * HeaderComponent displays the main header with navigation links, icons, and includes
+ * a logout button that triggers a confirmation modal.
  */
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, LanguageSelectorComponent, TranslateModule],
+  imports: [CommonModule, LanguageSelectorComponent, TranslateModule, ModalComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  encapsulation: ViewEncapsulation.Emulated  
+  encapsulation: ViewEncapsulation.Emulated,
 })
-export class HeaderComponent {
+export class HeaderComponent implements AfterViewInit {
   /** Controls the visibility of the dropdown menu. */
   isDropdownOpen = false;
+  /** Timer reference for hiding the dropdown menu. */
   private hideTimeout: any;
+  /** Retrieves the current user data from localStorage. */
+  user: any
+  /** Stores the role of the current user. */
+  userRole: string = '';
+
+  /** Reference to the logout confirmation modal. */
+  @ViewChild('logoutModal') logoutModal!: ModalComponent;
+
+  /** Router instance (injected via constructor). */
+  constructor(private router: Router) {}
+
+  /** Access AuthService via inject() to avoid circular dependency. */
+  private authService = inject(AuthService);
 
   /**
-   * @description Shows the dropdown immediately and cancels any pending hide timer.
+   * Lifecycle hook after view initialization.
+   * Retrieves and parses user data to set the user role.
    */
+  ngAfterViewInit(): void {
+    this.user = localStorage.getItem('auth_user');
+    if (this.user) {
+      this.userRole = String(JSON.parse(this.user).role.name);
+    }
+  }
+
+  /** Displays the dropdown menu immediately. */
   showDropdown(): void {
     if (this.hideTimeout) {
       clearTimeout(this.hideTimeout);
@@ -32,28 +62,42 @@ export class HeaderComponent {
     this.isDropdownOpen = true;
   }
 
-  /**
-   * @description Starts a 2-second timer to hide the dropdown.
-   */
+  /** Starts a timer to hide the dropdown menu after a short delay. */
   hideDropdownDelayed(): void {
     this.hideTimeout = setTimeout(() => {
       this.isDropdownOpen = false;
     }, 500);
   }
 
-  /**
-   * @description Cancels the hide timer so that the dropdown remains visible.
-   */
+  /** Cancels any pending timer to hide the dropdown menu. */
   cancelHideDropdown(): void {
     if (this.hideTimeout) {
       clearTimeout(this.hideTimeout);
     }
   }
 
-  /**
-   * @description Optionally toggles the dropdown menu manually.
-   */
+  /** Toggles the visibility of the dropdown menu. */
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  /** Initiates the logout process by opening the confirmation modal. */
+  initiateLogout(): void {
+    if (this.logoutModal) {
+      this.logoutModal.openModal();
+    }
+  }
+
+  /** Confirms logout, clears session, and redirects to login. */
+  onLogoutConfirm(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  /** Cancels logout modal. */
+  onLogoutCancel(): void {
+    if (this.logoutModal) {
+      this.logoutModal.closeModal();
+    }
   }
 }

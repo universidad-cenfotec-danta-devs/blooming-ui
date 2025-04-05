@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DrPlantService } from '../../services/dr-plant.service';
 import { PlantService } from '../../services/plant.service';
+import { WateringPlanService } from '../../services/wateringPlant.service';
+import { ToastrService } from 'ngx-toastr';
 import { SHARED_IMPORTS } from '../../shared/shared.module';
 import { Plant } from '../../interfaces/plant.interface';
 
@@ -11,18 +13,23 @@ import { Plant } from '../../interfaces/plant.interface';
   imports: [SHARED_IMPORTS]
 })
 export class DrPlantaChatComponent implements OnInit {
-  // Add this Input property to allow binding from the parent.
-  @Input() plantId: string | null = null;
+  /**
+   * Input property from the parent component.
+   */
+  @Input() plantId: number | null = null;
 
   plantOptions: Plant[] = [];
-  selectedPlantId!: string;
+  selectedPlantId!: number;
   messages: { text: string; sender: 'user' | 'bot' }[] = [];
   userMessage: string = '';
   isLoading = false;
+  wateringPlanId: number | null = null;
 
   constructor(
     private drPlantService: DrPlantService,
-    private plantService: PlantService
+    private plantService: PlantService,
+    private wateringPlanService: WateringPlanService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -30,8 +37,7 @@ export class DrPlantaChatComponent implements OnInit {
       next: (plants: Plant[]) => {
         this.plantOptions = plants;
         if (plants.length > 0) {
-          // If plantId is provided by parent, use it; otherwise default to first.
-          this.selectedPlantId = this.plantId || plants[0].tokenPlant;
+          this.selectedPlantId = this.plantId !== null ? this.plantId : plants[0].id!;
         }
       },
       error: (err) => {
@@ -42,13 +48,12 @@ export class DrPlantaChatComponent implements OnInit {
 
   sendMessage(): void {
     if (!this.userMessage.trim() || !this.selectedPlantId) return;
-
     this.messages.push({ text: this.userMessage, sender: 'user' });
     this.isLoading = true;
-
     this.drPlantService.askPlantQuestion(this.selectedPlantId, this.userMessage).subscribe({
-      next: (response: string) => {
-        this.messages.push({ text: response, sender: 'bot' });
+      next: (response: any) => {
+        const answer = response.data;
+        this.messages.push({ text: answer, sender: 'bot' });
         this.isLoading = false;
       },
       error: (err) => {
@@ -56,7 +61,49 @@ export class DrPlantaChatComponent implements OnInit {
         this.isLoading = false;
       }
     });
-
     this.userMessage = '';
+  }
+
+  /**
+   * Calls the WateringPlanService to generate a watering plan for the selected plant.
+   * On success, it stores the watering plan id.
+   */
+  generateWateringPlan(): void {
+    if (!this.selectedPlantId) return;
+    this.wateringPlanService.generateByUser(this.selectedPlantId).subscribe({
+      next: (plan) => {
+        this.wateringPlanId = plan.id;
+        this.toastr.success('Watering plan generated successfully!');
+      },
+      error: (err) => {
+        console.error('Error generating watering plan:', err);
+        this.toastr.error('Error generating watering plan.');
+      }
+    });
+  }
+
+  /**
+   * Downloads the PDF of the generated watering plan using its id.
+   */
+  downloadWateringPlanPDF(): void {
+    if (!this.wateringPlanId) {
+      this.toastr.error('No watering plan available. Please generate one first.');
+      return;
+    }
+    this.wateringPlanService.generatePDF(this.wateringPlanId).subscribe({
+      next: (blob: Blob) => {
+        const link = document.createElement('a');
+        const url = window.URL.createObjectURL(blob);
+        link.href = url;
+        link.download = `watering_plan_${this.wateringPlanId}.pdf`;
+        link.click();
+        window.URL.revokeObjectURL(url);
+        this.toastr.success('PDF downloaded successfully!');
+      },
+      error: (err) => {
+        console.error('Error generating PDF:', err);
+        this.toastr.error('Error generating PDF.');
+      }
+    });
   }
 }

@@ -1,0 +1,13 @@
+@defer {
+        <app-requests-list
+
+            [requests]="roleRequestService.roleRequests$()"
+        />
+        @if(roleRequestService.roleRequests$().length) {
+            <app-pagination
+                [service]="roleRequestService"
+            />
+        }
+} @loading (minimum 1.5s) {
+
+}

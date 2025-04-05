@@ -1,0 +1,10 @@
+@defer {
+  <admin-nurseries-list [nurseryList]="nurseryService.nurseries$()" />
+  @if (nurseryService.nurseries$().length) {
+    <app-pagination [service] = "nurseryService" />
+  }
+} @loading (minimum 1.5s){
+
+}
+
+<button class="primary-btn">Crear vivero</button>

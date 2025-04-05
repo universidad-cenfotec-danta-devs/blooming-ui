@@ -31,13 +31,11 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService, 
     private router: Router
   ) {
-    // Build the login form
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
 
-    // Build the sign-up form with additional fields
     this.signUpForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/)]],
@@ -49,20 +47,17 @@ export class LoginComponent implements OnInit {
       })
     });
 
-    // Build the password recovery form
     this.recoveryPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
   ngOnInit(): void {
-    // Check if a token exists in AuthGoogleService (after redirect)
     const idToken = this.googleAuthService.getIdToken();
     if (idToken) {
       const action = sessionStorage.getItem('googleAuthAction') as 'login' | 'register';
       if (action) {
         sessionStorage.removeItem('googleAuthAction');
-        console.log('Processing stored token with action:', action);
         this.authService.handleGoogleResponse({ credential: idToken }, action);
       }
     }
@@ -86,8 +81,9 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/home']);
           });
         },
-        error:(error: HttpErrorResponse) => {
-          this.toastr.error(error.error.message, 'Error');
+        error:(err: any) => {
+          console.error(err);
+          this.toastr.error(err, 'Error');
         }
       });
     } else {
@@ -101,7 +97,7 @@ export class LoginComponent implements OnInit {
         next:(response: any) => {
           const toastSuccess = this.toastr.success('Registration successful', 'Success');
           toastSuccess.onHidden.subscribe(() => {
-            this.switchForm('login'); // Switch back to login after sign-up
+            this.switchForm('login');
           });
         },
         error: (error: HttpErrorResponse) => {
@@ -117,10 +113,9 @@ export class LoginComponent implements OnInit {
     if (this.recoveryPasswordForm.valid) {
       this.authService.requestPasswordReset(this.recoveryPasswordForm.value.email).subscribe(
         response => {
-          console.log('Password reset email sent', response);
           this.modalMessageKey = 'AUTH.RECOVER.SUCCESS_MESSAGE';
           this.modalRef?.openModal();
-          this.switchForm('login'); // Switch back to login after recovery
+          this.switchForm('login');
         },
         error => console.error('Password recovery failed', error)
       );

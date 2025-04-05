@@ -1,0 +1,19 @@
+@defer {
+    <div class="table-container">
+        <h1 class="text-blooming title"><strong>Logs</strong></h1>
+        <br>
+        <p class="text-blooming">In this section, you can see the list of the registered logs for all actions from admins.</p>
+        <br>
+        <app-admin-log-list
+            
+            [logs]="adminLogsService.logs$()"
+        />
+        @if(adminLogsService.logs$().length) {
+            <app-pagination
+                [service]="adminLogsService"
+            />
+        }
+    </div>
+} @loading (minimum 1.5s) {
+    
+}

@@ -14,7 +14,6 @@ import { Plant } from '../interfaces/plant.interface';
   providedIn: 'root'
 })
 export class PlantService {
-  // Base URL for the plant endpoints.
   private BACKEND_URL = `${environment.apiUrl}/api/plant`;
 
   constructor(private http: HttpClient) {}
@@ -27,10 +26,17 @@ export class PlantService {
    * @param plantName - The name of the plant.
    * @returns An Observable that emits the saved Plant data.
    */
-  savePlantByUser(tokenPlant: string, plantName: string): Observable<Plant> {
-    const url = `${this.BACKEND_URL}/saveByUser/${tokenPlant}/${plantName}`;
-    return this.http.post<Plant>(url, {}); // Send an empty body
+  savePlantByUser(tokenPlant: string, plantName: string, img: File): Observable<Plant> {
+    const encodedPlantName = encodeURIComponent(plantName);
+    const url = `${this.BACKEND_URL}/saveByUser/${tokenPlant}/${encodedPlantName}`;
+  
+    const formData = new FormData();
+    formData.append('img', img);
+  
+    return this.http.post<Plant>(url, formData);
   }
+  
+  
 
   /**
    * Saves a plant by admin.
@@ -54,7 +60,7 @@ export class PlantService {
    * @param size - The number of items per page.
    * @returns An Observable that emits an array of Plant.
    */
-  getPlantsByUser(page: number = 1, size: number = 10): Observable<Plant[]> {
+  getPlantsByUser(page: number = 0, size: number = 10): Observable<Plant[]> {
     const url = `${this.BACKEND_URL}/getPlantsByUser?page=${page}&size=${size}`;
     return this.http.get<any>(url).pipe(
       map(response => response.data as Plant[])

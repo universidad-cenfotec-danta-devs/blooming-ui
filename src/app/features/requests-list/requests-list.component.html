@@ -1,0 +1,47 @@
+<div class="table-container table-responsive">
+  @if (requests.length) {
+    <table class="table-requests table-striped rounded-2xl">
+      <thead>
+        <tr class="border-b border-[#DCE6D3]">
+          <th>Requested Role</th>
+          <th>Requester Email</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Updated</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of requests; track item.id) {
+          <tr>
+            <td>{{item.roleRequested}}</td>
+            <td>{{item.requesterEmail}}</td>
+            <td>{{item.requestStatus}}</td>
+            <td>{{item.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
+            <td>{{item.updatedAt | date: 'dd/MM/yyyy HH:mm'}}</td>
+            <td>
+              <p class="edit" (click)="showApproveModal(item, approveModal)">Approve</p>
+              <p class="delete" (click)="showDenyModal(item, denyModal)">Deny</p>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <h4 class="text-[var(--green-line)] text-center">No requests have been created</h4>
+  }
+  </div>
+
+<app-modal #approveModal
+  [title]="`Approve request: ${selectedItem.id}`"
+  (confirm)="approve(selectedItem)"
+>
+Are you sure?
+</app-modal>
+
+<app-modal #denyModal
+  [title]="`Deny request: ${selectedItem.id}`"
+  (confirm)="deny(selectedItem)"
+>
+Are you sure?
+</app-modal>

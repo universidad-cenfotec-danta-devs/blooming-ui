@@ -3,11 +3,11 @@
  * Note: Instead of a numeric 'id', we now use 'plantId' (string).
  */
 export interface PlantResponse {
-  tokenPlant: string;             // Maps to API's "idAccessToken"
-  plantId: string;                // Unique plant ID as string
+  tokenPlant: string;
+  plantId: number;
   name: string;
-  probabilityPercentage: string;  // e.g., "74%"
-  similarityPercentage: string;   // e.g., "72%"
+  probabilityPercentage: string;
+  similarityPercentage: string;
   imageUrl: string;
   imageUrlSmall: string;
   description?: string;

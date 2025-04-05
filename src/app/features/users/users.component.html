@@ -1,0 +1,13 @@
+@defer {
+        <app-user-list
+
+            [users]="usersService.users$()"
+        />
+        @if(usersService.users$().length) {
+            <app-pagination
+                [service]="usersService"
+            />
+        }
+} @loading (minimum 1.5s) {
+
+}

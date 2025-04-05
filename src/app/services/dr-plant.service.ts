@@ -26,7 +26,6 @@ export class DrPlantService {
     formData: FormData,
     actionType: 'identify' | 'diagnosis'
   ): Observable<PlantResponse[]> {
-    // Choose the endpoint based on the actionType.
     const endpoint =
       actionType === 'identify'
         ? `${this.BACKEND_URL}/img`
@@ -42,7 +41,7 @@ export class DrPlantService {
    * @param question - The question to ask.
    * @returns An Observable that emits the answer as a string.
    */
-  public askPlantQuestion(plantId: string, question: string): Observable<string> {
+  public askPlantQuestion(plantId: number, question: string): Observable<string> {
     return this.http.post<string>(
       `${this.BACKEND_URL}/askAI/${plantId}`,
       { question }
