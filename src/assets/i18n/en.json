@@ -45,7 +45,7 @@
   },
   "HEADER": {
     "ADMIN": "Administration",
-    "AUTH": "Authentication / My account",
+    "AUTH": "Login",
     "BLOOMING": "BLOOMING",
     "CART_ORDERS": "Cart & orders",
     "DR_PLANTA": "Dr. Plant",

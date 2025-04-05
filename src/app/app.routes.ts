@@ -32,7 +32,14 @@ import { CreateNurseryComponent } from './features/create-nursery/create-nursery
  */
 export const routes: Routes = [
 
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: HomeLayoutComponent,
+    children:[
+      {
+        path: '',
+        component: LoginComponent
+      }
+    ]
+   },
 
   { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
 

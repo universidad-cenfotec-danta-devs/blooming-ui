@@ -1,6 +1,6 @@
-<div class="flex flex-col items-center w-full p-4 bg-[#dae5e4]">
+<div class="flex flex-col items-center w-full p-4">
   <!-- 3D Editor Section -->
-  <div class="w-full max-w-6xl h-96 bg-[#dae5e4] mb-6 relative">
+  <div class="w-full max-w-6xl h-96 bg-[#dae5e4] mb-6 relative canvas-border">
     <div *ngIf="editorLoadError" class="absolute inset-0 flex items-center justify-center text-red-600 text-xl">
       {{ editorLoadError }}
     </div>
@@ -63,7 +63,7 @@
     <!-- Step 1: Material -->
     <div *ngIf="currentStepIndex === 0" class="flex flex-col space-y-2">
       <label class="font-medium">{{ 'POT_EDITOR_PAGE.LABEL_MATERIAL' | translate }}</label>
-      <select formControlName="material" class="p-2 border bg-[#dae5e4] border-[#5C684B] rounded text-[#5C684B]">
+      <select formControlName="material" class="p-2 border border-[#5C684B] rounded text-[#5C684B]">
         <option value="" disabled>{{ 'POT_EDITOR_PAGE.SELECT_MATERIAL' | translate }}</option>
         <option value="Ceramic">{{ 'POT_EDITOR_PAGE.MATERIAL_CERAMIC' | translate }}</option>
         <option value="Plastic">{{ 'POT_EDITOR_PAGE.MATERIAL_PLASTIC' | translate }}</option>
@@ -98,14 +98,12 @@
       <!-- Calculate Price button is disabled when the form is invalid -->
       <button 
         (click)="calculatePrice()" 
-        [disabled]="potForm.invalid"
         class="px-6 py-2 secondary-btn disabled:opacity-50">
         {{ 'POT_EDITOR_PAGE.CALCULATE_PRICE' | translate }}
       </button>
       <!-- Confirm Creation button is disabled until price is calculated -->
       <button 
         (click)="onSubmit()"
-        [disabled]="!price"
         class="px-6 py-2 primary-btn disabled:opacity-50">
         {{ 'POT_EDITOR_PAGE.CONFIRM_CREATION' | translate }}
       </button>
