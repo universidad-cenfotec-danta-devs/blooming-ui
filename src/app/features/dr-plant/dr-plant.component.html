@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center text-center px-6 md:px-20 bg-[#dae5e4] pb-[10%]">
+<div class="flex flex-col items-center text-center px-6 md:px-20 bg-[#dae5e4] pb-[18%] h‑screen">
   <!-- Main Title (translated) -->
   <h1 class="text-8xl md:text-5xl font-semibold text-[#5C684B] mt-8">
     {{ 'DR_PLANT.TITLE' | translate }}
@@ -81,7 +81,7 @@
     <app-info-card
       *ngFor="let plant of plantDataList"
       [title]="plant.name"
-      [description]="'DR_PLANT.INFOCARD_DESCRIPTION' | translate:{ probability: plant.probabilityPercentage, similarity: plant.similarityPercentage }"
+      [description]="'DR_PLANT.INFOCARD_DESCRIPTION' | translate:{ probability: plant.probabilityPercentage}"
       [buttonLabel]="'DR_PLANT.INFOCARD_BUTTON_CONFIRM' | translate"
       [imageUrl]="plant.imageUrlSmall"
       [plantId]="plant.tokenPlant"

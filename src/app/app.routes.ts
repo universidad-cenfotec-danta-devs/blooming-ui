@@ -56,11 +56,13 @@ export const routes: Routes = [
       },
       {
         path: 'dr-plant',
-        component: DrPlantComponent
+        component: DrPlantComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'pot-editor',
-        component: PotEditorPageComponent
+        component: PotEditorPageComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'nurseries',

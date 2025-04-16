@@ -6,7 +6,7 @@
   <p class="mb-4 text-left">{{ disease.details.description }}</p>
   
   <!-- Probability: Left Aligned -->
-  <p class="mb-2 text-left"><strong>Probability:</strong> {{ disease.probability }}%</p>
+  <p class="mb-2 text-left"><strong>Porcentaje de confianza:</strong> {{ disease.probability }}%</p>
   
   <!-- Biological Treatment (if available): Left Aligned -->
   <div *ngIf="disease.details?.treatment?.biological?.length" class="text-left">

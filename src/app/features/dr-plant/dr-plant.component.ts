@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { DrPlantService } from '../../services/dr-plant.service';
+import { DrPlantService, PlantActionType } from '../../services/dr-plant.service'; // <-- Import the enum here
 import { SHARED_IMPORTS } from '../../shared/shared.module';
 import { DrPlantaChatComponent } from '../dr-plant-chat/dr-plant-chat.component';
 import { PlantService } from '../../services/plant.service';
@@ -19,39 +19,13 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 })
 export class DrPlantComponent {
   isLoading = false;
-
   uploadedImages: { [key in 'identify' | 'diagnosis']?: string } = {};
-
   uploadedFiles: { [key in 'identify' | 'diagnosis']?: File } = {};
-
   chatPlantId: number | null = null;
-
-  /**
-   * For identify mode: list of plant responses.
-   */
   plantDataList: PlantResponse[] = [];
-
-  /**
-   * For diagnosis mode: list of disease suggestions.
-   */
   diseaseDataList: Disease[] = [];
-
-  /**
-   * Current action/tab:
-   * - 'identify': Identify a plant
-   * - 'diagnosis': Diagnose a plant
-   * - 'drplant': Chat with Dr. Plant
-   */
   selectedAction: 'identify' | 'diagnosis' | 'drplant' | null = null;
-
-  /**
-   * Holds any error messages to be displayed.
-   */
   errorMessage = '';
-
-  /**
-   * Variable to hold the plant selected for confirmation.
-   */
   selectedPlantToConfirm: PlantResponse | null = null;
 
   @ViewChild('confirmModal') confirmModal!: ModalComponent;
@@ -62,22 +36,14 @@ export class DrPlantComponent {
     private toastr: ToastrService
   ) {}
 
-  /**
-   * Sets the selected action (tab) and resets error messages.
-   */
   setSelectedAction(action: 'identify' | 'diagnosis' | 'drplant'): void {
     this.selectedAction = action;
     this.errorMessage = '';
   }
 
-  /**
-   * Handles file selection, validates the file, stores a preview URL,
-   * and saves the File object for later use in confirmPlant().
-   */
   onFileSelected(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
     if (!fileInput.files || fileInput.files.length === 0) return;
-
     const imageFile = fileInput.files[0];
 
     if (!imageFile.type.startsWith('image/')) {
@@ -99,57 +65,60 @@ export class DrPlantComponent {
 
   /**
    * Sends the image to the backend using DrPlantService for identification or diagnosis.
+   * Converts the string action value to the corresponding enum value.
    */
   private identifyOrDiagnose(imageFile: File): void {
     this.isLoading = true;
     const formData = new FormData();
     formData.append('img', imageFile);
 
-    this.drPlantService.identifyPlant(formData, this.selectedAction as 'identify' | 'diagnosis')
-      .subscribe({
-        next: (response: any) => {
+    // Convert the string to the corresponding enum value
+    if (this.selectedAction === 'identify' || this.selectedAction === 'diagnosis') {
+      const actionType: PlantActionType = this.selectedAction === 'identify'
+        ? PlantActionType.Identify
+        : PlantActionType.Diagnosis;
 
-          if (this.selectedAction === 'identify') {
-            const plants: PlantResponse[] = response.data.map((plant: any) => ({
-              tokenPlant: plant.idAccessToken,
-              plantId: plant.plantId,
-              name: plant.name,
-              description: plant.description || '',
-              probabilityPercentage: plant.probabilityPercentage || '0%',
-              imageUrl: plant.imageUrl,
-              imageUrlSmall: plant.imageUrlSmall,
-              similarityPercentage: plant.similarityPercentage
-            }));
-
-            const sortedPlants = plants.sort((a, b) => {
-              const probA = parseInt((a.probabilityPercentage || '0%').replace('%', ''));
-              const probB = parseInt((b.probabilityPercentage || '0%').replace('%', ''));
-              return probB - probA;
-            });
-
-            this.plantDataList = sortedPlants.slice(0, 2);
-          } else if (this.selectedAction === 'diagnosis') {
-            let diseases: any[] = [];
-            response.data.forEach((item: any) => {
-              if (item.diseaseSuggestions) {
-                diseases = diseases.concat(item.diseaseSuggestions);
-              }
-            });
-            diseases.sort((a, b) => b.probability - a.probability);
-            this.diseaseDataList = diseases;
+      this.drPlantService.identifyPlant(formData, actionType)
+        .subscribe({
+          next: (response: any) => {
+            if (this.selectedAction === 'identify') {
+              const plants: PlantResponse[] = response.data.map((plant: any) => ({
+                tokenPlant: plant.idAccessToken,
+                plantId: plant.plantId,
+                name: plant.name,
+                description: plant.description || '',
+                probabilityPercentage: plant.probabilityPercentage || '0%',
+                imageUrl: plant.imageUrl,
+                imageUrlSmall: plant.imageUrlSmall,
+                similarityPercentage: plant.similarityPercentage
+              }));
+              const sortedPlants = plants.sort((a, b) => {
+                const probA = parseInt((a.probabilityPercentage || '0%').replace('%', ''));
+                const probB = parseInt((b.probabilityPercentage || '0%').replace('%', ''));
+                return probB - probA;
+              });
+              this.plantDataList = sortedPlants.slice(0, 2);
+            } else if (this.selectedAction === 'diagnosis') {
+              let diseases: any[] = [];
+              response.data.forEach((item: any) => {
+                if (item.diseaseSuggestions) {
+                  diseases = diseases.concat(item.diseaseSuggestions);
+                }
+              });
+              diseases.sort((a, b) => b.probability - a.probability);
+              this.diseaseDataList = diseases;
+            }
+            this.isLoading = false;
+          },
+          error: (err) => {
+            console.error(err);
+            this.errorMessage = 'An error occurred while processing your request.';
+            this.toastr.error(this.errorMessage, 'Error');
+            this.isLoading = false;
           }
-
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error(err);
-          this.errorMessage = 'An error occurred while processing your request.';
-          this.toastr.error(this.errorMessage, 'Error');
-          this.isLoading = false;
-        }
-      });
+        });
+    }
   }
-
   /**
    * Called when the user clicks Confirm on a plant card.
    * Instead of immediately saving the plant, this method stores the selected plant and opens the confirmation modal.
