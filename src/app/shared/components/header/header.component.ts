@@ -8,44 +8,53 @@ import {
 import { CommonModule } from '@angular/common';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router'; 
 import { ModalComponent } from '../modal/modal.component';
 import { AuthService } from '../../../services/auth.service';
 
 /**
- * HeaderComponent displays the main header with navigation links, icons, and includes
- * a logout button that triggers a confirmation modal.
+ * HeaderComponent displays the main header with navigation links,
+ * includes a dropdown under “Dr. Plant” for Identify, Diagnose, Chat,
+ * and a user/cart dropdown on the right with logout confirmation.
  */
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, LanguageSelectorComponent, TranslateModule, ModalComponent],
+  imports: [
+    CommonModule,
+    LanguageSelectorComponent,
+    TranslateModule,
+    ModalComponent,
+    RouterModule
+  ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class HeaderComponent implements AfterViewInit {
-  /** Controls the visibility of the dropdown menu. */
+  /** State for the right‑hand icon dropdown (cart/user menu) */
   isDropdownOpen = false;
-  /** Timer reference for hiding the dropdown menu. */
   private hideTimeout: any;
-  /** Retrieves the current user data from localStorage. */
-  user: any
-  /** Stores the role of the current user. */
+
+  /** State for the “Dr. Plant” center nav dropdown */
+  isPlantDropdownOpen = false;
+  private plantHideTimeout: any;
+
+  /** Raw JSON string of the logged‑in user */
+  user: any;
+  /** Parsed role name of the logged‑in user */
   userRole: string = '';
 
-  /** Reference to the logout confirmation modal. */
+  /** Reference to the logout confirmation modal component */
   @ViewChild('logoutModal') logoutModal!: ModalComponent;
 
-  /** Router instance (injected via constructor). */
   constructor(private router: Router) {}
 
-  /** Access AuthService via inject() to avoid circular dependency. */
+  /** Injected AuthService for logout (avoids circular DI) */
   private authService = inject(AuthService);
 
   /**
-   * Lifecycle hook after view initialization.
-   * Retrieves and parses user data to set the user role.
+   * After view init, read stored user info and extract role.
    */
   ngAfterViewInit(): void {
     this.user = localStorage.getItem('auth_user');
@@ -54,50 +63,67 @@ export class HeaderComponent implements AfterViewInit {
     }
   }
 
-  /** Displays the dropdown menu immediately. */
+  // ==== Right‑hand dropdown controls ====
+
+  /** Immediately show the right‑hand dropdown */
   showDropdown(): void {
-    if (this.hideTimeout) {
-      clearTimeout(this.hideTimeout);
-    }
+    clearTimeout(this.hideTimeout);
     this.isDropdownOpen = true;
   }
 
-  /** Starts a timer to hide the dropdown menu after a short delay. */
+  /** Hide the right‑hand dropdown after a short delay */
   hideDropdownDelayed(): void {
-    this.hideTimeout = setTimeout(() => {
-      this.isDropdownOpen = false;
-    }, 500);
+    this.hideTimeout = setTimeout(() => this.isDropdownOpen = false, 500);
   }
 
-  /** Cancels any pending timer to hide the dropdown menu. */
+  /** Cancel any pending hide for right‑hand dropdown */
   cancelHideDropdown(): void {
-    if (this.hideTimeout) {
-      clearTimeout(this.hideTimeout);
-    }
+    clearTimeout(this.hideTimeout);
   }
 
-  /** Toggles the visibility of the dropdown menu. */
+  /** Toggle the right‑hand dropdown open/closed */
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  /** Initiates the logout process by opening the confirmation modal. */
-  initiateLogout(): void {
-    if (this.logoutModal) {
-      this.logoutModal.openModal();
-    }
+  // ==== “Dr. Plant” center nav dropdown controls ====
+
+  /** Immediately show the “Dr. Plant” dropdown */
+  showPlantDropdown(): void {
+    clearTimeout(this.plantHideTimeout);
+    this.isPlantDropdownOpen = true;
   }
 
-  /** Confirms logout, clears session, and redirects to login. */
+  /** Hide the “Dr. Plant” dropdown after a short delay */
+  hidePlantDropdownDelayed(): void {
+    this.plantHideTimeout = setTimeout(() => this.isPlantDropdownOpen = false, 500);
+  }
+
+  /** Cancel any pending hide for the “Dr. Plant” dropdown */
+  cancelHidePlantDropdown(): void {
+    clearTimeout(this.plantHideTimeout);
+  }
+
+  /** Toggle the “Dr. Plant” dropdown open/closed */
+  togglePlantDropdown(): void {
+    this.isPlantDropdownOpen = !this.isPlantDropdownOpen;
+  }
+
+  // ==== Logout flow ====
+
+  /** Open the logout confirmation modal */
+  initiateLogout(): void {
+    this.logoutModal?.openModal();
+  }
+
+  /** On confirm: perform logout and navigate to login */
   onLogoutConfirm(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
 
-  /** Cancels logout modal. */
+  /** On cancel: close the logout modal */
   onLogoutCancel(): void {
-    if (this.logoutModal) {
-      this.logoutModal.closeModal();
-    }
+    this.logoutModal?.closeModal();
   }
 }

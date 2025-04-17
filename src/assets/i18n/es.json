@@ -264,8 +264,18 @@
       "LOADING": "Dr. Planta está pensando...",
       "BUTTON_GENERATE_PLAN": "Generar plan de riego",
       "BUTTON_DOWNLOAD_PDF": "Descargar plan en PDF"
+    }, 
+      "DIAGNOSE_CARD": {
+        "TITLE": "{{name}}",
+        "DESCRIPTION": "{{description}}",
+        "PROBABILITY_LABEL": "Porcentaje de confianza:",
+        "BIOLOGICAL_TREATMENT": "Tratamiento biológico:",
+        "CHEMICAL_TREATMENT": "Tratamiento químico:",
+        "PREVENTION": "Prevención:",
+        "MORE_INFO": "Más información"
+      }
     }
-    }
+    
     
   
 

@@ -2,7 +2,7 @@ import {Routes} from '@angular/router';
 import {PotEditorPageComponent} from './features/pot-editor-page/pot-editor-page.component';
 import {HomeComponent} from './features/home/home.component';
 import {LoginComponent} from './features/login/login.component';
-import {DrPlantComponent} from './features/dr-plant/dr-plant.component';
+import {DrPlantComponent} from './features/dr-plant/dr-plant-identify.component';
 import {FloraByZoneComponent} from './features/flora-by-zone/flora-by-zone.component';
 import { AdminRoleGuard } from './guards/admin-role.guard';
 import { AuthGuard } from './guards/auth.guard';
@@ -17,6 +17,7 @@ import {HomeLayoutComponent} from './layouts/homeLayout/home-layout.component';
 import {NurseryComponent} from './features/nursery/nursery.component';
 import {NurseryInfoComponent} from './features/nursery-info/nursery-info.component';
 import { CreateNurseryComponent } from './features/create-nursery/create-nursery.component';
+import { DiagnosePlantComponent } from './features/dr-plant-diagnose/dr-plant-diagnose.component';
 
 /**
  * Application Routing Configuration
@@ -57,6 +58,11 @@ export const routes: Routes = [
       {
         path: 'dr-plant',
         component: DrPlantComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'dr-plant-diagnose',
+        component: DiagnosePlantComponent,
         canActivate: [AuthGuard],
       },
       {

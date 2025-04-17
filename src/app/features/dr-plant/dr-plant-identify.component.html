@@ -26,9 +26,6 @@
         <button (click)="setSelectedAction('identify')" class="bg-[#DCE6D3] text-[#5C684B] px-4 py-2 rounded-md shadow-md transition">
           {{ 'DR_PLANT.BUTTON_IDENTIFY' | translate }}
         </button>
-        <button (click)="setSelectedAction('diagnosis')" class="border border-[#DCE6D3] px-4 py-2 rounded-md shadow-md transition text-[#5C684B] secondary-btn">
-          {{ 'DR_PLANT.BUTTON_DIAGNOSIS' | translate }}
-        </button>
         <button (click)="setSelectedAction('drplant')" class="border border-[#DCE6D3] px-4 py-2 rounded-md shadow-md transition bg-[#DCE6D3] text-[#5C684B]">
           {{ 'DR_PLANT.BUTTON_CHAT' | translate }}
         </button>
@@ -41,11 +38,6 @@
             {{ uploadedImages['identify'] ? ('DR_PLANT.IDENTIFY_HINT_UPLOADED' | translate) : ('DR_PLANT.IDENTIFY_HINT' | translate) }}
           </p>
         </div>
-        <div *ngIf="selectedAction === 'diagnosis'">
-          <p class="text-[#5C684B]">
-            {{ diseaseDataList.length > 0 ? ('DR_PLANT.DIAGNOSIS_HINT_RESULTS' | translate) : (uploadedImages['diagnosis'] ? ('DR_PLANT.DIAGNOSIS_HINT_UPLOADED' | translate) : ('DR_PLANT.DIAGNOSIS_HINT' | translate)) }}
-          </p>
-        </div>
         <div *ngIf="selectedAction === 'drplant'">
           <p class="text-[#5C684B]">
             {{ 'DR_PLANT.CHAT_HINT' | translate }}
@@ -54,7 +46,7 @@
       </div>
       
       <!-- Upload Button (for Identify or Diagnosis) -->
-      <div class="mt-6" *ngIf="selectedAction === 'identify' || selectedAction === 'diagnosis'">
+      <div class="mt-6" *ngIf="selectedAction === 'identify'">
         <label class="cursor-pointer primary-btn border rounded-md">
           {{ uploadedImages[selectedAction] ? ('DR_PLANT.UPLOAD_ANOTHER' | translate) : ('DR_PLANT.UPLOAD_IMAGE' | translate) }}
           <input type="file" (change)="onFileSelected($event)" class="hidden">
@@ -89,13 +81,6 @@
     ></app-info-card>
   </div>
   
-  <!-- Diagnosis Mode: Display Disease Cards using the Carousel -->
-  <div *ngIf="diseaseDataList.length > 0 && selectedAction === 'diagnosis'" class="grid grid-cols-1 gap-6 mt-8 max-w-4xl bg-[#dae5e4]">
-    <app-card-carousel 
-      [items]="diseaseDataList" 
-      (confirmDisease)="confirmDisease($event)">
-    </app-card-carousel>
-  </div>
   
   <!-- Chat Mode -->
   <app-dr-planta-chat

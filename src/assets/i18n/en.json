@@ -264,7 +264,17 @@
           "LOADING": "Dr. Planta is thinking...",
           "BUTTON_GENERATE_PLAN": "Generate Watering Plan",
           "BUTTON_DOWNLOAD_PDF": "Download Watering Plan PDF"
+        }, 
+          "DIAGNOSE_CARD": {
+            "TITLE": "{{name}}",
+            "DESCRIPTION": "{{description}}",
+            "PROBABILITY_LABEL": "Confidence Percentage:",
+            "BIOLOGICAL_TREATMENT": "Biological Treatment:",
+            "CHEMICAL_TREATMENT": "Chemical Treatment:",
+            "PREVENTION": "Prevention:",
+            "MORE_INFO": "More Info"
+          }
         }
-        }
-      
+        
+        
     
