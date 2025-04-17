@@ -17,6 +17,10 @@ import {HomeLayoutComponent} from './layouts/homeLayout/home-layout.component';
 import {NurseryComponent} from './features/nursery/nursery.component';
 import {NurseryInfoComponent} from './features/nursery-info/nursery-info.component';
 import { CreateNurseryComponent } from './features/create-nursery/create-nursery.component';
+import { myNurseryComponent } from './features/my-nursery/my-nursery.component';
+import { MyProductsComponent } from './features/my-products/my-products.component';
+import { CreateProductComponent } from './features/create-product/create-product.component';
+import { CreateNurseryAdminComponent } from './features/admin/create-nursery/create-nursery-admin.component';
 
 /**
  * Application Routing Configuration
@@ -73,7 +77,19 @@ export const routes: Routes = [
       {
         path: 'create-nursery',
         component: CreateNurseryComponent
-      }
+      },
+      {
+        path: 'my-nursery',
+        component: myNurseryComponent 
+      },
+      {
+        path: 'my-products',
+        component: MyProductsComponent
+      },
+      {
+        path: 'create-product',
+        component: CreateProductComponent
+      },
     ]
   },
 
@@ -134,6 +150,17 @@ export const routes: Routes = [
             IRoleType.admin
           ],
           name: 'Nurseries'
+        }
+      },
+      {
+        path: 'create-nursery',
+        component: CreateNurseryAdminComponent,
+        canActivate: [AdminRoleGuard],
+        data:{
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Create Nursery'
         }
       }
     ]

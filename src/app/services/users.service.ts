@@ -6,6 +6,8 @@ import { AuthService } from "./auth.service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { AdminLogsService } from "./adminLogs.service";
+import { response } from "express";
+import { error } from "console";
 
 @Injectable({
     providedIn: 'root'
@@ -40,6 +42,18 @@ export class UsersService extends BaseService<IUser> {
             },
             error: (err: any) => {
                 this.toastr.error(err, 'Error');
+                console.error('error', err);
+            }
+        });
+    }
+
+    getNurseryUsers(){
+        this.find('nursery-users').subscribe({
+            next: (response: any) => {
+                this.userListSignal.set(response);
+            },
+            error: (err: any) => {
+                this.toastr.error(err, 'El usuario ya tiene un vivero');
                 console.error('error', err);
             }
         });

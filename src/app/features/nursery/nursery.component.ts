@@ -1,11 +1,9 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {INurseries} from '../../interfaces/nurseries.interface';
-import {LayoutService} from '../../services/layout.service';
 import {NurseryService} from '../../services/nursery.service';
-import {NurseriesListComponent} from '../admin/nurseries-list/nurseries-list.component';
 import {PaginationComponent} from '../pagination/pagination.component';
 import {NurseryCardsComponent} from '../nursery-cards/nursery-cards.component';
+import { error } from 'console';
 
 @Component({
   selector: 'nurseries',
@@ -18,11 +16,45 @@ import {NurseryCardsComponent} from '../nursery-cards/nursery-cards.component';
   styleUrl: 'nursery.component.css'
 })
 
-export class NurseryComponent{
+export class NurseryComponent implements OnInit {
   nurseryService: NurseryService = inject(NurseryService);
+
+  
+  ngOnInit(){
+    if(!navigator.geolocation) {
+      console.log("Geolocation is not supported by this browser.");
+    }
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
+    });
+    this.watchPosition()
+  }
+
+  watchPosition(){
+    let desLat = 0;
+    let desLon = 0;
+
+    let id = navigator.geolocation.watchPosition(
+      (position) => {
+      console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
+      if(position.coords.latitude === desLat){
+        navigator.geolocation.clearWatch(id);
+      }
+    },
+    (err) => {
+      console.log(err);
+    },
+    {
+      enableHighAccuracy: true,
+      maximumAge: 0,
+      timeout: 5000
+    })
+  }
 
   constructor() {
     this.nurseryService.search.page=1;
     this.nurseryService.getAllActives();
+    console.log(this.nurseryService.nurseries$());
+
   }
 }

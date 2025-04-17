@@ -233,5 +233,102 @@
         "MESSAGE": "Are you sure you want to save this pot?",
         "CONFIRM_BUTTON": "Yes, save it",
         "CANCEL_BUTTON": "No, cancel"
+      },
+      "MY_NURSERY": {
+        "TITLE": "My Nursery",
+        "INFO_TITLE": "Nursery Information",
+        "NO_NURSERY": "You haven't created any nursery yet or your nursery was deactivated!",
+        "BUTTONS": {
+          "EDIT_INFO": "Edit Information",
+          "MY_PRODUCTS": "My Products",
+          "CREATE_NURSERY": "Create Nursery"
+        },
+        "DETAILS": {
+          "NURSERY_NAME": "Nursery name",
+          "DESCRIPTION": "Description",
+          "LOCATION": "Location",
+          "STATUS": "Status",
+          "CREATION_DATE": "Creation date",
+          "LAST_UPDATE": "Last update",
+          "STATUS_VALUES": {
+            "ACTIVE": "Active",
+            "INACTIVE": "Inactive"
+          }
+        },
+        "EDIT_MODAL": {
+          "TITLE": "Edit Nursery",
+          "INSTRUCTIONS": "Enter nursery details",
+          "FIELDS": {
+            "NAME": {
+              "LABEL": "Name",
+              "PLACEHOLDER": "Nursery name",
+              "ERROR": "Name is required"
+            },
+            "DESCRIPTION": {
+              "LABEL": "Description",
+              "PLACEHOLDER": "Nursery description",
+              "ERROR": "Description is required"
+            },
+            "LATITUDE": {
+              "LABEL": "Latitude",
+              "PLACEHOLDER": "Latitude",
+              "ERROR": "Latitude is required"
+            },
+            "LONGITUDE": {
+              "LABEL": "Longitude",
+              "PLACEHOLDER": "Longitude",
+              "ERROR": "Longitude is required"
+            },
+            "MAP": "Select nursery location:"
+          }
+        }
+      },
+        "MY_PRODUCTS": {
+          "TITLE": "My Products",
+          "INFO_TITLE": "My Products Information",
+          "EMPTY_MESSAGE": "You don't have any products yet! Add one to get started",
+          "TABLE": {
+            "HEADERS": {
+              "NAME": "Name",
+              "DESCRIPTION": "Description",
+              "PRICE": "Price",
+              "ACTIONS": "Actions"
+            },
+            "ACTIONS": {
+              "EDIT": "Edit",
+              "DELETE": "Delete"
+            }
+          },
+          "MODALS": {
+            "EDIT": {
+              "TITLE": "Edit Product",
+              "INSTRUCTIONS": "Enter product details",
+              "FIELDS": {
+                "NAME": {
+                  "LABEL": "Name",
+                  "PLACEHOLDER": "Product name",
+                  "ERROR": "Name is required"
+                },
+                "DESCRIPTION": {
+                  "LABEL": "Description",
+                  "PLACEHOLDER": "Product description",
+                  "ERROR": "Description is required"
+                },
+                "PRICE": {
+                  "LABEL": "Price",
+                  "PLACEHOLDER": "Product price",
+                  "ERROR": "Price is required"
+                }
+              }
+            },
+            "DELETE": {
+              "TITLE": "Delete Product",
+              "CONFIRMATION": "Are you sure you want to delete this product?"
+            }
+          },
+          "BUTTONS": {
+            "CREATE": "Create Product"
+          }
+        }
       }
-    }
+    

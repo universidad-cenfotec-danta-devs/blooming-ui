@@ -3,9 +3,10 @@
     <table class="table-nursery table-striped rounded-2xl">
       <thead>
       <tr class="border-b border-[#DCE6D3]">
-        <th>Id</th>
+        <th>ID</th>
         <th>Nombre</th>
-        <th>Ubicación</th>
+        <th>Descripcion</th>
+        <th>Ubicacion</th>
         <th>Estado</th>
         <th>Acciones</th>
       </tr>
@@ -13,18 +14,19 @@
       <tbody>
         @for (item of nurseryList; track item.id){
           <tr>
-            <td>{{item.id}}</td>
+            <td>{{ item.id }}</td>
             <td>{{ item.name }}</td>
-            <td>{{ item.latitude }} , {{item.longitude}}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.latitude }}, {{item.longitude}}</td>
             <td>{{ item.active ? 'Activo' : 'Desactivado' }}</td>
-            <td class="flex gap-5 justify-center">
-<!--              <button class="underline" (click)="showEditModal(item, editModal)" )>Editar</button>-->
-              <button class="underline">Editar</button>
+            <td class="flex flex-col">
+              <button (click)="showEditModal(item, editModal)" class="underline">Editar</button>
               @if (item.active) {
-                <button (click)="deactivate(item)" class="underline text-red-600">Desactivar</button>
+                <button (click)="showStatusModal(item, statusDeactivateModal)" class="underline text-red-600">Desactivar</button>
               } @else {
-                <button (click)="activate(item)" class="underline">Activar</button>
+                <button (click)="showStatusModal(item, statusActiveModal)" class="underline">Activar</button>
               }
+              <button class="underline">Productos</button>
             </td>
           </tr>
         }
@@ -35,54 +37,50 @@
   }
 </div>
 
-<!--<app-modal #editModal>-->
-<!--           [title]="'Editar Vivero'"-->
-<!--           (confirm)="updateNursery(nurseryForm, $event)"-->
-<!--&gt;-->
-<!--  <div class="flex flex-col space-y-4 text-1xl text-[#5C684B]" [formGroup]="nurseryForm">-->
-<!--    <p class="text-center mb-4">Ingrese los datos del vivero</p>-->
+<app-modal #editModal [title]="'Editar Vivero'" (confirm)="updateNursery(nurseryForm.value, $event)">
+ <div class="flex flex-col space-y-4 text-1xl text-[#5C684B]" [formGroup]="nurseryForm">
 
-<!--    <div>-->
-<!--      <label class="block mb-1 text-sm text-gray-600">-->
-<!--        Nombre-->
-<!--      </label>-->
-<!--      <input type="text" formControlName="name" class="input-field" placeholder="Nombre del vivero">-->
-<!--      <div *ngIf="nurseryForm.get('name')?.touched && nurseryForm.get('name')?.invalid" class="text-red-600 text-xs">-->
-<!--        Nombre requerido-->
-<!--      </div>-->
-<!--    </div>-->
+   <div>
+     <label class="block mb-1 text-sm text-gray-600">Nombre</label>
+     <input type="text" formControlName="name" class="input-field" placeholder="Nombre del vivero">
+     <div *ngIf="nurseryForm.get('name')?.touched && nurseryForm.get('name')?.invalid" class="text-red-600 text-xs">Nombre requerido</div>
+   </div>
 
-<!--    <div>-->
-<!--      <label class="block mb-1 text-sm">-->
-<!--        Latitud-->
-<!--      </label>-->
-<!--      <input type="number" formControlName="latitude" class="input-field" placeholder="Latitud">-->
-<!--      <div *ngIf="nurseryForm.get('latitude')?.touched && nurseryForm.get('latitude')?.invalid" class="text-red-600 text-xs">-->
-<!--        Latitud requerida-->
-<!--      </div>-->
-<!--    </div>-->
+   <div>
+    <label class="block mb-1 text-sm text-gray-600">Descripcion</label>
+    <textarea type="text" formControlName="description" class="input-field" placeholder="Nombre del vivero"></textarea>
+    <div *ngIf="nurseryForm.get('description')?.touched && nurseryForm.get('description')?.invalid" class="text-red-600 text-xs">Nombre requerido</div>
+  </div>
 
-<!--    <div>-->
-<!--      <label class="block mb-1 text-sm">-->
-<!--        Longitud-->
-<!--      </label>-->
-<!--      <input type="number" formControlName="longitude" class="input-field" placeholder="Longitud">-->
-<!--      <div *ngIf="nurseryForm.get('longitude')?.touched && nurseryForm.get('longitude')?.invalid" class="text-red-600 text-xs">-->
-<!--        Longitud requerida-->
-<!--      </div>-->
-<!--    </div>-->
+  <div class="flex ">
+    <div>
+        <label class="block mb-1 text-sm">Latitud</label>
+        <input type="number" formControlName="latitude" class="input-field" placeholder="Latitud">
+        <div *ngIf="nurseryForm.get('latitude')?.touched && nurseryForm.get('latitude')?.invalid" class="text-red-600 text-xs">Latitud requerida</div>
+    </div>
+    <div>
+        <label class="block mb-1 text-sm">Longitud</label>
+        <input type="number" formControlName="longitude" class="input-field" placeholder="Longitud">
+        <div *ngIf="nurseryForm.get('longitude')?.touched && nurseryForm.get('longitude')?.invalid" class="text-red-600 text-xs">Longitud requerida</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="map">Selecciona la ubicación del vivero:</label>
+    <app-map-picker (locationSelected)="onLocationPicked({ latitude: $event.lat, longitude: $event.lng })"></app-map-picker>
+  </div>
+  <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid xl:grid-cols-3">
+    <label class="font-normal" for="image">Logo del vivero</label>
+    <input class="mt-1 px-1 sm:col-span-2 sm:mt-0 font-light border-1 rounded-md wrap" type="file" id="image" name="image" accept="image/*">
+</div>
+   
+ </div>
+</app-modal>
 
-<!--    <div>-->
-<!--      <label class="block mb-1 text-sm">-->
-<!--        Estado-->
-<!--      </label>-->
-<!--      <select formControlName="active" class="input-field">-->
-<!--        <option [value]="true">Activo</option>-->
-<!--        <option [value]="false">Inactivo</option>-->
-<!--      </select>-->
-<!--      <div *ngIf="nurseryForm.get('active')?.touched && nurseryForm.get('active')?.invalid" class="text-red-600 text-xs">-->
-<!--        Campo requerido-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</app-modal>-->
+
+<app-modal #statusActiveModal [title]="'Cambiar estado del vivero'" (confirm)="changeStatus(selectedNursery)">
+  Desea activar el vivero {{ selectedNursery.name }}?
+</app-modal>
+
+<app-modal #statusDeactivateModal [title]="'Cambiar estado del vivero'" (confirm)="changeStatus(selectedNursery)"  >
+  Desea desactivar el vivero {{ selectedNursery.name }}?
+</app-modal>

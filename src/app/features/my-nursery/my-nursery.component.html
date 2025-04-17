@@ -1,0 +1,91 @@
+<div class="px-20 py-10 text-[var(--main-text)]">
+    <div class="flex justify-between items-center pb-5">
+        <h1 class="text-[2rem] font-semibold">{{ 'MY_NURSERY.TITLE' | translate }}</h1>
+        <div>
+            @if (nurseryService.nurseryDetail$().active) {
+                <button (click)="showEditModal(nurseryService.nurseryDetail$(), editModal)" class="secondary-btn mr-5">{{ 'MY_NURSERY.BUTTONS.EDIT_INFO' | translate }}</button>
+                <button (click)="showProductsPage()" class="primary-btn">{{ 'MY_NURSERY.BUTTONS.MY_PRODUCTS' | translate }}</button>
+            } @else {
+                <button (click)="createNursery()" class="primary-btn">{{ 'MY_NURSERY.BUTTONS.CREATE_NURSERY' | translate }}</button>
+            }
+        </div>
+    </div>
+    <div class="bg-[#FCFFF8] border-1 border-[#DCE6D3] rounded-lg px-5 pt-7 mt-5">
+        <div class="px-4 sm:px-0 mb-5">
+            @if (nurseryService.nurseryDetail$().active) {
+                <h3 class="text-lg font-semibold ">{{ 'MY_NURSERY.INFO_TITLE' | translate }}</h3>
+            } @else {
+                <h3 class="text-lg font-semibold text-center">{{'MY_NURSERY.NO_NURSERY' | translate}}</h3>
+            }
+        </div>
+        @defer{
+            @if (nurseryService.nurseryDetail$().active) {
+                <div class="border-t border-[#DCE6D3]">
+                <dl class="divide-y divide-[#DCE6D3]">
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="font-normal">{{'MY_NURSERY.DETAILS.NURSERY_NAME' | translate}}</dt>
+                        <dd class="mt-1 sm:col-span-2 sm:mt-0 font-light">{{nurseryService.nurseryDetail$().name}}</dd>
+                    </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="font-normal">{{'MY_NURSERY.DETAILS.DESCRIPTION' | translate}}</dt>
+                        <dd class="mt-1 sm:col-span-2 sm:mt-0 font-light">{{nurseryService.nurseryDetail$().description}}</dd>
+                    </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="font-normal">{{'MY_NURSERY.DETAILS.LOCATION' | translate}}</dt>
+                        <dd class="mt-1 sm:col-span-2 sm:mt-0 font-light">{{nurseryService.nurseryDetail$().latitude}}, {{nurseryService.nurseryDetail$().longitude}}</dd>
+                    </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="font-normal">{{'MY_NURSERY.DETAILS.STATUS' | translate}}</dt>
+                        <dd class="mt-1 sm:col-span-2 sm:mt-0 font-light">{{nurseryService.nurseryDetail$().active ? ('MY_NURSERY.DETAILS.STATUS_VALUES.ACTIVE' | translate) : ('MY_NURSERY.DETAILS.STATUS_VALUES.INACTIVE' | translate)}}</dd>
+                        </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="font-normal">{{'MY_NURSERY.DETAILS.CREATION_DATE' | translate}}</dt>
+                        <dd class="mt-1 sm:col-span-2 sm:mt-0 font-light">{{nurseryService.nurseryDetail$().createdAt | date: 'dd/MM/yyyy HH:mm'}}</dd>
+                    </div>
+                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt class="font-normal">{{'MY_NURSERY.DETAILS.LAST_UPDATE' | translate}}</dt>
+                        <dd class="mt-1 sm:col-span-2 sm:mt-0 font-light">{{nurseryService.nurseryDetail$().updatedAt | date: 'dd/MM/yyyy HH:mm'}}</dd>
+                    </div>
+                </dl>
+            </div>
+            } 
+        }
+    </div>
+</div>
+
+<app-modal #editModal [title]="'Editar vivero'" (confirm)="updateNursery(nurseryForm.value, $event)">
+    <div class="flex flex-col space-y-4 text-1xl text-[#5C684B]" [formGroup]="nurseryForm">
+        <p class="text-center mb-4">{{ 'MY_NURSERY.EDIT_MODAL.INSTRUCTIONS' | translate }}</p>
+     
+        <div>
+            <label class="block mb-1 text-sm text-gray-600">{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.NAME.LABEL' | translate }}</label>
+            <input type="text" formControlName="name" class="input-field" placeholder="{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.NAME.PLACEHOLDER' | translate }}">
+            <div *ngIf="nurseryForm.get('name')?.touched && nurseryForm.get('name')?.invalid" class="text-red-600 text-xs">{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.NAME.ERROR' | translate }}</div>
+        </div>
+     
+        <div>
+            <label class="block mb-1 text-sm text-gray-600">{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.DESCRIPTION.LABEL' | translate }}</label>
+            <textarea type="text" formControlName="description" class="input-field" placeholder="{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.DESCRIPTION.PLACEHOLDER' | translate }}"></textarea>
+            <div *ngIf="nurseryForm.get('description')?.touched && nurseryForm.get('description')?.invalid" class="text-red-600 text-xs">{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.DESCRIPTION.ERROR' | translate }}</div>
+        </div>
+        <div class="flex ">
+            <div>
+                <label class="block mb-1 text-sm">{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.LATITUDE.LABEL' | translate }}</label>
+                <input type="number" formControlName="latitude" class="input-field" placeholder="{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.LATITUDE.PLACEHOLDER' | translate }}">
+                <div *ngIf="nurseryForm.get('latitude')?.touched && nurseryForm.get('latitude')?.invalid" class="text-red-600 text-xs">{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.LATITUDE.ERROR' | translate }}</div>
+            </div>
+         
+            <div>
+                <label class="block mb-1 text-sm">{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.LONGITUDE.LABEL' | translate }}</label>
+                <input type="number" formControlName="longitude" class="input-field" placeholder="{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.LONGITUDE.PLACEHOLDER' | translate }}">
+                <div *ngIf="nurseryForm.get('longitude')?.touched && nurseryForm.get('longitude')?.invalid" class="text-red-600 text-xs">{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.LONGITUDE.ERROR' | translate }}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="map">{{ 'MY_NURSERY.EDIT_MODAL.FIELDS.MAP' | translate }}</label>
+            <app-map-picker (locationSelected)="onLocationSelected($event)" class="h-[400px] w-full"></app-map-picker>
+        </div>
+        
+      </div>
+</app-modal>

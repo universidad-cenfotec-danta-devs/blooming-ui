@@ -5,6 +5,7 @@ import {INurseries} from '../../../interfaces/nurseries.interface';
 import {NurseriesListComponent} from '../nurseries-list/nurseries-list.component';
 import {NurseryService} from '../../../services/nursery.service';
 import {PaginationComponent} from '../../pagination/pagination.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'admin-nurseries',
@@ -22,6 +23,8 @@ export class NurseriesComponent implements OnInit {
   public layoutService = inject(LayoutService);
   nurseryService: NurseryService = inject(NurseryService);
 
+  constructor(private router: Router){}
+
   ngOnInit(): void {
     setTimeout(() => {
     this.layoutService.setTitle('Viveros')
@@ -29,5 +32,9 @@ export class NurseriesComponent implements OnInit {
     this.nurseryService.search.page=1;
     this.nurseryService.getAll();
     });
+  }
+
+  createNurseryPage() {
+    this.router.navigate(['/admin/create-nursery']);
   }
 }

@@ -1,7 +1,8 @@
 export interface INurseryDTO {
   id: number;
+  name: string;
+  description: string;
   latitude: number;
   longitude: number;
-  name: string;
   active: boolean;
 }

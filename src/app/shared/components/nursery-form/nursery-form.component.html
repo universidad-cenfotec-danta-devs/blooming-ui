@@ -1,0 +1,39 @@
+<div class="bg-[#FCFFF8] border-1 border-[#DCE6D3] rounded-lg px-5 pt-7 mt-5 xl:mx-40">
+    <div class="px-4 sm:px-0 border-[#DCE6D3]">
+        <h3 class="text-lg font-semibold text-center">Por favor completar todos  los campos para crear un vivero</h3>
+    </div>
+    <div class="">
+        <form [formGroup]="nurseryForm" class="bg-[#FCFFF8] rounded-xl text-[var(--main-text)]" enctype="multipart/form-data">
+            <div class="mt-6 border-t border-b border-[#DCE6D3]">
+                <dl class="divide-y divide-[#DCE6D3]">
+                    <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid-cols-3">
+                        <label class="font-normal" for="name">Nombre del vivero</label>
+                        <input class="mt-1 px-1 sm:col-span-2 sm:mt-0 font-light border-1 rounded-md" type="text" id="name" name="name" formControlName="name" required>
+                    </div>
+                    <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid xl:grid-cols-3">
+                        <label class="font-normal" for="description">Descripcion</label>
+                        <textarea class="mt-1 px-1 sm:col-span-2 sm:mt-0 font-light border-1 rounded-md"  id="description" name="description" formControlName="description" required></textarea>                               
+                    </div>
+                    <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid xl:grid-cols-3">
+                        <label class="font-normal" for="location">Ubicación</label>
+                        <input class="mt-1 px-1 sm:col-span-2 sm:mt-0 font-light border-1 rounded-md bg-gray-100" type="text" id="location" [value]="latitude && longitude ? latitude + ', ' + longitude : ''" disabled >
+                    </div>
+                    <app-map-picker (locationSelected)="onLocationPicked({ latitude: $event.lat, longitude: $event.lng })"></app-map-picker>
+                    <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid xl:grid-cols-3">
+                        <label class="font-normal" for="image">Logo del vivero</label>
+                        <input class="mt-1 px-1 sm:col-span-2 sm:mt-0 font-light border-1 rounded-md wrap" type="file" id="image" name="image" accept="image/*">
+                    </div>
+                    <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid-cols-3">
+                        <label class="font-normal" for="user">Asignar a usuario</label>
+                        <select class="mt-1 px-1 sm:col-span-2 font-light border-1 rounded-md" id="userEmail" formControlName="userEmail" required>
+                          <option *ngFor="let user of users">{{ user.name }}, {{ user.email}}</option>
+                        </select>
+                    </div>
+                </dl>
+            </div>
+            <div class="flex justify-center my-5">
+                <button class="primary-btn" (click)="onSubmit()" type="submit">Crear Vivero</button>
+            </div>
+        </form>
+    </div>
+</div>

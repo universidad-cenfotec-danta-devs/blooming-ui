@@ -234,6 +234,101 @@
     "MESSAGE": "¿Estás seguro de que deseas guardar esta maceta?",
     "CONFIRM_BUTTON": "Sí, guardar",
     "CANCEL_BUTTON": "No, cancelar"
+  },
+  "MY_NURSERY": {
+    "TITLE": "Mi Vivero",
+    "INFO_TITLE": "Información del vivero",
+    "NO_NURSERY": "¡Aún no has creado ningún vivero o se desactivó tu vivero!",
+    "BUTTONS": {
+      "EDIT_INFO": "Editar Información",
+      "MY_PRODUCTS": "Mis Productos",
+      "CREATE_NURSERY": "Crear Vivero"
+    },
+    "DETAILS": {
+      "NURSERY_NAME": "Nombre del vivero",
+      "DESCRIPTION": "Descripción",
+      "LOCATION": "Ubicación",
+      "STATUS": "Estado",
+      "CREATION_DATE": "Fecha de creación",
+      "LAST_UPDATE": "Última modificación",
+      "STATUS_VALUES": {
+        "ACTIVE": "Activo",
+        "INACTIVE": "Desactivado"
+      }
+    },
+    "EDIT_MODAL": {
+      "TITLE": "Editar Vivero",
+      "INSTRUCTIONS": "Ingrese los datos del vivero",
+      "FIELDS": {
+        "NAME": {
+          "LABEL": "Nombre",
+          "PLACEHOLDER": "Nombre del vivero",
+          "ERROR": "Nombre requerido"
+        },
+        "DESCRIPTION": {
+          "LABEL": "Descripción",
+          "PLACEHOLDER": "Descripción del vivero",
+          "ERROR": "Descripción requerida"
+        },
+        "LATITUDE": {
+          "LABEL": "Latitud",
+          "PLACEHOLDER": "Latitud",
+          "ERROR": "Latitud requerida"
+        },
+        "LONGITUDE": {
+          "LABEL": "Longitud",
+          "PLACEHOLDER": "Longitud",
+          "ERROR": "Longitud requerida"
+        },
+        "MAP": "Selecciona la ubicación del vivero:"
+      }
+    }
+  },
+  "MY_PRODUCTS": {
+    "TITLE": "Mis Productos",
+    "INFO_TITLE": "Información de mis productos",
+    "EMPTY_MESSAGE": "¡Aún no tienes productos creados! Agrega uno para comenzar",
+    "TABLE": {
+      "HEADERS": {
+        "NAME": "Nombre",
+        "DESCRIPTION": "Descripción",
+        "PRICE": "Precio",
+        "ACTIONS": "Acciones"
+      },
+      "ACTIONS": {
+        "EDIT": "Editar",
+        "DELETE": "Eliminar"
+      }
+    },
+    "MODALS": {
+      "EDIT": {
+        "TITLE": "Editar Producto",
+        "INSTRUCTIONS": "Ingrese los datos del producto",
+        "FIELDS": {
+          "NAME": {
+            "LABEL": "Nombre",
+            "PLACEHOLDER": "Nombre del producto",
+            "ERROR": "Nombre requerido"
+          },
+          "DESCRIPTION": {
+            "LABEL": "Descripción",
+            "PLACEHOLDER": "Descripción del producto",
+            "ERROR": "Descripción requerida"
+          },
+          "PRICE": {
+            "LABEL": "Precio",
+            "PLACEHOLDER": "Precio del producto",
+            "ERROR": "Precio requerido"
+          }
+        }
+      },
+      "DELETE": {
+        "TITLE": "Eliminar Producto",
+        "CONFIRMATION": "¿Estás seguro de eliminar este producto?"
+      }
+    },
+    "BUTTONS": {
+      "CREATE": "Crear Producto"
+    }
   }
 }
-

@@ -6,6 +6,7 @@ import {ToastrService} from 'ngx-toastr';
 import {INurseryDTO} from '../interfaces/nurseryDTO.interface';
 import { Router } from '@angular/router';
 import { IProducts } from '../interfaces/products.interface';
+import { error } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -76,16 +77,15 @@ export class NurseryService extends BaseService<INurseryDTO>{
         this.search = {...this.search, ...response.meta};
         this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
         this.nurseryProducts$.set(response.data.content);
-        
       },
-      error: (err: any) => { 
+      error: (err: any) => {
         this.toastr.error(err, 'Error');
         console.error('error', err);
       }
     })
   }
 
-  addProductToNursery(product: IProducts){
+  addProductToNursery(product: IProducts) {
     this.addCustomSource("addProductByNurseryAdmin", product).subscribe({
       next: (response: any) => {
         this.getProductsByNurseryId(product.nursery?.id);
@@ -140,8 +140,64 @@ export class NurseryService extends BaseService<INurseryDTO>{
     this.add(nursery).subscribe({
       next:(response: any) => {
         this.toastr.success('Nursery created', 'Success').onHidden.subscribe(() => {
-          this.router.navigate(['/home/nurseries']);;
         });
+      },
+      error: (err: any) => {
+        this.toastr.error(err, 'Error');
+        console.error('error', err);
+      }
+    })
+  }
+
+  updateNursery(id: any, nursery: any){
+    this.patch(id, nursery).subscribe({
+      next: (response: any) => {
+        this.toastr.success('Nursery updated', 'Success');
+      },
+      error: (err: any) => {
+        this.toastr.error(err, 'Error');
+        console.error('error', err);
+      }
+    })
+  }
+
+  updateProduct(id: any, product: any){
+    this.patchCustomSource('update-product/' + id, product).subscribe({
+      next: (response: any) => {
+        this.toastr.success('Product updated', 'Success');
+        this.getMyProducts();
+      },
+      error: (err: any) => {
+        this.toastr.error(err, 'Error');
+        console.error('error', err);
+      }
+    })
+  }
+  
+  getMyNursery(){
+    this.find('my-nursery').subscribe({   
+      next: (response: any) => {
+        this.nurseryDetail$.set(response.body.data);
+      }
+    })
+  }
+
+  getMyProducts(){
+    this.findAllWithParamsAndCustomSource('my-products', { page:this.search.page, size:this.search.size }).subscribe({
+      next: (response: any) => {
+        this.search = {...this.search, ...response.meta};
+        this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
+        this.nurseryProducts$.set(response.data.content);
+        console.log(response.data)
+      }
+    })
+  }
+
+  removeProductFromNursery(idProduct: IProducts){
+    this.delCustomSource(`api/nurseries/remove-product/${idProduct}`).subscribe({
+      next: (response: any) => {
+        this.toastr.success('Product removed', 'Success');
+        this.getMyProducts();
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
