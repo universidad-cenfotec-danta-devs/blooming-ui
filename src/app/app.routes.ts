@@ -18,8 +18,8 @@ import {NurseryComponent} from './features/nursery/nursery.component';
 import {NurseryInfoComponent} from './features/nursery-info/nursery-info.component';
 import {EvaluationComponent} from './pages/evaluation/evaluation.component';
 import {EvaluationFormComponent} from './features/evaluations/evaluation-form/evaluation-form.component';
-import { CreateNurseryComponent } from './features/create-nursery/create-nursery.component';
-import { DiagnosePlantComponent } from './features/dr-plant-diagnose/dr-plant-diagnose.component';
+import {CreateNurseryComponent} from './features/create-nursery/create-nursery.component';
+import {DiagnosePlantComponent} from './features/dr-plant-diagnose/dr-plant-diagnose.component';
 
 /**
  * Application Routing Configuration
