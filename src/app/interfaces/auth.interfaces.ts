@@ -12,7 +12,9 @@ export interface IUser {
     token: string;
     authUser: IUser;
     expiresIn: number;
+    error?: string; 
   }
+  
   
   export interface IRoleType {
     admin: string;

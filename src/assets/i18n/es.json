@@ -33,7 +33,7 @@
       "UPLOAD_ANOTHER": "Subir otra imagen",
       "LEFT_IMAGE_ALT": "Planta Izquierda",
       "RIGHT_IMAGE_ALT": "Planta Derecha",
-      "INFOCARD_DESCRIPTION": "Probabilidad: {{probability}}, Similitud: {{similarity}}",
+      "INFOCARD_DESCRIPTION": "Probabilidad de ser la planta enviada: {{probability}}",
       "INFOCARD_BUTTON_CONFIRM": "Confirmar"
     },
     "CONFIRM_PLANT_SAVE": {
@@ -211,9 +211,17 @@
       "AGE_REQUIRED": "Se requiere la edad.",
       "DOB_REQUIRED": "Se requiere la fecha de nacimiento.",
       "GENDER_REQUIRED": "Se requiere seleccionar el género.",
-      "PHONE_REQUIRED": "Se requiere el número de teléfono."
+      "PHONE_REQUIRED": "Se requiere el número de teléfono.",
+      "DOB_FUTURE": "La fecha de nacimiento no puede estar en el futuro.",
+      "DOB_AGE": "Debes tener al menos 18 años.",
+      "PASSWORD_TOO_SHORT": "La contraseña debe tener al menos 8 caracteres.",
+      "PASSWORD_MISSING_UPPERCASE": "La contraseña debe incluir al menos una letra mayúscula.",
+      "PASSWORD_MISSING_LOWERCASE": "La contraseña debe incluir al menos una letra minúscula.",
+      "PASSWORD_MISSING_DIGIT": "La contraseña debe incluir al menos un número.",
+      "PASSWORD_MISSING_SPECIAL": "La contraseña debe incluir al menos un carácter especial."
     }
-  },
+    }
+  ,
     "DRPLANT": {
       "TITLE": "Dr. Planta",
       "SUBTITLE": "¿Necesitas ayuda con tus plantas? ¡Dr. Planta está aquí para ti!",
@@ -253,6 +261,40 @@
     "MESSAGE": "¿Estás seguro de que deseas guardar esta maceta?",
     "CONFIRM_BUTTON": "Sí, guardar",
     "CANCEL_BUTTON": "No, cancelar"
-  }
-}
+  },
+    "DISEASE": {
+      "PROBABILITY": "Confianza de diagnostico",
+      "TREATMENT": {
+        "BIOLOGICAL": "Tratamiento biológico",
+        "CHEMICAL": "Tratamiento químico",
+        "PREVENTION": "Prevención"
+      },
+      "MORE_INFO": "Más información",
+      "CONFIRM": {
+        "BUTTON": "Confirmar"
+      }
+    },
+    "DR_PLANT_PAGE": {
+      "TITLE": "Dr. Planta",
+      "SUBTITLE": "Pregunta a Dr. Planta sobre tus plantas:",
+      "SELECT_PLANT": "Selecciona planta:",
+      "PLACEHOLDER": "Escribe tu pregunta aquí...",
+      "BUTTON_SEND": "Enviar",
+      "LOADING": "Dr. Planta está pensando...",
+      "BUTTON_GENERATE_PLAN": "Generar plan de riego",
+      "BUTTON_DOWNLOAD_PDF": "Descargar plan en PDF"
+    }, 
+      "DIAGNOSE_CARD": {
+        "TITLE": "{{name}}",
+        "DESCRIPTION": "{{description}}",
+        "PROBABILITY_LABEL": "Porcentaje de confianza:",
+        "BIOLOGICAL_TREATMENT": "Tratamiento biológico:",
+        "CHEMICAL_TREATMENT": "Tratamiento químico:",
+        "PREVENTION": "Prevención:",
+        "MORE_INFO": "Más información"
+      }
+    }
+    
+    
+  
 

@@ -135,124 +135,125 @@ export class PotEditorService {
     box.getCenter(center);
     model.position.sub(center);
   }
+/**
+ * Loads a GLB model from a given path, centers it, and scales it uniformly to the desired size.
+ * Clears any previously loaded models from potModelGroup before loading the new one.
+ *
+ * @param modelPath The path to the GLB file.
+ * @returns Observable that emits true if the model loads successfully.
+ */
+loadModel(modelPath: string): Observable<boolean> {
+  return new Observable(observer => {
+    try {
+      // Clear previously loaded models.
+      this.potModelGroup.clear();
 
-  /**
-   * Loads a GLB model from a given path, centers it, and scales it uniformly to the desired size.
-   * @param modelPath The path to the GLB file.
-   * @returns Observable that emits true if the model loads successfully.
-   */
-  loadModel(modelPath: string): Observable<boolean> {
-    return new Observable(observer => {
-      try {
-        while (this.potModelGroup.children.length > 0) {
-          this.potModelGroup.remove(this.potModelGroup.children[0]);
-        }
-        const gltfLoader = new GLTFLoader();
-        gltfLoader.load(
-          modelPath,
-          (gltf) => {
-            const model = gltf.scene;
+      const gltfLoader = new GLTFLoader();
+      gltfLoader.load(
+        modelPath,
+        (gltf) => {
+          const model = gltf.scene;
+          const box = new THREE.Box3().setFromObject(model);
+          const center = new THREE.Vector3();
+          box.getCenter(center);
+          model.position.sub(center);
 
-            const box = new THREE.Box3().setFromObject(model);
-            const center = new THREE.Vector3();
-            box.getCenter(center);
-            model.position.sub(center);
+          this.standardizeModelSize(model, 100);
 
-            this.standardizeModelSize(model, 100);
-
-            model.traverse((child) => {
-              if ((child as THREE.Mesh).isMesh) {
-                const mesh = child as THREE.Mesh;
-                mesh.material = new THREE.MeshPhysicalMaterial({
-                  color: 0x0077ff,
-                  metalness: 0.0,
-                  roughness: 0.5
-                });
-              }
-            });
-
-            this.potModelGroup.add(model);
-            observer.next(true);
-            observer.complete();
-          },
-          (xhr) => {
-            if (xhr.total) {
-              const percent = (xhr.loaded / xhr.total * 100).toFixed(2);
+          model.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+              const mesh = child as THREE.Mesh;
+              mesh.material = new THREE.MeshPhysicalMaterial({
+                color: 0x0077ff,
+                metalness: 0.0,
+                roughness: 0.5
+              });
             }
-          },
-          (error) => {
-            console.error('[PotEditorService] GLTFLoader error:', error);
-            observer.error(new Error('Failed to load 3D model'));
+          });
+
+          this.potModelGroup.add(model);
+          observer.next(true);
+          observer.complete();
+        },
+        (xhr) => {
+          if (xhr.total) {
+            const percent = (xhr.loaded / xhr.total * 100).toFixed(2);
+            // Progress tracking can be implemented here if needed.
           }
-        );
-      } catch (error) {
-        console.error('[PotEditorService] Error in loadModel:', error);
-        observer.error(new Error('Error loading model'));
+        },
+        (error) => {
+          console.error('[PotEditorService] GLTFLoader error:', error);
+          observer.error(new Error('Failed to load 3D model'));
+        }
+      );
+    } catch (error) {
+      console.error('[PotEditorService] Error in loadModel:', error);
+      observer.error(new Error('Error loading model'));
+    }
+  });
+}
+
+/**
+ * Loads a GLB model from a File object (user upload), centers it, scales it uniformly,
+ * and replaces the current model.
+ *
+ * @param file The user-uploaded file.
+ * @returns Observable that emits true if the model loads successfully.
+ */
+loadModelFromFile(file: File): Observable<boolean> {
+  this.currentModelFile = file;
+  return new Observable(observer => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const arrayBuffer = event.target?.result;
+      if (!arrayBuffer) {
+        observer.error(new Error('File read error'));
+        return;
       }
-    });
-  }
+      const gltfLoader = new GLTFLoader();
+      gltfLoader.parse(
+        arrayBuffer as ArrayBuffer,
+        '',
+        (gltf) => {
+          const model = gltf.scene;
+          const box = new THREE.Box3().setFromObject(model);
+          const center = new THREE.Vector3();
+          box.getCenter(center);
+          model.position.sub(center);
 
-  /**
-   * Loads a GLB model from a File object (user upload), centers it, scales it uniformly,
-   * and replaces the current model.
-   * @param file The user-uploaded file.
-   * @returns Observable that emits true if the model loads successfully.
-   */
-  loadModelFromFile(file: File): Observable<boolean> {
-    this.currentModelFile = file;
-    return new Observable(observer => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const arrayBuffer = event.target?.result;
-        if (!arrayBuffer) {
-          observer.error(new Error('File read error'));
-          return;
-        }
-        const gltfLoader = new GLTFLoader();
-        gltfLoader.parse(
-          arrayBuffer as ArrayBuffer,
-          '',
-          (gltf) => {
-            const model = gltf.scene;
+          this.standardizeModelSize(model, 100);
 
-            const box = new THREE.Box3().setFromObject(model);
-            const center = new THREE.Vector3();
-            box.getCenter(center);
-            model.position.sub(center);
-
-            this.standardizeModelSize(model, 100);
-
-            model.traverse((child) => {
-              if ((child as THREE.Mesh).isMesh) {
-                const mesh = child as THREE.Mesh;
-                mesh.material = new THREE.MeshPhysicalMaterial({
-                  color: 0x0077ff,
-                  metalness: 0.0,
-                  roughness: 0.5
-                });
-              }
-            });
-
-            while (this.potModelGroup.children.length > 0) {
-              this.potModelGroup.remove(this.potModelGroup.children[0]);
+          model.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+              const mesh = child as THREE.Mesh;
+              mesh.material = new THREE.MeshPhysicalMaterial({
+                color: 0x0077ff,
+                metalness: 0.0,
+                roughness: 0.5
+              });
             }
-            this.potModelGroup.add(model);
-            observer.next(true);
-            observer.complete();
-          },
-          (error) => {
-            console.error('[PotEditorService] Error parsing GLB model from file:', error);
-            observer.error(new Error('Failed to parse GLB model'));
-          }
-        );
-      };
-      reader.onerror = (error) => {
-        console.error('[PotEditorService] FileReader error:', error);
-        observer.error(new Error('FileReader error'));
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }
+          });
+
+          // Clear previously loaded models before adding the new one.
+          this.potModelGroup.clear();
+          this.potModelGroup.add(model);
+          observer.next(true);
+          observer.complete();
+        },
+        (error) => {
+          console.error('[PotEditorService] Error parsing GLB model from file:', error);
+          observer.error(new Error('Failed to parse GLB model'));
+        }
+      );
+    };
+    reader.onerror = (error) => {
+      console.error('[PotEditorService] FileReader error:', error);
+      observer.error(new Error('FileReader error'));
+    };
+    reader.readAsArrayBuffer(file);
+  });
+}
+
 
   /**
    * Exports the currently displayed (updated) pot model as a GLB Blob.

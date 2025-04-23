@@ -1,0 +1,82 @@
+<div class="flex flex-col items-center text-center px-6 md:px-20 bg-[#dae5e4] pb-[18%] h‑screen">
+  <!-- Main Title (translated) -->
+  <h1 class="text-8xl md:text-5xl font-semibold text-[#5C684B] mt-8">
+    {{ 'DR_PLANT.TITLE' | translate }}
+  </h1>
+
+  <!-- Subtitle / Description (translated) -->
+  <p class="text-[#5C684B] text-xl xl:text-3xl mt-4">
+    {{ 'DR_PLANT.SUBTITLE' | translate }}
+  </p>
+  <p class="max-w-5xl text-xl xl:text-xl text-[#5C684B] mt-8">
+    {{ 'DR_PLANT.DESCRIPTION' | translate }}
+  </p>
+
+  <!-- Action Buttons and Upload Section -->
+  <div class="flex justify-center items-start w-full max-w-4xl mt-8 relative">
+    <!-- Left Image -->
+    <div class="absolute left-fix top-fix">
+      <img
+        src="../../../assets/images/dr-plant-1.png"
+        alt="{{ 'DR_PLANT.LEFT_IMAGE_ALT' | translate }}"
+        class="w-60 md:w-56"
+      />
+    </div>
+
+    <!-- Center Column with Upload -->
+    <div class="flex flex-col items-center justify-center">
+      <!-- Dynamic Hint -->
+      <div class="mt-4">
+        <p class="text-[#5C684B]">
+          {{
+            diseaseDataList.length > 0
+              ? ('DR_PLANT.DIAGNOSIS_HINT_RESULTS' | translate)
+              : (uploadedImage
+                ? ('DR_PLANT.DIAGNOSIS_HINT_UPLOADED' | translate)
+                : ('DR_PLANT.DIAGNOSIS_HINT' | translate))
+          }}
+        </p>
+      </div>
+
+      <!-- Upload Button -->
+      <div class="mt-6">
+        <label class="cursor-pointer primary-btn border rounded-md">
+          {{
+            uploadedImage
+              ? ('DR_PLANT.UPLOAD_ANOTHER' | translate)
+              : ('DR_PLANT.UPLOAD_IMAGE' | translate)
+          }}
+          <input type="file" (change)="onFileSelected($event)" class="hidden" />
+        </label>
+        <div *ngIf="errorMessage" class="text-red-500 mt-2">
+          {{ errorMessage }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Image -->
+    <div class="absolute right-fix top-fix">
+      <img
+        src="../../../assets/images/dr-plant-2.png"
+        alt="{{ 'DR_PLANT.RIGHT_IMAGE_ALT' | translate }}"
+        class="w-40 md:w-56"
+      />
+    </div>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="mt-6 text-gray-600">
+    {{ 'DR_PLANT.LOADING' | translate }}
+  </div>
+
+  <!-- Diagnosis Results Carousel -->
+  <div
+    *ngIf="diseaseDataList.length > 0"
+    class="grid grid-cols-1 gap-6 mt-8 max-w-4xl bg-[#dae5e4]"
+  >
+    <app-card-carousel
+      [items]="diseaseDataList"
+
+    ></app-card-carousel>
+  </div>
+</div>

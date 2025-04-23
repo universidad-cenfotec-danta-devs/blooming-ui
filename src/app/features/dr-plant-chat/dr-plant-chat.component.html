@@ -2,18 +2,20 @@
   <div class="flex">
     <!-- Main Title -->
     <h1 class="text-8xl md:text-5xl font-semibold text-[#5C684B] mt-8">
-      Dr. Plant
+      {{ 'DR_PLANT_PAGE.TITLE' | translate }}
     </h1>
   </div>
   
   <!-- Subtitle -->
   <p class="text-[#5C684B] text-xl xl:text-3xl mt-4">
-    Ask Dr. Plant anything about your plants:
+    {{ 'DR_PLANT_PAGE.SUBTITLE' | translate }}
   </p>
   
   <!-- Plant Selector Dropdown -->
   <div class="mt-4">
-    <label class="text-[#5C684B] mr-2">Select Plant:</label>
+    <label class="text-[#5C684B] mr-2">
+      {{ 'DR_PLANT_PAGE.SELECT_PLANT' | translate }}
+    </label>
     <select [(ngModel)]="selectedPlantId" class="px-2 py-1 border rounded">
       <option *ngFor="let plant of plantOptions" [value]="plant.id">
         {{ plant.name }} 
@@ -30,6 +32,10 @@
            [ngClass]="msg.sender === 'user'
              ? 'bg-[#5C684B] text-white'
              : 'bg-[#DCE6D3] text-[#5C684B]'">
+          <!-- show text, sender name and timestamp -->
+          <span class="block text-xs text-gray-600">
+            {{ msg.senderName }} • {{ msg.timestamp | date:'shortTime' }}
+          </span>
           {{ msg.text }}
         </p>
       </div>
@@ -37,7 +43,7 @@
     
     <!-- Loading Indicator -->
     <div *ngIf="isLoading" class="mt-2 text-gray-600">
-      Dr. Planta is thinking...
+      {{ 'DR_PLANT_PAGE.LOADING' | translate }}
     </div>
     
     <!-- Input & Send Button Container -->
@@ -46,28 +52,27 @@
         type="text"
         [(ngModel)]="userMessage"
         class="flex-1 px-4 py-2 border border-[#97A97C] rounded-l-lg focus:outline-none focus:ring-0"
-        placeholder="Type your question here..."
+        [placeholder]="'DR_PLANT_PAGE.PLACEHOLDER' | translate"
         (keyup.enter)="sendMessage()"
       />
       <button
         (click)="sendMessage()"
         class="px-4 py-2 rounded-r-lg primary-btn transition"
       >
-        Send
+        {{ 'DR_PLANT_PAGE.BUTTON_SEND' | translate }}
       </button>
-      <!-- Centered Image relative to the input/button container -->
-      <img src="../../../assets/images/dr-plant-removebg-preview.png" alt="dr-plant" 
+      <img src="../../../assets/images/dr-plant-removebg-preview.png" alt="dr-plant"
            class="absolute left-1/2 transform -translate-x-[-30rem] top-[100%] mt-[-18rem]">
     </div>
   </div>
 
-  <!-- NEW: Buttons for Watering Plan and PDF -->
+  <!-- Buttons for Watering Plan and PDF -->
   <div class="flex justify-center mt-4 space-x-4">
     <button (click)="generateWateringPlan()" class="px-4 py-2 secondary-btn">
-      Generate Watering Plan
+      {{ 'DR_PLANT_PAGE.BUTTON_GENERATE_PLAN' | translate }}
     </button>
     <button (click)="downloadWateringPlanPDF()" class="px-4 py-2 primary-btn">
-      Download Watering Plan PDF
+      {{ 'DR_PLANT_PAGE.BUTTON_DOWNLOAD_PDF' | translate }}
     </button>
   </div>
 </div>

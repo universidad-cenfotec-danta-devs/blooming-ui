@@ -2,7 +2,7 @@ import {Routes} from '@angular/router';
 import {PotEditorPageComponent} from './features/pot-editor-page/pot-editor-page.component';
 import {HomeComponent} from './features/home/home.component';
 import {LoginComponent} from './features/login/login.component';
-import {DrPlantComponent} from './features/dr-plant/dr-plant.component';
+import {DrPlantComponent} from './features/dr-plant/dr-plant-identify.component';
 import {FloraByZoneComponent} from './features/flora-by-zone/flora-by-zone.component';
 import {AdminRoleGuard} from './guards/admin-role.guard';
 import {AuthGuard} from './guards/auth.guard';
@@ -20,6 +20,8 @@ import {CreateNurseryComponent} from './features/create-nursery/create-nursery.c
 import {EvaluationComponent} from './pages/evaluation/evaluation.component';
 import {EvaluationFormComponent} from './features/evaluations/evaluation-form/evaluation-form.component';
 import {EvaluationListComponent} from './features/evaluations/evaluation-list/evaluation-list.component';
+import { CreateNurseryComponent } from './features/create-nursery/create-nursery.component';
+import { DiagnosePlantComponent } from './features/dr-plant-diagnose/dr-plant-diagnose.component';
 
 /**
  * Application Routing Configuration
@@ -78,11 +80,18 @@ export const routes: Routes = [
       },
       {
         path: 'dr-plant',
-        component: DrPlantComponent
+        component: DrPlantComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'dr-plant-diagnose',
+        component: DiagnosePlantComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'pot-editor',
-        component: PotEditorPageComponent
+        component: PotEditorPageComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'nurseries',
