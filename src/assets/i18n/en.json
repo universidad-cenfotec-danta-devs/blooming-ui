@@ -87,6 +87,24 @@
     "SELECT": "Cantón: ",
     "SELECT_DEFAULT": "Select an option"
   },
+  "EVALUATION": {
+    "TITLE": "Reviews",
+    "COMMENT": "Comment",
+    "RATING": "Rating",
+    "MADE_BY": "Made By",
+    "ANONYMOUS": "Anonymous Review",
+    "CREATED_AT": "Date",
+    "NOT_FOUND": "There are no evaluations yet",
+    "BUTTON_MESSAGE": "See Reviews",
+    "BUTTON_MAKE": "Make Review",
+    "BUTTON_DEACTIVATE": "Don't show ",
+    "ACTIONS_ROW": "Actions",
+    "RATING_MANDATORY_MESSAGE": "Rating is required",
+    "BACK_TO_LIST": "Back to Reviews",
+    "MAKE_MESSAGE": "Thank you for taking the time to share your opinion. Your rating and comments help us improve",
+    "BUTTON_SAVE": "Submit"
+  },
+
   "NAV": {
     "ABOUT": "About",
     "CONTACT": "Contact",

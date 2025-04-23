@@ -1,0 +1,39 @@
+@defer {
+  <div class="w-full flex justify-center py-5">
+    <div class="w-[70%] bg-[#FCFFF8] rounded-xl p-10 text-[var(--main-text)]">
+      <div class="flex justify-center mb-4" *ngIf="!showForm && !authService.isDesignerOrNurseryAdmin()">
+        <button class="primary-btn" (click)="showForm = true">
+          {{ 'EVALUATION.BUTTON_MAKE' | translate }}
+        </button>
+      </div>
+
+      <div *ngIf="showForm" class="w-full">
+        <app-evaluation-form
+          [evaluationForm]="evaluationForm"
+          (callSaveMethod)="save($event)"
+          (goBack)="showForm = false"
+        />
+      </div>
+
+      <ng-container *ngIf="!showForm">
+        <div class="w-full">
+          <app-evaluation-list
+            [evaluations]="evaluationService.evaluations()"
+            (callDeactivateMethod)="deactivate($event)"
+            [isDesignerOrNurseryAdmin]="authService.isDesignerOrNurseryAdmin()"
+          />
+        </div>
+        @if (evaluationService.evaluations().length) {
+          <div class="flex justify-center mt-4">
+            <app-pagination
+              [service]="evaluationService"
+              [customCall]="true"
+              (callCustomPaginationMethod)="evaluationService.getAllPaginatedByType(getObjId(), getObjType())"/>
+          </div>
+        }
+      </ng-container>
+    </div>
+  </div>
+} @loading (minimum 1.5s) {
+  <app-loader/>
+}
