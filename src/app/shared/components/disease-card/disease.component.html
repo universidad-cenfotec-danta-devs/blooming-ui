@@ -1,55 +1,54 @@
 <div class="bg-[#B5C99A] rounded-xl shadow p-6 flex flex-col text-[#FCFFF8] border-2 border-white">
   <!-- Disease Name: Centered Title -->
-  <h3 class="text-2xl font-semibold mb-2 text-center">{{ disease.name }}</h3>
-  
+  <h3 class="text-2xl font-semibold mb-2 text-center">
+    {{ 'DIAGNOSE_CARD.TITLE' | translate:{ name: disease.name } }}
+  </h3>
+
   <!-- Disease Description: Left Aligned -->
-  <p class="mb-4 text-left">{{ disease.details.description }}</p>
-  
+  <p class="mb-4 text-left">
+    {{ 'DIAGNOSE_CARD.DESCRIPTION' | translate:{ description: disease.details.description } }}
+  </p>
+
   <!-- Probability: Left Aligned -->
-  <p class="mb-2 text-left"><strong>Probability:</strong> {{ disease.probability }}%</p>
-  
+  <p class="mb-2 text-left">
+    <strong>{{ 'DIAGNOSE_CARD.PROBABILITY_LABEL' | translate }}</strong>
+    {{ disease.probability }}%
+  </p>
+
   <!-- Biological Treatment (if available): Left Aligned -->
   <div *ngIf="disease.details?.treatment?.biological?.length" class="text-left">
-    <p class="mb-1 font-semibold">Biological Treatment:</p>
+    <p class="mb-1 font-semibold">{{ 'DIAGNOSE_CARD.BIOLOGICAL_TREATMENT' | translate }}</p>
     <ul class="list-disc ml-4 mb-2">
       <li *ngFor="let item of disease.details.treatment.biological">
         {{ item }}
       </li>
     </ul>
   </div>
-  
+
   <!-- Chemical Treatment (if available): Left Aligned -->
   <div *ngIf="disease.details?.treatment?.chemical?.length" class="text-left">
-    <p class="mb-1 font-semibold">Chemical Treatment:</p>
+    <p class="mb-1 font-semibold">{{ 'DIAGNOSE_CARD.CHEMICAL_TREATMENT' | translate }}</p>
     <ul class="list-disc ml-4 mb-2">
       <li *ngFor="let item of disease.details.treatment.chemical">
         {{ item }}
       </li>
     </ul>
   </div>
-  
+
   <!-- Prevention (if available): Left Aligned -->
   <div *ngIf="disease.details?.treatment?.prevention?.length" class="text-left">
-    <p class="mb-1 font-semibold">Prevention:</p>
+    <p class="mb-1 font-semibold">{{ 'DIAGNOSE_CARD.PREVENTION' | translate }}</p>
     <ul class="list-disc ml-4 mb-2">
       <li *ngFor="let item of disease.details.treatment.prevention">
         {{ item }}
       </li>
     </ul>
   </div>
-  
+
   <!-- More Info Link (if URL exists): Left Aligned -->
   <div *ngIf="disease.details?.url && disease.details.url !== 'null'" class="mb-2 text-left">
     <a [href]="disease.details.url" target="_blank" class="underline text-blue-300">
-      More Info
+      {{ 'DIAGNOSE_CARD.MORE_INFO' | translate }}
     </a>
   </div>
-  
-  <!-- Confirm Button -->
-  <button
-    class="mt-auto self-start bg-[#B5C99A] text-white py-2 px-4 rounded-md border border-white"
-    (click)="onButtonClick()"
-  >
-    Confirm
-  </button>
 </div>

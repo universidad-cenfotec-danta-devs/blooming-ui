@@ -20,7 +20,7 @@
       "UPLOAD_ANOTHER": "Upload another image",
       "LEFT_IMAGE_ALT": "Left Plant",
       "RIGHT_IMAGE_ALT": "Right Plant",
-      "INFOCARD_DESCRIPTION": "Probability: {{probability}}, Similarity: {{similarity}}",
+      "INFOCARD_DESCRIPTION": "Probability of being the uploaded plant: {{probability}}",
       "INFOCARD_BUTTON_CONFIRM": "Confirm"
     },
     "CONFIRM_PLANT_SAVE": {
@@ -142,6 +142,7 @@
       "BUTTON": "Register for Free",
       "ALREADY_REGISTERED": "You are already registered! Explore our features now."
     },  "AUTH": {
+      
       "LEFT_SIDE": {
         "TITLE": "BLOOMING",
         "IMAGE_ALT": "Blooming plants",
@@ -210,7 +211,15 @@
         "DOB_REQUIRED": "Date of birth is required.",
         "GENDER_REQUIRED": "Gender is required.",
         "PHONE_REQUIRED": "Phone number is required.",
-        "ROLE_REQUIRED":"Role is required."
+        "ROLE_REQUIRED":"Role is required.",
+        "DOB_FUTURE": "Date of birth cannot be in the future.",
+        "DOB_AGE": "You must be at least 18 years old.",
+        "PASSWORD_TOO_SHORT": "Password must be at least 8 characters long.",
+        "PASSWORD_MISSING_UPPERCASE": "Password must include at least one uppercase letter.",
+        "PASSWORD_MISSING_LOWERCASE": "Password must include at least one lowercase letter.",
+        "PASSWORD_MISSING_DIGIT": "Password must include at least one digit.",
+        "PASSWORD_MISSING_SPECIAL": "Password must include at least one special character."
+      }
       },
         "DRPLANT": {
           "TITLE": "Dr. Planta",
@@ -223,7 +232,7 @@
             "DESCRIPTION": "This is a plant identified by the system. Here are its care instructions.",
             "BUTTON_CONFIRM": "Confirm"
           }
-    }},
+    },
       "POT_EDITOR_PAGE": {
         "TITLE": "Design Your Custom Pot",
         "LOADING_EDITOR": "Loading 3D editor...",
@@ -251,5 +260,39 @@
         "MESSAGE": "Are you sure you want to save this pot?",
         "CONFIRM_BUTTON": "Yes, save it",
         "CANCEL_BUTTON": "No, cancel"
-      }
-    }
+      },
+        "DISEASE": {
+          "PROBABILITY": "Diagnostic accuracy",
+          "TREATMENT": {
+            "BIOLOGICAL": "Biological Treatment",
+            "CHEMICAL": "Chemical Treatment",
+            "PREVENTION": "Prevention"
+          },
+          "MORE_INFO": "More Info",
+          "CONFIRM": {
+            "BUTTON": "Confirm"
+          }
+        },
+        "DR_PLANT_PAGE": {
+          "TITLE": "Dr. Plant",
+          "SUBTITLE": "Ask Dr. Plant anything about your plants:",
+          "SELECT_PLANT": "Select Plant:",
+          "PLACEHOLDER": "Type your question here...",
+          "BUTTON_SEND": "Send",
+          "LOADING": "Dr. Planta is thinking...",
+          "BUTTON_GENERATE_PLAN": "Generate Watering Plan",
+          "BUTTON_DOWNLOAD_PDF": "Download Watering Plan PDF"
+        }, 
+          "DIAGNOSE_CARD": {
+            "TITLE": "{{name}}",
+            "DESCRIPTION": "{{description}}",
+            "PROBABILITY_LABEL": "Confidence Percentage:",
+            "BIOLOGICAL_TREATMENT": "Biological Treatment:",
+            "CHEMICAL_TREATMENT": "Chemical Treatment:",
+            "PREVENTION": "Prevention:",
+            "MORE_INFO": "More Info"
+          }
+        }
+        
+        
+    

@@ -10,12 +10,70 @@
 
     <!-- Center: Navigation Links -->
     <nav class="flex-1 hidden md:flex justify-center space-x-6 font-semibold motion-safe:animate-fade-down">
-      <a href="/home" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.HOME' | translate }}</a>
-      <a href="home/dr-plant" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.DR_PLANTA' | translate }}</a>
-      <a href="home/pot-editor" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.MACETAS' | translate }}</a>
-      <!-- <a href="home/nurseries" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.VIVERO' | translate }}</a> -->
-      <a href="home/flora-by-zone" class="hover:text-[#4b5d42] transition duration-300">{{ 'HEADER.PLANTAS_ZONA' | translate }}</a>
+      <a href="/home" class="hover:text-[#4b5d42] transition duration-300">
+        {{ 'HEADER.HOME' | translate }}
+      </a>
+
+      <!-- Dr. Plant dropdown -->
+      <div
+        class="relative"
+        (mouseenter)="showPlantDropdown()"
+        (mouseleave)="hidePlantDropdownDelayed()"
+      >
+        <!-- Toggle button / label -->
+        <button
+          type="button"
+          (click)="togglePlantDropdown()"
+          class="hover:text-[#4b5d42] transition duration-300 flex items-center space-x-1"
+        >
+          <span>{{ 'HEADER.DR_PLANTA' | translate }}</span>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" />
+          </svg>
+        </button>
+
+        <!-- Dropdown menu -->
+        <div
+          *ngIf="isPlantDropdownOpen"
+          class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-44 bg-white text-[var(--main-text)] rounded-md shadow-lg z-10"
+          (mouseenter)="cancelHidePlantDropdown()"
+          (mouseleave)="hidePlantDropdownDelayed()"
+          role="menu"
+        >
+          <a
+            href="/home/dr-plant"
+            class="block px-4 py-2 hover:bg-[#e7f1dd]"
+            role="menuitem"
+          >
+            {{ 'DR_PLANT.BUTTON_IDENTIFY' | translate }}
+          </a>
+          <a
+            href="/home/dr-plant-diagnose"
+            class="block px-4 py-2 hover:bg-[#e7f1dd]"
+            role="menuitem"
+          >
+            {{ 'DR_PLANT.BUTTON_DIAGNOSIS' | translate }}
+          </a>
+          <a
+            href="/home/dr-plant"
+            fragment="chat"
+            class="block px-4 py-2 hover:bg-[#e7f1dd]"
+            role="menuitem"
+          >
+            {{ 'DR_PLANT.BUTTON_CHAT' | translate }}
+          </a>
+        </div>
+      </div>
+
+      <a href="/home/pot-editor" class="hover:text-[#4b5d42] transition duration-300">
+        {{ 'HEADER.MACETAS' | translate }}
+      </a>
+      <!-- <a … vivero …> -->
+      <a href="/home/flora-by-zone" class="hover:text-[#4b5d42] transition duration-300">
+        {{ 'HEADER.PLANTAS_ZONA' | translate }}
+      </a>
     </nav>
+    
 
     <!-- Right: Icons and Language Selector -->
     <div class="flex-none flex items-center space-x-6 mr-4 motion-safe:animate-fade-down">

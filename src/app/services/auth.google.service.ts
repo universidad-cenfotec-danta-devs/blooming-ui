@@ -30,7 +30,7 @@ export class AuthGoogleService {
    * The redirectUri is set conditionally based on the environment.
    */
   authConfig: AuthConfig = {
-    issuer: 'https://accounts.google.com',
+    issuer: 'enviroment.googleIssuer',
     redirectUri: '',
     clientId: environment.googleClientId,
     scope: 'openid profile email',
