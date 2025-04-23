@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../enviroments/enviroment.development';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { PotRequest } from '../interfaces/potRequest.interface';
 import { Pot } from '../interfaces/pot.interface';
 
@@ -53,8 +53,12 @@ export class PotService {
    */
   getPots(page: number = 0, size: number = 10): Observable<Pot[]> {
     const url = `${this.BACKEND_URL}?page=${page}&size=${size}`;
+  
     return this.http.get<any>(url).pipe(
-      map(response => response.data as Pot[])
+      tap((response) => {
+        console.log('[PotService] getPots response:', response);
+      }),
+      map((response) => response.data as Pot[])
     );
   }
 }

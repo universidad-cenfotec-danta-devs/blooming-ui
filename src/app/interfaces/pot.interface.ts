@@ -24,6 +24,7 @@ export interface Pot {
     createdAt: string;
     /** Timestamp when the pot was last updated (ISO string) */
     updatedAt: string;
+    fileUrl: string;
   }
   
   /**

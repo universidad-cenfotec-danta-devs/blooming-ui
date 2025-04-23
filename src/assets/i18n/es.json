@@ -47,6 +47,7 @@
     "PLANTAS_ZONA": "Plantas por zona",
     "ADMIN": "Administración",
     "AUTH": "Iniciar sesión",
+    "MY_PLANTS": "Mis plantas",
     "BLOOMING": "BLOOMING",
     "CART_ORDERS": "Carrito y pedidos",
     "DR_PLANTA": "Dr. Planta",
@@ -254,7 +255,9 @@
     "LABEL_COLOR": "Color",
     "CALCULATE_PRICE": "Calcular Precio",
     "CONFIRM_CREATION": "Confirmar Creación",
-    "PRICE_LABEL": "Precio"
+    "PRICE_LABEL": "Precio",
+    "INSTRUCTIONS_NAME": "Ingresa un nombre para tu maceta",
+    "LABEL_NAME": "Nombre de la maceta"
   },
   "MODAL": {
     "TITLE": "Confirmar Creación de Maceta",
@@ -292,8 +295,40 @@
         "CHEMICAL_TREATMENT": "Tratamiento químico:",
         "PREVENTION": "Prevención:",
         "MORE_INFO": "Más información"
+      },
+        "MY_PLANTS": {
+          "TITLE": "Mis plantas",
+          "TABLE": {
+            "ID": "ID",
+            "NAME": "Nombre"
+          },
+          "EMPTY": "Aún no tienes plantas.",
+          "ERROR": "No pudimos cargar tus plantas. Por favor, inténtalo de nuevo más tarde.",
+          "SHOWING": "Mostrando",
+          "OF": "de"
+        },
+        "GLOBAL": {
+          "LOADING": "Cargando…",
+          "PREVIOUS": "Anterior",
+          "NEXT": "Siguiente",
+          "ACTIONS": "Acciones"
+        }, 
+          "MY_POTS": {
+            "TITLE": "Mis macetas",
+            "EMPTY": "Aún no tienes macetas.",
+            "ERROR": "No se pudieron cargar tus macetas. Inténtalo de nuevo.",
+            "TABLE": {
+              "ID":    "ID",
+              "NAME":  "Nombre",
+              "PRICE": "Precio"
+            },
+            "BUTTON_DOWNLOAD_GLB": "Descargar .glb",
+            "SHOWING": "Mostrando",
+            "OF": "de"
+          }
+        
       }
-    }
+      
     
     
   

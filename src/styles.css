@@ -75,3 +75,7 @@ button {
 .mat-expansion-panel:not([class*="mat-elevation-z"]) {
   box-shadow: 0 !important;
 }
+
+.p-12 {
+  padding: 11rem
+}

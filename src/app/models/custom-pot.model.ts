@@ -7,5 +7,6 @@ export interface CustomPot {
     color: string;
     shape?: string;
     price?: number;
+    
   }
   

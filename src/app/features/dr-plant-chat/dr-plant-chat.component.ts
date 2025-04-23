@@ -86,39 +86,4 @@ export class DrPlantaChatComponent implements OnInit {
     this.userMessage = '';
   }
 
-  generateWateringPlan(): void {
-    if (!this.selectedPlantId) return;
-    this.wateringPlanService.generateByUser(this.selectedPlantId).subscribe({
-      next: (plan) => {
-        this.wateringPlanId = plan.id;
-        this.toastr.success('Watering plan generated successfully!');
-      },
-      error: (err) => {
-        console.error('Error generating watering plan:', err);
-        this.toastr.error('Error generating watering plan.');
-      }
-    });
-  }
-
-  downloadWateringPlanPDF(): void {
-    if (!this.wateringPlanId) {
-      this.toastr.error('No watering plan available. Please generate one first.');
-      return;
-    }
-    this.wateringPlanService.generatePDF(this.wateringPlanId).subscribe({
-      next: (blob: Blob) => {
-        const link = document.createElement('a');
-        const url = window.URL.createObjectURL(blob);
-        link.href = url;
-        link.download = `watering_plan_${this.wateringPlanId}.pdf`;
-        link.click();
-        window.URL.revokeObjectURL(url);
-        this.toastr.success('PDF downloaded successfully!');
-      },
-      error: (err) => {
-        console.error('Error generating PDF:', err);
-        this.toastr.error('Error generating PDF.');
-      }
-    });
-  }
 }

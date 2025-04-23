@@ -59,6 +59,7 @@
     "PLANT_CARE": "Plant care",
     "SIGNUP": "Sign up for free",
     "VIVERO": "Nurseries",
+    "MY_PLANTS": "My plants",
     "MODAL": {
       "LOGOUT_TITLE": "Logout Confirmation",
       "LOGOUT_MESSAGE": "Are you sure you want to log out?",
@@ -253,6 +254,8 @@
         "LABEL_COLOR": "Color",
         "CALCULATE_PRICE": "Calculate Price",
         "CONFIRM_CREATION": "Confirm Creation",
+        "INSTRUCTIONS_NAME": "Enter a name for your pot",
+        "LABEL_NAME":"Pot name",
         "PRICE_LABEL": "Price"
       },
       "MODAL": {
@@ -291,8 +294,37 @@
             "CHEMICAL_TREATMENT": "Chemical Treatment:",
             "PREVENTION": "Prevention:",
             "MORE_INFO": "More Info"
+          },
+            "MY_PLANTS": {
+              "TITLE": "My plants",
+              "TABLE": {
+                "ID": "ID",
+                "NAME": "Name"
+              },
+              "EMPTY": "You don’t have any plants yet.",
+              "ERROR": "We couldn’t load your plants. Please try again later.",
+              "SHOWING": "Showing",
+              "OF": "of"
+            },
+            "GLOBAL": {
+              "LOADING": "Loading…",
+              "PREVIOUS": "Previous",
+              "NEXT": "Next",
+              "ACTIONS": "Actions"
+            },
+          
+              "MY_POTS": {
+                "TITLE": "My pots",
+                "EMPTY": "You don’t have any pots yet.",
+                "ERROR": "We couldn’t load your pots. Please try again.",
+                "TABLE": {
+                  "ID":    "ID",
+                  "NAME":  "Name",
+                  "PRICE": "Price"
+                },
+                "BUTTON_DOWNLOAD_GLB": "Download .glb",
+                "SHOWING": "Showing",
+                "OF": "of"
+              }
+
           }
-        }
-        
-        
-    

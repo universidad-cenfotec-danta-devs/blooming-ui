@@ -20,6 +20,8 @@ import {EvaluationComponent} from './pages/evaluation/evaluation.component';
 import {EvaluationFormComponent} from './features/evaluations/evaluation-form/evaluation-form.component';
 import {CreateNurseryComponent} from './features/create-nursery/create-nursery.component';
 import {DiagnosePlantComponent} from './features/dr-plant-diagnose/dr-plant-diagnose.component';
+import { MyPlantsComponent } from './features/my-plants/my-plants.component';
+import { MyPotsComponent } from './features/my-pots/my-pots.component';
 
 /**
  * Application Routing Configuration
@@ -79,6 +81,16 @@ export const routes: Routes = [
       {
         path: 'dr-plant',
         component: DrPlantComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'my-plants',
+        component: MyPlantsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'my-pots',
+        component: MyPotsComponent,
         canActivate: [AuthGuard],
       },
       {
