@@ -3,23 +3,25 @@ import { inject } from '@angular/core';
 import { TokenStoreService } from '../services/token-store.service';
 
 
-/**
- * Functional HTTP interceptor that attaches a Bearer token to outgoing HTTP requests.
- * It uses the Angular `inject()` function to access TokenStoreService, thus avoiding
- * referencing AuthService (which can cause circular DI).
- */
 export const accessTokenInterceptor: HttpInterceptorFn = (req, next) => {
   const tokenStore = inject(TokenStoreService);
   const token = tokenStore.getToken();
 
-  if (!token) {
+  /* ---------------------------------------------------------
+   * 1. Requests that should remain untouched
+   * --------------------------------------------------------- */
+  const isAuthRequest = req.url.includes('/auth');
+  const isPublicS3Asset =
+    req.method === 'GET' && req.url.includes('blooming-project.s3');
+
+  if (isAuthRequest || isPublicS3Asset || !token) {
+    // Forward the request exactly as it came in
     return next(req);
   }
 
-  if (req.url.includes('/auth')) {
-    return next(req);
-  }
-
+  /* ---------------------------------------------------------
+   * 2. Attach Bearer token to every other request
+   * --------------------------------------------------------- */
   const clonedRequest = req.clone({
     setHeaders: {
       Authorization: `Bearer ${token.replace(/"/g, '')}`,
