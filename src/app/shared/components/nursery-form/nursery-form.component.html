@@ -12,7 +12,7 @@
                     </div>
                     <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid xl:grid-cols-3">
                         <label class="font-normal" for="description">Descripcion</label>
-                        <textarea class="mt-1 px-1 sm:col-span-2 sm:mt-0 font-light border-1 rounded-md"  id="description" name="description" formControlName="description" required></textarea>                               
+                        <textarea class="mt-1 px-1 sm:col-span-2 sm:mt-0 font-light border-1 rounded-md"  id="description" name="description" formControlName="description" required></textarea>
                     </div>
                     <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid xl:grid-cols-3">
                         <label class="font-normal" for="location">Ubicación</label>
@@ -23,12 +23,14 @@
                         <label class="font-normal" for="image">Logo del vivero</label>
                         <input class="mt-1 px-1 sm:col-span-2 sm:mt-0 font-light border-1 rounded-md wrap" type="file" id="image" name="image" accept="image/*">
                     </div>
+                  @if (isAdmin) {
                     <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid-cols-3">
                         <label class="font-normal" for="user">Asignar a usuario</label>
                         <select class="mt-1 px-1 sm:col-span-2 font-light border-1 rounded-md" id="userEmail" formControlName="userEmail" required>
-                          <option *ngFor="let user of users">{{ user.name }}, {{ user.email}}</option>
+                          <option *ngFor="let user of users" [value]="user.email">{{ user.name }}, {{ user.email}}</option>
                         </select>
                     </div>
+                  }
                 </dl>
             </div>
             <div class="flex justify-center my-5">

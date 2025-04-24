@@ -21,6 +21,7 @@ import { myNurseryComponent } from './features/my-nursery/my-nursery.component';
 import { MyProductsComponent } from './features/my-products/my-products.component';
 import { CreateProductComponent } from './features/create-product/create-product.component';
 import { CreateNurseryAdminComponent } from './features/admin/create-nursery/create-nursery-admin.component';
+import {ProductsAdminComponent} from './features/admin/products/products-admin.component';
 
 /**
  * Application Routing Configuration
@@ -80,7 +81,7 @@ export const routes: Routes = [
       },
       {
         path: 'my-nursery',
-        component: myNurseryComponent 
+        component: myNurseryComponent
       },
       {
         path: 'my-products',
@@ -161,6 +162,17 @@ export const routes: Routes = [
             IRoleType.admin
           ],
           name: 'Create Nursery'
+        }
+      },
+      {
+        path:'nursery-products/:id',
+        component: ProductsAdminComponent,
+        canActivate: [AdminRoleGuard],
+        data:{
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Products'
         }
       }
     ]

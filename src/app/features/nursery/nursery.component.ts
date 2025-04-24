@@ -2,15 +2,13 @@ import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NurseryService} from '../../services/nursery.service';
 import {PaginationComponent} from '../pagination/pagination.component';
-import {NurseryCardsComponent} from '../nursery-cards/nursery-cards.component';
-import { error } from 'console';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'nurseries',
   imports: [
     CommonModule,
-    PaginationComponent,
-    NurseryCardsComponent,
+    PaginationComponent
   ],
   templateUrl: 'nursery.component.html',
   styleUrl: 'nursery.component.css'
@@ -19,7 +17,7 @@ import { error } from 'console';
 export class NurseryComponent implements OnInit {
   nurseryService: NurseryService = inject(NurseryService);
 
-  
+
   ngOnInit(){
     if(!navigator.geolocation) {
       console.log("Geolocation is not supported by this browser.");
@@ -28,6 +26,11 @@ export class NurseryComponent implements OnInit {
       console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
     });
     this.watchPosition()
+  }
+
+  constructor(private router: Router) {
+    this.nurseryService.search.page=1;
+    this.nurseryService.getAllActives();
   }
 
   watchPosition(){
@@ -51,10 +54,8 @@ export class NurseryComponent implements OnInit {
     })
   }
 
-  constructor() {
-    this.nurseryService.search.page=1;
-    this.nurseryService.getAllActives();
-    console.log(this.nurseryService.nurseries$());
 
+  nurseryDetailsPage(id: any){
+    this.router.navigate(['home/nursery-info/' + id])
   }
 }

@@ -12,4 +12,6 @@ export interface INurseries{
   createdAt?: Date;
   updatedAt?: Date;
   products?: IProducts[];
+  userEmail?: string;
+  imageUrl?: string;
 }

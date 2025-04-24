@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, inject, Output, ViewChild } from "@angular/core";
+import {Component, EventEmitter, inject, OnInit, Output, ViewChild} from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NurseryService } from "../../services/nursery.service";
 import { ModalComponent } from "../detail-modal/detail-modal.component";
@@ -17,13 +17,13 @@ import { TranslateModule } from "@ngx-translate/core";
         ModalComponent,
         MapPickerComponent,
         TranslateModule
-        
+
 ],
     templateUrl: 'my-nursery.component.html',
     styleUrl: 'my-nursery.component.css'
 })
 
-export class myNurseryComponent {
+export class myNurseryComponent implements OnInit{
 
     public nurseryService = inject(NurseryService);
     public nurseryId!: string | null;
@@ -66,7 +66,7 @@ export class myNurseryComponent {
                 // image: this.selectedNursery.imageURL
             });
             setTimeout(() => {
-                this.mapPicker.forceResize(); // creamos este método en el componente MapPicker
+                this.mapPicker.forceResize();
               }, 300);
         }
         this.editModal.openModal();
@@ -80,7 +80,7 @@ export class myNurseryComponent {
     }
 
     updateNursery(nursery: any, $event: any) {
-        this.nurseryService.updateNursery(this.selectedNursery.id, nursery);
+        this.nurseryService.updateNursery(this.selectedNursery.id, nursery, true);
         this.editModal.closeModal();
         this.nurseryService.getMyNursery();
     }

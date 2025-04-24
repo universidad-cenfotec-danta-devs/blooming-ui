@@ -1,7 +1,6 @@
 import { Component, inject, Input, OnInit } from "@angular/core";
 import { NurseryFormComponent } from "../../../shared/components/nursery-form/nursery-form.component";
 import { NurseryService } from "../../../services/nursery.service";
-import { Router } from "@angular/router";
 import { LayoutService } from "../../../services/layout.service";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -24,18 +23,17 @@ export class CreateNurseryAdminComponent implements OnInit{
     public layoutService = inject(LayoutService);
     private nurseryService: NurseryService = inject(NurseryService);
     userService: UsersService = inject(UsersService);
-    
-    constructor(private router: Router) {
+
+    constructor() {
             this.layoutService.setTitle('Crear vivero')
             this.layoutService.setDescription('')
     }
-    
+
     ngOnInit() {
         this.userService.getNurseryUsers();
     }
-    
+
     handleSubmit(data: any) {
-        this.nurseryService.createNursery(data);
-        this.router.navigate(['admin/nurseries']);
+        this.nurseryService.createNursery(data, 'admin/nurseries');
     }
 }

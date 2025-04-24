@@ -6,7 +6,6 @@ import {ToastrService} from 'ngx-toastr';
 import {INurseryDTO} from '../interfaces/nurseryDTO.interface';
 import { Router } from '@angular/router';
 import { IProducts } from '../interfaces/products.interface';
-import { error } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +16,10 @@ export class NurseryService extends BaseService<INurseryDTO>{
   private nurseryListSignal = signal<INurseries[]>([]);
   private nurseryDetailSignal = signal<INurseries>({});
   private nurseryProductsSignal = signal<IProducts[]>([]);
+  private currentScreen?: string;
+  private idNursery?: number;
 
-  constructor(private toastr: ToastrService,     
-    private router: Router
-  ) {
+  constructor(private toastr: ToastrService, private router: Router) {
     super();
   }
 
@@ -36,6 +35,14 @@ export class NurseryService extends BaseService<INurseryDTO>{
     return this.nurseryProductsSignal;
   }
 
+  setCurrentScreen(screen: string) {
+    this.currentScreen = screen;
+  }
+
+  setNurseryId(id: number) {
+    this.idNursery = id;
+  }
+
   public search: ISearch = {
     page:1,
     size:5
@@ -44,17 +51,28 @@ export class NurseryService extends BaseService<INurseryDTO>{
   public totalItems: any = [];
 
   getAll() {
-    this.findAllWithParams({ page: this.search.page, size: this.search.size }).subscribe({
-      next: (response: any) => {
-        this.search = {...this.search, ...response.meta};
-        this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
-        this.nurseryListSignal.set(response.data);
-      },
-      error: (err: any) => {
-        this.toastr.error(err, 'Error');
-        console.error('error', err);
+    if(!this.currentScreen){
+      this.findAllWithParams({ page: this.search.page, size: this.search.size }).subscribe({
+        next: (response: any) => {
+          this.search = {...this.search, ...response.meta};
+          this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
+          this.nurseryListSignal.set(response.data);
+        },
+        error: (err: any) => {
+          this.toastr.error(err, 'Error');
+          console.error('error', err);
+        }
+      });
+    }else{
+      switch (this.currentScreen) {
+        case 'products':
+          this.getMyProducts();
+        break;
+        case 'productsAdmin':
+          this.getProductsByNurseryId(this.idNursery)
+        break;
       }
-    });
+    }
   }
 
   getAllActives(){
@@ -62,7 +80,7 @@ export class NurseryService extends BaseService<INurseryDTO>{
       next: (response: any) => {
         this.search = {...this.search, ...response.meta};
         this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
-        this.nurseryListSignal.set(response.data.content);
+        this.nurseryListSignal.set(response.data);
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -76,7 +94,7 @@ export class NurseryService extends BaseService<INurseryDTO>{
       next: (response: any) => {
         this.search = {...this.search, ...response.meta};
         this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
-        this.nurseryProducts$.set(response.data.content);
+        this.nurseryProducts$.set(response.data.products);
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -88,7 +106,7 @@ export class NurseryService extends BaseService<INurseryDTO>{
   addProductToNursery(product: IProducts) {
     this.addCustomSource("addProductByNurseryAdmin", product).subscribe({
       next: (response: any) => {
-        this.getProductsByNurseryId(product.nursery?.id);
+        // this.getProductsByNurseryId(product.nursery?.id);
         this.toastr.success('Product added to nursery', 'Success');
       },
       error: (err: any) => {
@@ -98,10 +116,13 @@ export class NurseryService extends BaseService<INurseryDTO>{
     })
   }
 
-  getById(id: any) {
+  getById(id: any, callback?: Function) {
     this.find(id).subscribe({
       next: (response: any) => {
         this.nurseryDetail$.set(response.data);
+        if(callback){
+          callback(response.data);
+        }
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -109,7 +130,7 @@ export class NurseryService extends BaseService<INurseryDTO>{
       }
     })
   }
-  
+
   activateNursery(data: any){
     this.patchCustomSource('activate/' + data.id).subscribe({
       next: (response: any) => {
@@ -136,10 +157,14 @@ export class NurseryService extends BaseService<INurseryDTO>{
     })
   }
 
-  createNursery(nursery: any ){
+  createNursery(nursery: any , url? : string){
     this.add(nursery).subscribe({
       next:(response: any) => {
         this.toastr.success('Nursery created', 'Success').onHidden.subscribe(() => {
+          if(url){
+            this.router.navigate([url]);
+          }
+          // this.getAll();
         });
       },
       error: (err: any) => {
@@ -149,10 +174,15 @@ export class NurseryService extends BaseService<INurseryDTO>{
     })
   }
 
-  updateNursery(id: any, nursery: any){
+  updateNursery(id: any, nursery: any, myNursery?: boolean){
     this.patch(id, nursery).subscribe({
       next: (response: any) => {
         this.toastr.success('Nursery updated', 'Success');
+        if (myNursery){
+          this.getMyNursery();
+        } else {
+          this.getAll();
+        }
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -165,7 +195,7 @@ export class NurseryService extends BaseService<INurseryDTO>{
     this.patchCustomSource('update-product/' + id, product).subscribe({
       next: (response: any) => {
         this.toastr.success('Product updated', 'Success');
-        this.getMyProducts();
+        this.getAll();
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -173,11 +203,12 @@ export class NurseryService extends BaseService<INurseryDTO>{
       }
     })
   }
-  
+
   getMyNursery(){
-    this.find('my-nursery').subscribe({   
+    this.find('my-nursery').subscribe({
       next: (response: any) => {
-        this.nurseryDetail$.set(response.body.data);
+        this.nurseryDetailSignal.set(response.body.data);
+        console.log(this.nurseryDetailSignal());
       }
     })
   }
@@ -187,17 +218,7 @@ export class NurseryService extends BaseService<INurseryDTO>{
       next: (response: any) => {
         this.search = {...this.search, ...response.meta};
         this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
-        this.nurseryProducts$.set(response.data.content);
-        console.log(response.data)
-      }
-    })
-  }
-
-  removeProductFromNursery(idProduct: IProducts){
-    this.delCustomSource(`api/nurseries/remove-product/${idProduct}`).subscribe({
-      next: (response: any) => {
-        this.toastr.success('Product removed', 'Success');
-        this.getMyProducts();
+        this.nurseryProductsSignal.set(response.data.products);
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -206,4 +227,16 @@ export class NurseryService extends BaseService<INurseryDTO>{
     })
   }
 
+  removeProductFromNursery(idProduct: IProducts, myNursery?: boolean){
+    this.delCustomSource(`api/nurseries/remove-product/${idProduct}`).subscribe({
+      next: (response: any) => {
+        this.toastr.success('Product removed', 'Success');
+        this.getAll();
+      },
+      error: (err: any) => {
+        this.toastr.error(err, 'Error');
+        console.error('error', err);
+      }
+    })
+  }
 }

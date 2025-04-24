@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, inject, Input, Output, ViewChild } from "@angular/core";
+import {Component, EventEmitter, inject, Input, OnInit, Output, ViewChild} from "@angular/core";
 import { Router } from "@angular/router";
 import { NurseryService } from "../../services/nursery.service";
 import { ModalComponent } from "../detail-modal/detail-modal.component";
@@ -23,7 +23,7 @@ import { TranslateModule } from "@ngx-translate/core";
     styleUrl: "my-products.component.css",
 })
 
-export class MyProductsComponent {
+export class MyProductsComponent implements OnInit {
     public nurseryService = inject(NurseryService);
     public selectedProduct: any = {
         name: "",
@@ -36,7 +36,7 @@ export class MyProductsComponent {
     @ViewChild("deleteModal") deleteModal!: ModalComponent;
     @Input() productList: IProducts[] = [];
     @Output() callEditModal: EventEmitter<INurseries> = new EventEmitter<INurseries>();
-    
+
     constructor(private router: Router, private fb: FormBuilder) {
         this.productForm = this.fb.group({
             name: ["", Validators.required],
@@ -46,8 +46,8 @@ export class MyProductsComponent {
     }
 
     ngOnInit() {
-        this.nurseryService.getMyProducts();
-        console.log("Product List:", this.nurseryService.nurseryProducts$());
+        this.nurseryService.setCurrentScreen('products');
+        this.nurseryService.getAll();
     }
 
     showEditModal(item: IProducts, modal: any) {

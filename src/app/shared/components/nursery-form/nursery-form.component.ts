@@ -18,19 +18,19 @@ import { IUser } from "../../../interfaces/user.interface";
     nurseryForm: FormGroup;
     latitude!: number;
     longitude!: number;
-  
+
     constructor(private fb: FormBuilder) {
       this.nurseryForm = this.fb.group({
         name: ['', [Validators.required]],
         description: ['', [Validators.required]],
         latitude: ['', Validators.required],
         longitude: ['', Validators.required],
-        userEmail: [null]
+        userEmail: ['']
       });
     }
-  
+
     ngOnInit(): void {}
-  
+
     onLocationPicked(event: { latitude: number; longitude: number }) {
       this.latitude = event.latitude;
       this.longitude = event.longitude;
@@ -39,7 +39,7 @@ import { IUser } from "../../../interfaces/user.interface";
         longitude: event.longitude
       });
     }
-  
+
     onSubmit() {
       if (this.nurseryForm.valid) {
         this.formSubmitted.emit(this.nurseryForm.value);
