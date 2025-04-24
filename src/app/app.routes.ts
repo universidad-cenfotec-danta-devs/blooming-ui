@@ -22,6 +22,7 @@ import {CreateNurseryComponent} from './features/create-nursery/create-nursery.c
 import {DiagnosePlantComponent} from './features/dr-plant-diagnose/dr-plant-diagnose.component';
 import { MyPlantsComponent } from './features/my-plants/my-plants.component';
 import { MyPotsComponent } from './features/my-pots/my-pots.component';
+import { PotsShopComponent } from './features/pots-shop/pots-shop/pots-shop.component';
 
 /**
  * Application Routing Configuration
@@ -86,6 +87,11 @@ export const routes: Routes = [
       {
         path: 'my-plants',
         component: MyPlantsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'pots-shop',
+        component: PotsShopComponent,
         canActivate: [AuthGuard],
       },
       {

@@ -55,12 +55,16 @@
     "HOME": "Inicio",
     "JOIN": "Únete a Blooming y transforma tu espacio",
     "MACETAS": "Macetas",
+    "POTS": {
+      "CATALOG": "Catálogo",
+      "DESIGN": "Diseña tu maceta"
+    },
     "NURSERIES": "Viveros",
     "NOTIFICATIONS": "Notificaciones",
-    "POTS": "Macetas",
     "PLANT_CARE": "Cuidado de plantas",
     "SIGNUP": "Regístrate gratis",
     "VIVERO": "Viveros",
+    "MY_POTS": "Mis macetas",
     "MODAL": {
       "LOGOUT_TITLE": "Confirmación de Cierre de Sesión",
       "LOGOUT_MESSAGE": "¿Estás seguro de que deseas cerrar sesión?",
@@ -325,9 +329,19 @@
             "BUTTON_DOWNLOAD_GLB": "Descargar .glb",
             "SHOWING": "Mostrando",
             "OF": "de"
-          }
-        
-      }
+          },
+            "PAGINATION": {
+              "PREV": "Anterior",
+              "NEXT": "Siguiente"
+            },
+            "POT_GALLERY": {
+              "ERROR": "No se pudieron cargar las macetas.",
+              "TITLE": "Macetas"
+            },
+            "CART": {
+              "ADD": "Agregar al carrito"
+            }
+          } 
       
     
     

@@ -2,7 +2,6 @@
  import { finalize } from 'rxjs/operators';
  import { ToastrService } from 'ngx-toastr';
  import { Router } from '@angular/router';
- 
  import { PotService } from '../../services/pot.service';
  import { Pot } from '../../interfaces/pot.interface';
  import { SHARED_IMPORTS } from '../../shared/shared.module';

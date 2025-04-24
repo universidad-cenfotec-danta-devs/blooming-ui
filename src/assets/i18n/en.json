@@ -53,13 +53,17 @@
     "HOME": "Home",
     "JOIN": "Join Blooming and transform your space",
     "MACETAS": "Pots",
+    "POTS": {
+      "CATALOG": "Shop pots",
+      "DESIGN": "Design your pot"
+    },
     "NURSERIES": "Nurseries",
     "NOTIFICATIONS": "Notifications",
-    "POTS": "Pots",
     "PLANT_CARE": "Plant care",
     "SIGNUP": "Sign up for free",
     "VIVERO": "Nurseries",
     "MY_PLANTS": "My plants",
+    "MY_POTS": "My pots",
     "MODAL": {
       "LOGOUT_TITLE": "Logout Confirmation",
       "LOGOUT_MESSAGE": "Are you sure you want to log out?",
@@ -325,6 +329,21 @@
                 "BUTTON_DOWNLOAD_GLB": "Download .glb",
                 "SHOWING": "Showing",
                 "OF": "of"
+              },
+                "PAGINATION": {
+                  "PREV": "Previous",
+                  "NEXT": "Next"
+                },
+                "POT_GALLERY": {
+                  "ERROR": "Could not load pots.",
+                  "EMPTY": "No pots available.",
+                  "TITLE": "Pots"
+              
+                },
+                "CART": {
+                  "ADD": "Add to cart"
+                }
               }
+              
 
-          }
+          
