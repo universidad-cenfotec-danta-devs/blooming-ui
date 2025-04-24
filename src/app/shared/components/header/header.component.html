@@ -118,6 +118,7 @@
             href="/home/pot-editor"
             class="block px-4 py-2 hover:bg-[#e7f1dd]"
             role="menuitem"
+            *ngIf="canSeePotFeatures"   
           >
             {{ 'HEADER.POTS.DESIGN' | translate }}
           </a>
@@ -243,6 +244,7 @@
             href="/home/my-pots"
             class="block px-4 py-3 hover:bg-[#e7f1dd]"
             role="menuitem"
+            *ngIf="canSeePotFeatures"   
           >
             {{ 'HEADER.MY_POTS' | translate }}
           </a>

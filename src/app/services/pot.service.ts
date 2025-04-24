@@ -66,7 +66,6 @@ export class PotService {
   /**
  * Retrieves a paginated list of pots created by the **logged-in designer**.
  * Sends the current JWT in the Authorization header so the back-end can
- * identify the designer (see PotController#getPotsByDesigner).
  *
  * @param page   0-based page index (default 0)
  * @param size   items per page      (default 10)

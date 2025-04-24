@@ -47,7 +47,7 @@ export class MyPotsComponent implements OnInit {
     this.error   = null;
 
     this.potService
-      .getPots(this.page - 1, this.pageSize)
+      .getPotsByDesigner(this.page - 0, this.pageSize)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next : (resp) => {

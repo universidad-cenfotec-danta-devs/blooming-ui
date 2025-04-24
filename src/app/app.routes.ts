@@ -23,6 +23,7 @@ import {DiagnosePlantComponent} from './features/dr-plant-diagnose/dr-plant-diag
 import { MyPlantsComponent } from './features/my-plants/my-plants.component';
 import { MyPotsComponent } from './features/my-pots/my-pots.component';
 import { PotsShopComponent } from './features/pots-shop/pots-shop/pots-shop.component';
+import { DesignerRoleGuard } from './guards/designer-role.guard';
 
 /**
  * Application Routing Configuration
@@ -95,21 +96,22 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'my-pots',
-        component: MyPotsComponent,
-        canActivate: [AuthGuard],
-      },
-      {
         path: 'dr-plant-diagnose',
         component: DiagnosePlantComponent,
         canActivate: [AuthGuard],
       },
-      {
-        path: 'pot-editor',
-        component: PotEditorPageComponent,
-        canActivate: [AuthGuard],
-      },
-      {
+    /* --------  Accessible only to DESIGNER / ADMIN  -------- */
+    {
+      path: 'pot-editor',
+      component: PotEditorPageComponent,
+      canActivate: [AuthGuard,DesignerRoleGuard],
+    },
+    {
+      path: 'my-pots',
+      component: MyPotsComponent,
+      canActivate: [AuthGuard,DesignerRoleGuard],
+    },
+    {
         path: 'nurseries',
         component: NurseryComponent
       },
