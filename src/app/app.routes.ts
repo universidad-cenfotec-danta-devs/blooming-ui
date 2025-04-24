@@ -93,7 +93,6 @@ export const routes: Routes = [
       {
         path: 'pots-shop',
         component: PotsShopComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'dr-plant-diagnose',

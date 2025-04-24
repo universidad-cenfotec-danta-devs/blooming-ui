@@ -35,7 +35,7 @@ jobs:
 
       - name: Run unit tests
         run: |
-          npm run test -- --watch=false --runInBand --ci
+          npx jest --ci --runInBand
 
 
       - name: Build application (dev config)
