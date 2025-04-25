@@ -9,4 +9,10 @@ footer a {
   footer i {
     font-size: 1.25rem;
   }
+
+  .footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
   

@@ -2,6 +2,8 @@ import { Injectable, signal } from "@angular/core";
 import { BaseService } from "../shared/service/base.service";
 import { ICart } from "../interfaces/cart.interface";
 import { ICartItem } from "../interfaces/cartItem.interface";
+import { ToastrService } from "ngx-toastr";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -9,9 +11,23 @@ import { ICartItem } from "../interfaces/cartItem.interface";
 export class CartService extends BaseService<ICart> {
     protected override source: string = 'cart';
     private cartListSignal = signal<ICart[]>([]);
+    private user: any;
+    private userCartId: any;
+
+    constructor(private toastr: ToastrService, router: Router) {
+        super();
+    }
 
     get carts$() {
         return this.cartListSignal;
+    }
+
+    getUserCartId(): string {
+        this.user = localStorage.getItem('auth_user');
+        if(this.user) {
+            this.userCartId = String(JSON.parse(this.user).cart.id);
+        }
+        return this.userCartId;
     }
 
     createAnonCart(cart: ICart) {

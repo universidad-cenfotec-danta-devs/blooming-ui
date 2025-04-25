@@ -89,6 +89,11 @@ hr {
     font-size: 20px;
 }
 
+.cart-no-items {
+    font-size: 18px;
+    color: rgb(148, 148, 148);
+}
+
 .cart-items {
     overflow-y: scroll;
 }

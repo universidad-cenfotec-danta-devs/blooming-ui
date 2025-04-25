@@ -72,12 +72,18 @@
     },
     "FLORA": "Flora por cantón"
   },
-  "CART": {
-    "TITLE": "Carrito",
-    "ADD": "Agregar al carrito",
-    "SUBTOTAL": "Subtotal",
-    "SMALL": "Impuestos se calculan al finalizar la compra",
-    "BTN_CHECKOUT": "Finalizar compra"
+  "USER_CART":{
+    "TITLE":"Carrito",
+    "SUBTOTAL":"Subtotal",
+    "SMALL":"Impuestos se calculan al finalizar la compra",
+    "BTN_CHECKOUT":"Finalizar compra",
+    "DELETE":"Eliminar",
+    "NO_ITEMS":"No hay productos en tu carrito"
+  },
+  "CHECKOUT":{
+    "NO_ITEMS":"No hay productos en tu carrito",
+    "BUY_BTN":"Procesar pago",
+    "TOTAL_ITEMS":"Cantidad de productos"
   },
   "HEADER_LANDING": {
     "DESCRIPTION": "Descubre una selección curada de plantas exquisitas, macetas personalizadas y viveros cercanos que transforman tu espacio en un oasis vibrante. Aprende consejos de cuidado experto, explora nuestra colección premium de plantas, diseña y vende tus propias macetas, y conéctate con viveros cercanos. Con Blooming, puedes encontrar fácilmente la planta perfecta, personalizar accesorios para tu jardín e incluso convertir tu pasión en un negocio.",
@@ -178,7 +184,7 @@
       "TITLE": "BLOOMING",
       "IMAGE_ALT": "Plantas floreciendo",
       "DESCRIPTION": "Conecta con la naturaleza y diseña tu espacio ideal.",
-      "ASKING_INFO": "Por favor ingrese sus datos."
+      "ASKING_INFO": "Contraseña debe tener por lo menos 8 caracteres, una letra y un número."
     },
     "LOGIN": {
       "TITLE": "Iniciar Sesión",
@@ -238,7 +244,7 @@
     },
     "VALIDATION": {
       "EMAIL_REQUIRED": "Se requiere un correo válido.",
-      "PASSWORD_REQUIRED": "Se requiere contraseña.",
+      "PASSWORD_REQUIRED": "Contraseña debe tener por lo menos 8 caracteres, una letra y un número.",
       "NAME_REQUIRED": "Se requiere el nombre.",
       "AGE_REQUIRED": "Se requiere la edad.",
       "DOB_REQUIRED": "Se requiere la fecha de nacimiento.",
