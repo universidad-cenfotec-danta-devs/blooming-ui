@@ -1,51 +1,77 @@
 <div class="flex flex-col items-center w-full p-4">
-  <!-- 3D Editor Section -->
+  <!-- 3-D preview -->
   <div class="w-full max-w-6xl h-96 bg-[#dae5e4] mb-6 relative canvas-border">
-    <div *ngIf="editorLoadError" class="absolute inset-0 flex items-center justify-center text-red-600 text-xl">
+    <div
+      *ngIf="editorLoadError"
+      class="absolute inset-0 flex items-center justify-center text-red-600 text-xl"
+    >
       {{ editorLoadError }}
     </div>
-    <div *ngIf="loadingEditor" class="absolute inset-0 flex items-center justify-center bg-[#dae5e4]">
+    <div
+      *ngIf="loadingEditor"
+      class="absolute inset-0 flex items-center justify-center bg-[#dae5e4]"
+    >
       {{ 'POT_EDITOR_PAGE.LOADING_EDITOR' | translate }}
     </div>
-    <canvas #editorCanvas class="w-full h-full bg-[#dae5e4]" *ngIf="!loadingEditor && !editorLoadError"></canvas>
+    <canvas
+      #editorCanvas
+      class="w-full h-full bg-[#dae5e4]"
+      *ngIf="!loadingEditor && !editorLoadError"
+    ></canvas>
   </div>
 
-  <!-- File Upload and Model Selection Controls -->
+  <!-- Upload + drop-down -->
   <div class="mb-6 flex items-center space-x-4">
-    <!-- Hidden file input -->
-    <input type="file" #fileInput (change)="onFileSelected($event)" accept=".glb" class="hidden">
-    <!-- Button to trigger file upload -->
+    <input
+      type="file"
+      #fileInput
+      accept=".glb"
+      class="hidden"
+      (change)="onFileSelected($event)"
+    />
     <button (click)="fileInput.click()" class="px-4 py-2 primary-btn">
       {{ 'POT_EDITOR_PAGE.UPLOAD_MODEL' | translate }}
     </button>
-    <!-- Dropdown to select a model from the list. Automatically loads the model on change -->
-    <select [(ngModel)]="selectedModel" (change)="loadSelectedModel()" class="p-2 border border-gray-300 rounded">
-      <option *ngFor="let model of modelList" [value]="model">{{ model }}</option>
+
+    <select
+      [(ngModel)]="selectedModel"
+      (change)="loadSelectedModel()"
+      class="p-2 border border-gray-300 rounded"
+    >
+      <option
+        *ngFor="let opt of modelList"
+        [ngValue]="opt"
+      >
+        {{ opt.label }}
+      </option>
     </select>
   </div>
 
-  <!-- Steps Indicator (Material, Size, Color) -->
-  <div class="flex items-center mb-4 w-[50%] justify-between">
-    <ng-container *ngFor="let step of steps; let i = index">
-      <div class="flex items-center space-x-2">
-        <!-- Circle with the step number; clickable to navigate -->
-        <div 
-          class="w-8 h-8 rounded-full border-2 flex items-center justify-center cursor-pointer"
-          (click)="setCurrentStep(i)"
-          [ngClass]="i === currentStepIndex 
-            ? 'bg-white text-[#5C684B] border-[#97A97C]' 
-            : 'bg-[#97A97C] text-[#5C684B] border-[#97A97C]'">
-          {{ i + 1 }}
-        </div>
-        <!-- Step Label -->
-        <span class="text-[#5C684B]">{{ step }}</span>
+  <!-- Dots -->
+<!-- Step indicator -->
+<div class="flex items-center mb-4 w-[50%] justify-between">
+  <ng-container *ngFor="let label of steps; let i = index">
+    <div class="flex items-center space-x-2">
+      <div
+        class="w-8 h-8 rounded-full border-2 flex items-center justify-center cursor-pointer"
+        (click)="setStep(i)"
+        [ngClass]="
+          i <= step
+            ? 'bg-white text-[#5C684B] border-[#97A97C]'
+            : 'bg-[#97A97C] text-[#5C684B] border-[#97A97C]'
+        "
+      >
+        {{ i + 1 }}
       </div>
-    </ng-container>
-  </div>
+      <span class="text-[#5C684B]">{{ label }}</span>
+    </div>
+  </ng-container>
+</div>
 
-  <!-- Current Step Instructions -->
+
+  <!-- Instructions -->
   <div class="mb-4">
-    <ng-container [ngSwitch]="currentStepIndex">
+    <ng-container [ngSwitch]="step">
       <p *ngSwitchCase="0" class="text-[#5C684B] text-2xl font-medium">
         {{ 'POT_EDITOR_PAGE.INSTRUCTIONS_MATERIAL' | translate }}
       </p>
@@ -55,75 +81,105 @@
       <p *ngSwitchCase="2" class="text-[#5C684B] text-2xl font-medium">
         {{ 'POT_EDITOR_PAGE.INSTRUCTIONS_COLOR' | translate }}
       </p>
+      <p *ngSwitchCase="3" class="text-[#5C684B] text-2xl font-medium">
+        {{ 'POT_EDITOR_PAGE.INSTRUCTIONS_NAME' | translate }}
+      </p>
     </ng-container>
   </div>
 
-  <!-- Wizard Form -->
+  <!-- Wizard form -->
   <form [formGroup]="potForm" class="w-full max-w-xl space-y-4 text-[#5C684B]">
-    <!-- Step 1: Material -->
-    <div *ngIf="currentStepIndex === 0" class="flex flex-col space-y-2">
-      <label class="font-medium">{{ 'POT_EDITOR_PAGE.LABEL_MATERIAL' | translate }}</label>
-      <select formControlName="material" class="p-2 border border-[#5C684B] rounded text-[#5C684B]">
-        <option value="" disabled>{{ 'POT_EDITOR_PAGE.SELECT_MATERIAL' | translate }}</option>
-        <option value="Ceramic">{{ 'POT_EDITOR_PAGE.MATERIAL_CERAMIC' | translate }}</option>
-        <option value="Plastic">{{ 'POT_EDITOR_PAGE.MATERIAL_PLASTIC' | translate }}</option>
-        <option value="Metal">{{ 'POT_EDITOR_PAGE.MATERIAL_METAL' | translate }}</option>
-        <option value="Wood">{{ 'POT_EDITOR_PAGE.MATERIAL_WOOD' | translate }}</option>
+    <!-- Material -->
+    <div *ngIf="step === 0" class="flex flex-col space-y-2">
+      <label class="font-medium">{{
+        'POT_EDITOR_PAGE.LABEL_MATERIAL' | translate
+      }}</label>
+      <select formControlName="material" class="p-2 border border-[#5C684B] rounded">
+        <option value="" disabled>{{
+          'POT_EDITOR_PAGE.SELECT_MATERIAL' | translate
+        }}</option>
+        <option value="Ceramic">{{
+          'POT_EDITOR_PAGE.MATERIAL_CERAMIC' | translate
+        }}</option>
+        <option value="Plastic">{{
+          'POT_EDITOR_PAGE.MATERIAL_PLASTIC' | translate
+        }}</option>
+        <option value="Metal">{{
+          'POT_EDITOR_PAGE.MATERIAL_METAL' | translate
+        }}</option>
+        <option value="Wood">{{
+          'POT_EDITOR_PAGE.MATERIAL_WOOD' | translate
+        }}</option>
       </select>
     </div>
 
-    <!-- Step 2: Size -->
-    <div *ngIf="currentStepIndex === 1" class="flex flex-col space-y-2">
-      <label class="font-medium">{{ 'POT_EDITOR_PAGE.LABEL_SIZE' | translate }}</label>
-      <input 
-        type="number" 
-        formControlName="size" 
-        class="p-2 border border-gray-300 rounded" 
-        placeholder="10" 
-        min="1" 
-        max="100" 
-        (input)="preventNegative($event)"/>
+    <!-- Size -->
+    <div *ngIf="step === 1" class="flex flex-col space-y-2">
+      <label class="font-medium">{{
+        'POT_EDITOR_PAGE.LABEL_SIZE' | translate
+      }}</label>
+      <input
+        type="number"
+        formControlName="size"
+        class="p-2 border border-gray-300 rounded"
+        placeholder="10"
+        min="1"
+        max="100"
+        (input)="preventNegative($event)"
+      />
     </div>
 
-    <!-- Step 3: Color -->
-    <div *ngIf="currentStepIndex === 2" class="flex flex-col space-y-2">
-      <label class="font-medium">{{ 'POT_EDITOR_PAGE.LABEL_COLOR' | translate }}</label>
-      <input type="color" formControlName="color" class="p-2 border border-gray-300 rounded" />
+    <!-- Colour -->
+    <div *ngIf="step === 2" class="flex flex-col space-y-2">
+      <label class="font-medium">{{
+        'POT_EDITOR_PAGE.LABEL_COLOR' | translate
+      }}</label>
+      <input
+        type="color"
+        formControlName="color"
+        class="p-2 border border-gray-300 rounded"
+      />
+    </div>
+
+    <!-- Name -->
+    <div *ngIf="step === 3" class="flex flex-col space-y-2">
+      <label class="font-medium">{{
+        'POT_EDITOR_PAGE.LABEL_NAME' | translate
+      }}</label>
+      <input
+        type="text"
+        [(ngModel)]="customPotName"
+        [ngModelOptions]="{ standalone: true }"
+        class="p-2 border border-gray-300 rounded"
+        placeholder="My favourite pot"
+      />
     </div>
   </form>
 
-  <!-- Price Calculation & Submission -->
+  <!-- Buttons -->
   <div class="flex flex-col items-center mt-8 space-y-4">
     <div class="flex space-x-4">
-      <!-- Calculate Price button is disabled when the form is invalid -->
-      <button 
-        (click)="calculatePrice()" 
-        class="px-6 py-2 secondary-btn disabled:opacity-50">
+      <button
+        type="button"
+        class="px-6 py-2 secondary-btn disabled:opacity-50"
+        (click)="calculatePrice()"
+        [disabled]="!canCalculate"
+      >
         {{ 'POT_EDITOR_PAGE.CALCULATE_PRICE' | translate }}
       </button>
-      <!-- Confirm Creation button is disabled until price is calculated -->
-      <button 
-        (click)="onSubmit()"
-        class="px-6 py-2 primary-btn disabled:opacity-50">
+
+      <button
+        type="button"
+        class="px-6 py-2 primary-btn disabled:opacity-50"
+        (click)="submitPot()"
+        [disabled]="!canConfirm"
+      >
         {{ 'POT_EDITOR_PAGE.CONFIRM_CREATION' | translate }}
       </button>
     </div>
+
     <div *ngIf="price" class="text-lg font-semibold">
       {{ 'POT_EDITOR_PAGE.PRICE_LABEL' | translate }}: {{ price | currency }}
     </div>
   </div>
-
-  <!-- Custom Pot Name Modal -->
-  <app-modal
-    #nameModal
-    [title]="'Enter Pot Name'"
-    [message]="'Please enter a name for your custom pot:'"
-    [confirmText]="'Confirm'"
-    [cancelText]="'Cancel'"
-    (confirm)="handleNameModalConfirm()"
-    (cancel)="handleNameModalCancel()">
-    <div class="p-4">
-      <input type="text" [(ngModel)]="customPotName" placeholder="Enter pot name" class="w-full p-2 border rounded" />
-    </div>
-  </app-modal>
 </div>

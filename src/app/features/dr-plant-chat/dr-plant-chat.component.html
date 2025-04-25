@@ -33,7 +33,7 @@
              ? 'bg-[#5C684B] text-white'
              : 'bg-[#DCE6D3] text-[#5C684B]'">
           <!-- show text, sender name and timestamp -->
-          <span class="block text-xs text-gray-600">
+          <span class="block text-xs text-black">
             {{ msg.senderName }} • {{ msg.timestamp | date:'shortTime' }}
           </span>
           {{ msg.text }}
@@ -66,13 +66,5 @@
     </div>
   </div>
 
-  <!-- Buttons for Watering Plan and PDF -->
-  <div class="flex justify-center mt-4 space-x-4">
-    <button (click)="generateWateringPlan()" class="px-4 py-2 secondary-btn">
-      {{ 'DR_PLANT_PAGE.BUTTON_GENERATE_PLAN' | translate }}
-    </button>
-    <button (click)="downloadWateringPlanPDF()" class="px-4 py-2 primary-btn">
-      {{ 'DR_PLANT_PAGE.BUTTON_DOWNLOAD_PDF' | translate }}
-    </button>
-  </div>
+
 </div>
