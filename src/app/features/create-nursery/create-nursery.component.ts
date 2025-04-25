@@ -1,43 +1,32 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, Inject } from "@angular/core";
-import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from "@angular/forms";
-import { AuthService } from "../../services/auth.service";
-import { ToastrService } from "ngx-toastr";
-import { Router } from "express";
+import { Component, Inject } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 import { NurseryService } from "../../services/nursery.service";
-import { INurseries } from "../../interfaces/nurseries.interface";
+import { NurseryFormComponent } from "../../shared/components/nursery-form/nursery-form.component";
 
 @Component({
     selector: 'create-nursery',
     standalone: true,
     imports: [
-        CommonModule,
-        ReactiveFormsModule
-    ],
+    CommonModule,
+    ReactiveFormsModule,
+    NurseryFormComponent
+],
     templateUrl: 'create-nursery.component.html',
-    styleUrls: ['create-nursery.component.css'],    
+    styleUrls: ['create-nursery.component.css'],
 })
 
-export class CreateNurseryComponent{
+export class CreateNurseryComponent {
+    constructor(@Inject(NurseryService) private nurseryService: NurseryService,) {}
 
-    formState: 'create' = 'create';
-    nurseryForm: FormGroup;
-    
-    constructor(
-        @Inject(NurseryService) public nurseryService: NurseryService,
-        private fb: FormBuilder){ 
-        this.nurseryForm = this.fb.group({
-            name: ['', [Validators.required]],
-            description: ['', [Validators.required]],
-            latitude: ['', Validators.required],
-            longitude: ['', Validators.required]
-            })
-    } 
-
-    onSubmit() {
-        if (this.nurseryForm.valid) {
-            this.nurseryService.createNursery(this.nurseryForm.value)
-        }
+    handleSubmit(event:{data:any, image: File}) {
+      const nurseryRequest = {
+        name: event.data.name,
+        description: event.data.description,
+        latitude: event.data.latitude,
+        longitude: event.data.longitude,
+        userEmail: event.data.userEmail || '',
+      }
+      this.nurseryService.createNursery(nurseryRequest, event.image, 'home/my-nursery');
     }
-    
-}
+  }

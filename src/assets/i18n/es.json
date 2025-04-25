@@ -62,7 +62,7 @@
     "NOTIFICATIONS": "Notificaciones",
     "PLANT_CARE": "Cuidado de plantas",
     "SIGNUP": "Regístrate gratis",
-    "VIVERO": "Viveros",
+    "MY_NURSERY": "Mi vivero",
     "MY_POTS": "Mis macetas",
     "MODAL": {
       "LOGOUT_TITLE": "Confirmación de Cierre de Sesión",
@@ -370,5 +370,147 @@
   "POT_GALLERY": {
     "ERROR": "No se pudieron cargar las macetas.",
     "TITLE": "Macetas"
+  },
+  "MY_NURSERY": {
+    "TITLE": "Mi Vivero",
+    "INFO_TITLE": "Información del vivero",
+    "NO_NURSERY": "¡Aún no has creado ningún vivero o se desactivó tu vivero!",
+    "BUTTONS": {
+      "EDIT_INFO": "Editar Información",
+      "MY_PRODUCTS": "Mis Productos",
+      "CREATE_NURSERY": "Crear Vivero"
+    },
+    "DETAILS": {
+      "NURSERY_NAME": "Nombre del vivero",
+      "DESCRIPTION": "Descripción",
+      "LOCATION": "Ubicación",
+      "STATUS": "Estado",
+      "CREATION_DATE": "Fecha de creación",
+      "LAST_UPDATE": "Última modificación",
+      "STATUS_VALUES": {
+        "ACTIVE": "Activo",
+        "INACTIVE": "Desactivado"
+      }
+    },
+    "EDIT_MODAL": {
+      "TITLE": "Editar Vivero",
+      "INSTRUCTIONS": "Ingrese los datos del vivero",
+      "FIELDS": {
+        "NAME": {
+          "LABEL": "Nombre",
+          "PLACEHOLDER": "Nombre del vivero",
+          "ERROR": "Nombre requerido"
+        },
+        "DESCRIPTION": {
+          "LABEL": "Descripción",
+          "PLACEHOLDER": "Descripción del vivero",
+          "ERROR": "Descripción requerida"
+        },
+        "LATITUDE": {
+          "LABEL": "Latitud",
+          "PLACEHOLDER": "Latitud",
+          "ERROR": "Latitud requerida"
+        },
+        "LONGITUDE": {
+          "LABEL": "Longitud",
+          "PLACEHOLDER": "Longitud",
+          "ERROR": "Longitud requerida"
+        },
+        "MAP": "Selecciona la ubicación del vivero:"
+      }
+    }
+  },
+  "MY_PRODUCTS": {
+    "TITLE": "Mis Productos",
+    "INFO_TITLE": "Información de mis productos",
+    "EMPTY_MESSAGE": "¡Aún no tienes productos creados! Agrega uno para comenzar",
+    "TABLE": {
+      "HEADERS": {
+        "NAME": "Nombre",
+        "DESCRIPTION": "Descripción",
+        "PRICE": "Precio",
+        "ACTIONS": "Acciones"
+      },
+      "ACTIONS": {
+        "EDIT": "Editar",
+        "DELETE": "Eliminar"
+      }
+    },
+    "MODALS": {
+      "EDIT": {
+        "TITLE": "Editar Producto",
+        "INSTRUCTIONS": "Ingrese los datos del producto",
+        "FIELDS": {
+          "NAME": {
+            "LABEL": "Nombre",
+            "PLACEHOLDER": "Nombre del producto",
+            "ERROR": "Nombre requerido"
+          },
+          "DESCRIPTION": {
+            "LABEL": "Descripción",
+            "PLACEHOLDER": "Descripción del producto",
+            "ERROR": "Descripción requerida"
+          },
+          "PRICE": {
+            "LABEL": "Precio",
+            "PLACEHOLDER": "Precio del producto",
+            "ERROR": "Precio requerido"
+          }
+        }
+      },
+      "DELETE": {
+        "TITLE": "Eliminar Producto",
+        "CONFIRMATION": "¿Estás seguro de eliminar este producto?"
+      }
+    },
+    "BUTTONS": {
+      "CREATE": "Crear Producto"
+    }
+  },
+  "NURSERIES": {
+    "PAGE_TITLE": "Viveros cercanos",
+    "VIEW_NURSERY_BTN": "Ver vivero",
+    "DETAILS_TITLE": "Detalles",
+    "LOCATION_TITLE": "Ubicación",
+    "PRODUCTS_TITLE": "Productos",
+    "NO_PRODUCTS": "No hay productos disponibles",
+    "NO_NURSERIES_TITLE": "No hay viveros cercanos",
+    "NO_NURSERIES_MESSAGE": "Parece que no encontramos viveros en tu ubicación actual"
+  },
+  "GEOLOCATION": {
+    "NOT_SUPPORTED": "Tu navegador no soporta geolocalización",
+    "DEFAULT_ERROR": "Error al obtener la ubicación",
+    "PERMISSION_DENIED": "Permiso de ubicación denegado. Por favor habilita los permisos de ubicación en la configuración de tu navegador.",
+    "POSITION_UNAVAILABLE": "Información de ubicación no disponible. Verifica tu conexión a internet o señal GPS.",
+    "TIMEOUT": "La solicitud de ubicación tardó demasiado. Por favor intenta nuevamente."
+  },
+  "TOAST": {
+    "ERROR": {
+      "REQUIRED_FIELDS": "Por favor llenar todos los campos",
+      "GENERIC_ERROR": "Ocurrió un error",
+      "INVALID_PRICE": "Introduzca un precio válido"
+    },
+    "SUCCESS": {
+      "NURSERY_UPDATED": "Vivero actualizado correctamente",
+      "PRODUCT_UPDATES": "Producto actualizado correctamente"
+    }
+  },
+  "NURSERY": {
+    "MY_NURSERY": {
+      "TITLE": "Mi Vivero",
+      "CREATE_BUTTON": "Crear Vivero",
+      "PRODUCTS_BUTTON": "Ver Productos",
+      "EDIT_BUTTON": "Editar"
+    }
+  },
+    "CREATE_PRODUCT": {
+      "TITLE": "Crear producto",
+      "HEADER": "Por favor completar todos los campos para crear un producto",
+      "FORM": {
+        "NAME": "Nombre del producto",
+        "DESCRIPTION": "Descripción",
+        "PRICE": "Precio",
+        "SUBMIT_BUTTON": "Crear producto"
+    }
   }
 }

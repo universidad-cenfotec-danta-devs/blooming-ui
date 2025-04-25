@@ -45,6 +45,18 @@ export class UsersService extends BaseService<IUser> {
     });
   }
 
+  getNurseryUsers(){
+      this.find('nursery-users').subscribe({
+          next: (response: any) => {
+              this.userListSignal.set(response);
+          },
+          error: (err: any) => {
+              this.toastr.error(err, 'El usuario ya tiene un vivero');
+              console.error('error', err);
+          }
+      });
+  }
+
   save(user: IUser) {
     this.add(user).subscribe({
       next: (response: any) => {

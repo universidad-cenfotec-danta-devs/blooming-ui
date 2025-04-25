@@ -124,6 +124,12 @@
       </div>
 
       <a
+        routerLink="nurseries"
+        class="hover:text-[#4b5d42] transition duration-300"
+      >
+        {{'HEADER.NURSERIES'| translate}}
+      </a>
+      <a
         href="/home/flora-by-zone"
         class="hover:text-[#4b5d42] transition duration-300"
       >
@@ -200,11 +206,11 @@
             {{ 'HEADER.AUTH' | translate }}
           </a>
           <a
-            href="home/create-nursery"
+            href="home/my-nursery"
             class="block px-4 py-3 hover:bg-[#e7f1dd]"
             role="menuitem"
           >
-            {{ 'HEADER.NURSERIES' | translate }}
+            {{ 'HEADER.MY_NURSERY' | translate }}
           </a>
           <a
             href="/home/dr-plant"

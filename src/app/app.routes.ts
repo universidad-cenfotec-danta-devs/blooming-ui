@@ -26,6 +26,11 @@ import {MyPotsComponent} from './features/my-pots/my-pots.component';
 import {PotsShopComponent} from './features/pots-shop/pots-shop/pots-shop.component';
 import {DesignerRoleGuard} from './guards/designer-role.guard';
 import { CheckoutPageComponent } from './features/checkout-page/checkout-page.component';
+import { myNurseryComponent } from './features/my-nursery/my-nursery.component';
+import { MyProductsComponent } from './features/my-products/my-products.component';
+import { CreateProductComponent } from './features/create-product/create-product.component';
+import { CreateNurseryAdminComponent } from './features/admin/create-nursery/create-nursery-admin.component';
+import {ProductsAdminComponent} from './features/admin/products/products-admin.component';
 
 /**
  * Application Routing Configuration
@@ -132,7 +137,19 @@ export const routes: Routes = [
       {
         path: 'create-nursery',
         component: CreateNurseryComponent
-      }
+      },
+      {
+        path: 'my-nursery',
+        component: myNurseryComponent
+      },
+      {
+        path: 'my-products',
+        component: MyProductsComponent
+      },
+      {
+        path: 'create-product',
+        component: CreateProductComponent
+      },
     ]
   },
 
@@ -194,6 +211,28 @@ export const routes: Routes = [
             IRoleType.admin
           ],
           name: 'Nurseries'
+        }
+      },
+      {
+        path: 'create-nursery',
+        component: CreateNurseryAdminComponent,
+        canActivate: [AdminRoleGuard],
+        data:{
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Create Nursery'
+        }
+      },
+      {
+        path:'nursery-products/:id',
+        component: ProductsAdminComponent,
+        canActivate: [AdminRoleGuard],
+        data:{
+          authorities: [
+            IRoleType.admin
+          ],
+          name: 'Products'
         }
       }
     ]
