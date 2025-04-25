@@ -149,6 +149,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void {
+    this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response: any) => {

@@ -165,7 +165,7 @@
         "TITLE": "BLOOMING",
         "IMAGE_ALT": "Blooming plants",
         "DESCRIPTION": "Connect with nature and design your ideal space.",
-        "ASKING_INFO": "Please provide your credentials."
+        "ASKING_INFO": "Password must contain at least 8 characters, one letter, and one number."
       },
       "LOGIN": {
         "TITLE": "Sign In",

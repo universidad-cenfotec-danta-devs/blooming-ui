@@ -71,7 +71,6 @@
       "CONFIRM": "Confirmar",
       "CANCEL": "Cancelar"
     },
-    "VIVERO": "Viveros",
     "FLORA": "Flora por cantón"
   },
   "USER_CART":{
@@ -165,7 +164,7 @@
       "TITLE": "BLOOMING",
       "IMAGE_ALT": "Plantas floreciendo",
       "DESCRIPTION": "Conecta con la naturaleza y diseña tu espacio ideal.",
-      "ASKING_INFO": "Por favor ingrese sus datos."
+      "ASKING_INFO": "Contraseña debe tener por lo menos 8 caracteres, una letra y un número."
     },
     "LOGIN": {
       "TITLE": "Iniciar Sesión",
@@ -224,7 +223,7 @@
     },
     "VALIDATION": {
       "EMAIL_REQUIRED": "Se requiere un correo válido.",
-      "PASSWORD_REQUIRED": "Se requiere contraseña.",
+      "PASSWORD_REQUIRED": "Contraseña debe tener por lo menos 8 caracteres, una letra y un número.",
       "NAME_REQUIRED": "Se requiere el nombre.",
       "AGE_REQUIRED": "Se requiere la edad.",
       "DOB_REQUIRED": "Se requiere la fecha de nacimiento.",
