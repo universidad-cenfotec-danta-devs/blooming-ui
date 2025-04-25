@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ModalComponent} from '../../detail-modal/detail-modal.component';
 import {MapPickerComponent} from '../../../shared/components/map-picker/map-picker.component';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'admin-nurseries',
@@ -45,7 +46,7 @@ export class NurseriesComponent implements OnInit {
   @Output() callEditModal: EventEmitter<INurseries> = new EventEmitter<INurseries>();
 
 
-  constructor(private router: Router, private fb: FormBuilder){
+  constructor(private router: Router, private fb: FormBuilder, private toastr: ToastrService){
     this.nurseryForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
@@ -101,8 +102,12 @@ export class NurseriesComponent implements OnInit {
   }
 
   updateNursery(nursery: INurseries, $event: any) {
-    this.nurseryService.updateNursery(this.selectedNursery.id, nursery);
-    this.editModal.closeModal();
+    if (this.nurseryForm.valid){
+      this.nurseryService.updateNursery(this.selectedNursery.id, nursery);
+      this.editModal.closeModal();
+    } else {
+      this.toastr.error('Por favor llenar todos los campos');
+    }
   }
 
   changeStatus(nursery: INurseries) {

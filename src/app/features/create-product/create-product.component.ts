@@ -3,6 +3,7 @@ import { Component, Inject} from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { NurseryService } from "../../services/nursery.service";
 import { Router } from "@angular/router";
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: "create-product",
@@ -20,7 +21,7 @@ export class CreateProductComponent {
     constructor(
             @Inject(NurseryService) public nurseryService: NurseryService,
             private fb: FormBuilder,
-            private router: Router){
+            private toastr: ToastrService){
         this.productForm = this.fb.group({
             name: ['', [Validators.required]],
             description: ['', [Validators.required]],
@@ -29,10 +30,11 @@ export class CreateProductComponent {
         }
 
     onSubmit() {
-        if (this.productForm.valid) {
+        if (this.productForm.valid && this.productForm.get('price')?.value !== 0) {
             this.nurseryService.addProductToNursery(this.productForm.value);
             this.productForm.reset();
-            this.router.navigate(['/home/my-products']);
+        } else {
+          this.toastr.error('Por favor llenar todos los campos', "Error");
         }
     }
 }

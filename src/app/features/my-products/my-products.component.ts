@@ -8,6 +8,7 @@ import { IProducts } from "../../interfaces/products.interface";
 import { INurseries } from "../../interfaces/nurseries.interface";
 import { PaginationComponent } from "../pagination/pagination.component";
 import { TranslateModule } from "@ngx-translate/core";
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: "my-products",
@@ -37,7 +38,7 @@ export class MyProductsComponent implements OnInit {
     @Input() productList: IProducts[] = [];
     @Output() callEditModal: EventEmitter<INurseries> = new EventEmitter<INurseries>();
 
-    constructor(private router: Router, private fb: FormBuilder) {
+    constructor(private router: Router, private fb: FormBuilder, private toastr: ToastrService) {
         this.productForm = this.fb.group({
             name: ["", Validators.required],
             description: ["", Validators.required],
@@ -74,8 +75,15 @@ export class MyProductsComponent implements OnInit {
     }
 
     updateProduct(product: any, $event: any) {
+      if (this.productForm.valid) {
         this.nurseryService.updateProduct(this.selectedProduct.id, product.value)
         this.editModal.closeModal();
+      }else if (this.productForm.get('price')?.value == 0){
+        this.toastr.error('Por favor introduzca un precio valido');
+      }else {
+        this.toastr.error('Por favor llenar todos los campos');
+      }
+
     }
 
     createProduct() {

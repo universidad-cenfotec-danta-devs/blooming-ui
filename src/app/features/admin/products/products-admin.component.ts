@@ -5,9 +5,10 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {NurseryService} from '../../../services/nursery.service';
 import {IProducts} from '../../../interfaces/products.interface';
 import {INurseries} from '../../../interfaces/nurseries.interface';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {LayoutService} from '../../../services/layout.service';
 import {ModalComponent} from '../../detail-modal/detail-modal.component';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'nursery-products',
@@ -40,10 +41,10 @@ export class ProductsAdminComponent implements OnInit {
   @Input() productList: IProducts[] = [];
   @Output() callEditModal: EventEmitter<INurseries> = new EventEmitter<INurseries>();
 
-  constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(private toastr: ToastrService, private fb: FormBuilder, private route: ActivatedRoute) {
     this.productForm = this.fb.group({
-      name: ["", Validators.required],
-      description: ["", Validators.required],
+      name: ["", [Validators.required]],
+      description: ["", [Validators.required]],
       price: [0, [Validators.required]],
     })
   }
@@ -86,19 +87,23 @@ export class ProductsAdminComponent implements OnInit {
   }
 
   updateProduct(product: any, $event:any){
-    this.nurseryService.updateProduct(this.selectedProduct.id, product.value);
-    this.productForm.reset();
-    this.editModal.closeModal();
+    if (this.productForm.valid && this.productForm.get('price')?.value != 0) {
+      this.nurseryService.updateProduct(this.selectedProduct.id, product.value);
+      this.productForm.reset();
+      this.editModal.closeModal();
+    } else if (this.productForm.get('price')?.value == 0){
+      this.toastr.error('Por favor introduzca un precio valido');
+    }else {
+      this.toastr.error('Por favor llenar todos los campos');
+    }
   }
 
   createProduct() {
-    if (this.productForm.valid) {
-      const productData = {
-        ...this.productForm.value,
-        userEmail: this.email
-      }
-      this.nurseryService.addProductToNursery(productData);
+    if (this.productForm.valid && this.productForm.get('price')?.dirty) {
+      this.nurseryService.addProduct(this.productForm.value, this.currentNurseryId);
       this.createModal.closeModal();
+    } else {
+      this.toastr.error('Por favor llenar todos los campos');
     }
   }
 }

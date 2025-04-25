@@ -1,12 +1,13 @@
 import { CommonModule } from "@angular/common";
 import {Component, EventEmitter, inject, OnInit, Output, ViewChild} from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { NurseryService } from "../../services/nursery.service";
 import { ModalComponent } from "../detail-modal/detail-modal.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { INurseries } from "../../interfaces/nurseries.interface";
 import { MapPickerComponent } from "../../shared/components/map-picker/map-picker.component";
 import { TranslateModule } from "@ngx-translate/core";
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'nursery-user-page',
@@ -26,7 +27,6 @@ import { TranslateModule } from "@ngx-translate/core";
 export class myNurseryComponent implements OnInit{
 
     public nurseryService = inject(NurseryService);
-    public nurseryId!: string | null;
     public selectedNursery: INurseries = {
         name: '',
         description: '',
@@ -41,7 +41,7 @@ export class myNurseryComponent implements OnInit{
     @ViewChild(MapPickerComponent) mapPicker!: MapPickerComponent;
 
 
-    constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
+    constructor(private router: Router, private fb: FormBuilder, private toastr: ToastrService) {
         this.nurseryForm = this.fb.group({
             name: ['', [Validators.required]],
             description: ['', [Validators.required]],
@@ -80,9 +80,14 @@ export class myNurseryComponent implements OnInit{
     }
 
     updateNursery(nursery: any, $event: any) {
+      if (this.nurseryForm.valid) {
         this.nurseryService.updateNursery(this.selectedNursery.id, nursery, true);
         this.editModal.closeModal();
         this.nurseryService.getMyNursery();
+      }else {
+        this.toastr.error('Por favor llenar todos los campos');
+      }
+
     }
 
     createNursery() {

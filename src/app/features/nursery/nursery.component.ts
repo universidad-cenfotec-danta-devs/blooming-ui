@@ -5,6 +5,7 @@ import {PaginationComponent} from '../pagination/pagination.component';
 import {Router} from '@angular/router';
 import {LoaderComponent} from '../loader/loader.component';
 import {ToastrService} from 'ngx-toastr';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'nurseries',
@@ -12,6 +13,7 @@ import {ToastrService} from 'ngx-toastr';
     CommonModule,
     PaginationComponent,
     LoaderComponent,
+    TranslatePipe,
   ],
   templateUrl: 'nursery.component.html',
   styleUrl: 'nursery.component.css'
@@ -28,8 +30,7 @@ export class NurseryComponent implements OnInit, OnDestroy {
     navigator.geolocation.getCurrentPosition((position) => {
       this.nurseryService.setUserUbication(position.coords.latitude, position.coords.longitude);
       this.nurseryService.setCurrentScreen('nearby');
-      this.nurseryService.getNearby();
-
+      this.nurseryService.getAll();
     });
     this.watchPosition()
   }
@@ -76,11 +77,15 @@ export class NurseryComponent implements OnInit, OnDestroy {
     }
 
     this.toastr.error(errorMessage, 'Error', {
-      timeOut: 10000,
+      timeOut: 3000,
     });
   }
 
   nurseryDetailsPage(id: any) {
     this.router.navigate(['home/nursery-info/' + id])
+  }
+
+  goToEvaluation(id: any) {
+    this.router.navigate(['home/evaluation/nursery/' + id]);
   }
 }

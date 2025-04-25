@@ -1,28 +1,35 @@
-<div class="bg-[url(/assets/images/bg-nursery.png)] bg-cover bg-fixed h-45 w-full xl:h-80 bg-gray-400 bg-blend-multiply title-container">
+<div class="bg-[url(/assets/images/bg-nursery.png)] bg-cover bg-fixed h-60 w-full bg-gray-400 bg-blend-multiply title-container">
   <div class="-py-10">
-    <h1 class="text-6xl text-white">Viveros</h1>
+    <h1 class="text-6xl text-white">Viveros cercanos</h1>
   </div>
 </div>
 
-<div class="mx-5 xl:mx-9 mt-6">
-  <h4 class="text-2xl text-[var(--main-text)]">Viveros cerca de ti</h4>
-  <p class="text-[var(--secondary-color)]">Explora los viveros cercanos a ti y encuentra una gran variedad de plantas, herramientas y decoración para tu jardín. Selecciona un vivero para ver más detalles y descubrir to do lo que tiene para ofrecer.</p>
+<div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
 
   @defer{
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 my-5 mx-3 text-[var(--main-text)] align-items-center">
+    <div class="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
       @for (item of nurseryService.nurseries$(); track item.id){
-        <div class="rounded-2xl border-1 border-[var(--main-text)] w-50 flex justify-center text-center cursor-pointer">
+        <div class="rounded-2xl flex flex-col justify-center cursor-pointer">
           <a (click)="nurseryDetailsPage(item.id)">
-            <img class="w-50 h-30 object-cover rounded-t-2xl border-b-1" alt="Logo vivero" src="{{item.imageUrl}}">
-            <h1>{{ item.name }}</h1>
+            <img class="w-[278.219px] h-[278.219px] object-cover rounded-lg" alt="Logo vivero" src="{{item.imageUrl}}">
+            <h3 class="mt-3 text-sm font-medium">{{ item.name }}</h3>
+            <p  class="text-xs text-gray-400">{{ item.description }}</p>
           </a>
+          <button class="primary-btn mt-2 w-full py-1" (click)="nurseryDetailsPage(item.id)">
+            Ver vivero
+          </button>
+          <button class="secondary-btn mt-2 w-full py-1" (click)="goToEvaluation(item.id)">
+            {{ 'EVALUATION.BUTTON_MESSAGE' | translate }}
+          </button>
         </div>
+
+
       }
     </div>
     @if (nurseryService.nurseries$().length){
       <app-pagination [service]="nurseryService"/>
     }
-  }@loading (minimum 1.5s){
+  }@loading (minimum 2s){
     <app-loader></app-loader>
   }
 </div>

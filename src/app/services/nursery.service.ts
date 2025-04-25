@@ -17,6 +17,7 @@ export class NurseryService extends BaseService<INurseryDTO>{
   private nurseryListSignal = signal<INurseries[]>([]);
   private nurseryDetailSignal = signal<INurseries>({});
   private nurseryProductsSignal = signal<IProducts[]>([]);
+  private userEmailSignal = signal<string>("");
   private currentScreen?: string;
   private idNursery?: number;
   private userLat?: number;
@@ -36,6 +37,10 @@ export class NurseryService extends BaseService<INurseryDTO>{
 
   get nurseryProducts$(){
     return this.nurseryProductsSignal;
+  }
+
+  get userEmail$(){
+    return this.userEmailSignal;
   }
 
   setCurrentScreen(screen: string) {
@@ -106,6 +111,7 @@ export class NurseryService extends BaseService<INurseryDTO>{
         this.search = {...this.search, ...response.meta};
         this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
         this.nurseryProducts$.set(response.data.products);
+        this.userEmail$.set(response.data.userEmail);
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -117,6 +123,8 @@ export class NurseryService extends BaseService<INurseryDTO>{
   getNearby(){
     this.findAllWithParamsAndCustomSource(`nearby?userLat=${this.userLat}&userLng=${this.userLng}`,{ page: this.search.page, size: this.search.size }).subscribe({
       next: (response: any) => {
+        this.search = {...this.search, ...response.meta};
+        this.totalItems = Array.from({length: this.search.totalPages ? this.search.totalPages: 0}, (_, i) => i + 1);
         this.nurseries$.set(response.data);
       },
       error: (err: any) => {
@@ -128,12 +136,23 @@ export class NurseryService extends BaseService<INurseryDTO>{
   addProductToNursery(product: IProducts) {
     this.addCustomSource("addProductByNurseryAdmin", product).subscribe({
       next: (response: any) => {
-        // this.getProductsByNurseryId(product.nursery?.id);
         this.toastr.success('Product added to nursery', 'Success');
+        this.router.navigate(["home/my-products"]);
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
         console.error('error', err);
+      }
+    })
+  }
+
+  addProduct(product: IProducts, nurseryId: any) {
+    this.addCustomSource("add-product/" + nurseryId, product).subscribe({
+      next: (response: any) => {
+        this.getAll()
+      },
+      error: (err: any) => {
+        this.toastr.error(err, 'Error');
       }
     })
   }
