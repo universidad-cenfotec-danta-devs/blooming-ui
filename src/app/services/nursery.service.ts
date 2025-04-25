@@ -273,7 +273,7 @@ export class NurseryService extends BaseService<INurseryDTO>{
     })
   }
 
-  removeProductFromNursery(idProduct: IProducts, myNursery?: boolean){
+  removeProductFromNursery(idProduct: IProducts){
     this.delCustomSource(`api/nurseries/remove-product/${idProduct}`).subscribe({
       next: (response: any) => {
         this.toastr.success('Product removed', 'Success');

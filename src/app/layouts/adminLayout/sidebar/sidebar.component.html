@@ -1,17 +1,17 @@
-<button data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar" aria-controls="sidebar-multi-level-sidebar" type="button" class="absolute inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg lg:hidden focus:outline-none">
+<button id="sidebar-multi-level-sidebar" (click)="toggleSidebar()" type="button" class="absolute inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg lg:hidden focus:outline-none">
   <span class="sr-only">Open sidebar</span>
   <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
     <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
   </svg>
 </button>
 
-<!--Cambiar rutas-->
-<aside id="sidebar-multi-level-sidebar" class="fixed lg:relative top-0 left-0 z-40 w-64 transition-transform -translate-x-full lg:translate-x-0 min-h-screen bg-[#B5C99A] text-white" aria-label="Sidebar">
+<aside id="sidebar-multi-level-sidebar" [class]="isSidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed lg:relative top-0 left-0 z-40 w-64 transition-transform -translate-x-full lg:translate-x-0 min-h-screen bg-[#B5C99A] text-white" aria-label="Sidebar">
   <div class="h-full px-3 py-4 overflow-y-auto bg-[#B5C99A] text-white">
 
     <svg class="justify-self-center my-5 mb-8 w-50" viewBox="0 0 154 23" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M9.888 22.224C8.736 22.224 7.616 22.128 6.592 22H0.736V7.024C0.736 1.52 5.088 0.079998 8.256 0.079998C14.272 0.079998 18.688 2.096 18.688 5.84C18.688 8.496 16.512 10.192 13.12 10.96C17.408 11.504 20.32 13.2 20.32 16.24C20.32 19.984 15.904 22.224 9.888 22.224ZM8.128 10.832C11.648 10.768 13.376 8.4 10.432 4.72C8.96 2.864 6.816 1.968 5.12 1.968C3.008 1.968 2.752 3.28 3.072 4.08C3.872 5.968 7.744 5.776 7.744 9.904V19.088C9.632 21.264 11.392 21.904 12.992 21.04C14.208 20.368 14.528 17.584 12.864 14.864C11.424 12.56 9.664 11.536 8.128 11.536V10.832ZM38.4743 13.584C39.0823 16.464 38.8903 22.224 32.7783 22.224C28.0103 22.224 27.2743 18.8 25.0663 18.8C22.8263 18.8 22.4423 20.464 22.4423 22H21.6423V0.303999H28.6503V10.32C28.6503 14.032 23.6263 12.624 22.6023 17.616C24.0103 14.96 26.6343 13.904 28.8423 13.904C32.0103 13.904 33.8343 16.4 35.4023 16.4C37.0023 16.4 37.8343 14.576 37.6743 13.552L38.4743 13.584ZM48.049 0.112C54.065 0.112 58.897 5.04 58.897 11.152C58.897 17.264 54.065 22.224 48.049 22.224C42.065 22.224 37.201 17.264 37.201 11.152C37.201 5.04 42.065 0.112 48.049 0.112ZM53.457 19.856C55.281 18.704 54.385 13.872 51.377 9.104C48.401 4.304 44.497 1.328 42.641 2.48C40.817 3.632 41.745 8.432 44.721 13.232C47.697 18.032 51.633 20.976 53.457 19.856ZM70.5803 0.112C76.5963 0.112 81.4283 5.04 81.4283 11.152C81.4283 17.264 76.5963 22.224 70.5803 22.224C64.5963 22.224 59.7323 17.264 59.7323 11.152C59.7323 5.04 64.5963 0.112 70.5803 0.112ZM75.9883 19.856C77.8123 18.704 76.9163 13.872 73.9083 9.104C70.9323 4.304 67.0283 1.328 65.1723 2.48C63.3483 3.632 64.2763 8.432 67.2523 13.232C70.2283 18.032 74.1643 20.976 75.9883 19.856ZM91.472 4.816C92.368 7.76 92.272 7.28 92.944 9.808L93.104 10.48C93.136 10.256 93.2 10.032 93.264 9.808C93.968 7.28 93.872 7.76 94.736 4.816C95.984 0.655998 98.672 0.335999 102.672 0.303999H103.504V22H96.496V21.392C96.496 13.52 102.032 17.488 102.608 2.992C102 4.944 101.84 5.392 100.944 8.464C99.344 13.712 93.52 11.984 93.52 17.392H92.72C92.72 11.984 86.896 13.712 85.296 8.464C84.368 5.328 84.208 4.944 83.568 2.896C84.144 17.488 89.744 13.52 89.744 21.392V22H82.736V0.303999C87.184 0.303999 90.16 0.367998 91.472 4.816ZM112.338 22H105.33V0.303999H112.338V22ZM123.582 4.88C125.246 7.856 127.23 11.344 128.574 13.84C129.31 15.216 129.886 16.304 130.302 17.296C129.278 5.328 124.318 8.4 124.318 0.911999V0.303999H131.294V22H130.494C130.494 16.944 124.062 19.856 121.054 14.576L115.07 4.048C115.902 17.296 121.15 13.744 121.15 21.392V22H114.174V0.303999H114.974C117.79 0.303999 120.99 0.367998 123.582 4.88ZM153.823 8.592V17.136C151.167 20.176 147.743 22.224 143.487 22.224C137.503 22.224 132.639 17.264 132.639 11.152C132.639 5.04 137.503 0.112 143.487 0.112C146.655 0.112 148.767 2.576 150.335 2.576C151.935 2.576 152.255 1.68 152.255 0.271999H152.991C153.439 3.792 152.479 8.208 147.711 8.208C142.943 8.208 141.311 0.431999 138.079 2.48C136.255 3.632 137.183 8.432 140.159 13.232C143.007 17.84 146.911 21.392 149.183 20.048C150.911 19.024 146.815 16.848 146.815 13.36V12.816H143.967V12.048H147.871C152.511 12.048 153.023 8.592 153.023 8.592H153.823Z" fill="#FCFFF8"/>
     </svg>
+
 
     <div class="flex flex-col justify-between h-[80%]">
       <ul class="space-y-2 font-medium">
@@ -98,12 +98,11 @@
       </ul>
       <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-[#DCE6D3]">
         <li>
-          <!-- Cerrar sesion -->
           <a href="#" class="flex items-center p-2 group">
             <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h13a5 5 0 0 1 0 10H7M3 9l4-4M3 9l4 4"/>
             </svg>
-            <span class="flex-1 ms-3 whitespace-nowrap">Cerrar sesión</span>
+            <span class="flex-1 ms-3 whitespace-nowrap">Volver a inicio</span>
           </a>
         </li>
       </ul>

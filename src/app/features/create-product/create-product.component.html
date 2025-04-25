@@ -5,7 +5,6 @@
     <div class="bg-[#FCFFF8] border-1 border-[#DCE6D3] rounded-lg px-5 pt-7 mt-5 xl:mx-70">
         <div class="px-4 sm:px-0 border-[#DCE6D3]">
             <h3 class="text-lg font-semibold text-center">Por favor completar todos  los campos para crear un producto</h3>
-            <!-- <h3 class="text-lg font-semibold text-center">¡Aún no tienes productos creados! Agrega uno para comenzar</h3> -->
         </div>
         <div class="">
             <form [formGroup]="productForm" class="bg-[#FCFFF8] rounded-xl text-[var(--main-text)]" enctype="multipart/form-data">
@@ -17,7 +16,7 @@
                         </div>
                         <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid xl:grid-cols-3">
                             <label class="font-normal" for="description">Descripcion</label>
-                            <textarea class="mt-1 px-1 sm:col-span-2 sm:mt-0 border-1 rounded-md"  id="description" name="description" formControlName="description" required></textarea>                               
+                            <textarea class="mt-1 px-1 sm:col-span-2 sm:mt-0 border-1 rounded-md"  id="description" name="description" formControlName="description" required></textarea>
                         </div>
                         <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid xl:grid-cols-3">
                             <label class="font-normal" for="price">Precio</label>

@@ -55,6 +55,7 @@ export class myNurseryComponent implements OnInit{
     }
 
     showEditModal(item: INurseries, modal: any) {
+      this.mapPicker.reset(item.latitude, item.longitude);
         this.selectedNursery = { ...item };
         if (this.selectedNursery) {
             this.nurseryForm.patchValue({
@@ -63,7 +64,6 @@ export class myNurseryComponent implements OnInit{
                 description: this.selectedNursery.description,
                 latitude: this.selectedNursery.latitude,
                 longitude: this.selectedNursery.longitude,
-                // image: this.selectedNursery.imageURL
             });
             setTimeout(() => {
                 this.mapPicker.forceResize();
@@ -72,10 +72,12 @@ export class myNurseryComponent implements OnInit{
         this.editModal.openModal();
     }
 
-    onLocationSelected({ lat, lng }: { lat: number, lng: number }): void {
-        this.nurseryForm.patchValue({
-            latitude: lat,
-            longitude: lng
+    onLocationSelected(event: { lat: number, lng: number }) {
+      this.latitude = event.lat;
+      this.longitude = event.lng;
+      this.nurseryForm.patchValue({
+            latitude: event.lat,
+            longitude: event.lng
         });
     }
 

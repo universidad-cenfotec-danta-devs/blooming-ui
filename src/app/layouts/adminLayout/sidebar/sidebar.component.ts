@@ -1,7 +1,6 @@
-import {Component, signal} from '@angular/core';
+import {Component, HostListener, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HomepageComponent} from '../../../features/admin/homepage/homepage.component';
-import {RouterLink} from '@angular/router';
+import {NavigationEnd, Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'sidebar',
@@ -14,6 +13,30 @@ import {RouterLink} from '@angular/router';
 })
 
 export class SidebarComponent{
+  isSidebarOpen = false;
+  @HostListener('document:click', ['$event'])
+
+  onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('#sidebar-multi-level-sidebar')){
+      this.isSidebarOpen = false;
+    }
+  }
+  toggleSidebar(){
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  closeSidebar() {
+    this.isSidebarOpen = false;
+  }
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.closeSidebar();
+      }
+    });
+  }
 
   private sidebarSignal = signal<ISidebarDropdown>({
     users: true,
@@ -39,8 +62,8 @@ export class SidebarComponent{
     }
   }
   protected readonly Component = Component;
-  protected readonly HomepageComponent = HomepageComponent;
 }
+
 
 interface ISidebarDropdown{
   users: boolean,

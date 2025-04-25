@@ -1,22 +1,24 @@
 import {CommonModule} from '@angular/common';
-import {Component, inject, AfterViewInit, OnInit, effect} from '@angular/core';
+import {Component, inject, OnInit, effect} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NurseryService} from '../../services/nursery.service';
 import {PaginationComponent} from '../pagination/pagination.component';
 import * as L from 'leaflet';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'nursery-info',
   standalone: true,
   imports: [
     CommonModule,
-    PaginationComponent
+    PaginationComponent,
+    TranslateModule
   ],
   templateUrl:'nursery-info.component.html',
   styleUrl: 'nursery-info.component.css'
 })
 
-export class NurseryInfoComponent implements OnInit, AfterViewInit {
+export class NurseryInfoComponent implements OnInit {
   map!: L.Map;
   public nurseryService = inject(NurseryService);
   public currentNurseryId: any | null;
@@ -37,12 +39,6 @@ export class NurseryInfoComponent implements OnInit, AfterViewInit {
     this.nurseryService.getById(this.currentNurseryId);
     this.nurseryService.getAll();
 
-  }
-
-  ngAfterViewInit(): void {
-    // if (this.map) {
-    //   this.configMap()
-    // }
   }
 
   private configMap(lat: any, long: any): void {

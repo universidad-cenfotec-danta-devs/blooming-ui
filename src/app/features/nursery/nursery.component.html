@@ -1,6 +1,6 @@
 <div class="bg-[url(/assets/images/bg-nursery.png)] bg-cover bg-fixed h-60 w-full bg-gray-400 bg-blend-multiply title-container">
   <div class="-py-10">
-    <h1 class="text-6xl text-white">Viveros cercanos</h1>
+    <h1 class="text-6xl text-white">{{ "NURSERIES.PAGE_TITLE" | translate}}</h1>
   </div>
 </div>
 
@@ -16,14 +16,12 @@
             <p  class="text-xs text-gray-400">{{ item.description }}</p>
           </a>
           <button class="primary-btn mt-2 w-full py-1" (click)="nurseryDetailsPage(item.id)">
-            Ver vivero
+            {{ "NURSERIES.VIEW_NURSERY_BTN" | translate }}
           </button>
           <button class="secondary-btn mt-2 w-full py-1" (click)="goToEvaluation(item.id)">
             {{ 'EVALUATION.BUTTON_MESSAGE' | translate }}
           </button>
         </div>
-
-
       }
     </div>
     @if (nurseryService.nurseries$().length){
