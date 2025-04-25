@@ -9,3 +9,16 @@
   height: 400px;
   width: 350px;
 }
+
+.cart-btn {
+  position: absolute;
+  right: 0;
+  color: white;
+  background-color: #97A97C;
+  margin-right: 1rem;
+  padding: 0.2rem 1rem;
+}
+
+.cart-btn:hover {
+  filter: brightness(80%);
+}

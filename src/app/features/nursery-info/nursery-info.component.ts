@@ -5,6 +5,10 @@ import {NurseryService} from '../../services/nursery.service';
 import {PaginationComponent} from '../pagination/pagination.component';
 import * as L from 'leaflet';
 import {TranslateModule} from '@ngx-translate/core';
+import { ICartItemDTO } from '../../interfaces/cartItemDTO.interface';
+import { ICartItemType } from '../../interfaces/cartItemType.interface';
+import { CartService } from '../../services/cart.service';
+import { CartItemService } from '../../services/cartItem.service';
 
 @Component({
   selector: 'nursery-info',
@@ -22,6 +26,9 @@ export class NurseryInfoComponent implements OnInit {
   map!: L.Map;
   public nurseryService = inject(NurseryService);
   public currentNurseryId: any | null;
+  private cartItemDTO: ICartItemDTO = {};
+  private cartService = inject(CartService);
+  private cartItemService = inject(CartItemService);
 
   constructor(private route: ActivatedRoute) {
     effect(() => {
@@ -59,5 +66,16 @@ export class NurseryInfoComponent implements OnInit {
       maxZoom: 30,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
+  }
+
+  addProductToCart(itemName: string, price: number) {
+    this.cartItemDTO = {
+      cartId: this.cartService.getUserCartId(),
+      itemName: itemName,
+      itemType: ICartItemType.nurseryProduct,
+      price: price,
+      quantity: 1
+    }
+    this.cartItemService.addItemToCart(this.cartItemDTO);
   }
 }

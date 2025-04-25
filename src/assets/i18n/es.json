@@ -468,6 +468,7 @@
     }
   },
   "NURSERIES": {
+    "ADD_CART":"Añadir al carrito",
     "PAGE_TITLE": "Viveros cercanos",
     "VIEW_NURSERY_BTN": "Ver vivero",
     "DETAILS_TITLE": "Detalles",
@@ -476,6 +477,9 @@
     "NO_PRODUCTS": "No hay productos disponibles",
     "NO_NURSERIES_TITLE": "No hay viveros cercanos",
     "NO_NURSERIES_MESSAGE": "Parece que no encontramos viveros en tu ubicación actual"
+  },
+  "CART": {
+    "ADD":"Añadir al carrito"
   },
   "GEOLOCATION": {
     "NOT_SUPPORTED": "Tu navegador no soporta geolocalización",

@@ -467,6 +467,7 @@
     }
   },
   "NURSERIES": {
+    "ADD_CART":"Add to cart",
     "PAGE_TITLE": "Nearby Nurseries",
     "VIEW_NURSERY_BTN": "View Nursery",
     "DETAILS_TITLE": "Details",
@@ -475,6 +476,9 @@
     "NO_PRODUCTS": "No products available",
     "NO_NURSERIES_TITLE": "No nearby nurseries",
     "NO_NURSERIES_MESSAGE": "We couldn't find any nurseries in your current location"
+  },
+  "CART": {
+    "ADD":"Add to cart"
   },
   "GEOLOCATION": {
     "NOT_SUPPORTED": "Your browser doesn't support geolocation",

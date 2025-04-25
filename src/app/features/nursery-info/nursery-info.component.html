@@ -34,6 +34,7 @@
           <div class="flex items-center">
             <span class="text-xl">🌱</span>
             <h3 class="my-y ml-1 text-lg font-bold">{{ product.name }}</h3>
+            <button class="cart-btn" (click)="addProductToCart(product.name, product.price)">{{ 'NURSERIES.ADD_CART' | translate }}</button>
           </div>
           <p class=" text-lg">{{ product.description }}</p>
           <p>${{ product.price}}</p>
