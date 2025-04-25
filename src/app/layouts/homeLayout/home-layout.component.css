@@ -1,0 +1,98 @@
+mat-sidenav.closed {
+    width: 0;
+    visibility: hidden;
+    transition: width 0.3s ease, visibility 0.3s ease;
+}
+  
+mat-sidenav.opened {
+    width: 300px;
+    visibility: visible;
+}
+  
+mat-sidenav-container {
+    position: relative;
+    overflow: hidden; /* Prevents overflow from the sidenav */
+}
+  
+mat-sidenav-content {
+    padding-left: 0; /* Reset padding to avoid shift when sidenav is visible */
+}
+
+mat-sidenav-content {
+    margin-left: 0; /* Reset left margin when sidenav is closed */
+    padding-left: 0; /* Reset padding */
+    transition: margin-left 0.3s ease;
+    flex-grow: 1;
+    margin-top: 73.5px;
+}
+
+.mat-drawer {
+    width: 400px;
+}
+
+.sidenav-content {
+    background-color: #FCFFF8;
+    padding-top: 10px;
+    height: calc(100vh - 73.5px);
+    position: fixed;
+    top: 73.5px;
+    right: 0; /* Anchor it to the right side */
+    box-shadow: 0px 0px 10px rgb(214, 214, 214); /* Ensures padding doesn't add to width */
+}
+
+.bottom-cart {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 25px;
+    width: 100%;
+}
+
+.bottom-cart-content {
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+.top-cart-content {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+hr {
+    height: 1px;
+    border-width: 0;
+    color: rgb(199, 199, 199);
+    background-color: rgb(199, 199, 199);
+}
+
+.btn-compra {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 100%;
+    align-content: center;
+    background-color: #97A97C;
+    color: white;
+}
+
+.btn-compra:hover {
+    filter: brightness(85%);
+    transition: ease-in-out 0.1s;
+}
+
+.txt-small {
+    color: #5C684B;
+}
+
+.cart-title {
+    font-size: 20px;
+}
+
+.cart-items {
+    overflow-y: scroll;
+}
+
+.bottom-cart {
+    background-color: #FCFFF8;
+}

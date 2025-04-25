@@ -72,6 +72,13 @@
     },
     "FLORA": "Flora por cantón"
   },
+  "CART": {
+    "TITLE": "Carrito",
+    "ADD": "Agregar al carrito",
+    "SUBTOTAL": "Subtotal",
+    "SMALL": "Impuestos se calculan al finalizar la compra",
+    "BTN_CHECKOUT": "Finalizar compra"
+  },
   "HEADER_LANDING": {
     "DESCRIPTION": "Descubre una selección curada de plantas exquisitas, macetas personalizadas y viveros cercanos que transforman tu espacio en un oasis vibrante. Aprende consejos de cuidado experto, explora nuestra colección premium de plantas, diseña y vende tus propias macetas, y conéctate con viveros cercanos. Con Blooming, puedes encontrar fácilmente la planta perfecta, personalizar accesorios para tu jardín e incluso convertir tu pasión en un negocio.",
     "SLOGAN": "Conecta con la naturaleza.",
@@ -102,12 +109,31 @@
     "NOT_FOUND": "Todavía no se han realizado receñas",
     "BUTTON_MESSAGE": "Ver Receñas",
     "BUTTON_MAKE": "Hacer Receña",
+    "BUTTON_MAKE_MSG_SUCCESS": "Receña creada",
+    "BUTTON_MAKE_MSG_ERROR": "Error al realizar receña",
     "BUTTON_DEACTIVATE": "No mostrar ",
+    "BUTTON_DEACTIVATE_MSG_SUCCESS": "Receña desactivada con éxito",
+    "BUTTON_DEACTIVATE_MSG_ERROR": "Error al desactivar receña",
     "ACTIONS_ROW": "Acciones",
     "RATING_MANDATORY_MESSAGE": "Calificación es obligatoria",
     "BACK_TO_LIST": "Volver a Receñas",
     "MAKE_MESSAGE": "Gracias por tomarte el tiempo de compartir tu opinión. Tu calificación y comentarios nos ayudan a mejorar.",
     "BUTTON_SAVE": "Guardar"
+  },
+  "PROFILE": {
+    "TITLE": "Perfil de usuario",
+    "BUTTON_UPDATE": "Actualizar",
+    "NAME_LABEL": "Nombre",
+    "EMAIL_LABEL": "Correo electrónico",
+    "GENRE_LABEL": "Género",
+    "BIRTH_LABEL": "Fecha de nacimiento",
+    "BUTTON_UPDATED_MSG": "Perfil actualizado con éxito",
+    "GENRES": {
+      "SELECT": "Seleccione un género",
+      "MALE": "Masculino",
+      "FEMALE": "Femenino",
+      "OTHER": "Otro"
+    }
   },
   "NAV": {
     "ABOUT": "Acerca",
@@ -338,9 +364,6 @@
   "POT_GALLERY": {
     "ERROR": "No se pudieron cargar las macetas.",
     "TITLE": "Macetas"
-  },
-  "CART": {
-    "ADD": "Agregar al carrito"
   },
   "MY_NURSERY": {
     "TITLE": "Mi Vivero",

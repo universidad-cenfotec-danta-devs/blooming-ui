@@ -1,9 +1,7 @@
-<header class="shadow w-full bg-white">
-  <div
-    class="max-w-8xl mx-auto px-6 py-5 flex items-center justify-between"
-    style="color: var(--main-text)"
-  >
-    <!-- Left: Logo -------------------------------------------------->
+<header class="shadow w-full bg-white sticky-header">
+  <div class="max-w-8xl mx-auto px-6 py-5 flex items-center justify-between" style="color: var(--main-text);">
+
+    <!-- Left: Logo -->
     <div class="flex-none ml-4 motion-safe:animate-fade-down">
       <svg
         height="25"
@@ -140,23 +138,14 @@
     </nav>
 
     <!-- Right section (icons, language, user) --------------------->
-    <div
-      class="flex-none flex items-center space-x-6 mr-4 motion-safe:animate-fade-down"
-    >
-      <button
-        class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer"
-      >
-        <svg
-          class="h-7 w-7 text-[var(--secondary-color)] hover:scale-110 transition-transform duration-200"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="9" cy="21" r="1" />
-          <circle cx="20" cy="21" r="1" />
+    <div class="flex-none flex items-center space-x-6 mr-4 motion-safe:animate-fade-down">
+      <button class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer"
+              (click)="toggleCart.emit()">
+        <svg class="h-7 w-7 text-[var(--secondary-color)] hover:scale-110 transition-transform duration-200"
+             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
           <path
             d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
           />
@@ -166,23 +155,14 @@
       <app-language-selector></app-language-selector>
 
       <!-- User icon (only if logged) -->
-      <button
-        *ngIf="user != null"
-        class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer"
-      >
-        <svg
-          class="h-7 w-7 text-[var(--secondary-color)] hover:scale-110 transition-transform duration-200"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path
-            d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-          />
-          <circle cx="12" cy="7" r="4" />
+      <button *ngIf="user != null"
+              [routerLink]="['/home/profile']"
+              class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer">
+        <svg class="h-7 w-7 text-[var(--secondary-color)] hover:scale-110 transition-transform duration-200"
+             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
         </svg>
       </button>
 
@@ -205,9 +185,9 @@
             stroke-linecap="round"
             stroke-linejoin="round"
           >
-            <line x1="4" y1="6" x2="20" y2="6" />
-            <line x1="4" y1="12" x2="20" y2="12" />
-            <line x1="4" y1="18" x2="20" y2="18" />
+            <line x1="4" y1="6" x2="20" y2="6"/>
+            <line x1="4" y1="12" x2="20" y2="12"/>
+            <line x1="4" y1="18" x2="20" y2="18"/>
           </svg>
         </button>
 
@@ -284,8 +264,8 @@
           <path
             d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
           />
-          <path d="M9 12h12l-3 -3" />
-          <path d="M18 15l3 -3" />
+          <path d="M9 12h12l-3 -3"/>
+          <path d="M18 15l3 -3"/>
         </svg>
       </button>
     </div>
@@ -298,12 +278,12 @@
       <a
         href="/home"
         class="hover:text-[#4b5d42] transition duration-300"
-        >{{ 'HEADER.HOME' | translate }}</a
+      >{{ 'HEADER.HOME' | translate }}</a
       >
       <a
         href="/home/dr-plant"
         class="hover:text-[#4b5d42] transition duration-300"
-        >{{ 'HEADER.DR_PLANTA' | translate }}</a
+      >{{ 'HEADER.DR_PLANTA' | translate }}</a
       >
     </nav>
   </div>

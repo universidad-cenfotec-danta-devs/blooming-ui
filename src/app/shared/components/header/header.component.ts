@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  Output,
   ViewChild,
   ViewEncapsulation,
   inject,
@@ -8,11 +9,14 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { ModalComponent } from '../modal/modal.component';
 import { AuthService } from '../../../services/auth.service';
 import { IRoleType } from '../../../interfaces/roleType.interfaces';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { EventEmitter } from '@angular/core';
+import { ICart } from '../../../interfaces/cart.interface';
+import { CartService } from '../../../services/cart.service';
 
 /**
  * Top-level navigation bar:
@@ -29,6 +33,7 @@ import { IRoleType } from '../../../interfaces/roleType.interfaces';
     TranslateModule,
     ModalComponent,
     RouterModule,
+    MatSidenavModule
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
@@ -50,17 +55,32 @@ export class HeaderComponent implements AfterViewInit {
   user: any;
   userRole = '';
 
+  anonCart: any;
+
   @ViewChild('logoutModal') logoutModal!: ModalComponent;
 
-  private authService = inject(AuthService);
+  @Output() toggleCart = new EventEmitter<void>();
 
   constructor(private router: Router) {}
 
-  /* lifecycle ---------------------------------------------------- */
+  /** Injected AuthService for logout (avoids circular DI) */
+  private authService = inject(AuthService);
+
+  private cartService = inject(CartService);
+
+  /**
+   * After view init, read stored user info and extract role.
+   */
   ngAfterViewInit(): void {
     this.user = localStorage.getItem('auth_user');
+    this.anonCart = localStorage.getItem('anon_cart');
     if (this.user) {
       this.userRole = String(JSON.parse(this.user).role.name);
+    } else if (!this.anonCart){
+      const cart: ICart = {
+        items: []
+      };
+      this.cartService.createAnonCart(cart);
     }
   }
 
@@ -130,16 +150,16 @@ export class HeaderComponent implements AfterViewInit {
     get isAdmin(): boolean {
       return this.authService.hasRole(IRoleType.admin);
     }
-  
+
     get isDesigner(): boolean {
       return (
         this.authService.hasRole(IRoleType.designer) ||
         this.authService.hasRole(IRoleType.role_designer_user)
       );
     }
-  
+
     /* True when user is either ADMIN or DESIGNER */
     get canSeePotFeatures(): boolean {
       return this.isAdmin || this.isDesigner;
-    } 
+    }
 }

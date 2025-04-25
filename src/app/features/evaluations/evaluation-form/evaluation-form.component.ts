@@ -2,9 +2,9 @@ import {CommonModule} from '@angular/common';
 import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {IEvaluation} from '../../../interfaces/evaluation.index';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {ActivatedRoute} from '@angular/router';
-import {EvaluationService} from '../../../services/evaluation.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-evaluation-form',
@@ -19,6 +19,8 @@ import {EvaluationService} from '../../../services/evaluation.service';
 })
 export class EvaluationFormComponent implements OnInit {
   public fb: FormBuilder = inject(FormBuilder);
+  protected translate: TranslateService = inject(TranslateService);
+  protected toastService: ToastrService = inject(ToastrService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   @Input() evaluationForm!: FormGroup;
   @Output() callSaveMethod: EventEmitter<IEvaluation> = new EventEmitter<IEvaluation>();
@@ -40,6 +42,7 @@ export class EvaluationFormComponent implements OnInit {
     }
     this.callSaveMethod.emit(item);
     this.evaluationForm.reset();
+    this.toastService.success(this.translate.instant('EVALUATION.BUTTON_MAKE_MSG_SUCCESS'));
   }
 
   onGoBack() {

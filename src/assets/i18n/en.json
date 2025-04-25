@@ -71,6 +71,13 @@
     },
     "FLORA": "Flora by canton"
   },
+  "CART": {
+    "TITLE": "Cart",
+    "ADD": "Add to cart",
+    "SUBTOTAL": "Subtotal",
+    "SMALL": "Taxes are calculated at checkout",
+    "BTN_CHECKOUT": "Checkout"
+  },
   "HEADER_LANDING": {
     "DESCRIPTION": "Discover a curated selection of exquisite plants, custom pots, and local nurseries that transform your space into a vibrant oasis. Learn expert care tips, explore our premium plant collection, design and sell your own pots, and connect with nearby nurseries. With Blooming, you can easily find the perfect plant, customize your garden accessories, and even turn your passion into a business.",
     "SLOGAN": "Connect with nature and create your perfect design.",
@@ -101,12 +108,31 @@
     "NOT_FOUND": "There are no evaluations yet",
     "BUTTON_MESSAGE": "See Reviews",
     "BUTTON_MAKE": "Make Review",
+    "BUTTON_MAKE_MSG_SUCCESS": "Review created successfully",
+    "BUTTON_MAKE_MSG_ERROR": "Error while creating review",
     "BUTTON_DEACTIVATE": "Don't show ",
+    "BUTTON_DEACTIVATE_MSG_SUCCESS": "Review deactivated successfully",
+    "BUTTON_DEACTIVATE_MSG_ERROR": "Error while deactivating review",
     "ACTIONS_ROW": "Actions",
     "RATING_MANDATORY_MESSAGE": "Rating is required",
     "BACK_TO_LIST": "Back to Reviews",
     "MAKE_MESSAGE": "Thank you for taking the time to share your opinion. Your rating and comments help us improve",
     "BUTTON_SAVE": "Submit"
+  },
+  "PROFILE": {
+    "TITLE": "User profile",
+    "BUTTON_UPDATE": "Update",
+    "NAME_LABEL": "Name",
+    "EMAIL_LABEL": "Email",
+    "GENRE_LABEL": "Genre",
+    "BIRTH_LABEL": "Birth date",
+    "BUTTON_UPDATED_MSG": "Profile updated successfully",
+    "GENRES": {
+      "SELECT": "Select a gender",
+      "MALE": "Male",
+      "FEMALE": "Female",
+      "OTHER": "Other"
+    }
   },
   "NAV": {
     "ABOUT": "About",
@@ -337,9 +363,6 @@
     "ERROR": "Could not load pots.",
     "EMPTY": "No pots available.",
     "TITLE": "Pots"
-  },
-  "CART": {
-    "ADD": "Add to cart"
   },
   "MY_NURSERY": {
     "TITLE": "My Nursery",
