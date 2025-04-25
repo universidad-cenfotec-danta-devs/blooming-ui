@@ -6,7 +6,7 @@ import { ModalComponent } from "../detail-modal/detail-modal.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { INurseries } from "../../interfaces/nurseries.interface";
 import { MapPickerComponent } from "../../shared/components/map-picker/map-picker.component";
-import { TranslateModule } from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -18,7 +18,6 @@ import {ToastrService} from 'ngx-toastr';
         ModalComponent,
         MapPickerComponent,
         TranslateModule
-
 ],
     templateUrl: 'my-nursery.component.html',
     styleUrl: 'my-nursery.component.css'
@@ -41,7 +40,7 @@ export class myNurseryComponent implements OnInit{
     @ViewChild(MapPickerComponent) mapPicker!: MapPickerComponent;
 
 
-    constructor(private router: Router, private fb: FormBuilder, private toastr: ToastrService) {
+    constructor(private router: Router, private fb: FormBuilder, private toastr: ToastrService, private translate: TranslateService) {
         this.nurseryForm = this.fb.group({
             name: ['', [Validators.required]],
             description: ['', [Validators.required]],
@@ -86,10 +85,14 @@ export class myNurseryComponent implements OnInit{
         this.nurseryService.updateNursery(this.selectedNursery.id, nursery, true);
         this.editModal.closeModal();
         this.nurseryService.getMyNursery();
+        this.translate.get('TOAST.SUCCESS.NURSERY_UPDATED').subscribe((translatedMessage: string) => {
+          this.toastr.success(translatedMessage);
+        });
       }else {
-        this.toastr.error('Por favor llenar todos los campos');
+        this.translate.get('TOAST.ERROR.REQUIRED_FIELDS').subscribe((translatedMessage: string) => {
+          this.toastr.error(translatedMessage);
+        });
       }
-
     }
 
     createNursery() {

@@ -472,8 +472,45 @@
     "DETAILS_TITLE": "Details",
     "LOCATION_TITLE": "Location",
     "PRODUCTS_TITLE": "Products",
-    "NO_PRODUCTS": "No products available"
-  }
+    "NO_PRODUCTS": "No products available",
+    "NO_NURSERIES_TITLE": "No nearby nurseries",
+    "NO_NURSERIES_MESSAGE": "We couldn't find any nurseries in your current location"
+  },
+  "GEOLOCATION": {
+    "NOT_SUPPORTED": "Your browser doesn't support geolocation",
+    "DEFAULT_ERROR": "Error getting location",
+    "PERMISSION_DENIED": "Location permission denied. Please enable location permissions in your browser settings.",
+    "POSITION_UNAVAILABLE": "Location information unavailable. Check your internet connection or GPS signal.",
+    "TIMEOUT": "Location request timed out. Please try again."
+  },
+  "TOAST": {
+    "ERROR": {
+      "REQUIRED_FIELDS": "Please fill all required fields",
+      "GENERIC_ERROR": "An error occurred",
+      "INVALID_PRICE": "Please enter a valid price"
+    },
+    "SUCCESS": {
+      "NURSERY_UPDATED": "Nursery updated successfully"
+    }
+  },
+  "NURSERY": {
+    "MY_NURSERY": {
+      "TITLE": "My Nursery",
+      "CREATE_BUTTON": "Create Nursery",
+      "PRODUCTS_BUTTON": "View Products",
+      "EDIT_BUTTON": "Edit"
+    }
+  },
+    "CREATE_PRODUCT": {
+      "TITLE": "Create product",
+      "HEADER": "Please fill in all fields to create a product",
+      "FORM": {
+        "NAME": "Product name",
+        "DESCRIPTION": "Description",
+        "PRICE": "Price",
+        "SUBMIT_BUTTON": "Create product"
+      }
+    }
 }
 
 

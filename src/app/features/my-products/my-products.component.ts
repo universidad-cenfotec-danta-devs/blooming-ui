@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { IProducts } from "../../interfaces/products.interface";
 import { INurseries } from "../../interfaces/nurseries.interface";
 import { PaginationComponent } from "../pagination/pagination.component";
-import { TranslateModule } from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -38,7 +38,7 @@ export class MyProductsComponent implements OnInit {
     @Input() productList: IProducts[] = [];
     @Output() callEditModal: EventEmitter<INurseries> = new EventEmitter<INurseries>();
 
-    constructor(private router: Router, private fb: FormBuilder, private toastr: ToastrService) {
+    constructor(private router: Router, private fb: FormBuilder, private toastr: ToastrService, private translate: TranslateService) {
         this.productForm = this.fb.group({
             name: ["", Validators.required],
             description: ["", Validators.required],
@@ -79,11 +79,14 @@ export class MyProductsComponent implements OnInit {
         this.nurseryService.updateProduct(this.selectedProduct.id, product.value)
         this.editModal.closeModal();
       }else if (this.productForm.get('price')?.value == 0){
-        this.toastr.error('Por favor introduzca un precio valido');
+        this.translate.get('TOAST.ERRORS.INVALID_PRICE').subscribe((translatedMessage: string) => {
+          this.toastr.error(translatedMessage);
+        });
       }else {
-        this.toastr.error('Por favor llenar todos los campos');
+        this.translate.get('TOAST.ERRORS.REQUIRED_FIELDS').subscribe((translatedMessage: string) => {
+          this.toastr.error(translatedMessage);
+        });
       }
-
     }
 
     createProduct() {

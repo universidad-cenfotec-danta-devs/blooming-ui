@@ -473,6 +473,44 @@
     "DETAILS_TITLE": "Detalles",
     "LOCATION_TITLE": "Ubicación",
     "PRODUCTS_TITLE": "Productos",
-    "NO_PRODUCTS": "No hay productos disponibles"
+    "NO_PRODUCTS": "No hay productos disponibles",
+    "NO_NURSERIES_TITLE": "No hay viveros cercanos",
+    "NO_NURSERIES_MESSAGE": "Parece que no encontramos viveros en tu ubicación actual"
+  },
+  "GEOLOCATION": {
+    "NOT_SUPPORTED": "Tu navegador no soporta geolocalización",
+    "DEFAULT_ERROR": "Error al obtener la ubicación",
+    "PERMISSION_DENIED": "Permiso de ubicación denegado. Por favor habilita los permisos de ubicación en la configuración de tu navegador.",
+    "POSITION_UNAVAILABLE": "Información de ubicación no disponible. Verifica tu conexión a internet o señal GPS.",
+    "TIMEOUT": "La solicitud de ubicación tardó demasiado. Por favor intenta nuevamente."
+  },
+  "TOAST": {
+    "ERROR": {
+      "REQUIRED_FIELDS": "Por favor llenar todos los campos",
+      "GENERIC_ERROR": "Ocurrió un error",
+      "INVALID_PRICE": "Introduzca un precio válido"
+    },
+    "SUCCESS": {
+      "NURSERY_UPDATED": "Vivero actualizado correctamente",
+      "PRODUCT_UPDATES": "Producto actualizado correctamente"
+    }
+  },
+  "NURSERY": {
+    "MY_NURSERY": {
+      "TITLE": "Mi Vivero",
+      "CREATE_BUTTON": "Crear Vivero",
+      "PRODUCTS_BUTTON": "Ver Productos",
+      "EDIT_BUTTON": "Editar"
+    }
+  },
+    "CREATE_PRODUCT": {
+      "TITLE": "Crear producto",
+      "HEADER": "Por favor completar todos los campos para crear un producto",
+      "FORM": {
+        "NAME": "Nombre del producto",
+        "DESCRIPTION": "Descripción",
+        "PRICE": "Precio",
+        "SUBMIT_BUTTON": "Crear producto"
+    }
   }
 }

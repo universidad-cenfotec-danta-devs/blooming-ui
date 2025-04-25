@@ -5,7 +5,7 @@ import {PaginationComponent} from '../pagination/pagination.component';
 import {Router} from '@angular/router';
 import {LoaderComponent} from '../loader/loader.component';
 import {ToastrService} from 'ngx-toastr';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'nurseries',
@@ -13,7 +13,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     CommonModule,
     PaginationComponent,
     LoaderComponent,
-    TranslatePipe,
+    TranslateModule
   ],
   templateUrl: 'nursery.component.html',
   styleUrl: 'nursery.component.css'
@@ -41,7 +41,7 @@ export class NurseryComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private router: Router, private toastr: ToastrService) {
+  constructor(private router: Router, private toastr: ToastrService, private translate: TranslateService) {
   }
 
   watchPosition() {
@@ -64,20 +64,24 @@ export class NurseryComponent implements OnInit, OnDestroy {
   }
 
   private handleLocationError(err: GeolocationPositionError) {
-    console.error('Error de geolocalización:', err);
 
-    let errorMessage = 'Error al obtener la ubicación';
+    let translationKey = 'GEOLOCATION.DEFAULT_ERROR';
     switch(err.code) {
       case err.PERMISSION_DENIED:
-        errorMessage = 'Permiso de ubicación denegado. Por favor habilita los permisos de ubicación.';
+        translationKey = 'GEOLOCATION.PERMISSION_DENIED';
         break;
       case err.POSITION_UNAVAILABLE:
-        errorMessage = 'Información de ubicación no disponible. Verifica tu conexión o señal GPS.';
+        translationKey = 'GEOLOCATION.POSITION_UNAVAILABLE';
+        break;
+      case err.TIMEOUT:
+        translationKey = 'GEOLOCATION.TIMEOUT';
         break;
     }
 
-    this.toastr.error(errorMessage, 'Error', {
-      timeOut: 3000,
+    this.translate.get(translationKey).subscribe((translatedMessage: string) => {
+      this.toastr.error(translatedMessage, this.translate.instant("Error"), {
+        timeOut: 3000,
+      });
     });
   }
 
