@@ -71,12 +71,18 @@
     },
     "FLORA": "Flora by canton"
   },
-  "CART": {
-    "TITLE": "Cart",
-    "ADD": "Add to cart",
-    "SUBTOTAL": "Subtotal",
-    "SMALL": "Taxes are calculated at checkout",
-    "BTN_CHECKOUT": "Checkout"
+  "USER_CART":{
+    "TITLE":"Cart",
+    "SUBTOTAL":"Subtotal",
+    "SMALL":"Taxes are calculated at checkout",
+    "BTN_CHECKOUT":"Checkout",
+    "DELETE":"Delete",
+    "NO_ITEMS":"There are no products in your cart"
+  },
+  "CHECKOUT":{
+    "NO_ITEMS":"There are no product in your cart",
+    "BUY_BTN":"Process payment",
+    "TOTAL_ITEMS":"Total items"
   },
   "HEADER_LANDING": {
     "DESCRIPTION": "Discover a curated selection of exquisite plants, custom pots, and local nurseries that transform your space into a vibrant oasis. Learn expert care tips, explore our premium plant collection, design and sell your own pots, and connect with nearby nurseries. With Blooming, you can easily find the perfect plant, customize your garden accessories, and even turn your passion into a business.",
@@ -176,7 +182,7 @@
       "TITLE": "BLOOMING",
       "IMAGE_ALT": "Blooming plants",
       "DESCRIPTION": "Connect with nature and design your ideal space.",
-      "ASKING_INFO": "Please provide your credentials."
+      "ASKING_INFO": "Password must contain at least 8 characters, one letter, and one number."
     },
     "LOGIN": {
       "TITLE": "Sign In",

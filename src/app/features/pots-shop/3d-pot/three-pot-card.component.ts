@@ -8,6 +8,7 @@
 ------------------------------------------------------------------*/
 import {
   AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter,
+  inject,
   Inject, Input, NgZone, OnDestroy, Output, PLATFORM_ID, ViewChild
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -18,6 +19,10 @@ import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { HttpClient } from '@angular/common/http';
 import { Router }   from '@angular/router';
 import { SHARED_IMPORTS } from '../../../shared/shared.module';
+import { CartService } from '../../../services/cart.service';
+import { ICartItemDTO } from '../../../interfaces/cartItemDTO.interface';
+import { ICartItemType } from '../../../interfaces/cartItemType.interface';
+import { CartItemService } from '../../../services/cartItem.service';
 
 @Component({
   selector   : 'three-pot-card',
@@ -38,7 +43,7 @@ import { SHARED_IMPORTS } from '../../../shared/shared.module';
           {{ price | currency }}
         </p>
 
-        <button class="primary-btn mt-2 w-full py-1" (click)="add.emit()">
+        <button class="primary-btn mt-2 w-full py-1" (click)="addPotToCart(name, price)">
           {{ 'CART.ADD' | translate }}
         </button>
 
@@ -73,6 +78,10 @@ export class ThreePotCardComponent implements AfterViewInit, OnDestroy {
   private camera?    : THREE.PerspectiveCamera;
   private controls?  : OrbitControls;
   private potGroup   = new THREE.Group();
+
+  private cartService = inject(CartService);
+  private cartItemService = inject(CartItemService);
+  private cartItemDTO: ICartItemDTO = {};
 
   constructor(
     private ngZone : NgZone,
@@ -187,5 +196,16 @@ export class ThreePotCardComponent implements AfterViewInit, OnDestroy {
         }),
       error: err => console.error('[ThreePotCard] download error:', err)
     });
+  }
+
+  addPotToCart(itemName: string, price: number) {
+    this.cartItemDTO = {
+      cartId: this.cartService.getUserCartId(),
+      itemName: itemName,
+      itemType: ICartItemType.pot,
+      price: price,
+      quantity: 1
+    }
+    this.cartItemService.addItemToCart(this.cartItemDTO);
   }
 }

@@ -1,10 +1,10 @@
 import {
-  AfterViewInit,
   Component,
   Output,
   ViewChild,
   ViewEncapsulation,
   inject,
+  OnInit
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -39,7 +39,7 @@ import { CartService } from '../../../services/cart.service';
   styleUrls: ['./header.component.css'],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class HeaderComponent implements AfterViewInit {
+export class HeaderComponent {
   /* right-hand icon dropdown */
   isDropdownOpen = false;
   private hideTimeout: any;
@@ -71,7 +71,7 @@ export class HeaderComponent implements AfterViewInit {
   /**
    * After view init, read stored user info and extract role.
    */
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.user = localStorage.getItem('auth_user');
     this.anonCart = localStorage.getItem('anon_cart');
     if (this.user) {

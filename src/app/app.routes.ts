@@ -25,6 +25,7 @@ import {MyPlantsComponent} from './features/my-plants/my-plants.component';
 import {MyPotsComponent} from './features/my-pots/my-pots.component';
 import {PotsShopComponent} from './features/pots-shop/pots-shop/pots-shop.component';
 import {DesignerRoleGuard} from './guards/designer-role.guard';
+import { CheckoutPageComponent } from './features/checkout-page/checkout-page.component';
 import { myNurseryComponent } from './features/my-nursery/my-nursery.component';
 import { MyProductsComponent } from './features/my-products/my-products.component';
 import { CreateProductComponent } from './features/create-product/create-product.component';
@@ -108,6 +109,11 @@ export const routes: Routes = [
         path: 'dr-plant-diagnose',
         component: DiagnosePlantComponent,
         canActivate: [AuthGuard],
+      },
+      {
+        path: 'checkout',
+        component: CheckoutPageComponent,
+        canActivate: [AuthGuard]
       },
     /* --------  Accessible only to DESIGNER / ADMIN  -------- */
     {
