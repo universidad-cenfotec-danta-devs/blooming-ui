@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart-item',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './cart-item.component.html',
   styleUrl: './cart-item.component.scss'
 })

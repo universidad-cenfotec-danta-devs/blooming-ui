@@ -27,6 +27,10 @@ export class BaseService<T> {
     return this.http.get<IResponse<T[]>>('http://localhost:8080/' + `${this.source}/${customUrlSource}`, {params: this.buildUrlParams(params)});
   }
 
+  public findAllWithCustomSource(customUrlSource: string): Observable<IResponse<T[]>> {
+    return this.http.get<IResponse<T[]>>('http://localhost:8080/' + `${this.source}/${customUrlSource}`);
+  }
+
   public add(data: {}): Observable<IResponse<T>> {
     return this.http.post<IResponse<T>>('http://localhost:8080/' + this.source, data);
   }
@@ -36,7 +40,7 @@ export class BaseService<T> {
   }
 
   public addCustomSource(customUrlSource: string, data: {}): Observable<IResponse<T>> {
-    return this.http.post<IResponse<T>>(this.baseURL+`${this.source}/${customUrlSource}`, data);
+    return this.http.post<IResponse<T>>('http://localhost:8080/' + `${this.source}/${customUrlSource}`, data);
   }
 
   public edit(id: string | undefined, data: {}): Observable<IResponse<T>> {

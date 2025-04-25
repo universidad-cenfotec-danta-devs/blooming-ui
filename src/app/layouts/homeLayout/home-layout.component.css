@@ -23,6 +23,7 @@ mat-sidenav-content {
     padding-left: 0; /* Reset padding */
     transition: margin-left 0.3s ease;
     flex-grow: 1;
+    margin-top: 73.5px;
 }
 
 .mat-drawer {
@@ -94,10 +95,4 @@ hr {
 
 .bottom-cart {
     background-color: #FCFFF8;
-}
-
-.footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
 }
