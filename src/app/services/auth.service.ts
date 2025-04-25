@@ -176,4 +176,14 @@ export class AuthService {
       ? user.authorities.some(a => a.authority === IRoleType.admin)
       : false;
   }
+  public isDesignerOrNurseryAdmin(): boolean {
+    const user = this.tokenStore.getUser();
+    return user.authorities
+      ? user.authorities.some(a =>
+        a.authority === IRoleType.role_designer_user || a.authority === IRoleType.nursery || a.authority === IRoleType.role_designer_user)
+      : false;
+  }
+
+
+
 }

@@ -4,20 +4,26 @@ import {HomeComponent} from './features/home/home.component';
 import {LoginComponent} from './features/login/login.component';
 import {DrPlantComponent} from './features/dr-plant/dr-plant-identify.component';
 import {FloraByZoneComponent} from './features/flora-by-zone/flora-by-zone.component';
-import { AdminRoleGuard } from './guards/admin-role.guard';
-import { AuthGuard } from './guards/auth.guard';
-import { IRoleType } from './interfaces/roleType.interfaces';
-import { UsersComponent } from './features/users/users.component';
-import { RoleRequestsComponent } from './features/role-requests/role-requests.component';
-import { AdminLogsComponent } from './features/admin-logs/admin-logs.component';
-import { HomepageComponent } from './features/admin/homepage/homepage.component';
-import { AdminLayoutComponent } from './layouts/adminLayout/admin-layout.component';
-import { NurseriesComponent } from './features/admin/nurseries/nurseries.component';
+import {AdminRoleGuard} from './guards/admin-role.guard';
+import {AuthGuard} from './guards/auth.guard';
+import {IRoleType} from './interfaces/roleType.interfaces';
+import {UsersComponent} from './features/users/users.component';
+import {RoleRequestsComponent} from './features/role-requests/role-requests.component';
+import {AdminLogsComponent} from './features/admin-logs/admin-logs.component';
+import {HomepageComponent} from './features/admin/homepage/homepage.component';
+import {AdminLayoutComponent} from './layouts/adminLayout/admin-layout.component';
+import {NurseriesComponent} from './features/admin/nurseries/nurseries.component';
 import {HomeLayoutComponent} from './layouts/homeLayout/home-layout.component';
 import {NurseryComponent} from './features/nursery/nursery.component';
 import {NurseryInfoComponent} from './features/nursery-info/nursery-info.component';
-import { CreateNurseryComponent } from './features/create-nursery/create-nursery.component';
-import { DiagnosePlantComponent } from './features/dr-plant-diagnose/dr-plant-diagnose.component';
+import {EvaluationComponent} from './pages/evaluation/evaluation.component';
+import {EvaluationFormComponent} from './features/evaluations/evaluation-form/evaluation-form.component';
+import {CreateNurseryComponent} from './features/create-nursery/create-nursery.component';
+import {DiagnosePlantComponent} from './features/dr-plant-diagnose/dr-plant-diagnose.component';
+import { MyPlantsComponent } from './features/my-plants/my-plants.component';
+import { MyPotsComponent } from './features/my-pots/my-pots.component';
+import { PotsShopComponent } from './features/pots-shop/pots-shop/pots-shop.component';
+import { DesignerRoleGuard } from './guards/designer-role.guard';
 
 /**
  * Application Routing Configuration
@@ -33,27 +39,46 @@ import { DiagnosePlantComponent } from './features/dr-plant-diagnose/dr-plant-di
  */
 export const routes: Routes = [
 
-  { path: 'login', component: HomeLayoutComponent,
-    children:[
+  {
+    path: 'login', component: HomeLayoutComponent,
+    children: [
       {
         path: '',
         component: LoginComponent
       }
     ]
-   },
+  },
 
-  { path: 'access-denied', redirectTo:'/login', pathMatch: 'full' },
+  {path: 'access-denied', redirectTo: '/login', pathMatch: 'full'},
 
   {
     path: 'home',
     component: HomeLayoutComponent,
-    children:[
-      {path: '',
-       component: HomeComponent
+    children: [
+      {
+        path: '',
+        component: HomeComponent
       },
       {
         path: 'flora-by-zone',
-        component: FloraByZoneComponent
+        component: FloraByZoneComponent,
+        data: {
+          authorities: [IRoleType.admin, IRoleType.designer, IRoleType.role_designer_user, IRoleType.nursery, IRoleType.user],
+        }
+      },
+      {
+        path: 'evaluation/:objType/:objId',
+        component: EvaluationComponent,
+        data: {
+          authorities: [IRoleType.admin, IRoleType.designer, IRoleType.role_designer_user, IRoleType.nursery, IRoleType.user],
+        }
+      },
+      {
+        path: 'evaluation-form/:objType/:objId',
+        component: EvaluationFormComponent,
+        data: {
+          authorities: [IRoleType.admin, IRoleType.designer, IRoleType.role_designer_user, IRoleType.nursery, IRoleType.user],
+        }
       },
       {
         path: 'dr-plant',
@@ -61,16 +86,31 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'my-plants',
+        component: MyPlantsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'pots-shop',
+        component: PotsShopComponent,
+      },
+      {
         path: 'dr-plant-diagnose',
         component: DiagnosePlantComponent,
         canActivate: [AuthGuard],
       },
-      {
-        path: 'pot-editor',
-        component: PotEditorPageComponent,
-        canActivate: [AuthGuard],
-      },
-      {
+    /* --------  Accessible only to DESIGNER / ADMIN  -------- */
+    {
+      path: 'pot-editor',
+      component: PotEditorPageComponent,
+      canActivate: [AuthGuard,DesignerRoleGuard],
+    },
+    {
+      path: 'my-pots',
+      component: MyPotsComponent,
+      canActivate: [AuthGuard,DesignerRoleGuard],
+    },
+    {
         path: 'nurseries',
         component: NurseryComponent
       },
@@ -85,14 +125,15 @@ export const routes: Routes = [
     ]
   },
 
-  { path: 'admin',
+  {
+    path: 'admin',
     component: AdminLayoutComponent,
     canActivate: [AuthGuard],
     children: [
       {
         path: '',
         component: HomepageComponent,
-        canActivate:[AdminRoleGuard],
+        canActivate: [AdminRoleGuard],
         data: {
           authorities: [
             IRoleType.admin
@@ -137,7 +178,7 @@ export const routes: Routes = [
         path: 'nurseries',
         component: NurseriesComponent,
         canActivate: [AdminRoleGuard],
-        data:{
+        data: {
           authorities: [
             IRoleType.admin
           ],
@@ -146,5 +187,5 @@ export const routes: Routes = [
       }
     ]
   },
-  { path: '**', redirectTo: '/home', pathMatch: 'full' },
+  {path: '**', redirectTo: '/home', pathMatch: 'full'},
 ];

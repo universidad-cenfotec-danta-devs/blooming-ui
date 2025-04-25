@@ -185,6 +185,5 @@ export class DrPlantComponent {
   /** Close the confirm modal without action */
   handleModalCancel(): void {
     this.confirmModal.closeModal();
-    this.toastr.info('Action cancelled.', 'Info');
   }
 }

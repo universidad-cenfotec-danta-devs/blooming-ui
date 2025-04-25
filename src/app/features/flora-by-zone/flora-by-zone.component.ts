@@ -2,10 +2,11 @@ import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {SHARED_IMPORTS} from '../../shared/shared.module';
 import {FloraByZoneService} from '../../services/flora-by-zone.service';
 import * as L from 'leaflet';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'flora-by-zone',
-  imports: [SHARED_IMPORTS],
+  imports: [SHARED_IMPORTS, RouterLink],
   templateUrl: './flora-by-zone.component.html',
   standalone: true,
   styleUrls: ['./flora-by-zone.component.css']
