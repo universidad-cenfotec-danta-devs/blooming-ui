@@ -52,12 +52,17 @@
     "HOME": "Home",
     "JOIN": "Join Blooming and transform your space",
     "MACETAS": "Pots",
+    "POTS": {
+      "CATALOG": "Shop pots",
+      "DESIGN": "Design your pot"
+    },
     "NURSERIES": "Nurseries",
     "NOTIFICATIONS": "Notifications",
-    "POTS": "Pots",
     "PLANT_CARE": "Plant care",
     "SIGNUP": "Sign up for free",
     "VIVERO": "Nurseries",
+    "MY_PLANTS": "My plants",
+    "MY_POTS": "My pots",
     "MODAL": {
       "LOGOUT_TITLE": "Logout Confirmation",
       "LOGOUT_MESSAGE": "Are you sure you want to log out?",
@@ -65,6 +70,13 @@
       "CANCEL": "Cancel"
     },
     "FLORA": "Flora by canton"
+  },
+  "CART": {
+    "TITLE": "Cart",
+    "ADD": "Add to cart",
+    "SUBTOTAL": "Subtotal",
+    "SMALL": "Taxes are calculated at checkout",
+    "BTN_CHECKOUT": "Checkout"
   },
   "HEADER_LANDING": {
     "DESCRIPTION": "Discover a curated selection of exquisite plants, custom pots, and local nurseries that transform your space into a vibrant oasis. Learn expert care tips, explore our premium plant collection, design and sell your own pots, and connect with nearby nurseries. With Blooming, you can easily find the perfect plant, customize your garden accessories, and even turn your passion into a business.",
@@ -271,6 +283,8 @@
     "LABEL_COLOR": "Color",
     "CALCULATE_PRICE": "Calculate Price",
     "CONFIRM_CREATION": "Confirm Creation",
+    "INSTRUCTIONS_NAME": "Enter a name for your pot",
+    "LABEL_NAME": "Pot name",
     "PRICE_LABEL": "Price"
   },
   "MODAL": {
@@ -309,8 +323,47 @@
     "CHEMICAL_TREATMENT": "Chemical Treatment:",
     "PREVENTION": "Prevention:",
     "MORE_INFO": "More Info"
+  },
+  "MY_PLANTS": {
+    "TITLE": "My plants",
+    "TABLE": {
+      "ID": "ID",
+      "NAME": "Name"
+    },
+    "EMPTY": "You don’t have any plants yet.",
+    "ERROR": "We couldn’t load your plants. Please try again later.",
+    "SHOWING": "Showing",
+    "OF": "of"
+  },
+  "GLOBAL": {
+    "LOADING": "Loading…",
+    "PREVIOUS": "Previous",
+    "NEXT": "Next",
+    "ACTIONS": "Actions"
+  },
+  "MY_POTS": {
+    "TITLE": "My pots",
+    "EMPTY": "You don’t have any pots yet.",
+    "ERROR": "We couldn’t load your pots. Please try again.",
+    "TABLE": {
+      "ID": "ID",
+      "NAME": "Name",
+      "PRICE": "Price",
+      "PREVIEW": "Preview image"
+    },
+    "BUTTON_DOWNLOAD_GLB": "Download .glb",
+    "SHOWING": "Showing",
+    "OF": "of"
+  },
+  "PAGINATION": {
+    "PREV": "Previous",
+    "NEXT": "Next"
+  },
+  "POT_GALLERY": {
+    "ERROR": "Could not load pots.",
+    "EMPTY": "No pots available.",
+    "TITLE": "Pots"
   }
 }
-
 
 

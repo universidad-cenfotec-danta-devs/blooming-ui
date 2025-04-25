@@ -46,6 +46,7 @@
     "PLANTAS_ZONA": "Plantas por zona",
     "ADMIN": "Administración",
     "AUTH": "Iniciar sesión",
+    "MY_PLANTS": "Mis plantas",
     "BLOOMING": "BLOOMING",
     "CART_ORDERS": "Carrito y pedidos",
     "DR_PLANTA": "Dr. Planta",
@@ -53,20 +54,30 @@
     "HOME": "Inicio",
     "JOIN": "Únete a Blooming y transforma tu espacio",
     "MACETAS": "Macetas",
+    "POTS": {
+      "CATALOG": "Catálogo",
+      "DESIGN": "Diseña tu maceta"
+    },
     "NURSERIES": "Viveros",
     "NOTIFICATIONS": "Notificaciones",
-    "POTS": "Macetas",
     "PLANT_CARE": "Cuidado de plantas",
     "SIGNUP": "Regístrate gratis",
     "VIVERO": "Viveros",
+    "MY_POTS": "Mis macetas",
     "MODAL": {
       "LOGOUT_TITLE": "Confirmación de Cierre de Sesión",
       "LOGOUT_MESSAGE": "¿Estás seguro de que deseas cerrar sesión?",
       "CONFIRM": "Confirmar",
       "CANCEL": "Cancelar"
     },
-    "VIVERO": "Viveros",
     "FLORA": "Flora por cantón"
+  },
+  "CART": {
+    "TITLE": "Carrito",
+    "ADD": "Agregar al carrito",
+    "SUBTOTAL": "Subtotal",
+    "SMALL": "Impuestos se calculan al finalizar la compra",
+    "BTN_CHECKOUT": "Finalizar compra"
   },
   "HEADER_LANDING": {
     "DESCRIPTION": "Descubre una selección curada de plantas exquisitas, macetas personalizadas y viveros cercanos que transforman tu espacio en un oasis vibrante. Aprende consejos de cuidado experto, explora nuestra colección premium de plantas, diseña y vende tus propias macetas, y conéctate con viveros cercanos. Con Blooming, puedes encontrar fácilmente la planta perfecta, personalizar accesorios para tu jardín e incluso convertir tu pasión en un negocio.",
@@ -274,7 +285,9 @@
     "LABEL_COLOR": "Color",
     "CALCULATE_PRICE": "Calcular Precio",
     "CONFIRM_CREATION": "Confirmar Creación",
-    "PRICE_LABEL": "Precio"
+    "PRICE_LABEL": "Precio",
+    "INSTRUCTIONS_NAME": "Ingresa un nombre para tu maceta",
+    "LABEL_NAME": "Nombre de la maceta"
   },
   "MODAL": {
     "TITLE": "Confirmar Creación de Maceta",
@@ -312,6 +325,45 @@
     "CHEMICAL_TREATMENT": "Tratamiento químico:",
     "PREVENTION": "Prevención:",
     "MORE_INFO": "Más información"
+  },
+  "MY_PLANTS": {
+    "TITLE": "Mis plantas",
+    "TABLE": {
+      "ID": "ID",
+      "NAME": "Nombre"
+    },
+    "EMPTY": "Aún no tienes plantas.",
+    "ERROR": "No pudimos cargar tus plantas. Por favor, inténtalo de nuevo más tarde.",
+    "SHOWING": "Mostrando",
+    "OF": "de"
+  },
+  "GLOBAL": {
+    "LOADING": "Cargando…",
+    "PREVIOUS": "Anterior",
+    "NEXT": "Siguiente",
+    "ACTIONS": "Acciones"
+  },
+  "MY_POTS": {
+    "TITLE": "Mis macetas",
+    "EMPTY": "Aún no tienes macetas.",
+    "ERROR": "No se pudieron cargar tus macetas. Inténtalo de nuevo.",
+    "TABLE": {
+      "ID": "ID",
+      "NAME": "Nombre",
+      "PRICE": "Precio",
+      "PREVIEW": "Vista previa"
+    },
+    "BUTTON_DOWNLOAD_GLB": "Descargar .glb",
+    "SHOWING": "Mostrando",
+    "OF": "de"
+  },
+  "PAGINATION": {
+    "PREV": "Anterior",
+    "NEXT": "Siguiente"
+  },
+  "POT_GALLERY": {
+    "ERROR": "No se pudieron cargar las macetas.",
+    "TITLE": "Macetas"
   }
 }
 
