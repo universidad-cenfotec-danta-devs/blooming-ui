@@ -15,34 +15,33 @@
     "RIGHTS": "Todos los derechos reservados.",
     "TERMS": "Términos de servicio"
   },
-    "DR_PLANT": {
-      "TITLE": "Dr. Plant",
-      "SUBTITLE": "¿Necesitas ayuda con tus plantas? ¡Dr. Plant está aquí para ti!",
-      "DESCRIPTION": "Con nuestra herramienta, puedes identificar tus plantas y recibir recomendaciones de cuidado personalizadas. Simplemente sube una foto o ingresa el nombre de tu planta, y te diremos todo lo que necesitas saber: cuándo regarla, cuánta luz necesita y más. También puedes establecer recordatorios para que nunca olvides cuidar tus plantas.",
-      "BUTTON_IDENTIFY": "Identificar Planta",
-      "BUTTON_DIAGNOSIS": "Diagnóstico de Planta",
-      "BUTTON_CHAT": "Preguntar a Dr. Plant",
-      "IDENTIFY_HINT": "Sube una foto de la planta para identificarla y obtener recomendaciones.",
-      "IDENTIFY_HINT_UPLOADED": "Elige una de las 2 opciones para guardar esa planta entre tus plantas.",
-      "DIAGNOSIS_HINT": "Sube una imagen de tu planta para diagnosticarla.",
-      "DIAGNOSIS_HINT_UPLOADED": "Diagnostica tu planta para ver las enfermedades sugeridas.",
-      "DIAGNOSIS_HINT_RESULTS": "Selecciona la enfermedad más probable para obtener más detalles.",
-      "CHAT_HINT": "Chatea con Dr. Plant para hacer preguntas y recibir más consejos.",
-      "LOADING": "Procesando...",
-      "UPLOAD_IMAGE": "Subir Imagen de Planta",
-      "UPLOAD_ANOTHER": "Subir otra imagen",
-      "LEFT_IMAGE_ALT": "Planta Izquierda",
-      "RIGHT_IMAGE_ALT": "Planta Derecha",
-      "INFOCARD_DESCRIPTION": "Probabilidad de ser la planta enviada: {{probability}}",
-      "INFOCARD_BUTTON_CONFIRM": "Confirmar"
-    },
-    "CONFIRM_PLANT_SAVE": {
-      "TITLE": "Confirmar Guardado de Planta",
-      "MESSAGE": "¿Estás seguro de que deseas guardar esta planta?",
-      "CONFIRM_BUTTON": "Sí, confirmar",
-      "CANCEL_BUTTON": "No, cancelar"
-    }
-  ,
+  "DR_PLANT": {
+    "TITLE": "Dr. Plant",
+    "SUBTITLE": "¿Necesitas ayuda con tus plantas? ¡Dr. Plant está aquí para ti!",
+    "DESCRIPTION": "Con nuestra herramienta, puedes identificar tus plantas y recibir recomendaciones de cuidado personalizadas. Simplemente sube una foto o ingresa el nombre de tu planta, y te diremos todo lo que necesitas saber: cuándo regarla, cuánta luz necesita y más. También puedes establecer recordatorios para que nunca olvides cuidar tus plantas.",
+    "BUTTON_IDENTIFY": "Identificar Planta",
+    "BUTTON_DIAGNOSIS": "Diagnóstico de Planta",
+    "BUTTON_CHAT": "Preguntar a Dr. Plant",
+    "IDENTIFY_HINT": "Sube una foto de la planta para identificarla y obtener recomendaciones.",
+    "IDENTIFY_HINT_UPLOADED": "Elige una de las 2 opciones para guardar esa planta entre tus plantas.",
+    "DIAGNOSIS_HINT": "Sube una imagen de tu planta para diagnosticarla.",
+    "DIAGNOSIS_HINT_UPLOADED": "Diagnostica tu planta para ver las enfermedades sugeridas.",
+    "DIAGNOSIS_HINT_RESULTS": "Selecciona la enfermedad más probable para obtener más detalles.",
+    "CHAT_HINT": "Chatea con Dr. Plant para hacer preguntas y recibir más consejos.",
+    "LOADING": "Procesando...",
+    "UPLOAD_IMAGE": "Subir Imagen de Planta",
+    "UPLOAD_ANOTHER": "Subir otra imagen",
+    "LEFT_IMAGE_ALT": "Planta Izquierda",
+    "RIGHT_IMAGE_ALT": "Planta Derecha",
+    "INFOCARD_DESCRIPTION": "Probabilidad de ser la planta enviada: {{probability}}",
+    "INFOCARD_BUTTON_CONFIRM": "Confirmar"
+  },
+  "CONFIRM_PLANT_SAVE": {
+    "TITLE": "Confirmar Guardado de Planta",
+    "MESSAGE": "¿Estás seguro de que deseas guardar esta planta?",
+    "CONFIRM_BUTTON": "Sí, confirmar",
+    "CANCEL_BUTTON": "No, cancelar"
+  },
   "HEADER": {
     "PLANTAS_ZONA": "Plantas por zona",
     "ADMIN": "Administración",
@@ -99,19 +98,38 @@
     "NOT_FOUND": "Todavía no se han realizado receñas",
     "BUTTON_MESSAGE": "Ver Receñas",
     "BUTTON_MAKE": "Hacer Receña",
+    "BUTTON_MAKE_MSG_SUCCESS": "Receña creada",
+    "BUTTON_MAKE_MSG_ERROR": "Error al realizar receña",
     "BUTTON_DEACTIVATE": "No mostrar ",
+    "BUTTON_DEACTIVATE_MSG_SUCCESS": "Receña desactivada con éxito",
+    "BUTTON_DEACTIVATE_MSG_ERROR": "Error al desactivar receña",
     "ACTIONS_ROW": "Acciones",
     "RATING_MANDATORY_MESSAGE": "Calificación es obligatoria",
     "BACK_TO_LIST": "Volver a Receñas",
     "MAKE_MESSAGE": "Gracias por tomarte el tiempo de compartir tu opinión. Tu calificación y comentarios nos ayudan a mejorar.",
     "BUTTON_SAVE": "Guardar"
   },
-
+  "PROFILE": {
+    "TITLE": "Perfil de usuario",
+    "BUTTON_UPDATE": "Actualizar",
+    "NAME_LABEL": "Nombre",
+    "EMAIL_LABEL": "Correo electrónico",
+    "GENRE_LABEL": "Género",
+    "BIRTH_LABEL": "Fecha de nacimiento",
+    "BUTTON_UPDATED_MSG": "Perfil actualizado con éxito",
+    "GENRES": {
+      "SELECT": "Seleccione un género",
+      "MALE": "Masculino",
+      "FEMALE": "Femenino",
+      "OTHER": "Otro"
+    }
+  },
   "NAV": {
     "ABOUT": "Acerca",
     "CONTACT": "Contacto",
     "HOME": "Inicio"
-  },  "FEATURES_TITLE": "Explora nuestras funcionalidades",
+  },
+  "FEATURES_TITLE": "Explora nuestras funcionalidades",
   "INFO_CARD": {
     "CARD_1": {
       "TITLE": "Macetas Personalizadas",
@@ -129,7 +147,8 @@
       "DESCRIPTION": "Descubre las diferentes plantas por región",
       "BUTTON_LABEL": "Visitar"
     }
-  },  "DR_PLANTA_TITLE": "Dr. Planta",
+  },
+  "DR_PLANTA_TITLE": "Dr. Planta",
   "DR_PLANTA_SUBTITLE": "Tu asistente inteligente para el cuidado de plantas.",
   "DR_PLANTA_DESCRIPTION": "Sube una foto o ingresa el nombre de tu planta y recibe recomendaciones personalizadas para su cuidado. Además, programa recordatorios de riego y más directamente en tu Google Calendar.",
   "DR_PLANTA_BUTTON": "Realizar consulta →",
@@ -142,7 +161,8 @@
     "SUBTITLE": "Regístrate gratis y comienza a disfrutar de todas las funcionalidades que tenemos para ti con una mejor experiencia.",
     "BUTTON": "Regístrate gratis",
     "ALREADY_REGISTERED": "¡Ya estás registrado! Explora nuestras funciones ahora."
-  },  "AUTH": {
+  },
+  "AUTH": {
     "LEFT_SIDE": {
       "TITLE": "BLOOMING",
       "IMAGE_ALT": "Plantas floreciendo",
@@ -160,7 +180,8 @@
       "FORGET_PASSWORD": "Olvidaste tu contraseña?",
       "EMAIL_PLACEHOLDER": "Ingrese su correo",
       "PASSWORD_PLACEHOLDER": "Ingrese su contraseña"
-    },    "RECOVER": {
+    },
+    "RECOVER": {
       "TITLE": "Recuperar Contraseña",
       "DESCRIPTION": "Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
       "EMAIL_LABEL": "Correo Electrónico",
@@ -220,20 +241,19 @@
       "PASSWORD_MISSING_DIGIT": "La contraseña debe incluir al menos un número.",
       "PASSWORD_MISSING_SPECIAL": "La contraseña debe incluir al menos un carácter especial."
     }
+  },
+  "DRPLANT": {
+    "TITLE": "Dr. Planta",
+    "SUBTITLE": "¿Necesitas ayuda con tus plantas? ¡Dr. Planta está aquí para ti!",
+    "DESCRIPTION": "Sube una foto de una planta para identificarla y obtener recomendaciones personalizadas.",
+    "BUTTON_IDENTIFY": "Subir Imagen",
+    "BUTTON_DIAGNOSIS": "Diagnóstico de Planta",
+    "PLANT1": {
+      "NAME": "Nombre de la Planta",
+      "DESCRIPTION": "Esta es una planta identificada por el sistema. Aquí están sus instrucciones de cuidado.",
+      "BUTTON_CONFIRM": "Confirmar"
     }
-  ,
-    "DRPLANT": {
-      "TITLE": "Dr. Planta",
-      "SUBTITLE": "¿Necesitas ayuda con tus plantas? ¡Dr. Planta está aquí para ti!",
-      "DESCRIPTION": "Sube una foto de una planta para identificarla y obtener recomendaciones personalizadas.",
-      "BUTTON_IDENTIFY": "Subir Imagen",
-      "BUTTON_DIAGNOSIS": "Diagnóstico de Planta",
-      "PLANT1": {
-        "NAME": "Nombre de la Planta",
-        "DESCRIPTION": "Esta es una planta identificada por el sistema. Aquí están sus instrucciones de cuidado.",
-        "BUTTON_CONFIRM": "Confirmar"
-      }
-},
+  },
   "POT_EDITOR_PAGE": {
     "TITLE": "Diseña tu Maceta Personalizada",
     "LOADING_EDITOR": "Cargando editor 3D...",
@@ -262,39 +282,39 @@
     "CONFIRM_BUTTON": "Sí, guardar",
     "CANCEL_BUTTON": "No, cancelar"
   },
-    "DISEASE": {
-      "PROBABILITY": "Confianza de diagnostico",
-      "TREATMENT": {
-        "BIOLOGICAL": "Tratamiento biológico",
-        "CHEMICAL": "Tratamiento químico",
-        "PREVENTION": "Prevención"
-      },
-      "MORE_INFO": "Más información",
-      "CONFIRM": {
-        "BUTTON": "Confirmar"
-      }
+  "DISEASE": {
+    "PROBABILITY": "Confianza de diagnostico",
+    "TREATMENT": {
+      "BIOLOGICAL": "Tratamiento biológico",
+      "CHEMICAL": "Tratamiento químico",
+      "PREVENTION": "Prevención"
     },
-    "DR_PLANT_PAGE": {
-      "TITLE": "Dr. Planta",
-      "SUBTITLE": "Pregunta a Dr. Planta sobre tus plantas:",
-      "SELECT_PLANT": "Selecciona planta:",
-      "PLACEHOLDER": "Escribe tu pregunta aquí...",
-      "BUTTON_SEND": "Enviar",
-      "LOADING": "Dr. Planta está pensando...",
-      "BUTTON_GENERATE_PLAN": "Generar plan de riego",
-      "BUTTON_DOWNLOAD_PDF": "Descargar plan en PDF"
-    }, 
-      "DIAGNOSE_CARD": {
-        "TITLE": "{{name}}",
-        "DESCRIPTION": "{{description}}",
-        "PROBABILITY_LABEL": "Porcentaje de confianza:",
-        "BIOLOGICAL_TREATMENT": "Tratamiento biológico:",
-        "CHEMICAL_TREATMENT": "Tratamiento químico:",
-        "PREVENTION": "Prevención:",
-        "MORE_INFO": "Más información"
-      }
+    "MORE_INFO": "Más información",
+    "CONFIRM": {
+      "BUTTON": "Confirmar"
     }
-    
-    
-  
+  },
+  "DR_PLANT_PAGE": {
+    "TITLE": "Dr. Planta",
+    "SUBTITLE": "Pregunta a Dr. Planta sobre tus plantas:",
+    "SELECT_PLANT": "Selecciona planta:",
+    "PLACEHOLDER": "Escribe tu pregunta aquí...",
+    "BUTTON_SEND": "Enviar",
+    "LOADING": "Dr. Planta está pensando...",
+    "BUTTON_GENERATE_PLAN": "Generar plan de riego",
+    "BUTTON_DOWNLOAD_PDF": "Descargar plan en PDF"
+  },
+  "DIAGNOSE_CARD": {
+    "TITLE": "{{name}}",
+    "DESCRIPTION": "{{description}}",
+    "PROBABILITY_LABEL": "Porcentaje de confianza:",
+    "BIOLOGICAL_TREATMENT": "Tratamiento biológico:",
+    "CHEMICAL_TREATMENT": "Tratamiento químico:",
+    "PREVENTION": "Prevención:",
+    "MORE_INFO": "Más información"
+  }
+}
+
+
+
 

@@ -9,8 +9,10 @@ import {EvaluationListComponent} from '../../features/evaluations/evaluation-lis
 import {LoaderComponent} from '../../features/loader/loader.component';
 import {SHARED_IMPORTS} from '../../shared/shared.module';
 import {PaginationComponent} from '../../features/pagination/pagination.component';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {EvaluationFormComponent} from '../../features/evaluations/evaluation-form/evaluation-form.component';
+import {ToastrService} from 'ngx-toastr';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-evaluation',
@@ -26,6 +28,9 @@ import {EvaluationFormComponent} from '../../features/evaluations/evaluation-for
   styleUrl: './evaluation.component.scss'
 })
 export class EvaluationComponent implements OnInit {
+
+  protected toastService: ToastrService = inject(ToastrService);
+  protected translate: TranslateService = inject(TranslateService);
   public evaluationService: EvaluationService = inject(EvaluationService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   public modalService: ModalService = inject(ModalService);
@@ -55,9 +60,10 @@ export class EvaluationComponent implements OnInit {
     this.evaluationService.deactivateEvaluation(evaluation.id).subscribe({
       next: () => {
         this.evaluationService.getAllPaginatedByType(Number(this.objId), this.objType);
+        this.toastService.success(this.translate.instant('PROFILE.BUTTON_DEACTIVATE_MSG_SUCCESS'));
       },
       error: (err) => {
-        console.error('Error al desactivar evaluación', err);
+        this.toastService.success(this.translate.instant('PROFILE.BUTTON_DEACTIVATE_MSG_ERROR'));
       }
     });
   }

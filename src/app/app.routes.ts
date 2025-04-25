@@ -20,6 +20,7 @@ import {EvaluationComponent} from './pages/evaluation/evaluation.component';
 import {EvaluationFormComponent} from './features/evaluations/evaluation-form/evaluation-form.component';
 import {CreateNurseryComponent} from './features/create-nursery/create-nursery.component';
 import {DiagnosePlantComponent} from './features/dr-plant-diagnose/dr-plant-diagnose.component';
+import {ProfileComponent} from './pages/profile/profile.component';
 
 /**
  * Application Routing Configuration
@@ -75,6 +76,10 @@ export const routes: Routes = [
         data: {
           authorities: [IRoleType.admin, IRoleType.designer, IRoleType.role_designer_user, IRoleType.nursery, IRoleType.user],
         }
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
       },
       {
         path: 'dr-plant',

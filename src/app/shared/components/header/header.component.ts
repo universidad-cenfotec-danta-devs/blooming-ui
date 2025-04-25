@@ -8,7 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { Router, RouterModule } from '@angular/router'; 
+import { Router, RouterModule } from '@angular/router';
 import { ModalComponent } from '../modal/modal.component';
 import { AuthService } from '../../../services/auth.service';
 
@@ -114,6 +114,10 @@ export class HeaderComponent implements AfterViewInit {
   /** Open the logout confirmation modal */
   initiateLogout(): void {
     this.logoutModal?.openModal();
+  }
+
+  goToEvaluation() {
+    this.router.navigate(['/home/evaluation', 'pot', 1]);
   }
 
   /** On confirm: perform logout and navigate to login */
