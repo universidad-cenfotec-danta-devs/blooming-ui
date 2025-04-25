@@ -1,0 +1,65 @@
+<div class="py-5 px-10 flex justify-center">
+  <form [formGroup]="profileForm"
+        class="w-full max-w-3xl bg-[#FCFFF8] rounded-xl text-[var(--main-text)] flex flex-col items-center">
+
+    <div class="border-b border-[#DCE6D3] w-full">
+      <div class="p-10 text-center">
+        <h2 class="text-3xl font-semibold">{{ 'PROFILE.TITLE' | translate }}</h2>
+      </div>
+    </div>
+
+    <div class="p-10 w-full flex flex-col items-center space-y-5">
+
+      <div class="flex w-full space-x-5">
+        <div class="flex flex-col w-1/2">
+          <label for="name" class="mb-1 text-lg font-medium text-center">{{ 'PROFILE.NAME_LABEL' | translate }}</label>
+          <input id="name" formControlName="name" type="text" class="border border-gray-300 rounded-md p-2 w-full"
+                 required>
+        </div>
+
+        <div class="flex flex-col w-1/2">
+          <label for="email"
+                 class="mb-1 text-lg font-medium text-center">{{ 'PROFILE.EMAIL_LABEL' | translate }}</label>
+          <input id="email" formControlName="email" type="email" class="border border-gray-300 rounded-md p-2 w-full"
+                 required readonly>
+        </div>
+
+      </div>
+
+      <div class="flex w-full space-x-5">
+        <div class="flex flex-col w-1/2">
+          <label for="dateOfBirth" class="mb-1 text-lg font-medium text-center">
+            {{ 'PROFILE.BIRTH_LABEL' | translate }}</label>
+          <input id="dateOfBirth" formControlName="dateOfBirth" type="date"
+                 class="border border-gray-300 rounded-md p-2 w-full">
+        </div>
+
+        <div class="flex flex-col w-1/2">
+          <label for="gender" class="mb-1 text-lg font-medium text-center">
+            {{ 'PROFILE.GENRE_LABEL' | translate }}
+          </label>
+          <select id="gender" formControlName="gender" class="border border-gray-300 rounded-md p-2 w-full">
+            <option value="">{{ 'PROFILE.GENRES.SELECT' | translate }}</option>
+            <option value="male">{{ 'PROFILE.GENRES.MALE' | translate }}</option>
+            <option value="female">{{ 'PROFILE.GENRES.FEMALE' | translate }}</option>
+            <option value="other">{{ 'PROFILE.GENRES.OTHER' | translate }}</option>
+          </select>
+        </div>
+
+      </div>
+
+      <input type="hidden" formControlName="id">
+
+
+      <div class="flex justify-center space-x-4 pt-5">
+        <button class="px-6 py-2 primary-btn disabled:opacity-50"
+                type="button"
+                [disabled]="profileForm.invalid"
+                (click)="updateUserProfile()">
+          {{ 'PROFILE.BUTTON_UPDATE' | translate }}
+        </button>
+      </div>
+
+    </div>
+  </form>
+</div>

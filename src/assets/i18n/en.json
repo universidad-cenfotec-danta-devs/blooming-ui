@@ -2,34 +2,33 @@
   "CAROUSEL": {
     "HEADING": "The top five plants"
   },
-    "DR_PLANT": {
-      "TITLE": "Dr. Plant",
-      "SUBTITLE": "Do you need help with your plants? Dr. Plant is here for you!",
-      "DESCRIPTION": "With our tool, you can identify your plants and receive personalized care recommendations. Simply upload a photo or enter the name of your plant, and we'll tell you everything you need to know: when to water it, how much light it needs, and more. You can also set reminders so you never forget to care for your plants.",
-      "BUTTON_IDENTIFY": "Identify Plant",
-      "BUTTON_DIAGNOSIS": "Plant Diagnosis",
-      "BUTTON_CHAT": "Ask Dr. Plant",
-      "IDENTIFY_HINT": "Upload a picture of the plant to identify it and get recommendations.",
-      "IDENTIFY_HINT_UPLOADED": "Choose one of the 2 options to save that plant among your plants.",
-      "DIAGNOSIS_HINT": "Upload an image of your plant for diagnosis.",
-      "DIAGNOSIS_HINT_UPLOADED": "Diagnose your plant to see suggested diseases.",
-      "DIAGNOSIS_HINT_RESULTS": "Select the most probable disease for more details.",
-      "CHAT_HINT": "Chat with Dr. Plant to ask questions and receive more advice.",
-      "LOADING": "Processing...",
-      "UPLOAD_IMAGE": "Upload Plant Image",
-      "UPLOAD_ANOTHER": "Upload another image",
-      "LEFT_IMAGE_ALT": "Left Plant",
-      "RIGHT_IMAGE_ALT": "Right Plant",
-      "INFOCARD_DESCRIPTION": "Probability of being the uploaded plant: {{probability}}",
-      "INFOCARD_BUTTON_CONFIRM": "Confirm"
-    },
-    "CONFIRM_PLANT_SAVE": {
-      "TITLE": "Confirm Plant Save",
-      "MESSAGE": "Are you sure you want to save this plant?",
-      "CONFIRM_BUTTON": "Yes, confirm",
-      "CANCEL_BUTTON": "No, cancel"
-    }
-  ,
+  "DR_PLANT": {
+    "TITLE": "Dr. Plant",
+    "SUBTITLE": "Do you need help with your plants? Dr. Plant is here for you!",
+    "DESCRIPTION": "With our tool, you can identify your plants and receive personalized care recommendations. Simply upload a photo or enter the name of your plant, and we'll tell you everything you need to know: when to water it, how much light it needs, and more. You can also set reminders so you never forget to care for your plants.",
+    "BUTTON_IDENTIFY": "Identify Plant",
+    "BUTTON_DIAGNOSIS": "Plant Diagnosis",
+    "BUTTON_CHAT": "Ask Dr. Plant",
+    "IDENTIFY_HINT": "Upload a picture of the plant to identify it and get recommendations.",
+    "IDENTIFY_HINT_UPLOADED": "Choose one of the 2 options to save that plant among your plants.",
+    "DIAGNOSIS_HINT": "Upload an image of your plant for diagnosis.",
+    "DIAGNOSIS_HINT_UPLOADED": "Diagnose your plant to see suggested diseases.",
+    "DIAGNOSIS_HINT_RESULTS": "Select the most probable disease for more details.",
+    "CHAT_HINT": "Chat with Dr. Plant to ask questions and receive more advice.",
+    "LOADING": "Processing...",
+    "UPLOAD_IMAGE": "Upload Plant Image",
+    "UPLOAD_ANOTHER": "Upload another image",
+    "LEFT_IMAGE_ALT": "Left Plant",
+    "RIGHT_IMAGE_ALT": "Right Plant",
+    "INFOCARD_DESCRIPTION": "Probability of being the uploaded plant: {{probability}}",
+    "INFOCARD_BUTTON_CONFIRM": "Confirm"
+  },
+  "CONFIRM_PLANT_SAVE": {
+    "TITLE": "Confirm Plant Save",
+    "MESSAGE": "Are you sure you want to save this plant?",
+    "CONFIRM_BUTTON": "Yes, confirm",
+    "CANCEL_BUTTON": "No, cancel"
+  },
   "FOOTER": {
     "ABOUT": "More info",
     "ABOUT_US": "About us",
@@ -86,8 +85,8 @@
     "TOTAL_ITEMS":"Total items"
   },
   "HEADER_LANDING": {
-"DESCRIPTION": "Discover a curated selection of exquisite plants, custom pots, and local nurseries that transform your space into a vibrant oasis. Learn expert care tips, explore our premium plant collection, design and sell your own pots, and connect with nearby nurseries. With Blooming, you can easily find the perfect plant, customize your garden accessories, and even turn your passion into a business.",
- "SLOGAN": "Connect with nature and create your perfect design.",
+    "DESCRIPTION": "Discover a curated selection of exquisite plants, custom pots, and local nurseries that transform your space into a vibrant oasis. Learn expert care tips, explore our premium plant collection, design and sell your own pots, and connect with nearby nurseries. With Blooming, you can easily find the perfect plant, customize your garden accessories, and even turn your passion into a business.",
+    "SLOGAN": "Connect with nature and create your perfect design.",
     "TITLE": "Blooming"
   },
   "HOME": {
@@ -115,14 +114,32 @@
     "NOT_FOUND": "There are no evaluations yet",
     "BUTTON_MESSAGE": "See Reviews",
     "BUTTON_MAKE": "Make Review",
+    "BUTTON_MAKE_MSG_SUCCESS": "Review created successfully",
+    "BUTTON_MAKE_MSG_ERROR": "Error while creating review",
     "BUTTON_DEACTIVATE": "Don't show ",
+    "BUTTON_DEACTIVATE_MSG_SUCCESS": "Review deactivated successfully",
+    "BUTTON_DEACTIVATE_MSG_ERROR": "Error while deactivating review",
     "ACTIONS_ROW": "Actions",
     "RATING_MANDATORY_MESSAGE": "Rating is required",
     "BACK_TO_LIST": "Back to Reviews",
     "MAKE_MESSAGE": "Thank you for taking the time to share your opinion. Your rating and comments help us improve",
     "BUTTON_SAVE": "Submit"
   },
-
+  "PROFILE": {
+    "TITLE": "User profile",
+    "BUTTON_UPDATE": "Update",
+    "NAME_LABEL": "Name",
+    "EMAIL_LABEL": "Email",
+    "GENRE_LABEL": "Genre",
+    "BIRTH_LABEL": "Birth date",
+    "BUTTON_UPDATED_MSG": "Profile updated successfully",
+    "GENRES": {
+      "SELECT": "Select a gender",
+      "MALE": "Male",
+      "FEMALE": "Female",
+      "OTHER": "Other"
+    }
+  },
   "NAV": {
     "ABOUT": "About",
     "CONTACT": "Contact",
@@ -146,218 +163,211 @@
       "BUTTON_LABEL": "Visit"
     }
   },
-    "DR_PLANTA_TITLE": "Dr. Plant",
-    "DR_PLANTA_SUBTITLE": "Your intelligent assistant for plant care.",
-    "DR_PLANTA_DESCRIPTION": "Upload a photo or enter your plant's name and receive personalized recommendations for its care. Plus, schedule watering reminders and more directly in your Google Calendar.",
-    "DR_PLANTA_BUTTON": "Consult Now →",
-    "DR_PLANTA_IMAGE_ALT": "Watering plants",
-    "BOTTOM_IMAGE_ALT": "Potted Plants",
-    "PLANT_LEFT_ALT": "Left Plant",
-    "PLANT_RIGHT_ALT": "Right Plant",
-    "PLANT_LIFE": {
-      "TITLE": "Ready to bring life to your plants?",
-      "SUBTITLE": "Register for free and start enjoying all the features we have for you to enhance your experience.",
-      "BUTTON": "Register for Free",
-      "ALREADY_REGISTERED": "You are already registered! Explore our features now."
-    },  "AUTH": {
-      
-      "LEFT_SIDE": {
-        "TITLE": "BLOOMING",
-        "IMAGE_ALT": "Blooming plants",
-        "DESCRIPTION": "Connect with nature and design your ideal space.",
-        "ASKING_INFO": "Password must contain at least 8 characters, one letter, and one number."
-      },
-      "LOGIN": {
-        "TITLE": "Sign In",
-        "EMAIL_LABEL": "Email",
-        "PASSWORD_LABEL": "Password",
-        "BUTTON_TEXT": "Login",
-        "NO_ACCOUNT": "Don't have an account?",
-        "REGISTER_LINK": "Register",
-        "GOOGLE": "Continue with Google",
-        "FORGET_PASSWORD": "Did your forget your password?",
-        "EMAIL_PLACEHOLDER": "Enter your email",
-        "PASSWORD_PLACEHOLDER": "Enter your password"
-      },  "RECOVER": {
-        "TITLE": "Recover Password",
-        "DESCRIPTION": "Enter your email address and we'll send you a link to reset your password.",
-        "EMAIL_LABEL": "Email Address",
-        "EMAIL_PLACEHOLDER": "youremail@example.com",
-        "BUTTON_TEXT": "Send Reset Email",
-        "BACK_TO_LOGIN": "Remembered your password?",
-        "LOGIN_LINK": "Back to login"
-      },
-      "SIGNUP": {
-        "TITLE": "Create Account",
-        "NAME_LABEL": "Name",
-        "NAME_PLACEHOLDER": "Your Name",
-        "EMAIL_LABEL": "Email",
-        "EMAIL_PLACEHOLDER": "name@company.com",
-        "PASSWORD_LABEL": "Password",
-        "PASSWORD_PLACEHOLDER": "••••••••",
-        "AGE_LABEL": "Age",
-        "AGE_PLACEHOLDER": "Your Age",
-        "DOB_LABEL": "Date of Birth",
-        "DOB_PLACEHOLDER": "Select your birth date",
-        "GENDER_LABEL": "Gender",
-        "GENDER_PLACEHOLDER": "Select Gender",
-        "GENDER_MALE": "Male",
-        "GENDER_FEMALE": "Female",
-        "GENDER_OTHER": "Other",
-        "ROLE_LABEL":"Role",
-        "ROLE_PLACEHOLDER":"User",
-        "ROLE_SIMPLE_USER":"Regular user",
-        "ROLE_USER_DESIGNER":"Designer",
-        "ROLE_NURSERY_ADMIN":"Nursery admin",
-        "PHONE_LABEL": "Phone",
-        "PHONE_PLACEHOLDER": "Phone number",
-        "BUTTON_TEXT": "Sign Up",
-        "ALREADY_HAVE_ACCOUNT": "Already have an account?",
-        "LOGIN_LINK": "Sign In",
-        "SUCCESS_MESSAGE": "Your account has been created successfully."
-      },
-      "ALERT": {
-        "INFO": "Information: Please verify your email.",
-        "SUCCESS": "Success: Your profile has been updated.",
-        "ERROR": "Error: Invalid credentials. Please try again."
-      },
-      "VALIDATION": {
-        "EMAIL_REQUIRED": "A valid email is required.",
-        "PASSWORD_REQUIRED": "Password must contain at least 8 characters, one letter, and one number.",
-        "NAME_REQUIRED": "Name is required.",
-        "AGE_REQUIRED": "Age is required.",
-        "DOB_REQUIRED": "Date of birth is required.",
-        "GENDER_REQUIRED": "Gender is required.",
-        "PHONE_REQUIRED": "Phone number is required.",
-        "ROLE_REQUIRED":"Role is required.",
-        "DOB_FUTURE": "Date of birth cannot be in the future.",
-        "DOB_AGE": "You must be at least 18 years old.",
-        "PASSWORD_TOO_SHORT": "Password must be at least 8 characters long.",
-        "PASSWORD_MISSING_UPPERCASE": "Password must include at least one uppercase letter.",
-        "PASSWORD_MISSING_LOWERCASE": "Password must include at least one lowercase letter.",
-        "PASSWORD_MISSING_DIGIT": "Password must include at least one digit.",
-        "PASSWORD_MISSING_SPECIAL": "Password must include at least one special character."
-      }
-      },
-        "DRPLANT": {
-          "TITLE": "Dr. Planta",
-          "SUBTITLE": "Need help with your plants? Dr. Planta is here for you!",
-          "DESCRIPTION": "Upload a plant photo to identify it and get personalized care recommendations.",
-          "BUTTON_IDENTIFY": "Upload Image",
-          "BUTTON_DIAGNOSIS": "Plant Diagnosis",
-          "PLANT1": {
-            "NAME": "Plant Name",
-            "DESCRIPTION": "This is a plant identified by the system. Here are its care instructions.",
-            "BUTTON_CONFIRM": "Confirm"
-          }
+  "DR_PLANTA_TITLE": "Dr. Plant",
+  "DR_PLANTA_SUBTITLE": "Your intelligent assistant for plant care.",
+  "DR_PLANTA_DESCRIPTION": "Upload a photo or enter your plant's name and receive personalized recommendations for its care. Plus, schedule watering reminders and more directly in your Google Calendar.",
+  "DR_PLANTA_BUTTON": "Consult Now →",
+  "DR_PLANTA_IMAGE_ALT": "Watering plants",
+  "BOTTOM_IMAGE_ALT": "Potted Plants",
+  "PLANT_LEFT_ALT": "Left Plant",
+  "PLANT_RIGHT_ALT": "Right Plant",
+  "PLANT_LIFE": {
+    "TITLE": "Ready to bring life to your plants?",
+    "SUBTITLE": "Register for free and start enjoying all the features we have for you to enhance your experience.",
+    "BUTTON": "Register for Free",
+    "ALREADY_REGISTERED": "You are already registered! Explore our features now."
+  },
+  "AUTH": {
+    "LEFT_SIDE": {
+      "TITLE": "BLOOMING",
+      "IMAGE_ALT": "Blooming plants",
+      "DESCRIPTION": "Connect with nature and design your ideal space.",
+      "ASKING_INFO": "Password must contain at least 8 characters, one letter, and one number."
     },
-      "POT_EDITOR_PAGE": {
-        "TITLE": "Design Your Custom Pot",
-        "LOADING_EDITOR": "Loading 3D editor...",
-        "UPLOAD_MODEL": "Upload Model",
-        "INSTRUCTIONS_MATERIAL": "Select a material for your pot.",
-        "INSTRUCTIONS_SIZE": "Select a size (max. 100cm).",
-        "INSTRUCTIONS_COLOR": "Select a color for your pot.",
-        "INSTRUCTIONS_LINE1": "Select a material, size, and color for your pot.",
-        "INSTRUCTIONS_LINE2": "You can zoom in or out on the 3D model using your mouse wheel or trackpad.",
-        "INSTRUCTIONS_LINE3": "You can also upload your own 3D models in GLB format by clicking the 'Upload Model' button.",
-        "LABEL_MATERIAL": "Material",
-        "SELECT_MATERIAL": "Select Material",
-        "MATERIAL_CERAMIC": "Ceramic",
-        "MATERIAL_PLASTIC": "Plastic",
-        "MATERIAL_METAL": "Metal",
-        "MATERIAL_WOOD": "Wood",
-        "LABEL_SIZE": "Size (e.g, diameter)",
-        "LABEL_COLOR": "Color",
-        "CALCULATE_PRICE": "Calculate Price",
-        "CONFIRM_CREATION": "Confirm Creation",
-        "INSTRUCTIONS_NAME": "Enter a name for your pot",
-        "LABEL_NAME":"Pot name",
-        "PRICE_LABEL": "Price"
-      },
-      "MODAL": {
-        "TITLE": "Confirm Custom Pot Creation",
-        "MESSAGE": "Are you sure you want to save this pot?",
-        "CONFIRM_BUTTON": "Yes, save it",
-        "CANCEL_BUTTON": "No, cancel"
-      },
-        "DISEASE": {
-          "PROBABILITY": "Diagnostic accuracy",
-          "TREATMENT": {
-            "BIOLOGICAL": "Biological Treatment",
-            "CHEMICAL": "Chemical Treatment",
-            "PREVENTION": "Prevention"
-          },
-          "MORE_INFO": "More Info",
-          "CONFIRM": {
-            "BUTTON": "Confirm"
-          }
-        },
-        "DR_PLANT_PAGE": {
-          "TITLE": "Dr. Plant",
-          "SUBTITLE": "Ask Dr. Plant anything about your plants:",
-          "SELECT_PLANT": "Select Plant:",
-          "PLACEHOLDER": "Type your question here...",
-          "BUTTON_SEND": "Send",
-          "LOADING": "Dr. Planta is thinking...",
-          "BUTTON_GENERATE_PLAN": "Generate Watering Plan",
-          "BUTTON_DOWNLOAD_PDF": "Download Watering Plan PDF"
-        }, 
-          "DIAGNOSE_CARD": {
-            "TITLE": "{{name}}",
-            "DESCRIPTION": "{{description}}",
-            "PROBABILITY_LABEL": "Confidence Percentage:",
-            "BIOLOGICAL_TREATMENT": "Biological Treatment:",
-            "CHEMICAL_TREATMENT": "Chemical Treatment:",
-            "PREVENTION": "Prevention:",
-            "MORE_INFO": "More Info"
-          },
-            "MY_PLANTS": {
-              "TITLE": "My plants",
-              "TABLE": {
-                "ID": "ID",
-                "NAME": "Name"
-              },
-              "EMPTY": "You don’t have any plants yet.",
-              "ERROR": "We couldn’t load your plants. Please try again later.",
-              "SHOWING": "Showing",
-              "OF": "of"
-            },
-            "GLOBAL": {
-              "LOADING": "Loading…",
-              "PREVIOUS": "Previous",
-              "NEXT": "Next",
-              "ACTIONS": "Actions"
-            },
-          
-              "MY_POTS": {
-                "TITLE": "My pots",
-                "EMPTY": "You don’t have any pots yet.",
-                "ERROR": "We couldn’t load your pots. Please try again.",
-                "TABLE": {
-                  "ID":    "ID",
-                  "NAME":  "Name",
-                  "PRICE": "Price",
-                  "PREVIEW": "Preview image"
-                },
-                "BUTTON_DOWNLOAD_GLB": "Download .glb",
-                "SHOWING": "Showing",
-                "OF": "of"
-              },
-                "PAGINATION": {
-                  "PREV": "Previous",
-                  "NEXT": "Next"
-                },
-                "POT_GALLERY": {
-                  "ERROR": "Could not load pots.",
-                  "EMPTY": "No pots available.",
-                  "TITLE": "Pots"
-              
-                },
-                "CART": {
-                  "ADD": "Add to cart"
-                }
-              }
-              
-
-          
+    "LOGIN": {
+      "TITLE": "Sign In",
+      "EMAIL_LABEL": "Email",
+      "PASSWORD_LABEL": "Password",
+      "BUTTON_TEXT": "Login",
+      "NO_ACCOUNT": "Don't have an account?",
+      "REGISTER_LINK": "Register",
+      "GOOGLE": "Continue with Google",
+      "FORGET_PASSWORD": "Did your forget your password?",
+      "EMAIL_PLACEHOLDER": "Enter your email",
+      "PASSWORD_PLACEHOLDER": "Enter your password"
+    },
+    "RECOVER": {
+      "TITLE": "Recover Password",
+      "DESCRIPTION": "Enter your email address and we'll send you a link to reset your password.",
+      "EMAIL_LABEL": "Email Address",
+      "EMAIL_PLACEHOLDER": "youremail@example.com",
+      "BUTTON_TEXT": "Send Reset Email",
+      "BACK_TO_LOGIN": "Remembered your password?",
+      "LOGIN_LINK": "Back to login"
+    },
+    "SIGNUP": {
+      "TITLE": "Create Account",
+      "NAME_LABEL": "Name",
+      "NAME_PLACEHOLDER": "Your Name",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "name@company.com",
+      "PASSWORD_LABEL": "Password",
+      "PASSWORD_PLACEHOLDER": "••••••••",
+      "AGE_LABEL": "Age",
+      "AGE_PLACEHOLDER": "Your Age",
+      "DOB_LABEL": "Date of Birth",
+      "DOB_PLACEHOLDER": "Select your birth date",
+      "GENDER_LABEL": "Gender",
+      "GENDER_PLACEHOLDER": "Select Gender",
+      "GENDER_MALE": "Male",
+      "GENDER_FEMALE": "Female",
+      "GENDER_OTHER": "Other",
+      "ROLE_LABEL": "Role",
+      "ROLE_PLACEHOLDER": "User",
+      "ROLE_SIMPLE_USER": "Regular user",
+      "ROLE_USER_DESIGNER": "Designer",
+      "ROLE_NURSERY_ADMIN": "Nursery admin",
+      "PHONE_LABEL": "Phone",
+      "PHONE_PLACEHOLDER": "Phone number",
+      "BUTTON_TEXT": "Sign Up",
+      "ALREADY_HAVE_ACCOUNT": "Already have an account?",
+      "LOGIN_LINK": "Sign In",
+      "SUCCESS_MESSAGE": "Your account has been created successfully."
+    },
+    "ALERT": {
+      "INFO": "Information: Please verify your email.",
+      "SUCCESS": "Success: Your profile has been updated.",
+      "ERROR": "Error: Invalid credentials. Please try again."
+    },
+    "VALIDATION": {
+      "EMAIL_REQUIRED": "A valid email is required.",
+      "PASSWORD_REQUIRED": "Password must contain at least 8 characters, one letter, and one number.",
+      "NAME_REQUIRED": "Name is required.",
+      "AGE_REQUIRED": "Age is required.",
+      "DOB_REQUIRED": "Date of birth is required.",
+      "GENDER_REQUIRED": "Gender is required.",
+      "PHONE_REQUIRED": "Phone number is required.",
+      "ROLE_REQUIRED": "Role is required.",
+      "DOB_FUTURE": "Date of birth cannot be in the future.",
+      "DOB_AGE": "You must be at least 18 years old.",
+      "PASSWORD_TOO_SHORT": "Password must be at least 8 characters long.",
+      "PASSWORD_MISSING_UPPERCASE": "Password must include at least one uppercase letter.",
+      "PASSWORD_MISSING_LOWERCASE": "Password must include at least one lowercase letter.",
+      "PASSWORD_MISSING_DIGIT": "Password must include at least one digit.",
+      "PASSWORD_MISSING_SPECIAL": "Password must include at least one special character."
+    }
+  },
+  "DRPLANT": {
+    "TITLE": "Dr. Planta",
+    "SUBTITLE": "Need help with your plants? Dr. Planta is here for you!",
+    "DESCRIPTION": "Upload a plant photo to identify it and get personalized care recommendations.",
+    "BUTTON_IDENTIFY": "Upload Image",
+    "BUTTON_DIAGNOSIS": "Plant Diagnosis",
+    "PLANT1": {
+      "NAME": "Plant Name",
+      "DESCRIPTION": "This is a plant identified by the system. Here are its care instructions.",
+      "BUTTON_CONFIRM": "Confirm"
+    }
+  },
+  "POT_EDITOR_PAGE": {
+    "TITLE": "Design Your Custom Pot",
+    "LOADING_EDITOR": "Loading 3D editor...",
+    "UPLOAD_MODEL": "Upload Model",
+    "INSTRUCTIONS_MATERIAL": "Select a material for your pot.",
+    "INSTRUCTIONS_SIZE": "Select a size (max. 100cm).",
+    "INSTRUCTIONS_COLOR": "Select a color for your pot.",
+    "INSTRUCTIONS_LINE1": "Select a material, size, and color for your pot.",
+    "INSTRUCTIONS_LINE2": "You can zoom in or out on the 3D model using your mouse wheel or trackpad.",
+    "INSTRUCTIONS_LINE3": "You can also upload your own 3D models in GLB format by clicking the 'Upload Model' button.",
+    "LABEL_MATERIAL": "Material",
+    "SELECT_MATERIAL": "Select Material",
+    "MATERIAL_CERAMIC": "Ceramic",
+    "MATERIAL_PLASTIC": "Plastic",
+    "MATERIAL_METAL": "Metal",
+    "MATERIAL_WOOD": "Wood",
+    "LABEL_SIZE": "Size (e.g, diameter)",
+    "LABEL_COLOR": "Color",
+    "CALCULATE_PRICE": "Calculate Price",
+    "CONFIRM_CREATION": "Confirm Creation",
+    "INSTRUCTIONS_NAME": "Enter a name for your pot",
+    "LABEL_NAME": "Pot name",
+    "PRICE_LABEL": "Price"
+  },
+  "MODAL": {
+    "TITLE": "Confirm Custom Pot Creation",
+    "MESSAGE": "Are you sure you want to save this pot?",
+    "CONFIRM_BUTTON": "Yes, save it",
+    "CANCEL_BUTTON": "No, cancel"
+  },
+  "DISEASE": {
+    "PROBABILITY": "Diagnostic accuracy",
+    "TREATMENT": {
+      "BIOLOGICAL": "Biological Treatment",
+      "CHEMICAL": "Chemical Treatment",
+      "PREVENTION": "Prevention"
+    },
+    "MORE_INFO": "More Info",
+    "CONFIRM": {
+      "BUTTON": "Confirm"
+    }
+  },
+  "DR_PLANT_PAGE": {
+    "TITLE": "Dr. Plant",
+    "SUBTITLE": "Ask Dr. Plant anything about your plants:",
+    "SELECT_PLANT": "Select Plant:",
+    "PLACEHOLDER": "Type your question here...",
+    "BUTTON_SEND": "Send",
+    "LOADING": "Dr. Planta is thinking...",
+    "BUTTON_GENERATE_PLAN": "Generate Watering Plan",
+    "BUTTON_DOWNLOAD_PDF": "Download Watering Plan PDF"
+  },
+  "DIAGNOSE_CARD": {
+    "TITLE": "{{name}}",
+    "DESCRIPTION": "{{description}}",
+    "PROBABILITY_LABEL": "Confidence Percentage:",
+    "BIOLOGICAL_TREATMENT": "Biological Treatment:",
+    "CHEMICAL_TREATMENT": "Chemical Treatment:",
+    "PREVENTION": "Prevention:",
+    "MORE_INFO": "More Info"
+  },
+  "MY_PLANTS": {
+    "TITLE": "My plants",
+    "TABLE": {
+      "ID": "ID",
+      "NAME": "Name"
+    },
+    "EMPTY": "You don’t have any plants yet.",
+    "ERROR": "We couldn’t load your plants. Please try again later.",
+    "SHOWING": "Showing",
+    "OF": "of"
+  },
+  "GLOBAL": {
+    "LOADING": "Loading…",
+    "PREVIOUS": "Previous",
+    "NEXT": "Next",
+    "ACTIONS": "Actions"
+  },
+  "MY_POTS": {
+    "TITLE": "My pots",
+    "EMPTY": "You don’t have any pots yet.",
+    "ERROR": "We couldn’t load your pots. Please try again.",
+    "TABLE": {
+      "ID": "ID",
+      "NAME": "Name",
+      "PRICE": "Price",
+      "PREVIEW": "Preview image"
+    },
+    "BUTTON_DOWNLOAD_GLB": "Download .glb",
+    "SHOWING": "Showing",
+    "OF": "of"
+  },
+  "PAGINATION": {
+    "PREV": "Previous",
+    "NEXT": "Next"
+  },
+  "POT_GALLERY": {
+    "ERROR": "Could not load pots.",
+    "EMPTY": "No pots available.",
+    "TITLE": "Pots"
+  }
+}

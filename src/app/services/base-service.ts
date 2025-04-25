@@ -38,7 +38,7 @@ export class BaseService<T> {
     return this.http.patch<IResponse<any>>(`${this.source}/activate/${id}`, {});
   }
 
-  public deactivate(id: string | undefined):Observable<IResponse<T[]>>{
+  public deactivate(id: string | undefined): Observable<IResponse<T[]>> {
     return this.http.patch<IResponse<any>>(`${this.source}/deactivate/${id}`, null);
   }
 
@@ -46,6 +46,11 @@ export class BaseService<T> {
   public paginatedWithCustomSource(params: any = {}, objId: number, endpoint: string): Observable<IResponse<T[]>> {
     return this.http.get<IResponse<T[]>>(`${this.source}/${endpoint}/${objId}`, {params: this.buildUrlParams(params)});
   }
+
+  public getCustom<R = T>(customUrl: string): Observable<IResponse<R>> {
+    return this.http.get<IResponse<R>>(`${this.source}/${customUrl}`);
+  }
+
 
   public findAllWithParamsAndCustomSource(customUrlSource: string, params: any = {}): Observable<IResponse<T[]>> {
     return this.http.get<IResponse<T[]>>(`${this.source}/${customUrlSource}`, {params: this.buildUrlParams(params)});
@@ -69,6 +74,10 @@ export class BaseService<T> {
 
   public editCustomSource(customUrlSource: string, data: {}): Observable<IResponse<T>> {
     return this.http.patch<IResponse<T>>(`${this.source}${customUrlSource ? '/' + customUrlSource : ''}`, data);
+  }
+
+  public updateToThisEndpoint(data: {}): Observable<IResponse<T>> {
+    return this.http.patch<IResponse<T>>("http://localhost:8080/users/updateProfile", data);
   }
 
   public del(id: any): Observable<IResponse<T>> {

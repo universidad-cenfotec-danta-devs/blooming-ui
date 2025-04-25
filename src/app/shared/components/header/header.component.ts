@@ -9,7 +9,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { ModalComponent } from '../modal/modal.component';
 import { AuthService } from '../../../services/auth.service';
@@ -151,16 +150,16 @@ export class HeaderComponent {
     get isAdmin(): boolean {
       return this.authService.hasRole(IRoleType.admin);
     }
-  
+
     get isDesigner(): boolean {
       return (
         this.authService.hasRole(IRoleType.designer) ||
         this.authService.hasRole(IRoleType.role_designer_user)
       );
     }
-  
+
     /* True when user is either ADMIN or DESIGNER */
     get canSeePotFeatures(): boolean {
       return this.isAdmin || this.isDesigner;
-    } 
+    }
 }
