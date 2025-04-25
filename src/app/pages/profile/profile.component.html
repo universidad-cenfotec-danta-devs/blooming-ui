@@ -1,0 +1,7 @@
+<ng-container *ngIf="profileService.profile() as profile">
+  <app-profile-form
+    [user]="profile"
+    [profileForm]="profileForm"
+    (callUpdateMethod)="updateProfile($event)">
+  </app-profile-form>
+</ng-container>

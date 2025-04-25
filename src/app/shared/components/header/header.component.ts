@@ -9,7 +9,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { Router, RouterModule } from '@angular/router';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { ModalComponent } from '../modal/modal.component';
 import { AuthService } from '../../../services/auth.service';
