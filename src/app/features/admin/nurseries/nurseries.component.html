@@ -2,11 +2,12 @@
   @if (nurseryService.nurseries$().length == 0) {
     <h3 class="text-[var(--green-line)] text-center">No se han creado viveros</h3>
   } @else {
-    <div class="table-container table-responsive">
+    <div class="table-container table-responsive border-1 border-[#DCE6D3]">
       <table class="table-nursery table-striped rounded-2xl">
         <thead>
         <tr class="border-b border-[#DCE6D3]">
-          <th>Correo administrador</th>
+          <th>Correo</th>
+          <th>Imagen</th>
           <th>Nombre</th>
           <th>Descripcion</th>
           <th>Ubicacion</th>
@@ -18,7 +19,7 @@
           @for (item of nurseryService.nurseries$(); track item.id) {
             <tr>
               <td>{{ item.userEmail }}</td>
-              <td><img src="{{item.imageUrl}}" class="w-20 h-20 object-cover self-center"></td>
+              <td><img src="{{item.imageUrl}}" alt="Logo vivero" class="w-20 h-15 object-cover justify-self-center"></td>
               <td>{{ item.name }}</td>
               <td>{{ item.description }}</td>
               <td>{{ item.latitude }}, {{ item.longitude }}</td>

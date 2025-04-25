@@ -1,12 +1,14 @@
 import {Component, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HomepageComponent} from '../../../features/admin/homepage/homepage.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'sidebar',
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
   ],
   templateUrl: './sidebar.component.html',
 })

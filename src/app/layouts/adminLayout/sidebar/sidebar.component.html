@@ -16,7 +16,7 @@
     <div class="flex flex-col justify-between h-[80%]">
       <ul class="space-y-2 font-medium">
         <li class="duration-75 rounded-lg">
-          <a href="/admin" class="flex items-center p-2 rounded-lg">
+          <a routerLink="/admin" class="flex items-center p-2 rounded-lg">
             <svg class="w-6 h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
             </svg>
@@ -41,13 +41,13 @@
           </button>
           <ul id="dropdown-users" class="py-2 space-y-2" [ngClass]="{'hidden': dropdownState$().users}">
             <li>
-              <a href="/admin/users" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Ver usuarios</a>
+              <a routerLink="users" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Ver usuarios</a>
             </li>
             <li>
-              <a href="admin/nurseries" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Ver viveros</a>
+              <a routerLink="nurseries" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Ver viveros</a>
             </li>
             <li>
-              <a href="admin/requests" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Solicitudes</a>
+              <a routerLink="requests" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Solicitudes</a>
             </li>
           </ul>
         </li>

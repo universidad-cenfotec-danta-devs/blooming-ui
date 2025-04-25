@@ -19,7 +19,14 @@ import { NurseryFormComponent } from "../../shared/components/nursery-form/nurse
 export class CreateNurseryComponent {
     constructor(@Inject(NurseryService) private nurseryService: NurseryService,) {}
 
-    handleSubmit(data: any) {
-        this.nurseryService.createNursery(data, 'home/my-nursery');
+    handleSubmit(event:{data:any, image: File}) {
+      const nurseryRequest = {
+        name: event.data.name,
+        description: event.data.description,
+        latitude: event.data.latitude,
+        longitude: event.data.longitude,
+        userEmail: event.data.userEmail || '',
+      }
+      this.nurseryService.createNursery(nurseryRequest, event.image, 'home/my-nursery');
     }
   }

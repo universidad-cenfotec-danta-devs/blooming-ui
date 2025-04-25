@@ -1,61 +1,86 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NurseryService} from '../../services/nursery.service';
 import {PaginationComponent} from '../pagination/pagination.component';
 import {Router} from '@angular/router';
+import {LoaderComponent} from '../loader/loader.component';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'nurseries',
   imports: [
     CommonModule,
-    PaginationComponent
+    PaginationComponent,
+    LoaderComponent,
   ],
   templateUrl: 'nursery.component.html',
   styleUrl: 'nursery.component.css'
 })
 
-export class NurseryComponent implements OnInit {
+export class NurseryComponent implements OnInit, OnDestroy {
   nurseryService: NurseryService = inject(NurseryService);
+  private watchId: number | null = null;
 
-
-  ngOnInit(){
-    if(!navigator.geolocation) {
-      console.log("Geolocation is not supported by this browser.");
+  ngOnInit() {
+    if (!navigator.geolocation) {
+      this.toastr.warning('Tu navegador no soporta geolocalización', 'Advertencia');
     }
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
+      this.nurseryService.setUserUbication(position.coords.latitude, position.coords.longitude);
+      this.nurseryService.setCurrentScreen('nearby');
+      this.nurseryService.getNearby();
+
     });
     this.watchPosition()
   }
 
-  constructor(private router: Router) {
-    this.nurseryService.search.page=1;
-    this.nurseryService.getAllActives();
+  ngOnDestroy() {
+    if (this.watchId !== null) {
+      navigator.geolocation.clearWatch(this.watchId);
+    }
   }
 
-  watchPosition(){
-    let desLat = 0;
-    let desLon = 0;
+  constructor(private router: Router, private toastr: ToastrService) {
+  }
 
-    let id = navigator.geolocation.watchPosition(
+  watchPosition() {
+    if (this.watchId !== null) {
+      navigator.geolocation.clearWatch(this.watchId);
+    }
+
+    this.watchId = navigator.geolocation.watchPosition(
       (position) => {
-      console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
-      if(position.coords.latitude === desLat){
-        navigator.geolocation.clearWatch(id);
-      }
-    },
-    (err) => {
-      console.log(err);
-    },
-    {
-      enableHighAccuracy: true,
-      maximumAge: 0,
-      timeout: 5000
-    })
+        this.nurseryService.setUserUbication(position.coords.latitude, position.coords.longitude);
+      },
+      (err) => {
+        this.handleLocationError(err);
+      },
+      {
+        enableHighAccuracy: false,
+        maximumAge: 30000,
+        timeout: 10000
+      })
   }
 
+  private handleLocationError(err: GeolocationPositionError) {
+    console.error('Error de geolocalización:', err);
 
-  nurseryDetailsPage(id: any){
+    let errorMessage = 'Error al obtener la ubicación';
+    switch(err.code) {
+      case err.PERMISSION_DENIED:
+        errorMessage = 'Permiso de ubicación denegado. Por favor habilita los permisos de ubicación.';
+        break;
+      case err.POSITION_UNAVAILABLE:
+        errorMessage = 'Información de ubicación no disponible. Verifica tu conexión o señal GPS.';
+        break;
+    }
+
+    this.toastr.error(errorMessage, 'Error', {
+      timeOut: 10000,
+    });
+  }
+
+  nurseryDetailsPage(id: any) {
     this.router.navigate(['home/nursery-info/' + id])
   }
 }

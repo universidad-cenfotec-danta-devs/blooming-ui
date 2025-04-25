@@ -73,6 +73,7 @@ export class NurseriesComponent implements OnInit {
   }
 
   showEditModal(item: INurseries, modal: any) {
+    this.mapPicker.reset(item.latitude, item.longitude);
     this.selectedNursery = { ...item};
     if (this.selectedNursery){
       this.nurseryForm.patchValue({
@@ -120,6 +121,6 @@ export class NurseriesComponent implements OnInit {
   }
 
   createNurseryPage() {
-    this.router.navigate(['/admin/create-nursery']);
+    this.router.navigate(['admin/create-nursery']);
   }
 }

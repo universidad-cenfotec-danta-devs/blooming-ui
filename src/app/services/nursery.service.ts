@@ -6,6 +6,7 @@ import {ToastrService} from 'ngx-toastr';
 import {INurseryDTO} from '../interfaces/nurseryDTO.interface';
 import { Router } from '@angular/router';
 import { IProducts } from '../interfaces/products.interface';
+import {environment} from '../../enviroments/enviroment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,8 @@ export class NurseryService extends BaseService<INurseryDTO>{
   private nurseryProductsSignal = signal<IProducts[]>([]);
   private currentScreen?: string;
   private idNursery?: number;
+  private userLat?: number;
+  private userLng?: number;
 
   constructor(private toastr: ToastrService, private router: Router) {
     super();
@@ -41,6 +44,11 @@ export class NurseryService extends BaseService<INurseryDTO>{
 
   setNurseryId(id: number) {
     this.idNursery = id;
+  }
+
+  setUserUbication(lat: number, lng: number) {
+    this.userLat = lat;
+    this.userLng = lng;
   }
 
   public search: ISearch = {
@@ -71,6 +79,9 @@ export class NurseryService extends BaseService<INurseryDTO>{
         case 'productsAdmin':
           this.getProductsByNurseryId(this.idNursery)
         break;
+        case 'nearby':
+          this.getNearby();
+        break;
       }
     }
   }
@@ -99,6 +110,17 @@ export class NurseryService extends BaseService<INurseryDTO>{
       error: (err: any) => {
         this.toastr.error(err, 'Error');
         console.error('error', err);
+      }
+    })
+  }
+
+  getNearby(){
+    this.findAllWithParamsAndCustomSource(`nearby?userLat=${this.userLat}&userLng=${this.userLng}`,{ page: this.search.page, size: this.search.size }).subscribe({
+      next: (response: any) => {
+        this.nurseries$.set(response.data);
+      },
+      error: (err: any) => {
+        this.toastr.error(err, 'Error');
       }
     })
   }
@@ -157,15 +179,21 @@ export class NurseryService extends BaseService<INurseryDTO>{
     })
   }
 
-  createNursery(nursery: any , url? : string){
-    this.add(nursery).subscribe({
-      next:(response: any) => {
-        this.toastr.success('Nursery created', 'Success').onHidden.subscribe(() => {
-          if(url){
-            this.router.navigate([url]);
-          }
-          // this.getAll();
-        });
+  createNursery(nursery: any, image:File, url?: string){
+    const formData = new FormData();
+
+    formData.append('nurseryRequest',
+      new Blob([JSON.stringify(nursery)], {type: 'application/json'})
+    );
+
+    formData.append("nurseryImg", image);
+
+    this.http.post(`${environment.apiUrl}/` + this.source, formData).subscribe({
+      next: (response: any) =>{
+        if(url){
+          this.toastr.success("Nursery created", 'Success');
+          this.router.navigate([url]);
+        }
       },
       error: (err: any) => {
         this.toastr.error(err, 'Error');
@@ -208,7 +236,6 @@ export class NurseryService extends BaseService<INurseryDTO>{
     this.find('my-nursery').subscribe({
       next: (response: any) => {
         this.nurseryDetailSignal.set(response.body.data);
-        console.log(this.nurseryDetailSignal());
       }
     })
   }

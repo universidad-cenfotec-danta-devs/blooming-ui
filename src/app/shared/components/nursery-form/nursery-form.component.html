@@ -20,8 +20,8 @@
                     </div>
                     <app-map-picker (locationSelected)="onLocationPicked({ latitude: $event.lat, longitude: $event.lng })"></app-map-picker>
                     <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid xl:grid-cols-3">
-                        <label class="font-normal" for="image">Logo del vivero</label>
-                        <input class="mt-1 px-1 sm:col-span-2 sm:mt-0 font-light border-1 rounded-md wrap" type="file" id="image" name="image" accept="image/*">
+                        <label class="font-normal" for="imageUrl">Logo del vivero</label>
+                        <input class="mt-1 px-1 sm:col-span-2 sm:mt-0 font-light border-1 rounded-md wrap" type="file" id="imageUrl" name="imageUrl" accept="image/*" (change)="onFileSelected($event)">
                     </div>
                   @if (isAdmin) {
                     <div class="px-4 py-6 grid sm:gap-4 sm:px-0 xl:grid-cols-3">
