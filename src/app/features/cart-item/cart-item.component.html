@@ -1,25 +1,12 @@
 <div class="item-wrapper">
-    <!-- <div class="item-img">
-        <img [src]="img || 'assets/images/missingStockPhoto.jpg'" alt="Product Image">
-    </div> -->
     <div class="item-content">
         <div class="item-info">
             <div class="item-name">{{ name }}</div>
             <div class="item-price">${{ price }}</div>
         </div>
         <div class="item-info-2">
-            <div class="item-amount">
-                Cantidad 
-                <div>
-                    <span class="item-amount-change-text">
-                        <div class="item-operators-left">-</div> 
-                        <div class="item-amount-number">{{ amount }}</div> 
-                        <div class="item-operators-right">+</div>
-                    </span>
-                </div>
-            </div>
             <div class="item-delete">
-                <span class="item-delete-txt">{{ 'USER_CART.DELETE' | translate }}</span>
+                <span class="item-delete-txt" (click)="deleteCartItem(id)">{{ 'USER_CART.DELETE' | translate }}</span>
             </div>
         </div>
     </div>

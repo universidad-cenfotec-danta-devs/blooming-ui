@@ -4,14 +4,20 @@
     <mat-sidenav #cart mode="over" position="end" class="sidenav-content">
         <div class="top-cart-content">
             <span class="cart-title"> {{ 'USER_CART.TITLE' | translate }} </span>
-            <div class="cart-items" *ngFor="let cartItem of cartItems">
-                <app-cart-item
-                [img]="'assets/images/missingStockPhoto.jpg'"
-                [name]="cartItem.itemName!"
-                [amount]="cartItem.quantity!"
-                [price]="cartItem.price!"
-                ></app-cart-item>
-            </div>
+            @if(cartItems && cartItems.length > 0) {
+                <div class="cart-items" *ngFor="let cartItem of cartItems">
+                    <app-cart-item
+                    [id]="cartItem.id!"
+                    [name]="cartItem.itemName!"
+                    [amount]="cartItem.quantity!"
+                    [price]="cartItem.price!"
+                    ></app-cart-item>
+                </div>
+            } @else {
+                <div>
+                    <span class="cart-no-items">{{ 'USER_CART.NO_ITEMS' | translate }}</span>
+                </div>
+            }
         </div>
         <div class="bottom-cart">
             <hr>
@@ -21,7 +27,7 @@
                 <small class="txt-small">{{ 'USER_CART.SMALL' | translate }}</small>
                 <br>
                 <br>
-                <button class="btn-compra">{{ 'USER_CART.BTN_CHECKOUT' | translate }}</button>
+                <button class="btn-compra" (click)="goToCheckout()">{{ 'USER_CART.BTN_CHECKOUT' | translate }}</button>
             </div>
         </div>
     </mat-sidenav>

@@ -77,7 +77,13 @@
     "SUBTOTAL":"Subtotal",
     "SMALL":"Taxes are calculated at checkout",
     "BTN_CHECKOUT":"Checkout",
-    "DELETE":"Delete"
+    "DELETE":"Delete",
+    "NO_ITEMS":"There are no products in your cart"
+  },
+  "CHECKOUT":{
+    "NO_ITEMS":"There are no product in your cart",
+    "BUY_BTN":"Process payment",
+    "TOTAL_ITEMS":"Total items"
   },
   "HEADER_LANDING": {
 "DESCRIPTION": "Discover a curated selection of exquisite plants, custom pots, and local nurseries that transform your space into a vibrant oasis. Learn expert care tips, explore our premium plant collection, design and sell your own pots, and connect with nearby nurseries. With Blooming, you can easily find the perfect plant, customize your garden accessories, and even turn your passion into a business.",

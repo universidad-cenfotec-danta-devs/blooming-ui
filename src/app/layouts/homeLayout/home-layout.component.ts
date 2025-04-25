@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, effect, inject, Output, ViewChild} from '@angular/core';
 import {FooterComponent} from '../../shared/components/footer/footer.component';
 import {HeaderComponent} from '../../shared/components/header/header.component';
-import {RouterOutlet} from '@angular/router';
+import {ActivatedRoute, Router, RouterModule, RouterOutlet} from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSidenav } from '@angular/material/sidenav';
 import { TranslateModule } from '@ngx-translate/core';
@@ -21,7 +21,8 @@ import { CommonModule } from '@angular/common';
     MatSidenavModule,
     TranslateModule,
     CartItemComponent,
-    CommonModule
+    CommonModule,
+    RouterModule
 ],
   templateUrl: 'home-layout.component.html',
   styleUrls: ['home-layout.component.css'],
@@ -32,10 +33,10 @@ export class HomeLayoutComponent {
   private cartItemService = inject(CartItemService);
   private cartService = inject(CartService);
 
-  cartItems: ICartItem[] = [{}];
+  cartItems!: ICartItem[];
   subtotal!: number;
 
-  constructor() {
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.getCartItems();
     effect(() => {
       this.cartItems = this.cartItemService.cartItems$();
@@ -44,7 +45,9 @@ export class HomeLayoutComponent {
   }
 
   toggleCart() {
-    this.getCartItems();
+    if (this.cartItems && this.cartItems.length > 0) {
+      this.getCartItems();
+    }
     this.cart.toggle();
   }
 
@@ -54,11 +57,14 @@ export class HomeLayoutComponent {
 
   calculateSubtotal() {
     this.subtotal = 0;
-
-    for (let i = 0; i < this.cartItems.length; i++) {
-      this.subtotal += this.cartItems[i].price || 0;
+    if (this.cartItems) {
+      for (let i = 0; i < this.cartItems.length; i++) {
+        this.subtotal += this.cartItems[i].price || 0;
+      }
     }
+  }
 
-    console.log('Subtotal: ' + this.subtotal);
+  goToCheckout() {
+    this.router.navigate(['checkout'], { relativeTo: this.route });
   }
 }
