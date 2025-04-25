@@ -1,9 +1,7 @@
-<header class="shadow w-full bg-white">
-  <div
-    class="max-w-8xl mx-auto px-6 py-5 flex items-center justify-between"
-    style="color: var(--main-text)"
-  >
-    <!-- Left: Logo -------------------------------------------------->
+<header class="shadow w-full bg-white sticky-header">
+  <div class="max-w-8xl mx-auto px-6 py-5 flex items-center justify-between" style="color: var(--main-text);">
+
+    <!-- Left: Logo -->
     <div class="flex-none ml-4 motion-safe:animate-fade-down">
       <svg
         height="25"
@@ -134,21 +132,10 @@
     </nav>
 
     <!-- Right section (icons, language, user) --------------------->
-    <div
-      class="flex-none flex items-center space-x-6 mr-4 motion-safe:animate-fade-down"
-    >
-      <button
-        class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer"
-      >
-        <svg
-          class="h-7 w-7 text-[var(--secondary-color)] hover:scale-110 transition-transform duration-200"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
+    <div class="flex-none flex items-center space-x-6 mr-4 motion-safe:animate-fade-down">
+      <button class="text-[var(--main-text)] hover:text-[var(--secondary-color)] transition duration-300 cursor-pointer" (click)="toggleCart.emit()">
+        <svg class="h-7 w-7 text-[var(--secondary-color)] hover:scale-110 transition-transform duration-200"
+             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="9" cy="21" r="1" />
           <circle cx="20" cy="21" r="1" />
           <path

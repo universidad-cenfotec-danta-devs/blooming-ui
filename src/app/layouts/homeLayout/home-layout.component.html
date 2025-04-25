@@ -1,7 +1,52 @@
-<app-header/>
+<app-header (toggleCart)="toggleCart()"/>
 
-<router-outlet>
-
-</router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav #cart mode="over" position="end" class="sidenav-content">
+        <div class="top-cart-content">
+            <span class="cart-title"> {{ 'CART.TITLE' | translate }} </span>
+            <div class="cart-items">
+                <app-cart-item
+                [img]="'assets/images/missingStockPhoto.jpg'"
+                [name]="'Test'"
+                [amount]="2"
+                [price]="100"
+                ></app-cart-item>
+                <app-cart-item
+                    [img]="'assets/images/missingStockPhoto.jpg'"
+                    [name]="'Test'"
+                    [amount]="2"
+                    [price]="100"
+                ></app-cart-item>
+                <app-cart-item
+                    [img]="'assets/images/missingStockPhoto.jpg'"
+                    [name]="'Test'"
+                    [amount]="2"
+                    [price]="100"
+                ></app-cart-item>
+                <app-cart-item
+                    [img]="'assets/images/missingStockPhoto.jpg'"
+                    [name]="'Test'"
+                    [amount]="2"
+                    [price]="100"
+                ></app-cart-item>
+            </div>
+        </div>
+        <div class="bottom-cart">
+            <hr>
+            <div class="bottom-cart-content">
+                {{ 'CART.SUBTOTAL' | translate }}:
+                <br>
+                <small class="txt-small">{{ 'CART.SMALL' | translate }}</small>
+                <br>
+                <br>
+                <button class="btn-compra">{{ 'CART.BTN_CHECKOUT' | translate }}</button>
+            </div>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet>
+        </router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
 
 <app-footer/>
