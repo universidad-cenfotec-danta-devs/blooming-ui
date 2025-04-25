@@ -1,4 +1,4 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { TokenStoreService } from './token-store.service';
 import { throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CartService } from './cart.service';
 
 /**
  * The AuthService handles user authentication logic (login, register, logout).

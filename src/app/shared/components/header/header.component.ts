@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  Output,
   ViewChild,
   ViewEncapsulation,
   inject
@@ -11,6 +12,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Router, RouterModule } from '@angular/router'; 
 import { ModalComponent } from '../modal/modal.component';
 import { AuthService } from '../../../services/auth.service';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { EventEmitter } from '@angular/core';
+import { ICart } from '../../../interfaces/cart.interface';
+import { CartService } from '../../../services/cart.service';
 
 /**
  * HeaderComponent displays the main header with navigation links,
@@ -25,7 +30,8 @@ import { AuthService } from '../../../services/auth.service';
     LanguageSelectorComponent,
     TranslateModule,
     ModalComponent,
-    RouterModule
+    RouterModule,
+    MatSidenavModule
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
@@ -42,24 +48,36 @@ export class HeaderComponent implements AfterViewInit {
 
   /** Raw JSON string of the logged‑in user */
   user: any;
+
+  anonCart: any;
   /** Parsed role name of the logged‑in user */
   userRole: string = '';
 
   /** Reference to the logout confirmation modal component */
   @ViewChild('logoutModal') logoutModal!: ModalComponent;
 
+  @Output() toggleCart = new EventEmitter<void>();
+
   constructor(private router: Router) {}
 
   /** Injected AuthService for logout (avoids circular DI) */
   private authService = inject(AuthService);
+
+  private cartService = inject(CartService);
 
   /**
    * After view init, read stored user info and extract role.
    */
   ngAfterViewInit(): void {
     this.user = localStorage.getItem('auth_user');
+    this.anonCart = localStorage.getItem('anon_cart');
     if (this.user) {
       this.userRole = String(JSON.parse(this.user).role.name);
+    } else if (!this.anonCart){
+      const cart: ICart = {
+        items: []
+      };
+      this.cartService.createAnonCart(cart);
     }
   }
 
