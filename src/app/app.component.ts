@@ -2,8 +2,7 @@ import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, Event } from '@angular/router';
 import { SHARED_IMPORTS } from './shared/shared.module';
 import { TranslateService, TranslateStore, TranslateModule } from '@ngx-translate/core';
-import { isPlatformBrowser } from '@angular/common';  
-import * as THREE from 'three';
+
 
 /**
  * AppComponent
@@ -49,9 +48,7 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe((event: Event) => {
     });
 
-    if (isPlatformBrowser(this.platformId)) {
-      this.initThreeJs();
-    }
+
   }
 
   /**
@@ -74,14 +71,5 @@ export class AppComponent implements OnInit {
     }
   }
 
-  /**
-   * Initializes Three.js safely in browser environments.
-   */
-  private initThreeJs(): void {
-    try {
-      const scene = new THREE.Scene();
-    } catch (error) {
-      console.error('Error initializing Three.js:', error);
-    }
-  }
+
 }

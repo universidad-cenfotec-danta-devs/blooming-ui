@@ -4,6 +4,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   selector: 'app-pagination',
   imports: [],
   templateUrl: './pagination.component.html',
+  standalone: true,
   styleUrl: './pagination.component.scss'
 })
 export class PaginationComponent {

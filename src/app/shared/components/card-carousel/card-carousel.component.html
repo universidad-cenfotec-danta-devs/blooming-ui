@@ -4,8 +4,7 @@
     <!-- Only display the card that matches the active index -->
     <div *ngFor="let item of items; let i = index" [hidden]="i !== activeIndex" class="duration-700 ease-in-out h-fit w-fit">
       <app-disease-card 
-        [disease]="item" 
-        (buttonClick)="onConfirmDisease(item)">
+        [disease]="item" >
       </app-disease-card>
     </div>
   </div>

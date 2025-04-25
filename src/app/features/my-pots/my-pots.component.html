@@ -1,0 +1,105 @@
+<div class="container mx-auto px-4 py-8">
+  <h2 class="text-2xl font-semibold text-[#5C684B] mb-6">
+    {{ 'MY_POTS.TITLE' | translate }}
+  </h2>
+
+  <!-- States -->
+  <p *ngIf="loading" class="text-center text-sm text-gray-600 animate-pulse">
+    {{ 'GLOBAL.LOADING' | translate }}
+  </p>
+  <p *ngIf="error" class="text-center text-red-600">{{ error | translate }}</p>
+  <p *ngIf="!loading && !error && pots.length===0"
+     class="text-center text-[#5C684B]">
+    {{ 'MY_POTS.EMPTY' | translate }}
+  </p>
+
+  <!-- Table -->
+  <div *ngIf="!loading && !error && pots.length"
+       class="relative overflow-x-auto shadow-md sm:rounded-lg w-fit mx-auto">
+    <table class="w-full text-sm text-left text-gray-700 bg-[#DCE6D3]">
+      <thead class="text-xs uppercase text-[#5C684B]">
+        <tr>
+          <th class="px-4 py-3">{{ 'MY_POTS.TABLE.PREVIEW' | translate }}</th>
+          <th class="px-4 py-3">{{ 'MY_POTS.TABLE.ID' | translate }}</th>
+          <th class="px-4 py-3">{{ 'MY_POTS.TABLE.NAME' | translate }}</th>
+          <th class="px-4 py-3">{{ 'MY_POTS.TABLE.PRICE' | translate }}</th>
+          <th class="px-4 py-3">{{ 'GLOBAL.ACTIONS' | translate }}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let pot of pots; trackBy: trackByPotId"
+            class="bg-white border-b border-green-100 hover:bg-[#DCE6D3]">
+          <!-- 90-px square preview -->
+          <td class="p-2 w-[90px]">
+            <three-pot-card
+              [fileUrl]="pot.fileUrl"
+              [potId]="pot.id"
+              [name]="''"         
+              [price]="0"
+              [designerName]="''"
+              [compact]="true" 
+              class="pointer-events-none select-none">
+            </three-pot-card>
+          </td>
+
+          <td class="px-4 py-4">{{ pot.id }}</td>
+          <td class="px-4 py-4 font-medium">{{ pot.name }}</td>
+          <td class="px-4 py-4">{{ pot.price | currency }}</td>
+
+          <td class="px-4 py-4">
+            <button type="button" class="primary-btn px-3 py-1 mr-2"
+                    (click)="downloadPotGLB(pot.id)">
+              {{ 'MY_POTS.BUTTON_DOWNLOAD_GLB' | translate }}
+            </button>
+
+            <button type="button" class="secondary-btn px-3 py-1"
+                    (click)="goToEvaluation(pot.id)">
+              {{ 'EVALUATION.BUTTON_MESSAGE' | translate }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination (unchanged) -->
+    <nav class="flex flex-col md:flex-row items-center justify-between pt-4">
+      <span class="text-sm text-gray-600 mb-4 md:mb-0">
+        {{ 'MY_POTS.SHOWING' | translate }}
+        <span class="font-semibold">{{ (page-1)*pageSize+1 }}</span> –
+        <span class="font-semibold">{{ (page-1)*pageSize+pots.length }}</span>
+        {{ 'MY_POTS.OF' | translate }}
+        <span class="font-semibold">{{ totalItems }}</span>
+      </span>
+
+      <ul class="inline-flex -space-x-px text-sm h-8">
+        <li>
+          <button class="secondary-btn px-3 h-8 rounded-s-lg"
+                  (click)="goToPage(page-1)" [disabled]="page===1">
+            {{ 'GLOBAL.PREVIOUS' | translate }}
+          </button>
+        </li>
+
+        <ng-container *ngFor="let _ of [].constructor(totalPages); let i=index">
+          <li>
+            <button class="px-3 h-8 border"
+                    [ngClass]="{
+                      'bg-[#5C684B] text-white border-[#5C684B]': page===i+1,
+                      'bg-[#DCE6D3] text-gray-700 border-[#DCE6D3]': page!==i+1
+                    }"
+                    (click)="goToPage(i+1)">
+              {{ i+1 }}
+            </button>
+          </li>
+        </ng-container>
+
+        <li>
+          <button class="secondary-btn px-3 h-8 rounded-e-lg"
+                  (click)="goToPage(page+1)" [disabled]="page===totalPages">
+            {{ 'GLOBAL.NEXT' | translate }}
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
