@@ -23,10 +23,6 @@
     </select>
   </div>
 
-  <button [routerLink]="['/home/evaluation', 'pot', 1]">
-    {{ 'EVALUATION.BUTTON_MESSAGE' | translate }}
-  </button>
-
   <div class="my-5" *ngIf="floraResponse">
     <p class="text-[var(--main-text)] ">{{ floraResponse }}</p>
   </div>

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, effect, inject, Output, ViewChild} from '@angular/core';
+import {Component, effect, inject, ViewChild} from '@angular/core';
 import {FooterComponent} from '../../shared/components/footer/footer.component';
 import {HeaderComponent} from '../../shared/components/header/header.component';
 import {ActivatedRoute, Router, RouterModule, RouterOutlet} from '@angular/router';
@@ -36,12 +36,16 @@ export class HomeLayoutComponent {
   cartItems!: ICartItem[];
   subtotal!: number;
 
+  user: any = localStorage.getItem('auth_user');
+
   constructor(private router: Router, private route: ActivatedRoute) {
-    this.getCartItems();
-    effect(() => {
-      this.cartItems = this.cartItemService.cartItems$();
-      this.calculateSubtotal();
-    });
+    if(this.user) {
+      this.getCartItems();
+      effect(() => {
+        this.cartItems = this.cartItemService.cartItems$();
+        this.calculateSubtotal();
+      });
+    }
   }
 
   toggleCart() {

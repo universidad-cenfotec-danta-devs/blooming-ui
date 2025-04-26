@@ -29,7 +29,7 @@
       </a>
 
       <!-- Dr Plant dropdown --------------------------------------->
-      <div
+      <div *ngIf="user != null"
         class="relative"
         (mouseenter)="showPlantDropdown()"
         (mouseleave)="hidePlantDropdownDelayed()"
@@ -80,7 +80,7 @@
       </div>
 
       <!-- Pots dropdown ------------------------------------------->
-      <div
+      <div *ngIf="user != null"
         class="relative"
         (mouseenter)="showPotDropdown()"
         (mouseleave)="hidePotDropdownDelayed()"
@@ -123,13 +123,13 @@
         </div>
       </div>
 
-      <a
+      <a *ngIf="user != null"
         routerLink="nurseries"
         class="hover:text-[#4b5d42] transition duration-300"
       >
         {{'HEADER.NURSERIES'| translate}}
       </a>
-      <a
+      <a *ngIf="user != null"
         href="/home/flora-by-zone"
         class="hover:text-[#4b5d42] transition duration-300"
       >
