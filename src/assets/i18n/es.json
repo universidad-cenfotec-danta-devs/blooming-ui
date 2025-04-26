@@ -72,18 +72,18 @@
     },
     "FLORA": "Flora por cantón"
   },
-  "USER_CART":{
-    "TITLE":"Carrito",
-    "SUBTOTAL":"Subtotal",
-    "SMALL":"Impuestos se calculan al finalizar la compra",
-    "BTN_CHECKOUT":"Finalizar compra",
-    "DELETE":"Eliminar",
-    "NO_ITEMS":"No hay productos en tu carrito"
+  "USER_CART": {
+    "TITLE": "Carrito",
+    "SUBTOTAL": "Subtotal",
+    "SMALL": "Impuestos se calculan al finalizar la compra",
+    "BTN_CHECKOUT": "Finalizar compra",
+    "DELETE": "Eliminar",
+    "NO_ITEMS": "No hay productos en tu carrito"
   },
-  "CHECKOUT":{
-    "NO_ITEMS":"No hay productos en tu carrito",
-    "BUY_BTN":"Procesar pago",
-    "TOTAL_ITEMS":"Cantidad de productos"
+  "CHECKOUT": {
+    "NO_ITEMS": "No hay productos en tu carrito",
+    "BUY_BTN": "Procesar pago",
+    "TOTAL_ITEMS": "Cantidad de productos"
   },
   "HEADER_LANDING": {
     "DESCRIPTION": "Descubre una selección curada de plantas exquisitas, macetas personalizadas y viveros cercanos que transforman tu espacio en un oasis vibrante. Aprende consejos de cuidado experto, explora nuestra colección premium de plantas, diseña y vende tus propias macetas, y conéctate con viveros cercanos. Con Blooming, puedes encontrar fácilmente la planta perfecta, personalizar accesorios para tu jardín e incluso convertir tu pasión en un negocio.",
@@ -468,7 +468,7 @@
     }
   },
   "NURSERIES": {
-    "ADD_CART":"Añadir al carrito",
+    "ADD_CART": "Añadir al carrito",
     "PAGE_TITLE": "Viveros cercanos",
     "VIEW_NURSERY_BTN": "Ver vivero",
     "DETAILS_TITLE": "Detalles",
@@ -479,7 +479,9 @@
     "NO_NURSERIES_MESSAGE": "Parece que no encontramos viveros en tu ubicación actual"
   },
   "CART": {
-    "ADD":"Añadir al carrito"
+    "ADD": "Añadir al carrito",
+    "ADDED_MSG": "Producto añadido al carrito",
+    "DELETE_MSG": "Producto eliminado del carrito"
   },
   "GEOLOCATION": {
     "NOT_SUPPORTED": "Tu navegador no soporta geolocalización",
@@ -507,14 +509,14 @@
       "EDIT_BUTTON": "Editar"
     }
   },
-    "CREATE_PRODUCT": {
-      "TITLE": "Crear producto",
-      "HEADER": "Por favor completar todos los campos para crear un producto",
-      "FORM": {
-        "NAME": "Nombre del producto",
-        "DESCRIPTION": "Descripción",
-        "PRICE": "Precio",
-        "SUBMIT_BUTTON": "Crear producto"
+  "CREATE_PRODUCT": {
+    "TITLE": "Crear producto",
+    "HEADER": "Por favor completar todos los campos para crear un producto",
+    "FORM": {
+      "NAME": "Nombre del producto",
+      "DESCRIPTION": "Descripción",
+      "PRICE": "Precio",
+      "SUBMIT_BUTTON": "Crear producto"
     }
   }
 }

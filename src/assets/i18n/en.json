@@ -478,7 +478,9 @@
     "NO_NURSERIES_MESSAGE": "We couldn't find any nurseries in your current location"
   },
   "CART": {
-    "ADD":"Add to cart"
+    "ADD":"Add to cart",
+    "ADDED_MSG":"Product added to cart",
+    "DELETE_MSG": "Cart item deleted"
   },
   "GEOLOCATION": {
     "NOT_SUPPORTED": "Your browser doesn't support geolocation",

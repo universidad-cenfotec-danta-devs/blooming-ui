@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
   selector: 'app-cart-item',
   imports: [TranslateModule],
   templateUrl: './cart-item.component.html',
+  standalone: true,
   styleUrl: './cart-item.component.scss'
 })
 export class CartItemComponent {
