@@ -1,0 +1,35 @@
+<div class="title">
+    Checkout
+</div>
+<div class="content-wrapper">
+    <div class="content-left">
+        <div class="cart-items-wrapper">
+            @if(cartItems && cartItems.length > 0) {
+                <div class="cart-items" *ngFor="let cartItem of cartItems">
+                    <app-cart-item
+                    [id]="cartItem.id!"
+                    [name]="cartItem.itemName!"
+                    [amount]="cartItem.quantity!"
+                    [price]="cartItem.price!"
+                    ></app-cart-item>
+                </div>
+            } @else {
+                <div>
+                    <span class="cart-no-items">{{ 'CHECKOUT.NO_ITEMS' | translate }}</span>
+                </div>
+            }
+        </div>
+        <button class="buy-btn">{{ 'CHECKOUT.BUY_BTN' | translate }}</button>
+    </div>
+    <div class="content-right">
+        {{ 'CHECKOUT.TOTAL_ITEMS' | translate }}: {{totalItems}}
+        <div class="totals-wrapper">
+            <span class="subtotal">Subtotal: ${{subtotal}}</span>
+            <br>
+            <hr>
+            <div class="total-wrapper">
+                <span class="Total">Total: ${{total}}</span>
+            </div>
+        </div>
+    </div>
+</div>

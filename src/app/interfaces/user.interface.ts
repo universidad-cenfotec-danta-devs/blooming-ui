@@ -13,19 +13,25 @@
  * - googleId: Unique identifier from Google if the user registered via Google (optional).
  */
 export interface IUser {
-    id?: string;
-    name: string;
-    email: string;
-    password?: string;
-    age?: number;
-    dateOfBirth?: string;
-    gender?: 'male' | 'female' | 'other';
-    phone?: string;
-    googleId?: string;
-    createdAt?: Date;
-    updatedAt?: Date;
-    active?: boolean;
-    role?: {
-      name?: string;
-    }
+  id?: string;
+  name: string;
+  email: string;
+  password?: string;
+  age?: number;
+  dateOfBirth?: string;
+  gender?: 'male' | 'female' | 'other';
+  phone?: string;
+  googleId?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  active?: boolean;
+  role?: {
+    name?: string;
   }
+}
+
+export interface IUserProfileUpdateRequest {
+  name: string;
+  dateOfBirth?: string;
+  gender?: 'male' | 'female' | 'other';  // Optional
+}

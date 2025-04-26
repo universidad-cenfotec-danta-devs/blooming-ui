@@ -1,0 +1,30 @@
+<div class="flex justify-center w-full">
+  <table class="table text-center w-full max-w-4xl">
+    <thead>
+    <tr>
+      <th><h2>{{ 'EVALUATION.COMMENT' | translate }}</h2></th>
+      <th><h2>{{ 'EVALUATION.RATING' | translate }}</h2></th>
+      <th><h2>{{ 'EVALUATION.MADE_BY' | translate }}</h2></th>
+      <th><h2>{{ 'EVALUATION.CREATED_AT' | translate }}</h2></th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (item of evaluations; track $index) {
+        <tr>
+          <td>{{ item.comment }}</td>
+          <td>{{ item.rating }}</td>
+          <td>{{ item.userName ? '*'.repeat(item.userName.length - 2) + item.userName.slice(-2) : '' }}</td>
+          <td>{{ item.createdAt | date: 'd MMMM y, h:mm a' }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4">
+            <div class="d-flex justify-content-center align-items-center w-100">
+              <h2>{{ 'EVALUATION.NOT_FOUND' | translate }}</h2>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

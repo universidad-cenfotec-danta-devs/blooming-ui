@@ -1,19 +1,18 @@
 <!-- Container: Left side (brand & image) and Right side (forms) -->
 <div class="flex flex-col md:flex-row w-full h-screen bg-[#DCE6D3]">
   <!-- Left side (Brand & Image) -->
-  <div class="hidden md:flex flex-col items-center justify-center md:w-full bg-[#DCE6D3] p-10">
+  <div class="hidden md:flex flex-col items-center justify-center md:w-full bg-[#DCE6D3] p-10 left-side">
     <h1 class="text-5xl font-bold mb-4 text-[#97A97C]">
       {{ 'AUTH.LEFT_SIDE.TITLE' | translate }}
     </h1>
     <img src="../../../assets/images/login-image.png" alt="{{ 'AUTH.LEFT_SIDE.IMAGE_ALT' | translate }}" class="w-[80%] max-w-md mb-6 rounded-md shadow">
-    <p class="text-2xl text-[#FFFFFF]">
+    <p class="text-2xl text-[#5C684B]">
       {{ 'AUTH.LEFT_SIDE.DESCRIPTION' | translate }}
     </p>
   </div>
 
   <!-- Right side: Form Container -->
   <div class="flex flex-col w-full h-full md:w-1/2 bg-white p-8 md:p-10 lg:p-12 items-center">
-
     <!-- Mobile Brand -->
     <div class="flex md:hidden items-center justify-center mb-6">
       <h1 class="text-4xl font-bold text-green-700">
@@ -49,7 +48,7 @@
           {{ 'AUTH.VALIDATION.PASSWORD_REQUIRED' | translate }}
         </div>
         <!-- Forgot Password Link -->
-        <a href="#" class="text-sm text-[#5C684B] font-semibold hover:underline " (click)="switchForm('recover'); $event.preventDefault()">
+        <a href="#" class="text-sm text-[#5C684B] font-semibold hover:underline" (click)="switchForm('recover'); $event.preventDefault()">
           {{ 'AUTH.LOGIN.FORGET_PASSWORD' | translate }}
         </a>
       </div>
@@ -59,13 +58,22 @@
       </button>
 
       <div class="login-button">
-
         <button class="flex border justify-center items-center border-[#97A97C] w-full py-2 px-4" (click)="signInGoogle('login')">
-          <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px" viewBox="-0.5 0 48 48" version="1.1"> <title>Google-color</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Color-" transform="translate(-401.000000, -860.000000)"> <g id="Google" transform="translate(401.000000, 860.000000)"> <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24" id="Fill-1" fill="#FBBC05"> </path> <path d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333" id="Fill-2" fill="#EB4335"> </path> <path d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667" id="Fill-3" fill="#34A853"> </path> <path d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24" id="Fill-4" fill="#4285F4"> </path> </g> </g> </g> </svg>
-          <span class="text-center text-[#B5C99A]"> Google</span>
-
+          <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="-0.5 0 48 48">
+            <title>Google-color</title>
+            <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Color-" transform="translate(-401.000000, -860.000000)">
+                <g id="Google" transform="translate(401.000000, 860.000000)">
+                  <path d="M9.8273,24 C9.8273,22.4757 10.0804,21.0144 10.5323,19.6437 L2.6235,13.6043 C1.0821,16.7339 0.2136,20.2603 0.2136,24 C0.2136,27.7365 1.0810,31.2608 2.6203,34.3883 L10.5248,28.3371 C10.0772,26.9728 9.8273,25.5168 9.8273,24" id="Fill-1" fill="#FBBC05"></path>
+                  <path d="M23.7136,10.1333 C27.0250,10.1333 30.0159,11.3067 32.3659,13.2267 L39.2023,6.4000 C35.0364,2.7733 29.6955,0.5333 23.7136,0.5333 C14.4269,0.5333 6.4454,5.8443 2.6235,13.6043 L10.5323,19.6437 C12.3546,14.1120 17.5492,10.1333 23.7136,10.1333" id="Fill-2" fill="#EB4335"></path>
+                  <path d="M23.7136,37.8667 C17.5492,37.8667 12.3546,33.8880 10.5323,28.3563 L2.6235,34.3947 C6.4454,42.1557 14.4269,47.4667 23.7136,47.4667 C29.4455,47.4667 34.9178,45.4315 39.0250,41.6181 L31.5178,35.8144 C29.3996,37.1488 26.7323,37.8667 23.7136,37.8667" id="Fill-3" fill="#34A853"></path>
+                  <path d="M46.1455,24 C46.1455,22.6133 45.9318,21.1200 45.6114,19.7333 L23.7136,19.7333 L23.7136,28.8000 L36.3182,28.8000 C35.6880,31.8912 33.9725,34.2677 31.5178,35.8144 L39.0250,41.6181 C43.3393,37.6139 46.1455,31.6491 46.1455,24" id="Fill-4" fill="#4285F4"></path>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <span class="text-center text-[#B5C99A]">Google</span>
         </button>
-
       </div>
       <!-- Switch to Sign-Up -->
       <p class="text-sm text-[#5C684B]">
@@ -82,6 +90,7 @@
         {{ 'AUTH.SIGNUP.TITLE' | translate }}
       </h2>
       <p class="text-center mb-4">Please enter your details</p>
+      
       <!-- Name Field -->
       <div>
         <label class="block mb-1 text-sm text-gray-600">
@@ -92,6 +101,7 @@
           {{ 'AUTH.VALIDATION.NAME_REQUIRED' | translate }}
         </div>
       </div>
+      
       <!-- Email Field -->
       <div>
         <label class="block mb-1 text-sm">
@@ -102,20 +112,32 @@
           {{ 'AUTH.VALIDATION.EMAIL_REQUIRED' | translate }}
         </div>
       </div>
+      
       <!-- Password Field -->
       <div>
         <label class="block mb-1 text-sm">
           {{ 'AUTH.SIGNUP.PASSWORD_LABEL' | translate }}
         </label>
         <input type="password" formControlName="password" class="input-field" placeholder="{{ 'AUTH.SIGNUP.PASSWORD_PLACEHOLDER' | translate }}">
-
         <div *ngIf="signUpForm.get('password')?.touched && signUpForm.get('password')?.invalid" class="text-red-600 text-xs">
-          <div *ngIf="signUpForm.get('password')?.hasError('pattern')">
-            {{ 'AUTH.VALIDATION.PASSWORD_REQUIRED' | translate }}
+          <div *ngIf="signUpForm.get('password')?.hasError('passwordTooShort')">
+            {{ 'AUTH.VALIDATION.PASSWORD_TOO_SHORT' | translate }}
+          </div>
+          <div *ngIf="signUpForm.get('password')?.hasError('passwordMissingUppercase')">
+            {{ 'AUTH.VALIDATION.PASSWORD_MISSING_UPPERCASE' | translate }}
+          </div>
+          <div *ngIf="signUpForm.get('password')?.hasError('passwordMissingLowercase')">
+            {{ 'AUTH.VALIDATION.PASSWORD_MISSING_LOWERCASE' | translate }}
+          </div>
+          <div *ngIf="signUpForm.get('password')?.hasError('passwordMissingDigit')">
+            {{ 'AUTH.VALIDATION.PASSWORD_MISSING_DIGIT' | translate }}
+          </div>
+          <div *ngIf="signUpForm.get('password')?.hasError('passwordMissingSpecial')">
+            {{ 'AUTH.VALIDATION.PASSWORD_MISSING_SPECIAL' | translate }}
           </div>
         </div>
       </div>
-
+      
       <!-- Date of Birth Field -->
       <div>
         <label class="block mb-1 text-sm">
@@ -123,9 +145,18 @@
         </label>
         <input type="date" formControlName="dateOfBirth" class="input-field">
         <div *ngIf="signUpForm.get('dateOfBirth')?.touched && signUpForm.get('dateOfBirth')?.invalid" class="text-red-600 text-xs">
-          {{ 'AUTH.VALIDATION.DOB_REQUIRED' | translate }}
+          <div *ngIf="signUpForm.get('dateOfBirth')?.hasError('required')">
+            {{ 'AUTH.VALIDATION.DOB_REQUIRED' | translate }}
+          </div>
+          <div *ngIf="signUpForm.get('dateOfBirth')?.hasError('futureDate')">
+            {{ 'AUTH.VALIDATION.DOB_FUTURE' | translate }}
+          </div>
+          <div *ngIf="signUpForm.get('dateOfBirth')?.hasError('dobAge')">
+            {{ 'AUTH.VALIDATION.DOB_AGE' | translate:{ requiredAge: 18, actualAge: signUpForm.get('dateOfBirth')?.errors?.['dobAge']?.actualAge } }}
+          </div>
         </div>
       </div>
+      
       <!-- Gender Field -->
       <div>
         <label class="block mb-1 text-sm">
@@ -143,8 +174,8 @@
           {{ 'AUTH.VALIDATION.GENDER_REQUIRED' | translate }}
         </div>
       </div>
-
-      <!-- Role -->
+      
+      <!-- Role Field -->
       <div>
         <label class="block mb-1 text-sm">
           {{ 'AUTH.SIGNUP.ROLE_LABEL' | translate }}
@@ -163,23 +194,31 @@
           </div>
         </div>
       </div>
-
+      
       <!-- Sign-Up Button -->
       <button (click)="onSignUp()" class="primary-btn py-2 px-4 rounded-md mt-5">
         {{ 'AUTH.SIGNUP.BUTTON_TEXT' | translate }}
       </button>
-
+      
       <!-- Google Sign-In Button -->
       <div class="login-button">
-
         <button class="flex border justify-center items-center border-[#97A97C] w-full py-2 px-4" (click)="signInGoogle('register')">
-          <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px" viewBox="-0.5 0 48 48" version="1.1"> <title>Google-color</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Color-" transform="translate(-401.000000, -860.000000)"> <g id="Google" transform="translate(401.000000, 860.000000)"> <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24" id="Fill-1" fill="#FBBC05"> </path> <path d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333" id="Fill-2" fill="#EB4335"> </path> <path d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667" id="Fill-3" fill="#34A853"> </path> <path d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24" id="Fill-4" fill="#4285F4"> </path> </g> </g> </g> </svg>
+          <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="-0.5 0 48 48">
+            <title>Google-color</title>
+            <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Color-" transform="translate(-401.000000, -860.000000)">
+                <g id="Google" transform="translate(401.000000, 860.000000)">
+                  <path d="M9.8273,24 C9.8273,22.4757 10.0804,21.0144 10.5323,19.6437 L2.6235,13.6043 C1.0821,16.7339 0.2136,20.2603 0.2136,24 C0.2136,27.7365 1.0810,31.2608 2.6203,34.3883 L10.5248,28.3371 C10.0772,26.9728 9.8273,25.5168 9.8273,24" id="Fill-1" fill="#FBBC05"></path>
+                  <path d="M23.7136,10.1333 C27.0250,10.1333 30.0159,11.3067 32.3659,13.2267 L39.2023,6.4000 C35.0364,2.7733 29.6955,0.5333 23.7136,0.5333 C14.4269,0.5333 6.4454,5.8443 2.6235,13.6043 L10.5323,19.6437 C12.3546,14.1120 17.5492,10.1333 23.7136,10.1333" id="Fill-2" fill="#EB4335"></path>
+                  <path d="M23.7136,37.8667 C17.5492,37.8667 12.3546,33.8880 10.5323,28.3563 L2.6235,34.3947 C6.4454,42.1557 14.4269,47.4667 23.7136,47.4667 C29.4455,47.4667 34.9178,45.4315 39.0250,41.6181 L31.5178,35.8144 C29.3996,37.1488 26.7323,37.8667 23.7136,37.8667" id="Fill-3" fill="#34A853"></path>
+                  <path d="M46.1455,24 C46.1455,22.6133 45.9318,21.1200 45.6114,19.7333 L23.7136,19.7333 L23.7136,28.8000 L36.3182,28.8000 C35.6880,31.8912 33.9725,34.2677 31.5178,35.8144 L39.0250,41.6181 C43.3393,37.6139 46.1455,31.6491 46.1455,24" id="Fill-4" fill="#4285F4"></path>
+                </g>
+              </g>
+            </g>
+          </svg>
           <span class="text-center text-[#B5C99A]">Google</span>
-
         </button>
-
       </div>
-
       <!-- Switch to Login -->
       <p class="text-sm text-[#5C684B]">
         {{ 'AUTH.SIGNUP.ALREADY_HAVE_ACCOUNT' | translate }}
@@ -197,7 +236,6 @@
       <p class="text-m text-[#5C684B] text-center mb-10">
         {{ 'AUTH.RECOVER.DESCRIPTION' | translate }}
       </p>
-
       <!-- Email Field -->
       <div>
         <label class="block mb-1 text-1xl text-[#5C684B]">
@@ -208,14 +246,12 @@
           {{ 'AUTH.VALIDATION.EMAIL_REQUIRED' | translate }}
         </div>
       </div>
-
       <!-- Recovery Button -->
-      <button (click)="onRecoverPassword()" class="primary-btn py-2 px-4 rounded-md mr-auto ">
+      <button (click)="onRecoverPassword()" class="primary-btn py-2 px-4 rounded-md mr-auto">
         {{ 'AUTH.RECOVER.BUTTON_TEXT' | translate }}
       </button>
-
       <!-- Back to Login Link -->
-      <p class="text-sm text-[#5C684B] ">
+      <p class="text-sm text-[#5C684B]">
         {{ 'AUTH.RECOVER.BACK_TO_LOGIN' | translate }}
         <a href="#" class="text-[#5C684B] font-semibold hover:underline" (click)="switchForm('login'); $event.preventDefault()">
           {{ 'AUTH.RECOVER.LOGIN_LINK' | translate }}
@@ -224,6 +260,3 @@
     </div>
   </div>
 </div>
-
-
-

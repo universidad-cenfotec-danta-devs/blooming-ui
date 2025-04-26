@@ -30,3 +30,7 @@ html, body {
   border: none;
   cursor: pointer;
 }
+
+.left-side {
+  width: 50% !important;
+}

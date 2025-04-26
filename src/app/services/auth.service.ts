@@ -1,4 +1,4 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -7,6 +7,10 @@ import { environment } from '../../enviroments/enviroment.development';
 import { ILoginResponse, IUser } from '../interfaces/auth.interfaces';
 import { IRoleType } from '../interfaces/roleType.interfaces';
 import { TokenStoreService } from './token-store.service';
+import { throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CartService } from './cart.service';
 
 /**
  * The AuthService handles user authentication logic (login, register, logout).
@@ -49,7 +53,19 @@ export class AuthService {
   public login(credentials: { email: string; password: string }): Observable<ILoginResponse> {
     return this.http.post<ILoginResponse>(`${this.BACKEND_URL}/logIn`, credentials)
       .pipe(
-        tap(response => {
+        // Check if the response indicates an error, then throw an error.
+        map((response: ILoginResponse) => {
+          console.log('Login response:', response);
+          if (!response.token || response.error) {
+            // Manually throw an HttpErrorResponse to trigger the error callback.
+            throw new HttpErrorResponse({
+              status: 401,
+              error: response.error || { error: 'Invalid Credentials' }
+            });
+          }
+          return response;
+        }),
+        tap((response: ILoginResponse) => {
           this.tokenStore.setToken(response.token);
           this.tokenStore.setUser(response.authUser);
           if (response.expiresIn) {
@@ -58,6 +74,7 @@ export class AuthService {
         })
       );
   }
+  
 
   /**
    * Logs out the user by clearing stored session data.
@@ -159,4 +176,14 @@ export class AuthService {
       ? user.authorities.some(a => a.authority === IRoleType.admin)
       : false;
   }
+  public isDesignerOrNurseryAdmin(): boolean {
+    const user = this.tokenStore.getUser();
+    return user.authorities
+      ? user.authorities.some(a =>
+        a.authority === IRoleType.role_designer_user || a.authority === IRoleType.nursery || a.authority === IRoleType.role_designer_user)
+      : false;
+  }
+
+
+
 }

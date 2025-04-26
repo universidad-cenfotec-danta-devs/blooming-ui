@@ -36,7 +36,7 @@ button {
   color: #FCFFF8;
   font-family: 'Montserrat', sans-serif;
   padding: 0.5rem 1rem;
-  border: none;
+  border: 1px solid #97A97C;
   cursor: pointer;
 
 }
@@ -68,10 +68,18 @@ button {
   color: #FCFFF8;
   font-family: 'Montserrat', sans-serif;
   padding: 0.5rem 1rem;
-  border: none;
+  border: 1px solid #D3D2CC;
   opacity: 0.7; 
 }
 
 .mat-expansion-panel:not([class*="mat-elevation-z"]) {
   box-shadow: 0 !important;
+}
+
+.p-12 {
+  padding: 11rem
+}
+
+.p-14 {
+  padding: 14rem
 }

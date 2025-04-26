@@ -1,12 +1,17 @@
 import { Injectable, NgZone, Inject, PLATFORM_ID } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 import { CustomPot } from '../models/custom-pot.model';
 import { isPlatformBrowser } from '@angular/common';
+import {
+  GLTFLoader,
+  GLTF
+} from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { HttpClient } from '@angular/common/http';
+
 
 /**
  * Real-world dimensions for pot sizes (reference only).
@@ -31,7 +36,7 @@ export class PotEditorService {
 
   private currentModelFile: File | null = null;
 
-  constructor(private ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {}
 
   /**
    * Initializes the Three.js scene with camera, lights, OrbitControls,
@@ -74,11 +79,6 @@ export class PotEditorService {
         dirLight.position.set(5, 10, 7);
         this.scene.add(dirLight);
 
-        const rgbeLoader = new RGBELoader();
-        rgbeLoader.load('assets/hdr/background.hdr', (hdrEquirect) => {
-          hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-          this.scene.environment = hdrEquirect;
-        });
 
         this.potModelGroup = new THREE.Group();
         this.scene.add(this.potModelGroup);
@@ -122,137 +122,189 @@ export class PotEditorService {
    * @param model The loaded THREE.Object3D model.
    * @param desiredSize The target maximum dimension (in scene units) for the model.
    */
-  private standardizeModelSize(model: THREE.Object3D, desiredSize: number): void {
-    const box = new THREE.Box3().setFromObject(model);
-    const size = new THREE.Vector3();
-    box.getSize(size);
-    const maxDimension = Math.max(size.x, size.y, size.z);
+/**
+ * Uniform-scales `model` so its largest dimension equals `desiredSize`
+ * and re-centres it on the origin.  If the GLB has zero size
+ * (e.g. empty root node) the model is left untouched.
+ */
+private standardizeModelSize(
+  model: THREE.Object3D,
+  desiredSize: number
+): void {
+  const box  = new THREE.Box3().setFromObject(model);
+  const size = new THREE.Vector3();
+  box.getSize(size);
 
-    const scaleFactor = desiredSize / maxDimension;
-    model.scale.set(scaleFactor, scaleFactor, scaleFactor);
-
-    const center = new THREE.Vector3();
-    box.getCenter(center);
-    model.position.sub(center);
+  const maxDim = Math.max(size.x, size.y, size.z);
+  if (maxDim === 0) {
+    console.warn('[PotEditor] Model has zero dimension – no scaling applied');
+    return;
   }
 
+  const scale = desiredSize / maxDim;
+  model.scale.setScalar(scale);
+
+  const center = new THREE.Vector3();
+  box.getCenter(center);
+  model.position.sub(center);
+}
+
+
   /**
-   * Loads a GLB model from a given path, centers it, and scales it uniformly to the desired size.
-   * @param modelPath The path to the GLB file.
-   * @returns Observable that emits true if the model loads successfully.
-   */
-  loadModel(modelPath: string): Observable<boolean> {
-    return new Observable(observer => {
-      try {
-        while (this.potModelGroup.children.length > 0) {
-          this.potModelGroup.remove(this.potModelGroup.children[0]);
-        }
-        const gltfLoader = new GLTFLoader();
-        gltfLoader.load(
+ * Loads a GLB file into the scene. Works with:
+ * • local assets (e.g. "assets/models/pot.glb")
+ * • remote URLs returned by the back-end (e.g. S3 links)
+ *
+ * CORS note – if the bucket sends the proper headers we stream it
+ * directly through GLTFLoader; otherwise we fetch the file first and
+ * feed the ArrayBuffer into `loader.parse`.
+ */
+loadModel(modelPath: string): Observable<boolean> {
+  return new Observable<boolean>((observer) => {
+    try {
+      /* ── 1. clear previous object ─────────────────────────── */
+      if (this.potModelGroup) this.potModelGroup.clear();
+
+      /* ── 2. configure GLTFLoader ──────────────────────────── */
+      const loader = new GLTFLoader();
+      loader.setCrossOrigin('anonymous'); // allow remote hosts
+
+      /* helper that centres, scales and adds the model */
+      const addToScene = (gltf: GLTF): void => {
+        const model = gltf.scene;
+
+        /* centre model at origin */
+        const box = new THREE.Box3().setFromObject(model);
+        const centre = new THREE.Vector3();
+        box.getCenter(centre);
+        model.position.sub(centre);
+
+        /* uniform scale so the largest dimension = 100 units   */
+        this.standardizeModelSize(model, 150);
+
+        /* simple blue material for every mesh (placeholder) */
+        model.traverse((obj: THREE.Object3D) => {
+          if ((obj as THREE.Mesh).isMesh) {
+            (obj as THREE.Mesh).material = new THREE.MeshPhysicalMaterial({
+              color: 0x0077ff,
+              metalness: 0,
+              roughness: 0.5,
+            });
+          }
+        });
+
+        /* add + notify */
+        this.potModelGroup.add(model);
+        observer.next(true);
+        observer.complete();
+      };
+
+      /* ── 3. decide load strategy ─────────────────────────── */
+      const isRemote = modelPath.startsWith('http');
+
+      if (isRemote) {
+        /* Fetch file first (avoids some restrictive CORS setups) */
+        fetch(modelPath, { mode: 'cors' })
+          .then((res) => {
+            if (!res.ok) throw new Error(res.statusText);
+            return res.arrayBuffer();
+          })
+          .then((ab) =>
+            loader.parse(
+              ab,
+              '',           // no path prefix
+              (gltf) => addToScene(gltf),
+              (err) => {
+                console.error('[PotEditor] parse error:', err);
+                observer.error(new Error('Failed to parse remote GLB'));
+              },
+            ),
+          )
+          .catch((err) => {
+            console.error('[PotEditor] fetch error:', err);
+            observer.error(new Error('Failed to fetch remote GLB'));
+          });
+      } else {
+        /* Local asset – let GLTFLoader stream it */
+        loader.load(
           modelPath,
-          (gltf) => {
-            const model = gltf.scene;
-
-            const box = new THREE.Box3().setFromObject(model);
-            const center = new THREE.Vector3();
-            box.getCenter(center);
-            model.position.sub(center);
-
-            this.standardizeModelSize(model, 100);
-
-            model.traverse((child) => {
-              if ((child as THREE.Mesh).isMesh) {
-                const mesh = child as THREE.Mesh;
-                mesh.material = new THREE.MeshPhysicalMaterial({
-                  color: 0x0077ff,
-                  metalness: 0.0,
-                  roughness: 0.5
-                });
-              }
-            });
-
-            this.potModelGroup.add(model);
-            observer.next(true);
-            observer.complete();
+          (gltf) => addToScene(gltf),
+          undefined, // progress
+          (err) => {
+            console.error('[PotEditor] GLTFLoader error:', err);
+            observer.error(new Error('Failed to load model'));
           },
-          (xhr) => {
-            if (xhr.total) {
-              const percent = (xhr.loaded / xhr.total * 100).toFixed(2);
-            }
-          },
-          (error) => {
-            console.error('[PotEditorService] GLTFLoader error:', error);
-            observer.error(new Error('Failed to load 3D model'));
-          }
         );
-      } catch (error) {
-        console.error('[PotEditorService] Error in loadModel:', error);
-        observer.error(new Error('Error loading model'));
       }
-    });
-  }
+    } catch (err) {
+      console.error('[PotEditor] loadModel fatal:', err);
+      observer.error(new Error('Error loading model'));
+    }
+  });
+}
 
-  /**
-   * Loads a GLB model from a File object (user upload), centers it, scales it uniformly,
-   * and replaces the current model.
-   * @param file The user-uploaded file.
-   * @returns Observable that emits true if the model loads successfully.
-   */
-  loadModelFromFile(file: File): Observable<boolean> {
-    this.currentModelFile = file;
-    return new Observable(observer => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const arrayBuffer = event.target?.result;
-        if (!arrayBuffer) {
-          observer.error(new Error('File read error'));
-          return;
-        }
-        const gltfLoader = new GLTFLoader();
-        gltfLoader.parse(
-          arrayBuffer as ArrayBuffer,
-          '',
-          (gltf) => {
-            const model = gltf.scene;
 
-            const box = new THREE.Box3().setFromObject(model);
-            const center = new THREE.Vector3();
-            box.getCenter(center);
-            model.position.sub(center);
+/**
+ * Loads a GLB model from a File object (user upload), centers it, scales it uniformly,
+ * and replaces the current model.
+ *
+ * @param file The user-uploaded file.
+ * @returns Observable that emits true if the model loads successfully.
+ */
+loadModelFromFile(file: File): Observable<boolean> {
+  this.currentModelFile = file;
+  return new Observable(observer => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const arrayBuffer = event.target?.result;
+      if (!arrayBuffer) {
+        observer.error(new Error('File read error'));
+        return;
+      }
+      const gltfLoader = new GLTFLoader();
+      gltfLoader.parse(
+        arrayBuffer as ArrayBuffer,
+        '',
+        (gltf) => {
+          const model = gltf.scene;
+          const box = new THREE.Box3().setFromObject(model);
+          const center = new THREE.Vector3();
+          box.getCenter(center);
+          model.position.sub(center);
 
-            this.standardizeModelSize(model, 100);
+          this.standardizeModelSize(model, 100);
 
-            model.traverse((child) => {
-              if ((child as THREE.Mesh).isMesh) {
-                const mesh = child as THREE.Mesh;
-                mesh.material = new THREE.MeshPhysicalMaterial({
-                  color: 0x0077ff,
-                  metalness: 0.0,
-                  roughness: 0.5
-                });
-              }
-            });
-
-            while (this.potModelGroup.children.length > 0) {
-              this.potModelGroup.remove(this.potModelGroup.children[0]);
+          model.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+              const mesh = child as THREE.Mesh;
+              mesh.material = new THREE.MeshPhysicalMaterial({
+                color: 0x0077ff,
+                metalness: 0.0,
+                roughness: 0.5
+              });
             }
-            this.potModelGroup.add(model);
-            observer.next(true);
-            observer.complete();
-          },
-          (error) => {
-            console.error('[PotEditorService] Error parsing GLB model from file:', error);
-            observer.error(new Error('Failed to parse GLB model'));
-          }
-        );
-      };
-      reader.onerror = (error) => {
-        console.error('[PotEditorService] FileReader error:', error);
-        observer.error(new Error('FileReader error'));
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }
+          });
+
+          // Clear previously loaded models before adding the new one.
+          this.potModelGroup.clear();
+          this.potModelGroup.add(model);
+          observer.next(true);
+          observer.complete();
+        },
+        (error) => {
+          console.error('[PotEditorService] Error parsing GLB model from file:', error);
+          observer.error(new Error('Failed to parse GLB model'));
+        }
+      );
+    };
+    reader.onerror = (error) => {
+      console.error('[PotEditorService] FileReader error:', error);
+      observer.error(new Error('FileReader error'));
+    };
+    reader.readAsArrayBuffer(file);
+  });
+}
+
 
   /**
    * Exports the currently displayed (updated) pot model as a GLB Blob.

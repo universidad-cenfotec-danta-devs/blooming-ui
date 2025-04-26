@@ -1,11 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Disease } from '../../../models/disease.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-disease-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,TranslateModule],
   templateUrl: './disease.component.html',
   styleUrls: ['./disease.component.css']
 })

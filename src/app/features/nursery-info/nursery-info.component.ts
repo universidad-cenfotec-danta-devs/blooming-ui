@@ -1,28 +1,81 @@
 import {CommonModule} from '@angular/common';
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, OnInit, effect} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import { NurseryService } from '../../services/nursery.service';
+import {NurseryService} from '../../services/nursery.service';
+import {PaginationComponent} from '../pagination/pagination.component';
+import * as L from 'leaflet';
+import {TranslateModule} from '@ngx-translate/core';
+import { ICartItemDTO } from '../../interfaces/cartItemDTO.interface';
+import { ICartItemType } from '../../interfaces/cartItemType.interface';
+import { CartService } from '../../services/cart.service';
+import { CartItemService } from '../../services/cartItem.service';
 
 @Component({
   selector: 'nursery-info',
   standalone: true,
-  imports:[
-    CommonModule
+  imports: [
+    CommonModule,
+    PaginationComponent,
+    TranslateModule
   ],
   templateUrl:'nursery-info.component.html',
   styleUrl: 'nursery-info.component.css'
 })
 
-export class NurseryInfoComponent{
+export class NurseryInfoComponent implements OnInit {
+  map!: L.Map;
   public nurseryService = inject(NurseryService);
-  public nurseryId!: string | null;
+  public currentNurseryId: any | null;
+  private cartItemDTO: ICartItemDTO = {};
+  private cartService = inject(CartService);
+  private cartItemService = inject(CartItemService);
 
-  constructor(private route: ActivatedRoute){}
+  constructor(private route: ActivatedRoute) {
+    effect(() => {
+      const data = this.nurseryService.nurseryDetail$();
+      if(data.latitude){
+        this.configMap(data.latitude, data.longitude);
+      }
+    });
+  }
 
-  ngOnInit(){
-    this.nurseryId = this.route.snapshot.paramMap.get('id');
-    this.nurseryService.getById(this.nurseryId);
-    this.nurseryService.search.page=1;
-    this.nurseryService.getProductsByNurseryId(this.nurseryId);
+  ngOnInit() {
+    this.currentNurseryId = this.route.snapshot.paramMap.get('id');
+    this.nurseryService.setCurrentScreen('productsAdmin');
+    this.nurseryService.setNurseryId(this.currentNurseryId)
+    this.nurseryService.getById(this.currentNurseryId);
+    this.nurseryService.getAll();
+
+  }
+
+  private configMap(lat: any, long: any): void {
+    this.map = this.map?.remove()
+    this.map = L.map('mapa', {
+      center: [lat, long],
+      zoom: 15.9,
+    });
+
+    L.marker([lat,long], {
+      icon: L.icon({
+        iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+      })
+    }).addTo(this.map);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 30,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(this.map);
+  }
+
+  addProductToCart(itemName: string, price: number) {
+    this.cartItemDTO = {
+      cartId: this.cartService.getUserCartId(),
+      itemName: itemName,
+      itemType: ICartItemType.nurseryProduct,
+      price: price,
+      quantity: 1
+    }
+    this.cartItemService.addItemToCart(this.cartItemDTO);
   }
 }

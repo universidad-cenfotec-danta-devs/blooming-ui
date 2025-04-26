@@ -1,20 +1,24 @@
-.map-container {
-  width: 100%;
-  max-width: 500px;
-  height: 300px;
-  margin: 0 auto;
-  border: 1px solid #5C684B;
+.main-container{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-#map, .img-nursery {
-  width: 100%;
+.img-nursery-container img {
+  object-fit: cover;
+  height: 400px;
+  width: 350px;
 }
 
-.img-nursery-container{
-  width: 100%;
-  max-width: 300px;
-  height: 350px;
-  border: 1px solid #5C684B;
+.cart-btn {
+  position: absolute;
+  right: 0;
+  color: white;
+  background-color: #97A97C;
+  margin-right: 1rem;
+  padding: 0.2rem 1rem;
 }
 
-
+.cart-btn:hover {
+  filter: brightness(80%);
+}
